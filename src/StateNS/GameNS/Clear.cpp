@@ -28,7 +28,7 @@ Child* Clear::update(StateNS::Parent* _parent)
 {
 	Child* next = this;
 
-	if (Input_V())
+	if (Input_C())
 	{
 		_parent->moveTo(_parent->NextSequence::SEQ_TITLE);
 	}

@@ -1,4 +1,6 @@
 #include "GameMain.h"
+#include "GameMain/System.h"
+#include "GameMain/Mokou.h"
 
 #include "..\..\..\Data.h"
 #include "..\..\..\KeyInput.h"
@@ -14,17 +16,23 @@ GameMain::GameMain(){
 
 GameMain::~GameMain()
 {
-
+	//SAFE_DELETE(mGimmick);
+	SAFE_DELETE(mPlayer);
+	SAFE_DELETE(mSystem);
 }
 
 void GameMain::initialize()
 {
-
+	mPlayer = new Mokou();
+	mSystem = new System();
 }
 
 Child* GameMain::update(GameParent* _parent)
 {
 	Child* next = this;
+
+	mPlayer->update();
+	mSystem->update();
 	
 	return next;
 }
@@ -32,6 +40,8 @@ Child* GameMain::update(GameParent* _parent)
 void GameMain::draw() const
 {
 	DrawFormatString(0, 20, MyData::WHITE, "GameMain");
+	mPlayer->draw();
+	mSystem->draw();
 }
 
 

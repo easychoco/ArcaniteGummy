@@ -26,7 +26,7 @@ PlayerChild* Sakuya::update()
 
 void Sakuya::draw() const
 {
-
+	DrawFormatString(0, 40, MyData::WHITE, "Sakuya");
 }
 
 

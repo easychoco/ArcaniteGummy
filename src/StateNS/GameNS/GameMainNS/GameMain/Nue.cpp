@@ -26,7 +26,7 @@ PlayerChild* Nue::update()
 
 void Nue::draw() const
 {
-
+	DrawFormatString(0, 40, MyData::WHITE, "Nue");
 }
 
 
