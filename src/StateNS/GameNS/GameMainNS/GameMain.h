@@ -15,7 +15,7 @@ using GameParent = Play;
 
 namespace GameMainNS{
 
-class GimmickChild;
+class Stage;
 class PlayerChild;
 class System;
 
@@ -30,7 +30,7 @@ public:
 
 
 private:
-	GimmickChild* mGimmick;
+	Stage* mStage;
 	PlayerChild* mPlayer;
 	System* mSystem;
 };
