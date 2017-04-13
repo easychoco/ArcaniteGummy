@@ -21,6 +21,7 @@ PlayerChild* Mokou::update()
 {
 	PlayerChild* next = this;
 
+	
 	return next;
 }
 
