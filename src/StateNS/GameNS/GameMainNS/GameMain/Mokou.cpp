@@ -7,6 +7,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+	//‚à‚±‚½‚ñ‚¢‚ñ‚µ‚½‚¨
 Mokou::Mokou()
 {
 
