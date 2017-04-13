@@ -26,7 +26,7 @@ PlayerChild* Mokou::update()
 
 void Mokou::draw() const
 {
-	DrawFormatString(0, 40, MyData::WHITE, "Mokou");
+	DrawFormatString(0, 60, MyData::WHITE, "Mokou");
 }
 
 

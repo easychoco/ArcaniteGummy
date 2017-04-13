@@ -30,7 +30,7 @@ void System::update()
 
 void System::draw() const
 {
-	DrawFormatString(0, 60, MyData::WHITE, "System");
+	DrawFormatString(0, 80, MyData::WHITE, "System");
 }
 
 
