@@ -53,8 +53,8 @@ const int CX = 320;
 const int CY = 240;
 
 //マップのサイズ
-//32x32pixcelだと40x30チップ
-const int MAP_WIDTH = 1280;
+//32x32pixcelだと30x30チップ
+const int MAP_WIDTH = 960;
 const int MAP_HEIGHT = 960;
 
 //1ピクセルをどれだけ拡張するか
@@ -73,9 +73,10 @@ const unsigned BLUE = GetColor(0, 0, 255);
 //整数値2次元ベクトル
 class Vector2
 {
+
 public:
-	int x;
-	int y;
+	int pos_x;
+	int pos_y;
 
 	Vector2() :
 		Vector2(0, 0)
@@ -84,9 +85,14 @@ public:
 	}
 	Vector2(int _x, int _y)
 	{
-		this->x = _x;
-		this->y = _y;
+		this->pos_x = _x * vectorRate;
+		this->pos_y = _y * vectorRate;
 	}
+
+	int x() const { return this->pos_x / vectorRate; }
+	int y() const { return this->pos_y / vectorRate; }
+	int x_raw() const { return this->pos_x; }
+	int y_raw() const { return this->pos_y; }
 
 
 	bool isZero() const
@@ -104,23 +110,23 @@ public:
 	}
 	const Vector2 operator + (const Vector2& other)
 	{
-		return Vector2(x + other.x, y + other.y);
+		return Vector2(pos_x + other.x(), pos_y + other.y());
 	}
 	const Vector2 operator - (const Vector2& other)
 	{
-		return Vector2(x - other.x, y - other.y);
+		return Vector2(pos_x - other.x(), pos_y - other.y());
 	}
 	const Vector2 operator * (int other) const
 	{
-		return Vector2(x * other, y * other);
+		return Vector2(pos_x * other, pos_y * other);
 	}
 	const Vector2 operator / (int other) const
 	{
-		return Vector2(x / other, y / other);
+		return Vector2(pos_x / other, pos_y / other);
 	}
 	bool operator == (const Vector2& other) const
 	{
-		return (x == other.x) && (y == other.y);
+		return (pos_x == other.x()) && (pos_y == other.y());
 	}
 	bool operator != (const Vector2& other) const
 	{
@@ -140,31 +146,3 @@ public:
 }
 
 using MyData::Vector2;
-
-
-namespace CharacterSpec
-{
-	//次のレベルまでのexp
-	static const int nextExp = 100;
-
-	//プレイヤーの種族値
-	//ID, h, a, b, c, d, s
-	struct Status
-	{
-		const int ID;
-		int h;
-		int a;
-		int b;
-		int c;
-		int d;
-		int s;
-	};
-
-	static const std::array< Status, 4> p_spec
-	{
-		Status{ 0, 20, 20, 20, 20, 20, 20 }, //ゆうしゃ
-		Status{ 1, 15,  5, 10, 40, 20, 30 }, //まほうつかい
-		Status{ 2, 30, 30, 30, 10, 10, 10 }, //ぶとうか
-		Status{ 3, 40, 10, 20, 10, 20, 20 }, //けんじゃ
-	};
-}

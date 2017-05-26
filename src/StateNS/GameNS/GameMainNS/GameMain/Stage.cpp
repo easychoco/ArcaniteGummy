@@ -1,7 +1,6 @@
 #include "Stage.h"
 #include "Gimmick\GimmickChild.h"
 
-#include "..\..\..\..\Data.h"
 #include "..\..\..\..\KeyInput.h"
 
 #include <fstream>
@@ -11,7 +10,9 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-Stage::Stage(){
+Stage::Stage(int _stageID)
+{
+	loadMap(_stageID);
 	initialize();
 }
 
@@ -23,8 +24,7 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
-	mBackImg = LoadGraph("Data/Image/back.jpg");
-	assert(mBackImg != -1 && "mBackImg読み込みエラー");
+
 }
 
 void Stage::update()
@@ -35,8 +35,7 @@ void Stage::update()
 
 void Stage::draw(const Vector2* _player) const
 {
-	//DrawFormatString(0, 40, MyData::WHITE, "Stage");
-	DrawGraph(0, 0, mBackImg, true);
+	drawMap(mapData, _player);
 
 	for (auto gimmick : mGimmicks)
 	{
@@ -48,59 +47,86 @@ void Stage::draw(const Vector2* _player) const
 
 
 
-
-
 //========================================================================
 // 内部private関数
 //========================================================================
-void Stage::drawBack(const Vector2* _player) const
-{
-	//画像の描画位置
-	//DrawGraph関数を使うから，画像の左上に合わせる
-	int draw_x = (_player->x < 640 * MyData::vectorRate) ? 0 : -640;
-
-	//自機が真ん中にいるとき
-	int draw_y = 240 - _player->y / MyData::vectorRate;
-
-	//下端
-	if (_player->y / MyData::vectorRate > MyData::MAP_HEIGHT - MyData::CY)draw_y = -480;
-
-	//上端
-	else if (_player->y / MyData::vectorRate < MyData::CY)draw_y = 0;
-
-
-	DrawGraph(draw_x, draw_y, mBackImg, true);
-}
 
 //マップチップが変わっても対応可能
 //第一引数にマップチップへのポインタを持ってくるためにtemplateを使用
 template<typename Arr>
 void Stage::drawMap(Arr _mapData, const Vector2* _player) const
 {
-	//マップ描画をする際に，自機の位置依存で描画位置のy座標が変わる
+	//マップ描画をする際に，自機の位置依存で描画位置の座標が変わる
+
 	//自機が真ん中にいるとき
-	int draw_y = _player->y / MyData::vectorRate - MyData::CY;
+	int draw_y = MyData::CY - _player->y();
+	int draw_x = MyData::CX - _player->x();
 
 	//下端
-	if (_player->y / MyData::vectorRate > MyData::MAP_HEIGHT - MyData::CY)draw_y = MyData::MAP_HEIGHT - 480;
+	if (_player->y() + MyData::CY > MyData::MAP_HEIGHT)
+	{
+		draw_y = 480 - MyData::MAP_HEIGHT;
+	}
 
 	//上端
-	else if (_player->y / MyData::vectorRate < MyData::CY)draw_y = 0;
+	else if (_player->y() < MyData::CY)
+	{
+		draw_y = 0;
+	}
 
+	//右端
+	if (_player->x() + MyData::CX > MyData::MAP_WIDTH) 
+	{
+		draw_x = 640 - MyData::MAP_WIDTH;
+	}
 
-	//右側と左側のマップにいるときでfor文内部変数のxの範囲が変わる
-	int x_sub = (_player->x / MyData::vectorRate < MyData::MAP_WIDTH / 2) ? 0 : mapData[0].size() / 2;
+	//左端
+	else if (_player->x() < MyData::CX)
+	{
+		draw_x = 0;
+	}
 
+	//マップ描画
 	for (unsigned y = 0; y < mapData.size(); y++)
 	{
-		for (unsigned x = x_sub; x < x_sub + mapData[0].size() / 2; x++)
+		for (unsigned x = 0; x < mapData[0].size(); x++)
 		{
-			DrawGraph((x % (mapData[0].size() / 2)) * 32, y * 32 - draw_y, mapChip[_mapData[y][x]], true);
+			DrawGraph(x * 32 + draw_x, y * 32 + draw_y, mapChip[_mapData[y][x]], true);
 		}
 	}
 }
 
+void Stage::loadMap(int _stageID)
+{
+	string imgFile = "Data/Image/block";
+	imgFile += std::to_string(_stageID);
+	imgFile += ".png";
+
+	int tmp = LoadDivGraph(imgFile.c_str(), 2, 2, 1, 32, 32, mapChip);
+	assert(tmp != -1 && "マップチップ読み込みエラー");
+
+	string textFile = "Data/Text/stage";
+	textFile += std::to_string(_stageID);
+	textFile += ".txt";
+
+	std::ifstream fin(textFile);
+	assert(fin && "マップデータ読み込みエラー");
+
+	for (auto& mapY : mapData)
+	{
+		for (auto& mapX : mapY)
+		{
+			fin >> mapX;
+		}
+	}
+
+}
+
+
+
 
 }
 }
 }
+
+

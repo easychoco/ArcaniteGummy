@@ -2,11 +2,6 @@
 #include "..\..\..\..\Data.h"
 
 
-#include <string>
-#include <vector>
-
-
-
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
@@ -17,7 +12,7 @@ class GimmickChild;
 class Stage
 {
 public:
-	Stage();
+	Stage(int stageID);
 	~Stage();
 	void initialize();
 	void update();
@@ -26,147 +21,41 @@ public:
 private:
 	int mBackImg;
 
+
 	//ギミックの配列
 	std::vector<GimmickChild*> mGimmicks;
 
 	//mapChip(32x32pixcels)
-	int mapChip[112];
+	int mapChip[2];
 
-	//map(40x30chips)
-	std::array< std::array<int, 40>, 30> mapData;
+	//map(y:15 x:20 :: 320chips)
+	//mapData[y][x]でアクセスできる
+	//mapData[~14][~19]
+	std::array< std::array<int, 30>, 30> mapData;
 
 	//マップ描画
-	//背景描画
-	void drawBack(const Vector2*) const;
 
 	//前景描画
 	template<typename Arr>
 	void drawMap(Arr, const Vector2*) const;
 
+	void loadMap(int stageID);
+
 	class Chip
 	{
 	public:
-		Chip(bool _canPass, int _enemyLevel) : canPass(_canPass), enemyLevel(_enemyLevel) {};
+		Chip(bool _canPass, bool _canRide) : canPass(_canPass), canRide(_canRide) {};
 		~Chip() {};
 		const bool canPass;//通ることができるか
-		const int enemyLevel;//出現する敵のレベル
+		const bool canRide;//上に乗れるかどうか
 	};
 
-	const Chip chip[112] =
+	array<Chip, 2> chip
 	{
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(true, 0),//塔の階段
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(true, 0),//塔の階段
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(true, 5),//塔の地面
-		Chip(false, 0),
-		Chip(true, 0),//塔の階段
-		Chip(false, 0),
-		Chip(true, 3),//砂漠の地面
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(true, 4),//土の地面
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(true, 5),//塔の地面
-		Chip(false, 0),
-		Chip(true, 0),//塔の階段
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(true, 0),//橋
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(true, 2),//森の地面
-		Chip(true, 2),//森の地面
-		Chip(true, 2),//森の地面
-		Chip(true, 2),//森の地面
-		Chip(true, 2),//森の地面
-		Chip(true, 2),//森の地面
-		Chip(true, 4),//土の地面
-		Chip(true, 4),//土の地面
-		Chip(true, 4),//土の地面
-		Chip(true, 5),//塔の地面
-		Chip(true, 5),//塔の地面
-		Chip(true, 5),//塔の地面
-		Chip(true, 0),//橋
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(true , 1),//草原の地面
-		Chip(true , 1),//草原の地面
-		Chip(true , 1),//草原の地面
-		Chip(true, 0),//橋
-		Chip(true, 0),//橋
-		Chip(true, 0),//橋
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(false, 0),
-		Chip(true, 0),//橋
+		Chip(false, false),
+		Chip(true, false),
 	};
+
 
 };
 

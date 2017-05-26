@@ -1,7 +1,7 @@
 #include "GameMain.h"
 #include "GameMain\Stage.h"
 #include "GameMain\System.h"
-#include "GameMain\Mokou.h"
+#include "GameMain\Player\Mokou.h"
 
 #include "..\..\..\Data.h"
 #include "..\..\..\KeyInput.h"
@@ -24,8 +24,8 @@ GameMain::~GameMain()
 
 void GameMain::initialize()
 {
-	mStage = new Stage();
-	mPlayer = new Mokou();
+	mStage = new Stage(0);
+	mPlayer = new Mokou(32, 32);
 	mSystem = new System();
 }
 
@@ -34,7 +34,16 @@ Child* GameMain::update(GameParent* _parent)
 	Child* next = this;
 
 	mStage->update();
-	mPlayer->update();
+
+	
+	PlayerChild* nextPlayer = mPlayer->update();
+
+	if (nextPlayer != mPlayer)
+	{
+		SAFE_DELETE(mPlayer);
+		mPlayer = nextPlayer;
+	}
+
 	mSystem->update();
 	
 	return next;
