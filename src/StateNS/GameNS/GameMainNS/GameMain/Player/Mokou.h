@@ -13,7 +13,7 @@ class Mokou : public PlayerChild
 public:
 	Mokou(int, int);
 	~Mokou();
-	PlayerChild* update();
+	PlayerChild* update(const Stage*);
 	void draw() const;
 
 private:

@@ -36,7 +36,7 @@ Child* GameMain::update(GameParent* _parent)
 	mStage->update();
 
 	
-	PlayerChild* nextPlayer = mPlayer->update();
+	PlayerChild* nextPlayer = mPlayer->update(mStage);
 
 	if (nextPlayer != mPlayer)
 	{

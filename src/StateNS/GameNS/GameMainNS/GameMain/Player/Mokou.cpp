@@ -24,11 +24,11 @@ void Mokou::initialize()
 	this->speed = 5.0f;
 }
 
-PlayerChild* Mokou::update()
+PlayerChild* Mokou::update(const Stage* _stage)
 {
 	PlayerChild* next = this;
 
-	standardMove();
+	standardMove(_stage);
 	
 	return next;
 }

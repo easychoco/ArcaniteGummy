@@ -44,6 +44,13 @@ void Stage::draw(const Vector2* _player) const
 
 }
 
+bool Stage::canPass(const Vector2 _player) const
+{
+	int y = _player.y() / 32;
+	ChipType tmpType = chip[mapData[_player.y() / 32][_player.x() / 32]].getChipType();
+	return  (tmpType != ChipType::TYPE_RIGID);
+}
+
 
 
 
@@ -102,7 +109,7 @@ void Stage::loadMap(int _stageID)
 	imgFile += std::to_string(_stageID);
 	imgFile += ".png";
 
-	int tmp = LoadDivGraph(imgFile.c_str(), 2, 2, 1, 32, 32, mapChip);
+	int tmp = LoadDivGraph(imgFile.c_str(), 3, 3, 1, 32, 32, mapChip);
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 
 	string textFile = "Data/Text/stage";
