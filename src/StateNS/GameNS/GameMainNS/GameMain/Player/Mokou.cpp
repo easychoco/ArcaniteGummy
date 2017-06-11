@@ -8,7 +8,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 //‚à‚±‚½‚ñ‚¢‚ñ‚µ‚½‚¨
-Mokou::Mokou(int _x, int _y)
+Mokou::Mokou(int _x, int _y) : PlayerChild()
 {
 	this->p = new Vector2(_x, _y);
 	initialize();
@@ -21,7 +21,7 @@ Mokou::~Mokou()
 
 void Mokou::initialize()
 {
-	this->speed = 5.0f;
+	this->moveSpeed = 5.0f;
 }
 
 PlayerChild* Mokou::update(const Stage* _stage)

@@ -16,5 +16,9 @@ bool Input_RETURN();
 bool Input_BACK();
 bool Input_ESCAPE();
 
+bool Input_JUMP();
+bool Input_OK();
+bool Input_NO();
+
 void keyConfig();
 

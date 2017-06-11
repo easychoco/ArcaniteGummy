@@ -80,3 +80,17 @@ bool Input_ESCAPE()
 	return toBoolean[CheckHitKey(KEY_INPUT_ESCAPE)];
 }
 
+bool Input_JUMP()
+{
+	return toBoolean[CheckHitKey(KEY_INPUT_SPACE)];
+}
+
+bool Input_OK()
+{
+	return toBoolean[CheckHitKey(KEY_INPUT_Z)];
+}
+
+bool Input_NO()
+{
+	return toBoolean[CheckHitKey(KEY_INPUT_X)];
+}

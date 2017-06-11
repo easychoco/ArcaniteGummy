@@ -16,7 +16,7 @@ using std::vector;
 
 
 //円周率
-#define Pi 3.14159265358979f
+constexpr float Pi = 3.14159265358979f;
 
 
 //deleteと0ポインタ
@@ -49,16 +49,19 @@ namespace MyData{
 
 
 //画面の中心座標
-const int CX = 320;
-const int CY = 240;
+constexpr int CX = 320;
+constexpr int CY = 240;
 
-//マップのサイズ
-//32x32pixcelだと30x30チップ
-const int MAP_WIDTH = 960;
-const int MAP_HEIGHT = 960;
+//マップのサイズ(ピクセル数)
+constexpr int MAP_WIDTH = 960;
+constexpr int MAP_HEIGHT = 960;
+
+//マップのサイズ(チップ数)
+constexpr int MAP_WIDTH_NUM = 30;
+constexpr int MAP_HEIGHT_NUM = 30;
 
 //1ピクセルをどれだけ拡張するか
-const int vectorRate = 1000;
+constexpr int vectorRate = 1000;
 
 //色
 const unsigned BLACK = GetColor(0, 0, 0);
