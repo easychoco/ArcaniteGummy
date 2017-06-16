@@ -7,7 +7,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Nue::Nue()
+Nue::Nue() : PlayerChild(5.0f, 15.0f)
 {
 
 }

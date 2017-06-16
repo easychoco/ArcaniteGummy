@@ -8,7 +8,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 //もこたんいんしたお
-Mokou::Mokou(int _x, int _y) : PlayerChild()
+Mokou::Mokou(int _x, int _y) : PlayerChild(5.0f, 15.0f)
 {
 	this->p = new Vector2(_x, _y);
 	initialize();
@@ -62,8 +62,11 @@ void Mokou::draw() const
 //==============================================
 //内部プライベート関数
 //==============================================
+void Mokou::attack()
+{
 
-//そんなものはない
+}
+
 
 
 

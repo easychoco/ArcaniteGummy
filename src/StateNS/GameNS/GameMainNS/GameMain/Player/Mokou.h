@@ -18,7 +18,7 @@ public:
 
 private:
 	void initialize();
-
+	void attack();
 };
 
 using MyData::vectorRate;

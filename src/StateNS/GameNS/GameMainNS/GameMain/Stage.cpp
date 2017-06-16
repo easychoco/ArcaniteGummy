@@ -44,12 +44,19 @@ void Stage::draw(const Vector2* _player) const
 
 }
 
-bool Stage::canPass(const Vector2 _player) const
+Stage::ChipType Stage::getChipType(const Vector2 _player) const
 {
-	int sub_y = min(MyData::MAP_HEIGHT_NUM - 1, max(0, _player.y() / 32));
-	int sub_x = min(MyData::MAP_WIDTH_NUM - 1, max(0, _player.x() / 32));
-	ChipType tmpType = chip[mapData[sub_y][sub_x]].getChipType();
-	return  (tmpType != ChipType::TYPE_RIGID);
+	//int sub_y = min(MyData::MAP_HEIGHT_NUM - 1, max(0, _player.y() / 32));
+	//int sub_x = min(MyData::MAP_WIDTH_NUM - 1, max(0, _player.x() / 32));
+
+	int sub_y = _player.y() / 32;
+	int sub_x = _player.x() / 32;
+
+	//”ÍˆÍŠO‚È‚çTYPE_RIGID‚ð•Ô‚·
+	if (sub_y < 0 || sub_x < 0 || MyData::MAP_HEIGHT_NUM <= sub_y || MyData::MAP_WIDTH_NUM <= sub_x)
+		return ChipType::TYPE_RIGID;
+
+	return chip[mapData[sub_y][sub_x]].getChipType();
 }
 
 

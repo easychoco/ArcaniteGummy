@@ -17,23 +17,28 @@ public:
 	void initialize();
 	void update();
 	void draw(const Vector2* player) const;
-	bool canPass(const Vector2) const;
 
 	enum ChipType
 	{
-		TYPE_BACK,				//すり抜けられる
-		TYPE_RIGID,				//すり抜けられない
-		TYPE_RIDE,				//下からはすり抜け、上からはすり抜けられない
-		TYPE_SLANT_RIGHT,		//右上へ向けた斜めブロック, 下からすり抜けられる
-		TYPE_SLANT_LEFT,		//左上へ向けた斜めブロック, 下からすり抜けられる
+		TYPE_RIGID				= 0b0000001, //すり抜けられない
+		TYPE_RIGID_SLANT_RIGHT	= 0b0000010, //右上へ向けた斜めブロック, 下からすり抜けられない
+		TYPE_RIGID_SLANT_LEFT	= 0b0000100, //左上へ向けた斜めブロック, 下からすり抜けられない
+		TYPE_BACK				= 0b0001000, //すり抜けられる
+		TYPE_RIDE				= 0b0010000, //下からはすり抜け、上からはすり抜けられない
+		TYPE_SLANT_RIGHT		= 0b0100000, //右上へ向けた斜めブロック, 下からすり抜けられる
+		TYPE_SLANT_LEFT			= 0b1000000, //左上へ向けた斜めブロック, 下からすり抜けられる
 	};
+	ChipType getChipType(const Vector2) const;
+	bool isRigid(ChipType _ct) const { return (_ct & 0b0000111) != 0; }
+	bool isSlant(ChipType _ct) const { return (_ct & 0b1100110) != 0; }
+	bool isRide(ChipType _ct) const { return (_ct & 0b1110111) != 0; }
 
 private:
 	int mBackImg;
 
 
 	//ギミックの配列
-	std::vector<GimmickChild*> mGimmicks;
+	std::vector< GimmickChild* > mGimmicks;
 
 	//mapChipの画像(32x32pixcels)
 	int mapChip[3];

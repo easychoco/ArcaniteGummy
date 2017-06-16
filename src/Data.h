@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DXLib.h"
+
 #include <cassert>
 #include <array>
 #include <string>
@@ -46,7 +47,9 @@ constexpr float pi(float num)
 //========================================
 namespace MyData{
 
-
+//プレイヤーのチップサイズ
+constexpr int PLAYER_CHIP_HEIGHT = 64;
+constexpr int PLAYER_CHIP_WIDTH = 32;
 
 //画面の中心座標
 constexpr int CX = 320;
@@ -54,11 +57,11 @@ constexpr int CY = 240;
 
 //マップのサイズ(ピクセル数)
 constexpr int MAP_WIDTH = 960;
-constexpr int MAP_HEIGHT = 960;
+constexpr int MAP_HEIGHT = 640;
 
 //マップのサイズ(チップ数)
 constexpr int MAP_WIDTH_NUM = 30;
-constexpr int MAP_HEIGHT_NUM = 30;
+constexpr int MAP_HEIGHT_NUM = 20;
 
 //1ピクセルをどれだけ拡張するか
 constexpr int vectorRate = 1000;
