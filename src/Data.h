@@ -63,6 +63,11 @@ constexpr int MAP_HEIGHT = 640;
 constexpr int MAP_WIDTH_NUM = 30;
 constexpr int MAP_HEIGHT_NUM = 20;
 
+//マップチップのサイズ(ピクセル数)
+constexpr int CHIP_WIDTH = 32;
+constexpr int CHIP_HEIGHT = 32;
+
+
 //1ピクセルをどれだけ拡張するか
 constexpr int vectorRate = 1000;
 

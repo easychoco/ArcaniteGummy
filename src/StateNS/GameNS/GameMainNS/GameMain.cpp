@@ -25,7 +25,7 @@ GameMain::~GameMain()
 void GameMain::initialize()
 {
 	mStage = new Stage(0);
-	mPlayer = new Mokou(32, 32);
+	mPlayer = new Mokou(40, 40);
 	mSystem = new System();
 }
 

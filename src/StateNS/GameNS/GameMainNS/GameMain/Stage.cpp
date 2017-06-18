@@ -46,14 +46,16 @@ void Stage::draw(const Vector2* _player) const
 
 Stage::ChipType Stage::getChipType(const Vector2 _player) const
 {
-	//int sub_y = min(MyData::MAP_HEIGHT_NUM - 1, max(0, _player.y() / 32));
-	//int sub_x = min(MyData::MAP_WIDTH_NUM - 1, max(0, _player.x() / 32));
+
+	//範囲外(左か上の端)ならTYPE_RIGIDを返す
+	if (_player.pos_y < 0 || _player.pos_x < 0)
+		return ChipType::TYPE_RIGID;
 
 	int sub_y = _player.y() / 32;
 	int sub_x = _player.x() / 32;
 
-	//範囲外ならTYPE_RIGIDを返す
-	if (sub_y < 0 || sub_x < 0 || MyData::MAP_HEIGHT_NUM <= sub_y || MyData::MAP_WIDTH_NUM <= sub_x)
+	//範囲外(右か下の端)ならTYPE_RIGIDを返す
+	if (MyData::MAP_HEIGHT_NUM <= sub_y || MyData::MAP_WIDTH_NUM <= sub_x)
 		return ChipType::TYPE_RIGID;
 
 	return chip[mapData[sub_y][sub_x]].getChipType();
