@@ -19,6 +19,8 @@ public:
 private:
 	void initialize();
 	void attack();
+
+	int img;
 };
 
 using MyData::vectorRate;

@@ -22,6 +22,7 @@ Mokou::~Mokou()
 void Mokou::initialize()
 {
 	this->moveSpeed = 5.0f;
+	img = LoadGraph("Data/Image/player.png");
 }
 
 PlayerChild* Mokou::update(const Stage* _stage)
@@ -54,6 +55,7 @@ void Mokou::draw() const
 	if (p->y() > MyData::MAP_HEIGHT - MyData::CY)draw_y = p->y() - MyData::MAP_HEIGHT + 480;
 	
 
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, img, true);
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 }
 

@@ -119,7 +119,7 @@ void Stage::loadMap(int _stageID)
 	imgFile += std::to_string(_stageID);
 	imgFile += ".png";
 
-	int tmp = LoadDivGraph(imgFile.c_str(), 3, 3, 1, 32, 32, mapChip);
+	int tmp = LoadDivGraph(imgFile.c_str(), 4, 4, 1, 32, 32, mapChip);
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 
 	string textFile = "Data/Text/stage";

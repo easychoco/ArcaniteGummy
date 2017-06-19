@@ -31,17 +31,16 @@ public:
 	ChipType getChipType(const Vector2) const;
 	bool isRigid(ChipType _ct) const { return (_ct & 0b0000111) != 0; }
 	bool isSlant(ChipType _ct) const { return (_ct & 0b1100110) != 0; }
-	bool isRide(ChipType _ct) const { return (_ct & 0b1110111) != 0; }
+	bool  isRide(ChipType _ct) const { return (_ct & 0b1110111) != 0; }
 
 private:
 	int mBackImg;
-
 
 	//ギミックの配列
 	std::vector< GimmickChild* > mGimmicks;
 
 	//mapChipの画像(32x32pixcels)
-	int mapChip[3];
+	int mapChip[4];
 
 	//map(y:15 x:20 :: 320chips)
 	//mapData[y][x]でアクセスできる
@@ -68,11 +67,12 @@ private:
 	};
 
 	//マップチップ
-	array<Chip, 3> chip
+	array<Chip, 4> chip
 	{
 		Chip(ChipType::TYPE_BACK),
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_SLANT_RIGHT),
+		Chip(ChipType::TYPE_SLANT_LEFT),
 	};
 
 

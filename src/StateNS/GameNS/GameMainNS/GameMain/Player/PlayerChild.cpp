@@ -12,6 +12,7 @@ maxJumpPower(_jump)
 	this->moveSpeed = 0.0f;
 	this->jumpPower = 0.0f;
 	now_jumping = false;
+
 }
 
 void PlayerChild::standardMove(const Stage* _stage)
@@ -37,30 +38,8 @@ void PlayerChild::move(const Stage* _stage)
 	//縦移動
 	dy += gravity() - jump();
 
-	//縦移動
-	int nextX = max(0, min(MyData::MAP_WIDTH  * MyData::vectorRate, p->pos_x + dx)) / MyData::vectorRate;
-	int nextY = max(0, min(MyData::MAP_HEIGHT * MyData::vectorRate, p->pos_y + dy)) / MyData::vectorRate;
-
-	//移動先がいける場所なら の形式
-
 	p->pos_x += dx;
 	p->pos_y += dy;
-
-	/*
-	//X軸方向
-	Stage::ChipType chipType = _stage->getChipType(Vector2(nextX, p->y()));
-	if (!_stage->isRigid(chipType))
-	{
-		p->pos_x = nextX * MyData::vectorRate;
-	}
-
-	//Y軸方向
-	chipType = _stage->getChipType(Vector2(p->x(), nextY));
-	if (!_stage->isRigid(chipType))
-	{
-		p->pos_y = nextY * MyData::vectorRate;
-	}
-	//*/
 }
 
 //めり込み回避
@@ -128,8 +107,8 @@ void PlayerChild::avoidSinking(const Stage* _stage)
 	else //ジャンプ中でないときに読まれる
 	{
 		//Y軸下方向
-		pos1 = Vector2(p->x() - moveDiffer, p->y() + MyData::PLAYER_CHIP_HEIGHT / 2);
-		pos2 = Vector2(p->x() + moveDiffer, p->y() + MyData::PLAYER_CHIP_HEIGHT / 2);
+		pos1 = Vector2(p->x() - moveDiffer + 1, p->y() + MyData::PLAYER_CHIP_HEIGHT / 2);
+		pos2 = Vector2(p->x() + moveDiffer - 1, p->y() + MyData::PLAYER_CHIP_HEIGHT / 2);
 
 		chipType1 = _stage->getChipType(pos1);
 		chipType2 = _stage->getChipType(pos2);
@@ -141,19 +120,31 @@ void PlayerChild::avoidSinking(const Stage* _stage)
 		}
 	}
 
-
-
-	//斜めブロックに対する処理
-	pos1 = Vector2(p->x(), p->y() + MyData::PLAYER_CHIP_HEIGHT / 2 - 1);
-	pos2 = Vector2(p->x(), p->y() + MyData::PLAYER_CHIP_HEIGHT / 4);
-
-	chipType1 = _stage->getChipType(pos1);
-	chipType2 = _stage->getChipType(pos2);
-
-	if (_stage->isSlant(chipType1) || _stage->isSlant(chipType2))
+	if (jumpPower <= 0.5f)
 	{
-		p->pos_y -= ((p->x() % 32) * MyData::vectorRate);
+
+		//斜めブロックに対する処理
+		pos1 = Vector2(p->x(), p->y() + MyData::PLAYER_CHIP_HEIGHT / 2);
+		pos2 = Vector2(p->x(), p->y() + MyData::PLAYER_CHIP_HEIGHT / 2 - 1);
+
+		chipType1 = _stage->getChipType(pos1);
+		chipType2 = _stage->getChipType(pos2);
+
+		int s_dy = 0;
+
+		if (_stage->isSlant(chipType1))
+		{
+			s_dy = (chipType1 == _stage->TYPE_SLANT_LEFT) ? p->x() % MyData::CHIP_HEIGHT : 32 - p->x() % MyData::CHIP_HEIGHT;
+			p->pos_y = (p->y() / MyData::CHIP_HEIGHT * MyData::CHIP_HEIGHT + s_dy) * MyData::vectorRate;
+		}
+		else if (_stage->isSlant(chipType2))
+		{
+			p->pos_y -= gravity();
+			s_dy = (chipType2 == _stage->TYPE_SLANT_LEFT) ? p->x() % MyData::CHIP_HEIGHT : 32 - p->x() % MyData::CHIP_HEIGHT;
+			p->pos_y = (p->y() / MyData::CHIP_HEIGHT * MyData::CHIP_HEIGHT + s_dy) * MyData::vectorRate;
+		}
 	}
+
 }
 
 //ジャンプでの移動量を返す

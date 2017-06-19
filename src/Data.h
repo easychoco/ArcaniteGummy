@@ -71,6 +71,7 @@ constexpr int CHIP_HEIGHT = 32;
 //1ピクセルをどれだけ拡張するか
 constexpr int vectorRate = 1000;
 
+
 //色
 const unsigned BLACK = GetColor(0, 0, 0);
 const unsigned GLAY = GetColor(128, 128, 128);

@@ -55,6 +55,7 @@ void GameMain::draw() const
 	mStage->draw(mPlayer->getVector2());
 	mPlayer->draw();
 	mSystem->draw();
+
 }
 
 
