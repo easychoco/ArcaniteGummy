@@ -67,9 +67,24 @@ constexpr int MAP_HEIGHT_NUM = 20;
 constexpr int CHIP_WIDTH = 32;
 constexpr int CHIP_HEIGHT = 32;
 
-
 //1ピクセルをどれだけ拡張するか
 constexpr int vectorRate = 1000;
+
+//vectorRateを考慮したマップチップのサイズ
+constexpr int PLAYER_CHIP_WIDTH_RATE() { return PLAYER_CHIP_WIDTH * vectorRate; }
+constexpr int PLAYER_CHIP_HEIGHT_RATE() { return PLAYER_CHIP_HEIGHT * vectorRate; }
+
+//vectorRateを考慮したマップチップのサイズ
+constexpr int CHIP_WIDTH_RATE() { return CHIP_WIDTH * vectorRate; }
+constexpr int CHIP_HEIGHT_RATE() { return CHIP_HEIGHT * vectorRate; }
+
+//マップのマスに合わせて調整
+int fixToStageWidth(int _a);
+int fixToStageHeight(int _a);
+
+//マップのマスに合わせて調整
+int fixToVectorWidth(int _a);
+int fixToVectorHeight(int _a);
 
 
 //色
@@ -83,6 +98,7 @@ const unsigned BLUE = GetColor(0, 0, 255);
 
 
 //整数値2次元ベクトル
+//内部では座標をvectorRate倍して持っている
 class Vector2
 {
 
@@ -101,10 +117,8 @@ public:
 		this->pos_y = _y * vectorRate;
 	}
 
-	int x() const { return this->pos_x / vectorRate; }
-	int y() const { return this->pos_y / vectorRate; }
-	int x_raw() const { return this->pos_x; }
-	int y_raw() const { return this->pos_y; }
+	virtual int x() const { return this->pos_x / vectorRate; }
+	virtual int y() const { return this->pos_y / vectorRate; }
 
 
 	bool isZero() const
@@ -134,7 +148,7 @@ public:
 	}
 	const Vector2 operator / (int other) const
 	{
-		return Vector2(pos_x / other, pos_y / other);
+		return Vector2(this->pos_x / other, this->pos_y / other);
 	}
 	bool operator == (const Vector2& other) const
 	{
@@ -151,10 +165,49 @@ public:
 	static const Vector2 RIGHT;
 	static const Vector2 UP;
 	static const Vector2 DOWN;
-	
+};
+
+class RawVector2
+{
+public:
+	int pos_x, pos_y;
+	RawVector2()
+	{
+		pos_x = pos_y = 0;
+	}
+	RawVector2(int _x, int _y)
+	{
+		pos_x = _x;
+		pos_y = _y;
+	}
+	const RawVector2 operator + (const RawVector2& other)
+	{
+		return RawVector2(pos_x + other.pos_x, pos_y + other.pos_y);
+	}
+	const RawVector2 operator - (const RawVector2& other)
+	{
+		return RawVector2(pos_x - other.pos_x, pos_y - other.pos_y);
+	}
+	const RawVector2 operator * (int other) const
+	{
+		return RawVector2(pos_x * other, pos_y * other);
+	}
+	const RawVector2 operator / (int other) const
+	{
+		return RawVector2(this->pos_x / other, this->pos_y / other);
+	}
+	bool operator == (const RawVector2& other) const
+	{
+		return (pos_x == other.pos_x) && (pos_y == other.pos_y);
+	}
+	bool operator != (const RawVector2& other) const
+	{
+		return !(*this == other);
+	}
 
 };
 
 }
 
 using MyData::Vector2;
+using MyData::RawVector2;

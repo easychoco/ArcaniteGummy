@@ -24,7 +24,8 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
-
+	mBackImg = LoadGraph("Data/Image/back.jpg");
+	assert(mBackImg != -1 && "背景画像読み込みエラー");
 }
 
 void Stage::update()
@@ -35,6 +36,7 @@ void Stage::update()
 
 void Stage::draw(const Vector2* _player) const
 {
+	DrawGraph(0, 0, mBackImg, true);
 	drawMap(mapData, _player);
 
 	for (auto gimmick : mGimmicks)
@@ -46,7 +48,6 @@ void Stage::draw(const Vector2* _player) const
 
 Stage::ChipType Stage::getChipType(const Vector2 _player) const
 {
-
 	//範囲外(左か上の端)ならTYPE_RIGIDを返す
 	if (_player.pos_y < 0 || _player.pos_x < 0)
 		return ChipType::TYPE_RIGID;
@@ -61,6 +62,21 @@ Stage::ChipType Stage::getChipType(const Vector2 _player) const
 	return chip[mapData[sub_y][sub_x]].getChipType();
 }
 
+Stage::ChipType Stage::getChipType(const RawVector2 _player) const
+{
+	//範囲外(左か上の端)ならTYPE_RIGIDを返す
+	if (_player.pos_y < 0 || _player.pos_x < 0)
+		return ChipType::TYPE_RIGID;
+
+	int sub_y = _player.pos_y / 32;
+	int sub_x = _player.pos_x / 32;
+
+	//範囲外(右か下の端)ならTYPE_RIGIDを返す
+	if (MyData::MAP_HEIGHT_NUM <= sub_y || MyData::MAP_WIDTH_NUM <= sub_x)
+		return ChipType::TYPE_RIGID;
+
+	return chip[mapData[sub_y][sub_x]].getChipType();
+}
 
 
 
@@ -119,7 +135,7 @@ void Stage::loadMap(int _stageID)
 	imgFile += std::to_string(_stageID);
 	imgFile += ".png";
 
-	int tmp = LoadDivGraph(imgFile.c_str(), 4, 4, 1, 32, 32, mapChip);
+	int tmp = LoadDivGraph(imgFile.c_str(), 7, 7, 1, 32, 32, mapChip);
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 
 	string textFile = "Data/Text/stage";

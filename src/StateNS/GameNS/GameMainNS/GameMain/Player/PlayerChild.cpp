@@ -12,14 +12,13 @@ maxJumpPower(_jump)
 	this->moveSpeed = 0.0f;
 	this->jumpPower = 0.0f;
 	now_jumping = false;
-
 }
 
 void PlayerChild::standardMove(const Stage* _stage)
 {
 	move(_stage);
 
-	avoidSinking(_stage);
+	//avoidSinking(_stage);
 }
 
 //移動
@@ -38,10 +37,153 @@ void PlayerChild::move(const Stage* _stage)
 	//縦移動
 	dy += gravity() - jump();
 
-	p->pos_x += dx;
-	p->pos_y += dy;
+	p->pos_x += getHorizontalDiffer(_stage, dx);
+	p->pos_y += getVerticalDiffer(_stage, dy);
 }
 
+
+int PlayerChild::getHorizontalDiffer(const Stage* _stage, int _dx) const
+{
+	//移動先のchipTypeをgetして...
+
+
+	//斜めブロックの場合はそのまま返す
+	RawVector2 pos = RawVector2(p->pos_x, p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
+	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate);
+	if(_stage->isSlant(chipType))return _dx;
+
+
+	pos = RawVector2(p->pos_x, p->pos_y - MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
+	chipType = _stage->getChipType(pos / MyData::vectorRate);
+	if (_stage->isSlant(chipType))return _dx;
+	
+
+
+	//通れないブロックならreturn 0
+
+	//チップの真ん中
+	pos = RawVector2(p->pos_x + _dx, p->pos_y);
+	chipType = _stage->getChipType(pos / MyData::vectorRate);
+	if (chipType == _stage->TYPE_RIGID)return 0;
+
+
+	//チップの上
+	pos = RawVector2(p->pos_x + _dx, p->pos_y - MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 + MyData::vectorRate);
+	chipType = _stage->getChipType(pos / MyData::vectorRate);
+	if (chipType == _stage->TYPE_RIGID)return 0;
+
+
+	//チップの下
+	pos = RawVector2(p->pos_x + _dx, p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - MyData::vectorRate);
+	chipType = _stage->getChipType(pos / MyData::vectorRate);
+	if (chipType == _stage->TYPE_RIGID)return 0;
+
+	return _dx;
+}
+
+int PlayerChild::getVerticalDiffer(const Stage* _stage, int _dy) const
+{
+	//上方向
+	if (jumpPower >= 0.5f)
+	{
+		RawVector2 pos = RawVector2(p->x(), p->y() - MyData::PLAYER_CHIP_HEIGHT / 2);
+		Stage::ChipType chipType = _stage->getChipType(pos);
+
+
+		//斜めブロックなら
+		if (chipType == _stage->TYPE_UP_SLANT_LEFT)
+		{
+			/* このブロック
+
+			____
+			\==|
+			 \=|
+			  \|
+
+			*/
+
+			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT - 1)) * MyData::vectorRate - MyData::PLAYER_CHIP_WIDTH_RATE() + p->pos_x % MyData::PLAYER_CHIP_WIDTH_RATE();
+			if (pos.pos_y < 0)dy -= MyData::PLAYER_CHIP_HEIGHT_RATE() / 2;
+			return dy;
+		}
+		if (chipType == _stage->TYPE_UP_SLANT_RIGHT)
+		{
+			/* このブロック
+
+			_____
+			|==/
+			|=/
+			|/
+
+			*/
+
+			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT - 1)) * MyData::vectorRate - p->pos_x % MyData::PLAYER_CHIP_WIDTH_RATE();
+			if (pos.pos_y < 0)dy -= MyData::PLAYER_CHIP_HEIGHT_RATE() / 2;
+			return dy;
+		}
+
+		pos = RawVector2(p->x(), p->y() - MyData::PLAYER_CHIP_HEIGHT / 2 - 1);
+			chipType = _stage->getChipType(pos);
+
+		//移動先が通れないブロックなら
+		if (_stage->isRigid_up(chipType))
+		{
+			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT)) * MyData::vectorRate;
+	
+			//天井に当たっている場合はfixToStageHeightの結果が少し変わるから調整
+			if (pos.pos_y < 0)dy -= MyData::PLAYER_CHIP_HEIGHT_RATE() / 2;
+			return dy;
+		}
+
+
+		return _dy;
+	}
+
+	//下方向
+	RawVector2 pos = RawVector2(p->pos_x, p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1);
+	Stage::ChipType	chipType = _stage->getChipType(pos / MyData::vectorRate);
+
+	//斜めブロックなら
+	if (chipType == _stage->TYPE_DOWN_SLANT_LEFT)
+	{
+		/* このブロックなら
+
+		|\
+		|=\
+		|==\
+
+		*/
+
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2) + p->pos_x % MyData::CHIP_WIDTH_RATE();
+	}
+	if (chipType == _stage->TYPE_DOWN_SLANT_RIGHT)
+	{
+		/* このブロックなら
+
+		  /|
+		 /=|
+		/==|
+
+		*/
+
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2) + MyData::CHIP_WIDTH_RATE() - p->pos_x % MyData::CHIP_WIDTH_RATE();
+	}
+
+	pos = RawVector2(p->pos_x, p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
+	chipType = _stage->getChipType(pos / MyData::vectorRate);
+
+	//移動先が通れないブロックなら
+	if (_stage->isRigid_down(chipType))
+	{
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
+	}
+
+
+	return _dy;
+}
+
+
+/*
 //めり込み回避
 void PlayerChild::avoidSinking(const Stage* _stage)
 {
@@ -122,7 +264,6 @@ void PlayerChild::avoidSinking(const Stage* _stage)
 
 	if (jumpPower <= 0.5f)
 	{
-
 		//斜めブロックに対する処理
 		pos1 = Vector2(p->x(), p->y() + MyData::PLAYER_CHIP_HEIGHT / 2);
 		pos2 = Vector2(p->x(), p->y() + MyData::PLAYER_CHIP_HEIGHT / 2 - 1);
@@ -146,6 +287,7 @@ void PlayerChild::avoidSinking(const Stage* _stage)
 	}
 
 }
+//*/
 
 //ジャンプでの移動量を返す
 //正の値で上方向

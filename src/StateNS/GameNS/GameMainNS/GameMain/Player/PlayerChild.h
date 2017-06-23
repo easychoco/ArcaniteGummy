@@ -40,9 +40,11 @@ protected:
 	void standardMove(const Stage*);
 	void move(const Stage*);
 
-	void avoidSinking(const Stage*);
 	int jump();
 	int gravity();
+
+	int getVerticalDiffer(const Stage*, int) const;
+	int getHorizontalDiffer(const Stage*, int) const;
 
 	//Šeó‘Ô
 	enum ActionState
