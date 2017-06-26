@@ -82,7 +82,7 @@ bool Input_ESCAPE()
 
 bool Input_JUMP()
 {
-	return toBoolean[CheckHitKey(KEY_INPUT_SPACE)];
+	return toBoolean[CheckHitKey(KEY_INPUT_SPACE)] || toBoolean[CheckHitKey(KEY_INPUT_Z)];
 }
 
 bool Input_OK()
