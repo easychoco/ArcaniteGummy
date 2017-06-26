@@ -8,7 +8,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 //もこたんいんしたお
-Mokou::Mokou(int _x, int _y) : PlayerChild(5.0f, 15.0f)
+Mokou::Mokou(int _x, int _y) : PlayerChild(5.0f, 20.0f, 2)
 {
 	this->p = new Vector2(_x, _y);
 	initialize();
@@ -22,7 +22,7 @@ Mokou::~Mokou()
 void Mokou::initialize()
 {
 	this->moveSpeed = 5.0f;
-	img = LoadGraph("Data/Image/player.png");
+	loadImage();
 }
 
 PlayerChild* Mokou::update(const Stage* _stage)
@@ -34,32 +34,6 @@ PlayerChild* Mokou::update(const Stage* _stage)
 	return next;
 }
 
-void Mokou::draw() const
-{
-	DrawFormatString(0, 60, MyData::WHITE, "Mokou");
-
-	//自機を描画する場所
-	int draw_x = MyData::CX;
-	int draw_y = MyData::CY;
-
-	//左端
-	if (p->x() < MyData::CX)draw_x = p->x();
-
-	//右端
-	if (p->x() > MyData::MAP_WIDTH - MyData::CX)draw_x = p->x() - MyData::MAP_WIDTH + 640;
-
-	//上端
-	if (p->y() < MyData::CY)draw_y = p->y();
-
-	//下端
-	if (p->y() > MyData::MAP_HEIGHT - MyData::CY)draw_y = p->y() - MyData::MAP_HEIGHT + 480;
-	
-
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, img, true);
-	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
-}
-
-
 
 //==============================================
 //内部プライベート関数
@@ -69,7 +43,17 @@ void Mokou::attack()
 
 }
 
+void Mokou::draw_other() const
+{
 
+}
+
+
+void Mokou::loadImage()
+{
+	img = LoadGraph("Data/Image/player.png");
+	assert(img != -1 && "自機画像読み込みエラー");
+}
 
 
 }

@@ -14,16 +14,13 @@ public:
 	Mokou(int, int);
 	~Mokou();
 	PlayerChild* update(const Stage*);
-	void draw() const;
 
 private:
 	void initialize();
 	void attack();
-
-	int img;
+	void draw_other() const;
+	virtual void loadImage() override;
 };
-
-using MyData::vectorRate;
 
 
 }

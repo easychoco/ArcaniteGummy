@@ -7,7 +7,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Nue::Nue() : PlayerChild(5.0f, 15.0f)
+Nue::Nue() : PlayerChild(5.0f, 15.0f, 1)
 {
 
 }
@@ -17,23 +17,26 @@ Nue::~Nue()
 
 }
 
-PlayerChild* Nue::update()
+PlayerChild* Nue::update(const Stage* _stage)
 {
 	PlayerChild* next = this;
 
 	return next;
 }
 
-void Nue::draw() const
-{
-	DrawFormatString(0, 40, MyData::WHITE, "Nue");
-}
 
 
 
 //==============================================
 //内部プライベート関数
 //==============================================
+void Nue::initialize(){}
+
+void Nue::attack(){}
+
+void Nue::draw_other() const {};
+
+void Nue::loadImage() {} 
 
 //そんなものはない
 

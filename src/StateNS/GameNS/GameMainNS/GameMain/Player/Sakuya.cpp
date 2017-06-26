@@ -7,7 +7,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Sakuya::Sakuya() : PlayerChild(5.0f, 15.0f)
+Sakuya::Sakuya() : PlayerChild(5.0f, 15.0f, 1)
 {
 
 }
@@ -17,23 +17,27 @@ Sakuya::~Sakuya()
 
 }
 
-PlayerChild* Sakuya::update()
+PlayerChild* Sakuya::update(const Stage* _stage)
 {
 	PlayerChild* next = this;
 
 	return next;
 }
 
-void Sakuya::draw() const
-{
-	DrawFormatString(0, 40, MyData::WHITE, "Sakuya");
-}
 
 
 
 //==============================================
 //内部プライベート関数
 //==============================================
+void Sakuya::initialize(){}
+
+void Sakuya::attack(){}
+
+void Sakuya::draw_other() const{}
+
+void Sakuya::loadImage(){}
+
 
 //そんなものはない
 
