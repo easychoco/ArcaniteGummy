@@ -19,7 +19,7 @@ void BeltConveyor::initialize()
 
 }
 
-void BeltConveyor::update()
+void BeltConveyor::update(PlayerChild* _player)
 {
 
 

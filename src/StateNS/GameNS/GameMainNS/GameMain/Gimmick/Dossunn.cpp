@@ -19,7 +19,7 @@ void Dossunn::initialize()
 
 }
 
-void Dossunn::update()
+void Dossunn::update(PlayerChild* _player)
 {
 
 

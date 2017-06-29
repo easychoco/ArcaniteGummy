@@ -19,7 +19,7 @@ void Rock::initialize()
 
 }
 
-void Rock::update()
+void Rock::update(PlayerChild* _player)
 {
 
 

@@ -18,7 +18,7 @@ public:
 	Switch();
 	~Switch();
 	void initialize();
-	void update();
+	void update(PlayerChild*);
 	void draw() const;
 
 private:

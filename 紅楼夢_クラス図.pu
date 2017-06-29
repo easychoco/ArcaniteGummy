@@ -1,0 +1,215 @@
+@startuml {out.png}
+title "輝夜の大迷宮"
+
+package outer{
+
+class Data <<D, red>>
+class KeyInput <<K, yellow>>
+
+}
+
+class Main{
+  Parent_1* parent
+}
+
+class Parent_1{
+  Child_1* mChild
+  void update()
+  void draw() const
+}
+
+Main -- Parent_1
+
+package State_1{
+
+  abstract Child_1{
+    {abstract}virtual ~Child_1()
+    {abstract}virtual Child_1 update(Parant_1*)
+    {abstract}virtual draw() const
+  }
+
+  class Title_{
+    Child_1 update(Parant_1*)
+    void draw() const
+  }
+
+  class Parent_2{
+    Child_2* mChild
+    enum NextSeq
+    Child_1 update(Parant_1*);
+    void draw() const
+    void moveTo();
+  }
+
+  'note "Child_2* next = mChild->update(this);" as P2_memo
+  'Parent_2 . P2_memo
+
+
+  Child_1 <|-- Title_
+  Child_1 <|-- Parent_2
+
+
+  Parent_1 *-- Child_1
+
+  package State_2{
+
+    abstract Child_2{
+      {abstract}virtual ~Child_2()
+      {abstract}virtual Child_2 update(Parant_2*)
+      {abstract}virtual void draw() const
+    }
+
+
+    class Clear{
+      Child_2 update(Parant_2*)
+      void draw() const
+    }
+
+    class Over{
+      Child_2 update(Parant_2*)
+      void draw() const
+    }
+
+    class Play{
+      GameMain* gameMain
+      Child_2 update(Parant_2*)
+      void draw() const
+    }
+
+    Child_2 <|-- Play
+    Child_2 <|-- Clear
+    Child_2 <|-- Over
+
+    Parent_2 *-- Child_2
+
+    package GameMain{
+
+      class Pause{
+          SaveData* saveData
+          Child_2 update(Parant_2*)
+          void draw() const
+      }
+
+      class Converse{
+        Child_2 update(Parant_2*)
+        void draw() const
+      }
+
+      class GameMain{
+        Stage* stage
+        PlayerChild* player
+        vector<EnemyChild*> enemies
+        System* system
+
+        void update()
+        void draw() const
+        void moveTo()
+      }
+
+      class Stage{
+        vctor<GimmickChild*> gimmick
+        void update()
+        void draw()
+      }
+
+      abstract GimmickChild{
+        protected bool isActive
+        {abstract} virtual ~GimmickChild(){}
+        {abstract} virtual void update(PlayerChild*) = 0
+        {abstract} virtual void draw() = 0
+      }
+      class MovingFloor{
+        '落ちる床もここで実装
+      }
+      class SlippingFloor{
+
+      }
+      class DroppingRock{
+
+      }
+      class ドッスン{
+
+      }
+      class BeltConveyor{
+
+      }
+      class CheckPoint{
+
+      }
+      class Switch{
+
+      }
+
+      abstract PlayerChild{
+        protected bool atari
+        protected int characterID
+
+        {abstract}virtual ~PlayerChild(){}
+        {abstract}virtual void update() = 0
+        {abstract}virtual void draw() = 0
+        void standardMove()
+        {abstract}virtual void attack() = 0
+        {abstract}virtual getID() = 0
+      }
+      class HPController{
+        protected int hp
+        protected bool isAlive
+        protected int damageTime
+        int getHP()
+        void damage(int)
+        void damegeWithReaction(int)
+      }
+      class Mokou{
+          Mokou()
+          void update()
+          void draw()
+      }
+      class Sakuya{
+        Sakuya()
+        void update()
+        void draw()
+      }
+      class Nue{
+        Nue()
+        void update()
+        void draw()
+      }
+      Interface EnemyChild{
+        virtual void update() = 0
+        virtual void move() = 0
+        virtual void draw() = 0
+      }
+
+      class System{
+        void update()
+        void draw()
+      }
+
+
+      Play <|-- GameMain
+      Play <|-- Pause
+      Play <|-- Converse
+      GameMain *-- System
+      GameMain *--Stage
+      Stage *-- GimmickChild
+      GameMain *--EnemyChild
+      GameMain *-- PlayerChild
+      EnemyChild *- HPController
+      PlayerChild *- HPController
+      GimmickChild <|-- MovingFloor
+      GimmickChild <|-- SlippingFloor
+      GimmickChild <|-- DroppingRock
+      GimmickChild <|-- ドッスン
+      GimmickChild <|-- BeltConveyor
+      GimmickChild <|-- CheckPoint
+      GimmickChild <|-- Switch
+      PlayerChild <|-- Mokou
+      PlayerChild <|-- Sakuya
+      PlayerChild <|-- Nue
+
+    }
+  }
+}
+
+
+@enduml

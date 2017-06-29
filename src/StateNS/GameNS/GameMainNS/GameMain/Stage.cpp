@@ -1,4 +1,5 @@
 #include "Stage.h"
+#include "Player\PlayerChild.h"
 #include "Gimmick\GimmickChild.h"
 
 #include "..\..\..\..\KeyInput.h"
@@ -28,10 +29,12 @@ void Stage::initialize()
 	assert(mBackImg != -1 && "”wŒi‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 }
 
-void Stage::update()
+void Stage::update(PlayerChild* _player)
 {
-
-
+	for (auto& gimmick : mGimmicks)
+	{
+		if (gimmick->isActive)gimmick->update(_player);
+	}
 }
 
 void Stage::draw(const Vector2* _player) const
@@ -39,9 +42,9 @@ void Stage::draw(const Vector2* _player) const
 	DrawGraph(0, 0, mBackImg, true);
 	drawMap(mapData, _player);
 
-	for (auto gimmick : mGimmicks)
+	for (auto& gimmick : mGimmicks)
 	{
-		gimmick->draw();
+		if(gimmick->isActive)gimmick->draw();
 	}
 
 }

@@ -19,7 +19,7 @@ void SlippingFloor::initialize()
 
 }
 
-void SlippingFloor::update()
+void SlippingFloor::update(PlayerChild* _player)
 {
 
 

@@ -18,7 +18,7 @@ public:
 	MovingFloor();
 	~MovingFloor();
 	void initialize();
-	void update();
+	void update(PlayerChild*);
 	void draw() const;
 
 private:
