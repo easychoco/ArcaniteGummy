@@ -7,6 +7,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 
+class PlayerChild;
 class GimmickChild;
 
 class Stage
@@ -15,7 +16,7 @@ public:
 	Stage(int stageID);
 	~Stage();
 	void initialize();
-	void update();
+	void update(PlayerChild*);
 	void draw(const Vector2* player) const;
 
 	enum ChipType

@@ -33,8 +33,7 @@ Child* GameMain::update(GameParent* _parent)
 {
 	Child* next = this;
 
-	mStage->update();
-
+	mStage->update(mPlayer);
 	
 	PlayerChild* nextPlayer = mPlayer->update(mStage);
 

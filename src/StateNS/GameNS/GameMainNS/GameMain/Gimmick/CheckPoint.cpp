@@ -19,7 +19,7 @@ void CheckPoint::initialize()
 
 }
 
-void CheckPoint::update()
+void CheckPoint::update(PlayerChild* _player)
 {
 
 

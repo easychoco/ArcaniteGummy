@@ -19,7 +19,7 @@ void MovingFloor::initialize()
 
 }
 
-void MovingFloor::update()
+void MovingFloor::update(PlayerChild* _player)
 {
 
 

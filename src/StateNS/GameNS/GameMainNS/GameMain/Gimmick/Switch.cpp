@@ -19,7 +19,7 @@ void Switch::initialize()
 
 }
 
-void Switch::update()
+void Switch::update(PlayerChild* _player)
 {
 
 
