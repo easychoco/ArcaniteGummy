@@ -1,3 +1,4 @@
+#include "..\Player\PlayerChild.h"
 #include "SlippingFloor.h"
 
 namespace StateNS {

@@ -194,8 +194,9 @@ package State_1{
       Stage *-- GimmickChild
       GameMain *--EnemyChild
       GameMain *-- PlayerChild
-      EnemyChild *- HPController
-      PlayerChild *- HPController
+      Character <|-- EnemyChild
+      Character <|-- PlayerChild
+      Character *- HPController
       GimmickChild <|-- MovingFloor
       GimmickChild <|-- SlippingFloor
       GimmickChild <|-- DroppingRock

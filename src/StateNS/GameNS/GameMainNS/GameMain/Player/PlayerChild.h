@@ -2,7 +2,7 @@
 
 #include "..\..\..\..\..\Data.h"
 #include "..\..\..\..\..\KeyInput.h"
-
+#include "..\Character.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -10,10 +10,10 @@ namespace GameMainNS{
 
 class Stage;
 
-class PlayerChild
+class PlayerChild : public Character
 {
 public:
-	PlayerChild(float maxMoveSpeed , float maxJumpPower, int maxJumpCount);
+	PlayerChild(float maxMoveSpeed , float maxJumpPower, int maxJumpCount, int maxHP);
 	virtual ~PlayerChild() { SAFE_DELETE(p); };
 	virtual PlayerChild* update(const Stage*) = 0;
 	void draw() const;
@@ -39,7 +39,12 @@ protected:
 	virtual void draw_other() const = 0; //é©ã@à»äOÇï`âÊÇ∑ÇÈ
 	virtual void loadImage() = 0;
 
+	//CharacterÇÃä÷êî
+	//virtual void damagedAction() = 0;
+
 	void standardMove(const Stage*);
+
+private:
 	void move(const Stage*);
 
 	int jump();

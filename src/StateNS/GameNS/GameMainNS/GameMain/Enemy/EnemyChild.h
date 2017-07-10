@@ -1,6 +1,7 @@
 #pragma once
 
-#include "..\..\..\..\Data.h"
+#include "..\..\..\..\..\Data.h"
+#include "..\Character.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -16,6 +17,9 @@ public:
 	//Ç±ÇÃ2Ç¬ÇÕÇ¢ÇÁÇ»Ç¢Ç©Ç‡ÇµÇÍÇ»Ç¢
 	virtual void move() = 0;
 	virtual void attack() = 0;
+
+	//CharacterÇÃä÷êî
+	virtual void damagedAction() = 0;
 
 protected:
 	Vector2* point;

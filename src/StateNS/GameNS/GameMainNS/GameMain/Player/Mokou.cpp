@@ -8,7 +8,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 //‚à‚±‚½‚ñ‚¢‚ñ‚µ‚½‚¨
-Mokou::Mokou(int _x, int _y) : PlayerChild(5.0f, 20.0f, 2)
+Mokou::Mokou(int _x, int _y) : PlayerChild(5.0f, 20.0f, 2, 100)
 {
 	this->p = new Vector2(_x, _y);
 	initialize();

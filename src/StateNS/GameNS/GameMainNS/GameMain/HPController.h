@@ -7,12 +7,12 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+class Character;
 
 class HPController
 {
 public:
-	HPController();
-	HPController(int HP);
+	HPController(Character* _parent, int _hp);
 	~HPController();
 	void damage(int val);
 	void damageWithAction(int val);
@@ -21,9 +21,11 @@ public:
 	bool isAlive() const { return HP > 0; }
 
 private:
-	const int MAX_HP;
+	Character* parent;
+	const int maxHP;
 	int HP;
 };
+
 
 
 }

@@ -1,4 +1,5 @@
 #include "BeltConveyor.h"
+#include "..\Player\PlayerChild.h"
 
 namespace StateNS {
 namespace GameNS {
