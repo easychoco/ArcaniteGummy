@@ -1,5 +1,5 @@
 #include "HPController.h"
-
+#include "Character.h"
 
 
 namespace StateNS {
@@ -7,19 +7,15 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-HPController::HPController() : HPController(100)
+HPController::HPController(Character* _parent, int _hp) : maxHP(_hp)
 {
-	
-}
-
-HPController::HPController(int _hp) : MAX_HP(_hp)
-{
-	this->HP = this->MAX_HP;
+	this->HP = this->maxHP;
+	this->parent = _parent;
 }
 
 HPController::~HPController()
 {
-
+	this->parent = 0;
 }
 
 void HPController::damage(int _val)
@@ -30,11 +26,12 @@ void HPController::damage(int _val)
 void HPController::damageWithAction(int _val)
 {
 	this->HP = max(this->HP - _val, 0);
+	if (parent)parent->damagedAction();
 }
 
 void HPController::recover(int _val)
 {
-	this->HP = min(this->HP + _val, this->MAX_HP);
+	this->HP = min(this->HP + _val, this->maxHP);
 }
 
 

@@ -7,7 +7,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Sakuya::Sakuya() : PlayerChild(5.0f, 15.0f, 1)
+Sakuya::Sakuya() : PlayerChild(5.0f, 15.0f, 1, 150)
 {
 
 }

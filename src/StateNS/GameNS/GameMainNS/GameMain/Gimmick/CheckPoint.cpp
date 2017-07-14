@@ -1,4 +1,5 @@
 #include "CheckPoint.h"
+#include "..\Player\PlayerChild.h"
 
 namespace StateNS {
 namespace GameNS {

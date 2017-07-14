@@ -61,12 +61,12 @@ private:
 	class Chip
 	{
 	public:
-		Chip(ChipType _chipType) : chipType(_chipType) {};
+		Chip(ChipType _chipType) : mChipType(_chipType) {};
 		~Chip() {};
-		ChipType getChipType() const { return chipType; }
-		void setChipType(ChipType _chipType) { chipType = _chipType; }
+		ChipType getChipType() const { return mChipType; }
+		void setChipType(ChipType _chipType) { mChipType = _chipType; }
 	private:
-		ChipType chipType;
+		ChipType mChipType;
 	};
 
 	//マップチップ

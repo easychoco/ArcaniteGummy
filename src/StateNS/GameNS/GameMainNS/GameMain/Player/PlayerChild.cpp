@@ -5,7 +5,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-PlayerChild::PlayerChild(float _move, float _jump, int _jumpCount) : 
+PlayerChild::PlayerChild(float _move, float _jump, int _jumpCount, int _hp) : Character(_hp),
 maxMoveSpeed(_move),
 maxJumpPower(_jump),
 maxJumpCount(_jumpCount)
@@ -78,9 +78,6 @@ void PlayerChild::move(const Stage* _stage)
 
 int PlayerChild::getHorizontalDiffer(const Stage* _stage, const int _dx) const
 {
-	//移動先のchipTypeをgetしてから
-
-
 	//斜めブロックの場合はそのまま返す
 
 	//チップの上半分の真ん中

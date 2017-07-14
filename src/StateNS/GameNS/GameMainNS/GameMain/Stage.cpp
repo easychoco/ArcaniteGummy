@@ -42,7 +42,7 @@ void Stage::draw(const Vector2* _player) const
 	DrawGraph(0, 0, mBackImg, true);
 	drawMap(mapData, _player);
 
-	for (auto& gimmick : mGimmicks)
+	for (const auto& gimmick : mGimmicks)
 	{
 		if(gimmick->isActive)gimmick->draw();
 	}
@@ -86,6 +86,33 @@ Stage::ChipType Stage::getChipType(const RawVector2 _player) const
 //========================================================================
 // 内部private関数
 //========================================================================
+void Stage::loadMap(int _stageID)
+{
+	string imgFile = "Data/Image/block";
+	imgFile += std::to_string(_stageID);
+	imgFile += ".png";
+
+	int tmp = LoadDivGraph(imgFile.c_str(), 7, 7, 1, 32, 32, mapChip);
+	assert(tmp != -1 && "マップチップ読み込みエラー");
+
+	string textFile = "Data/Text/stage";
+	textFile += std::to_string(_stageID);
+	textFile += ".txt";
+
+	std::ifstream fin(textFile);
+	assert(fin && "マップデータ読み込みエラー");
+
+	for (auto& mapY : mapData)
+	{
+		for (auto& mapX : mapY)
+		{
+			fin >> mapX;
+		}
+	}
+
+}
+
+
 
 //マップチップが変わっても対応可能
 //第一引数にマップチップへのポインタを持ってくるためにtemplateを使用
@@ -131,33 +158,6 @@ void Stage::drawMap(Arr _mapData, const Vector2* _player) const
 		}
 	}
 }
-
-void Stage::loadMap(int _stageID)
-{
-	string imgFile = "Data/Image/block";
-	imgFile += std::to_string(_stageID);
-	imgFile += ".png";
-
-	int tmp = LoadDivGraph(imgFile.c_str(), 7, 7, 1, 32, 32, mapChip);
-	assert(tmp != -1 && "マップチップ読み込みエラー");
-
-	string textFile = "Data/Text/stage";
-	textFile += std::to_string(_stageID);
-	textFile += ".txt";
-
-	std::ifstream fin(textFile);
-	assert(fin && "マップデータ読み込みエラー");
-
-	for (auto& mapY : mapData)
-	{
-		for (auto& mapX : mapY)
-		{
-			fin >> mapX;
-		}
-	}
-
-}
-
 
 
 

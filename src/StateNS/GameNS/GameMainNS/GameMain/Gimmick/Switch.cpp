@@ -1,3 +1,4 @@
+#include "..\Player\PlayerChild.h"
 #include "Switch.h"
 
 namespace StateNS {

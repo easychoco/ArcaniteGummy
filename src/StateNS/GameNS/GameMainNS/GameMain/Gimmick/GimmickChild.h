@@ -1,7 +1,6 @@
 #pragma once
 
 #include "..\..\..\..\..\Data.h"
-#include "..\Player\PlayerChild.h"
 
 
 namespace StateNS {
