@@ -37,10 +37,10 @@ void Stage::update(PlayerChild* _player)
 	}
 }
 
-void Stage::draw(const Vector2* _player) const
+void Stage::draw(const Vector2* _camera) const
 {
 	DrawGraph(0, 0, mBackImg, true);
-	drawMap(mapData, _player);
+	drawMap(mapData, _camera);
 
 	for (const auto& gimmick : mGimmicks)
 	{
@@ -117,44 +117,19 @@ void Stage::loadMap(int _stageID)
 //マップチップが変わっても対応可能
 //第一引数にマップチップへのポインタを持ってくるためにtemplateを使用
 template<typename Arr>
-void Stage::drawMap(Arr _mapData, const Vector2* _player) const
+void Stage::drawMap(Arr _mapData, const Vector2* _camera) const
 {
 	//マップ描画をする際に，自機の位置依存で描画位置の座標が変わる
 
-	//自機が真ん中にいるとき
-	int draw_y = MyData::CY - _player->y();
-	int draw_x = MyData::CX - _player->x();
-
-	//下端
-	if (_player->y() + MyData::CY > MyData::MAP_HEIGHT)
-	{
-		draw_y = 480 - MyData::MAP_HEIGHT;
-	}
-
-	//上端
-	else if (_player->y() < MyData::CY)
-	{
-		draw_y = 0;
-	}
-
-	//右端
-	if (_player->x() + MyData::CX > MyData::MAP_WIDTH) 
-	{
-		draw_x = 640 - MyData::MAP_WIDTH;
-	}
-
-	//左端
-	else if (_player->x() < MyData::CX)
-	{
-		draw_x = 0;
-	}
+	int draw_x = _camera->pos_x / MyData::vectorRate - MyData::CX;
+	int draw_y = _camera->pos_y / MyData::vectorRate - MyData::CY;
 
 	//マップ描画
 	for (unsigned y = 0; y < mapData.size(); y++)
 	{
 		for (unsigned x = 0; x < mapData[0].size(); x++)
 		{
-			DrawGraph(x * 32 + draw_x, y * 32 + draw_y, mapChip[_mapData[y][x]], true);
+			DrawGraph(x * 32 - draw_x, y * 32 - draw_y, mapChip[_mapData[y][x]], true);
 		}
 	}
 }

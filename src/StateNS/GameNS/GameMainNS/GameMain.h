@@ -18,6 +18,7 @@ namespace GameMainNS{
 class Stage;
 class PlayerChild;
 class System;
+class EnemyController;
 
 class GameMain : public Child
 {
@@ -33,6 +34,7 @@ private:
 	Stage* mStage;
 	PlayerChild* mPlayer;
 	System* mSystem;
+	EnemyController* mEController;
 };
 
 

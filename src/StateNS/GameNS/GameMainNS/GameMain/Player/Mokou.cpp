@@ -11,12 +11,14 @@ namespace GameMainNS{
 Mokou::Mokou(int _x, int _y) : PlayerChild(5.0f, 20.0f, 2, 100)
 {
 	this->p = new Vector2(_x, _y);
+	this->camera = new Vector2(_x, _y);
 	initialize();
 }
 
 Mokou::~Mokou()
 {
 	SAFE_DELETE(p);
+	SAFE_DELETE(camera);
 }
 
 void Mokou::initialize()

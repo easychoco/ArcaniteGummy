@@ -20,22 +20,8 @@ void PlayerChild::draw() const
 {
 	DrawFormatString(0, 60, MyData::WHITE, "Mokou");
 
-	//自機を描画する場所
-	int draw_x = MyData::CX;
-	int draw_y = MyData::CY;
-
-	//左端
-	if (p->x() < MyData::CX)draw_x = p->x();
-
-	//右端
-	if (p->x() > MyData::MAP_WIDTH - MyData::CX)draw_x = p->x() - MyData::MAP_WIDTH + 640;
-
-	//上端
-	if (p->y() < MyData::CY)draw_y = p->y();
-
-	//下端
-	if (p->y() > MyData::MAP_HEIGHT - MyData::CY)draw_y = p->y() - MyData::MAP_HEIGHT + 480;
-
+	int draw_x = 320 + (p->pos_x - camera->pos_x) / MyData::vectorRate;
+	int draw_y = 240 + (p->pos_y - camera->pos_y) / MyData::vectorRate;
 
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, img, true);
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
@@ -44,7 +30,9 @@ void PlayerChild::draw() const
 
 }
 
+//================================================
 //内部private関数
+//================================================
 void PlayerChild::standardMove(const Stage* _stage)
 {
 	move(_stage);
@@ -71,6 +59,14 @@ void PlayerChild::move(const Stage* _stage)
 
 	p->pos_x += dx;
 	p->pos_y += dy;
+
+
+	//カメラ位置を更新	
+	*camera = Vector2(
+		max(320, min(MyData::MAP_WIDTH  - 320, p->x())),
+		max(240, min(MyData::MAP_HEIGHT - 240, p->y()))
+	);
+
 
 	prePush = Input_JUMP();
 }
