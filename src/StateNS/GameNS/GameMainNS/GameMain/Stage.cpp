@@ -1,6 +1,7 @@
 #include "Stage.h"
 #include "Player\PlayerChild.h"
 #include "Gimmick\GimmickChild.h"
+#include "Gimmick\AllGimmicks.h"
 
 #include "..\..\..\..\KeyInput.h"
 
@@ -13,8 +14,11 @@ namespace GameMainNS{
 
 Stage::Stage(int _stageID)
 {
-	loadMap(_stageID);
 	initialize();
+
+	loadMap(_stageID);
+	mBackImg = LoadGraph("Data/Image/back.jpg");
+	assert(mBackImg != -1 && "背景画像読み込みエラー");
 }
 
 Stage::~Stage()
@@ -25,15 +29,20 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
-	mBackImg = LoadGraph("Data/Image/back.jpg");
-	assert(mBackImg != -1 && "背景画像読み込みエラー");
+	mGimmicks.push_back(new BeltConveyor(1, Vector2(112, 208)));
 }
 
 void Stage::update(PlayerChild* _player)
 {
 	for (auto& gimmick : mGimmicks)
 	{
-		if (gimmick->isActive)gimmick->update(_player);
+		if (gimmick->isActive)
+		{
+			gimmick->update();
+
+			if (gimmick->onActiveArea(_player->getVector2()))
+				gimmick->apply(_player);
+		}
 	}
 }
 
@@ -44,12 +53,12 @@ void Stage::draw(const Vector2* _camera) const
 
 	for (const auto& gimmick : mGimmicks)
 	{
-		if(gimmick->isActive)gimmick->draw();
+		if(gimmick->isActive)gimmick->draw(_camera);
 	}
 
 }
 
-Stage::ChipType Stage::getChipType(const Vector2 _player) const
+Stage::ChipType Stage::getChipType(const Vector2& _player) const
 {
 	//範囲外(左か上の端)ならTYPE_RIGIDを返す
 	if (_player.pos_y < 0 || _player.pos_x < 0)
@@ -62,11 +71,25 @@ Stage::ChipType Stage::getChipType(const Vector2 _player) const
 	if (MyData::MAP_HEIGHT_NUM <= sub_y || MyData::MAP_WIDTH_NUM <= sub_x)
 		return ChipType::TYPE_RIGID;
 
-	return chip[mapData[sub_y][sub_x]].getChipType();
+	ChipType ret = chip[mapData[sub_y][sub_x]].getChipType();
+
+	for (const auto& gimmick : mGimmicks)
+	{
+		if (gimmick->isActive)
+		{
+			if (gimmick->isOverlap(&_player))ret = gimmick->getChipType();
+		}
+	}
+
+	return ret;
 }
 
-Stage::ChipType Stage::getChipType(const RawVector2 _player) const
+//ポリモーフィズム
+Stage::ChipType Stage::getChipType(const RawVector2& _player) const
 {
+	return getChipType(Vector2(_player.pos_x, _player.pos_y));
+
+	/*
 	//範囲外(左か上の端)ならTYPE_RIGIDを返す
 	if (_player.pos_y < 0 || _player.pos_x < 0)
 		return ChipType::TYPE_RIGID;
@@ -79,6 +102,7 @@ Stage::ChipType Stage::getChipType(const RawVector2 _player) const
 		return ChipType::TYPE_RIGID;
 
 	return chip[mapData[sub_y][sub_x]].getChipType();
+	//*/
 }
 
 
@@ -133,6 +157,8 @@ void Stage::drawMap(Arr _mapData, const Vector2* _camera) const
 		}
 	}
 }
+
+
 
 
 

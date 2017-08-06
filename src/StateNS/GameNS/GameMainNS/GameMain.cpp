@@ -38,10 +38,10 @@ Child* GameMain::update(GameParent* _parent)
 	Child* next = this;
 
 	mStage->update(mPlayer);
+	mEController->update();
+
 	
 	PlayerChild* nextPlayer = mPlayer->update(mStage);
-
-	mEController->update();
 
 	if (nextPlayer != mPlayer)
 	{
@@ -50,14 +50,14 @@ Child* GameMain::update(GameParent* _parent)
 	}
 
 
-	mSystem->update();
+	//mSystem->update();
 	
 	return next;
 }
 
 void GameMain::draw() const
 {
-	DrawFormatString(0, 20, MyData::WHITE, "GameMain");
+	//DrawFormatString(0, 20, MyData::WHITE, "GameMain");
 	mStage->draw(mPlayer->getCamera());
 	mEController->draw(mPlayer->getCamera());
 	mPlayer->draw();

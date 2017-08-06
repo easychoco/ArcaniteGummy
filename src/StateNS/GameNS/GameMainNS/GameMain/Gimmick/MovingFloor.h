@@ -19,7 +19,9 @@ public:
 	~MovingFloor();
 	void initialize();
 	void update(PlayerChild*);
-	void draw() const;
+	void draw(const Vector2*) const;
+	bool isHit(const Vector2*) const;
+	Stage::ChipType getChipType() const;
 
 private:
 };

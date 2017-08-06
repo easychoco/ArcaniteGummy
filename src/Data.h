@@ -117,8 +117,8 @@ public:
 		this->pos_y = _y * vectorRate;
 	}
 
-	virtual int x() const { return this->pos_x / vectorRate; }
-	virtual int y() const { return this->pos_y / vectorRate; }
+	const int x() const { return this->pos_x / vectorRate; }
+	const int y() const { return this->pos_y / vectorRate; }
 
 
 	bool isZero() const

@@ -27,8 +27,8 @@ void PlayerChild::draw() const
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 
 	draw_other();
-
 }
+
 
 //================================================
 //“à•”privateŠÖ”
@@ -66,8 +66,7 @@ void PlayerChild::move(const Stage* _stage)
 		max(320, min(MyData::MAP_WIDTH  - 320, p->x())),
 		max(240, min(MyData::MAP_HEIGHT - 240, p->y()))
 	);
-
-
+	
 	prePush = Input_JUMP();
 }
 

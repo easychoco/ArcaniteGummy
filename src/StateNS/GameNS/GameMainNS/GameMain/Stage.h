@@ -29,8 +29,8 @@ public:
 		TYPE_UP_SLANT_RIGHT		= 0b0100000, //右上へ向けた斜めブロック, 下がブロックなし
 		TYPE_UP_SLANT_LEFT		= 0b1000000, //左上へ向けた斜めブロック, 下がブロックなし
 	};
-	ChipType getChipType(const Vector2) const;
-	ChipType getChipType(const RawVector2) const;
+	ChipType getChipType(const Vector2&) const;
+	ChipType getChipType(const RawVector2&) const;
 
 	bool isRigid_down(ChipType _ct) const { return (_ct & 0b1110110) != 0; }
 	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b0011010) != 0; }

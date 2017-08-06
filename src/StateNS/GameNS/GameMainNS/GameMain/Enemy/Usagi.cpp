@@ -53,8 +53,8 @@ void Usagi::draw(const Vector2* _camera) const
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
 
 
-	DrawFormatString(0, 0, MyData::BLACK, "%d", draw_x);
-	DrawFormatString(0, 20, MyData::BLACK, "%d", draw_y);
+	//DrawFormatString(0, 0, MyData::BLACK, "%d", draw_x);
+	//DrawFormatString(0, 20, MyData::BLACK, "%d", draw_y);
 }
 
 

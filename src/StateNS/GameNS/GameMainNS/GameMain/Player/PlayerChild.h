@@ -17,7 +17,6 @@ public:
 	virtual ~PlayerChild() { SAFE_DELETE(p); };
 	virtual PlayerChild* update(const Stage*) = 0;
 	void draw() const;
-	const Vector2* getVector2() const { return p; }
 	const Vector2* getCamera() const { return camera; }
 
 protected:
@@ -27,7 +26,7 @@ protected:
 	const int maxJumpCount;
 
 	//他の変数
-	Vector2* p; //staticではないからキャラ変更のたびにdeleteしよう
+	//Vector2* p; //staticではないからキャラ変更のたびにdeleteしよう
 	Vector2* camera;
 	float moveSpeed;
 	float jumpPower;
