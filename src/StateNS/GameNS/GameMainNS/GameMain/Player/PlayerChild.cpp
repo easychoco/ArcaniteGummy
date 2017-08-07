@@ -14,19 +14,25 @@ maxJumpCount(_jumpCount)
 	this->jumpPower = 0.0f;
 	this->nowJumpCount = 0;
 	this->prePush = false;
+
+	post_x = 0;
+	post_y = 0;
 }
 
 void PlayerChild::draw() const
 {
 	DrawFormatString(0, 60, MyData::WHITE, "Mokou");
 
-	int draw_x = 320 + (p->pos_x - camera->pos_x) / MyData::vectorRate;
-	int draw_y = 240 + (p->pos_y - camera->pos_y) / MyData::vectorRate;
+	int draw_x = 320 + (p->pos_x() - camera->pos_x()) / MyData::vectorRate;
+	int draw_y = 240 + (p->pos_y() - camera->pos_y()) / MyData::vectorRate;
 
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, img, true);
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 
 	draw_other();
+
+	//for Debug
+	DrawFormatString(0, 50, MyData::BLACK, "%d %d", p->x(), p->y());
 }
 
 
@@ -41,8 +47,10 @@ void PlayerChild::standardMove(const Stage* _stage)
 //移動
 void PlayerChild::move(const Stage* _stage)
 {
-	int dx = 0;
-	int dy = 0;
+	int dx = next_dx;
+	int dy = next_dy;
+
+	next_dx = next_dy = 0;
 
 	//入力
 	if (Input_RIGHT())dx += (int)(moveSpeed * MyData::vectorRate);
@@ -56,9 +64,37 @@ void PlayerChild::move(const Stage* _stage)
 
 	dx = getHorizontalDiffer(_stage, dx);
 	dy = getVerticalDiffer(_stage, dy);
+	if (dy == 0)jumpPower = 0;
 
-	p->pos_x += dx;
-	p->pos_y += dy;
+	p->raw_x += dx;
+	p->raw_y += dy;
+
+	int dx_onScreen = p->x() - post_x;
+	int dy_onScreen = p->y() - post_y;
+
+	nextStageMove = GameMain::MOVE_NONE;
+	if (dx_onScreen < -MyData::MAP_WIDTH / 2)
+	{
+		nextStageMove = GameMain::MOVE_RIGHT;
+		//p->pos_x() -= (MyData::MAP_WIDTH * MyData::vectorRate);
+	}
+	else if (dx_onScreen > MyData::MAP_WIDTH / 2)
+	{
+		nextStageMove = GameMain::MOVE_LEFT;
+		//p->pos_x() += MyData::MAP_WIDTH * MyData::vectorRate;
+	}
+	else if (dy_onScreen > MyData::MAP_HEIGHT / 2)
+	{
+		nextStageMove = GameMain::MOVE_UP;
+		//p->pos_y() += MyData::MAP_HEIGHT * MyData::vectorRate;
+	}
+	else if (dy_onScreen < -MyData::MAP_HEIGHT / 2)
+	{
+		nextStageMove = GameMain::MOVE_DOWN;
+		//p->pos_y() %= MyData::MAP_HEIGHT;
+	}
+	post_x = p->x();
+	post_y = p->y();
 
 
 	//カメラ位置を更新	
@@ -76,13 +112,13 @@ int PlayerChild::getHorizontalDiffer(const Stage* _stage, const int _dx) const
 	//斜めブロックの場合はそのまま返す
 
 	//チップの上半分の真ん中
-	RawVector2 pos = RawVector2(p->pos_x, p->pos_y - MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
+	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() - MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
 	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate);
 	if (_stage->isSlant(chipType))return _dx;
 
 
 	//チップの下半分の真ん中
-	pos = RawVector2(p->pos_x, p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
+	pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
 	chipType = _stage->getChipType(pos / MyData::vectorRate);
 	if(_stage->isSlant(chipType))return _dx;
 
@@ -91,19 +127,19 @@ int PlayerChild::getHorizontalDiffer(const Stage* _stage, const int _dx) const
 	//通れないブロックならreturn 0
 
 	//チップの真ん中
-	pos = RawVector2(p->pos_x + _dx, p->pos_y);
+	pos = RawVector2(p->pos_x() + _dx, p->pos_y());
 	chipType = _stage->getChipType(pos / MyData::vectorRate);
 	if (chipType == _stage->TYPE_RIGID)return 0;
 
 
 	//チップの上半分の真ん中
-	pos = RawVector2(p->pos_x + _dx, p->pos_y - MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 + MyData::vectorRate);
+	pos = RawVector2(p->pos_x() + _dx, p->pos_y() - MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 + MyData::vectorRate);
 	chipType = _stage->getChipType(pos / MyData::vectorRate);
 	if (chipType == _stage->TYPE_RIGID)return 0;
 	
 
 	//チップの下半分の真ん中
-	pos = RawVector2(p->pos_x + _dx, p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - MyData::vectorRate);
+	pos = RawVector2(p->pos_x() + _dx, p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - MyData::vectorRate);
 	chipType = _stage->getChipType(pos / MyData::vectorRate);
 	if (chipType == _stage->TYPE_RIGID)return 0;
 
@@ -131,8 +167,8 @@ int PlayerChild::getVerticalDiffer(const Stage* _stage, const int _dy) const
 			  \|
 
 			*/
-
-			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT - 1)) * MyData::vectorRate - MyData::PLAYER_CHIP_WIDTH_RATE() + p->pos_x % MyData::PLAYER_CHIP_WIDTH_RATE();
+	
+			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT - 1)) * MyData::vectorRate - MyData::PLAYER_CHIP_WIDTH_RATE() + p->pos_x() % MyData::PLAYER_CHIP_WIDTH_RATE();
 			if (pos.pos_y < 0)dy -= MyData::PLAYER_CHIP_HEIGHT_RATE() / 2;
 			return dy;
 		}
@@ -147,7 +183,7 @@ int PlayerChild::getVerticalDiffer(const Stage* _stage, const int _dy) const
 
 			*/
 
-			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT - 1)) * MyData::vectorRate - p->pos_x % MyData::PLAYER_CHIP_WIDTH_RATE();
+			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT - 1)) * MyData::vectorRate - p->pos_x() % MyData::PLAYER_CHIP_WIDTH_RATE();
 			if (pos.pos_y < 0)dy -= MyData::PLAYER_CHIP_HEIGHT_RATE() / 2;
 			return dy;
 		}
@@ -167,7 +203,7 @@ int PlayerChild::getVerticalDiffer(const Stage* _stage, const int _dy) const
 
 			*/
 
-			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT - 1)) * MyData::vectorRate - MyData::PLAYER_CHIP_WIDTH_RATE() + p->pos_x % MyData::PLAYER_CHIP_WIDTH_RATE();
+			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT - 1)) * MyData::vectorRate - MyData::PLAYER_CHIP_WIDTH_RATE() + p->pos_x() % MyData::PLAYER_CHIP_WIDTH_RATE();
 			if (pos.pos_y < 0)dy -= MyData::PLAYER_CHIP_HEIGHT_RATE() / 2;
 			return dy;
 		}
@@ -182,7 +218,7 @@ int PlayerChild::getVerticalDiffer(const Stage* _stage, const int _dy) const
 
 			*/
 
-			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT - 1)) * MyData::vectorRate - p->pos_x % MyData::PLAYER_CHIP_WIDTH_RATE();
+			int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - MyData::PLAYER_CHIP_HEIGHT - 1)) * MyData::vectorRate - p->pos_x() % MyData::PLAYER_CHIP_WIDTH_RATE();
 			if (pos.pos_y < 0)dy -= MyData::PLAYER_CHIP_HEIGHT_RATE() / 2;
 			return dy;
 		}
@@ -209,7 +245,7 @@ int PlayerChild::getVerticalDiffer(const Stage* _stage, const int _dy) const
 
 	//下方向
 	//チップの最下端より少し上
-	RawVector2 pos = RawVector2(p->pos_x, p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1);
+	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1);
 	Stage::ChipType	chipType= _stage->getChipType(pos / MyData::vectorRate);
 	
 	//斜めブロックなら
@@ -223,7 +259,7 @@ int PlayerChild::getVerticalDiffer(const Stage* _stage, const int _dy) const
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2) + p->pos_x % MyData::CHIP_WIDTH_RATE();
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2) + p->pos_x() % MyData::CHIP_WIDTH_RATE();
 	}
 
 	if (chipType == _stage->TYPE_DOWN_SLANT_RIGHT)
@@ -236,12 +272,12 @@ int PlayerChild::getVerticalDiffer(const Stage* _stage, const int _dy) const
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2) + MyData::CHIP_WIDTH_RATE() - p->pos_x % MyData::CHIP_WIDTH_RATE();
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2) + MyData::CHIP_WIDTH_RATE() - p->pos_x() % MyData::CHIP_WIDTH_RATE();
 	}
 
 
 	//チップの下半分の中心
-	pos = RawVector2(p->pos_x, p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 4);
+	pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 4);
 	chipType = _stage->getChipType(pos / MyData::vectorRate);
 
 	//斜めブロックなら
@@ -255,7 +291,7 @@ int PlayerChild::getVerticalDiffer(const Stage* _stage, const int _dy) const
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2) + p->pos_x % MyData::CHIP_WIDTH_RATE();
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2) + p->pos_x() % MyData::CHIP_WIDTH_RATE();
 	}
 
 	if (chipType == _stage->TYPE_DOWN_SLANT_RIGHT)
@@ -268,19 +304,19 @@ int PlayerChild::getVerticalDiffer(const Stage* _stage, const int _dy) const
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2) + MyData::CHIP_WIDTH_RATE() - p->pos_x % MyData::CHIP_WIDTH_RATE();
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2) + MyData::CHIP_WIDTH_RATE() - p->pos_x() % MyData::CHIP_WIDTH_RATE();
 	}
 
 
 
 	//チップの最下端
-	pos = RawVector2(p->pos_x, p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
+	pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
 	chipType = _stage->getChipType(pos / MyData::vectorRate);
 
 	//移動先が通れないブロックなら
 	if (_stage->isRigid_down(chipType))
 	{
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
 	}
 
 	return _dy;

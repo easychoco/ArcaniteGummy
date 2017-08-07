@@ -1,8 +1,6 @@
 #pragma once
 
-#include <string>
-#include <vector>
-
+#include "..\GameMain.h"
 
 
 namespace StateNS {
@@ -15,14 +13,17 @@ class Child;
 class System
 {
 public:
-	System();
+	System(int);
 	~System();
 	void initialize();
-	void update();
+	void update(GameMain::HowStageMove);
 	void draw() const;
+	int getNowStage() const { return nowStage; }
 
 private:
-
+	int nowStage;
+	int stage_x;
+	int stage_y;
 };
 
 

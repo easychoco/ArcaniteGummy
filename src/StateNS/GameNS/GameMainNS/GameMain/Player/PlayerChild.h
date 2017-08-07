@@ -3,6 +3,7 @@
 #include "..\..\..\..\..\Data.h"
 #include "..\..\..\..\..\KeyInput.h"
 #include "..\Character.h"
+#include "..\..\GameMain.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -18,6 +19,7 @@ public:
 	virtual PlayerChild* update(const Stage*) = 0;
 	void draw() const;
 	const Vector2* getCamera() const { return camera; }
+	GameMain::HowStageMove getStageMove() const { return nextStageMove; };
 
 protected:
 	//キャラごとに移動速度などの違いを出すならここの変数をいじくる
@@ -32,8 +34,11 @@ protected:
 	float jumpPower;
 	int nowJumpCount;
 	bool prePush;
+	GameMain::HowStageMove nextStageMove;
 
-	int img;
+	int mImage;
+	int post_x;
+	int post_y;
 
 	//共通の行動
 	virtual void attack() = 0;

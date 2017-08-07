@@ -30,11 +30,11 @@ void MovingFloor::draw(const Vector2* _camera) const
 	
 	/*
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	if (abs(pos.pos_x - _camera->pos_x) > 350000 || abs(pos.pos_y - _camera->pos_y) > 270000)return;
+	if (abs(pos.pos_x() - _camera->pos_x()) > 350000 || abs(pos.pos_y() - _camera->pos_y()) > 270000)return;
 
 
-	int draw_x = 320 + (pos.pos_x - _camera->pos_x) / MyData::vectorRate;
-	int draw_y = 240 + (pos.pos_y - _camera->pos_y) / MyData::vectorRate;
+	int draw_x = 320 + (pos.pos_x() - _camera->pos_x()) / MyData::vectorRate;
+	int draw_y = 240 + (pos.pos_y() - _camera->pos_y()) / MyData::vectorRate;
 
 	//•`‰æ
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, img, true);

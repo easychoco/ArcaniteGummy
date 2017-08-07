@@ -2,7 +2,7 @@
 
 #include "GameMainChild.h"
 
-#include <string>
+//#include <string>
 #include <vector>
 
 
@@ -29,12 +29,26 @@ public:
 	Child* update(GameParent*);
 	void draw() const;
 
+	enum HowStageMove
+	{
+		MOVE_NONE,
+
+		MOVE_UP,
+		MOVE_RIGHT,
+		MOVE_LEFT,
+		MOVE_DOWN,
+	};
+
+	void changeStage(HowStageMove);
+
 
 private:
-	Stage* mStage;
+	std::vector<Stage*> mStages;
 	PlayerChild* mPlayer;
 	System* mSystem;
 	EnemyController* mEController;
+
+	int nowStageNum;
 };
 
 

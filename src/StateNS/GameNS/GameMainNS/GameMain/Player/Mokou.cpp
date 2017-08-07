@@ -53,8 +53,8 @@ void Mokou::draw_other() const
 
 void Mokou::loadImage()
 {
-	img = LoadGraph("Data/Image/player.png");
-	assert(img != -1 && "自機画像読み込みエラー");
+	mImage = LoadGraph("Data/Image/player.png");
+	assert(mImage != -1 && "自機画像読み込みエラー");
 }
 
 

@@ -6,12 +6,12 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-BeltConveyor::BeltConveyor(int _dx, Vector2 _pos)
+BeltConveyor::BeltConveyor(float _dx, Vector2 _pos)
 {
 	initialize();
 	
 	pos = _pos;
-	setMovingParam(_dx);
+	setMovingSpeed(_dx);
 	mImage = LoadGraph("Data/Image/beltconveyor.png");
 	assert(mImage != -1 && "ベルトコンベヤー画像読み込みエラー！");
 }
@@ -24,7 +24,7 @@ BeltConveyor::~BeltConveyor()
 void BeltConveyor::initialize()
 {
 	isActive = true;
-	dx = 0;
+	dx = 0.0f;
 	mTime = 0;
 }
 
@@ -36,11 +36,11 @@ void BeltConveyor::update()
 void BeltConveyor::draw(const Vector2* _camera) const
 {
 	//画面内にいなければreturn
-	if (abs(pos.pos_x - _camera->pos_x) > 350000 || abs(pos.pos_y - _camera->pos_y) > 270000)return;
+	if (abs(pos.pos_x() - _camera->pos_x()) > 350000 || abs(pos.pos_y() - _camera->pos_y()) > 270000)return;
 
 
-	int draw_x = 320 + (pos.pos_x - _camera->pos_x) / MyData::vectorRate;
-	int draw_y = 240 + (pos.pos_y - _camera->pos_y) / MyData::vectorRate;
+	int draw_x = 320 + (pos.pos_x() - _camera->pos_x()) / MyData::vectorRate;
+	int draw_y = 240 + (pos.pos_y() - _camera->pos_y()) / MyData::vectorRate;
 
 	//描画
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
@@ -51,14 +51,18 @@ void BeltConveyor::apply(Character* _character)
 	_character->moveCharacter(dx, 0);
 }
 
-bool BeltConveyor::isOverlap(const Vector2*) const
+bool BeltConveyor::isOverlap(int _sub_x, int _sub_y) const
 {
-	return false;
+	return
+		this->pos.x() / MyData::CHIP_WIDTH  == _sub_x &&
+		this->pos.y() / MyData::CHIP_HEIGHT == _sub_y;
 }
 
-bool BeltConveyor::onActiveArea(const Vector2*) const
+bool BeltConveyor::onActiveArea(const Vector2* _player) const
 {
-	return false;
+	return
+		abs(this->pos.x() - _player->x()) <= MyData::CHIP_WIDTH / 2 &&
+		(this->pos.y() - _player->y()) / MyData::CHIP_HEIGHT == 1;
 }
 
 Stage::ChipType BeltConveyor::getChipType() const

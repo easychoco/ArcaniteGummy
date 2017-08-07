@@ -103,8 +103,7 @@ class Vector2
 {
 
 public:
-	int pos_x;
-	int pos_y;
+	int raw_x, raw_y;
 
 	Vector2() :
 		Vector2(0, 0)
@@ -113,12 +112,14 @@ public:
 	}
 	Vector2(int _x, int _y)
 	{
-		this->pos_x = _x * vectorRate;
-		this->pos_y = _y * vectorRate;
+		this->raw_x = _x * vectorRate;
+		this->raw_y = _y * vectorRate;
 	}
 
-	const int x() const { return this->pos_x / vectorRate; }
-	const int y() const { return this->pos_y / vectorRate; }
+	const int x() const { return (this->raw_x / vectorRate) % MAP_WIDTH; }
+	const int y() const { return (this->raw_y / vectorRate) % MAP_HEIGHT; }
+	const int pos_x() const { return this->raw_x % (MAP_WIDTH * vectorRate); }
+	const int pos_y() const { return this->raw_y % (MAP_HEIGHT * vectorRate); }
 
 
 	bool isZero() const
@@ -136,23 +137,23 @@ public:
 	}
 	const Vector2 operator + (const Vector2& other)
 	{
-		return Vector2(pos_x + other.x(), pos_y + other.y());
+		return Vector2(raw_x + other.x(), raw_y + other.y());
 	}
 	const Vector2 operator - (const Vector2& other)
 	{
-		return Vector2(pos_x - other.x(), pos_y - other.y());
+		return Vector2(raw_x - other.x(), raw_y - other.y());
 	}
 	const Vector2 operator * (int other) const
 	{
-		return Vector2(pos_x * other, pos_y * other);
+		return Vector2(raw_x * other, raw_y * other);
 	}
 	const Vector2 operator / (int other) const
 	{
-		return Vector2(this->pos_x / other, this->pos_y / other);
+		return Vector2(this->raw_x / other, this->raw_y / other);
 	}
 	bool operator == (const Vector2& other) const
 	{
-		return (pos_x == other.x()) && (pos_y == other.y());
+		return (raw_x == other.x()) && (raw_y == other.y());
 	}
 	bool operator != (const Vector2& other) const
 	{

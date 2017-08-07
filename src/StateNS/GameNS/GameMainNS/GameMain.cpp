@@ -19,7 +19,13 @@ GameMain::GameMain(){
 
 GameMain::~GameMain()
 {
-	SAFE_DELETE(mStage);
+	for (auto& stage : mStages)
+	{
+		SAFE_DELETE(stage);
+	}
+	mStages.clear();
+	mStages.shrink_to_fit();
+
 	SAFE_DELETE(mPlayer);
 	SAFE_DELETE(mSystem);
 	SAFE_DELETE(mEController);
@@ -27,9 +33,14 @@ GameMain::~GameMain()
 
 void GameMain::initialize()
 {
-	mStage = new Stage(11);
+	for (int i = 0; i < 4; i++)
+	{
+		mStages.push_back(new Stage(0, i));
+	}
+	nowStageNum = 0;
+
 	mPlayer = new Mokou(96, 96);
-	mSystem = new System();
+	mSystem = new System(nowStageNum);
 	mEController = new EnemyController();
 }
 
@@ -37,11 +48,13 @@ Child* GameMain::update(GameParent* _parent)
 {
 	Child* next = this;
 
-	mStage->update(mPlayer);
+	nowStageNum = mSystem->getNowStage();
+
+	mStages[nowStageNum]->update(mPlayer);
 	mEController->update();
 
 	
-	PlayerChild* nextPlayer = mPlayer->update(mStage);
+	PlayerChild* nextPlayer = mPlayer->update(mStages[nowStageNum]);
 
 	if (nextPlayer != mPlayer)
 	{
@@ -50,7 +63,7 @@ Child* GameMain::update(GameParent* _parent)
 	}
 
 
-	//mSystem->update();
+	mSystem->update(mPlayer->getStageMove());
 	
 	return next;
 }
@@ -58,7 +71,7 @@ Child* GameMain::update(GameParent* _parent)
 void GameMain::draw() const
 {
 	//DrawFormatString(0, 20, MyData::WHITE, "GameMain");
-	mStage->draw(mPlayer->getCamera());
+	mStages[nowStageNum]->draw(mPlayer->getCamera());
 	mEController->draw(mPlayer->getCamera());
 	mPlayer->draw();
 	mSystem->draw();

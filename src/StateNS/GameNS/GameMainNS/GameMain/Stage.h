@@ -13,11 +13,12 @@ class GimmickChild;
 class Stage
 {
 public:
-	Stage(int stageID);
+	Stage(int mapID, int stageID);
 	~Stage();
 	void initialize();
 	void update(PlayerChild*);
 	void draw(const Vector2* player) const;
+	void changeStage(int, int);
 
 	enum ChipType
 	{
@@ -42,6 +43,9 @@ private:
 	//ギミックの配列
 	std::vector< GimmickChild* > mGimmicks;
 
+
+	//以下マップ関連
+
 	//mapChipの画像(32x32pixcels)
 	int mapChip[7];
 
@@ -50,13 +54,11 @@ private:
 	//mapData[~19][~29]
 	std::array< std::array<int, 30>, 20> mapData;
 
-	//マップ描画
-
 	//前景描画
 	template<typename Arr>
 	void drawMap(Arr, const Vector2*) const;
 
-	void loadMap(int stageID);
+	void loadMap(int stageID, int mapID);
 
 	class Chip
 	{

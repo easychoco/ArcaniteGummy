@@ -42,12 +42,12 @@ void Usagi::draw(const Vector2* _camera) const
 
 
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	if (abs(point->pos_x - _camera->pos_x) > 350000 || abs(point->pos_y - _camera->pos_y) > 270000)return;
+	if (abs(point->pos_x() - _camera->pos_x()) > 350000 || abs(point->pos_y() - _camera->pos_y()) > 270000)return;
 
 
 
-	int draw_x = 320 + (point->pos_x - _camera->pos_x) / MyData::vectorRate;
-	int draw_y = 240 + (point->pos_y - _camera->pos_y) / MyData::vectorRate;
+	int draw_x = 320 + (point->pos_x() - _camera->pos_x()) / MyData::vectorRate;
+	int draw_y = 240 + (point->pos_y() - _camera->pos_y()) / MyData::vectorRate;
 
 	//•`‰æ
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
