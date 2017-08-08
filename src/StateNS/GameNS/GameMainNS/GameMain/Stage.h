@@ -18,7 +18,11 @@ public:
 	void initialize();
 	void update(PlayerChild*);
 	void draw(const Vector2* player) const;
-	void changeStage(int, int);
+	void setStageSize(int _x, int _y)
+	{
+		stage_max_x = _x;
+		stage_max_y = _y;
+	}
 
 	enum ChipType
 	{
@@ -39,6 +43,8 @@ public:
 
 private:
 	int mBackImg;
+	int stage_max_x;
+	int stage_max_y;
 
 	//ギミックの配列
 	std::vector< GimmickChild* > mGimmicks;

@@ -78,7 +78,8 @@ Stage::ChipType Stage::getChipType(const Vector2& _player) const
 
 
 	//Stage‚Ì”ÍˆÍŠO(‰E‚©‰º‚Ì’[)‚È‚çTYPE_RIGID‚ð•Ô‚·
-	if (MyData::MAP_HEIGHT_NUM * 2 <= sub_y || MyData::MAP_WIDTH_NUM * 2 <= sub_x)
+	if (MyData::MAP_HEIGHT_NUM * stage_max_y <= sub_y || 
+		MyData::MAP_WIDTH_NUM  * stage_max_x <= sub_x)
 		return ChipType::TYPE_RIGID;
 
 	

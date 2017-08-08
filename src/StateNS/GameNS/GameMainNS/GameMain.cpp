@@ -37,6 +37,12 @@ void GameMain::initialize()
 	{
 		mStages.push_back(new Stage(0, i));
 	}
+
+	//ステージの全体的な縦と横の数を設定
+	for (auto& stage : mStages)
+	{
+		stage->setStageSize(2, 2);
+	}
 	nowStageNum = 0;
 
 	mPlayer = new Mokou(96, 96);
