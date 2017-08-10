@@ -37,10 +37,10 @@ public:
 	ChipType getChipType(const Vector2&) const;
 	ChipType getChipType(const RawVector2&) const;
 
-	bool isRigid_down(ChipType _ct) const { return (_ct & 0b1110110) != 0; }
-	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b0011010) != 0; }
-	bool isSlant(ChipType _ct)		const { return (_ct & 0b1111000) != 0; }
-
+	bool isRigid_down(ChipType _ct) const { return (_ct & 0b1100110) != 0; }//下にすり抜けられないブロック，床になる
+	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b0011010) != 0; }//上にすり抜けられないブロック，天井になる
+	bool isSlant(ChipType _ct)		const { return (_ct & 0b1111000) != 0; }//斜めブロック
+	
 private:
 	int mBackImg;
 	int stage_max_x;

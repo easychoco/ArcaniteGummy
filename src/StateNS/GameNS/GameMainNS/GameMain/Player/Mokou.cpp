@@ -30,7 +30,7 @@ Mokou::~Mokou()
 
 void Mokou::initialize()
 {
-	this->moveSpeed = 5.0f;
+	//this->moveSpeed = 5.0f;
 	loadImage();
 }
 

@@ -8,7 +8,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Sakuya::Sakuya(int _x, int _y, int _hp) : PlayerChild(5.0f, 25.0f, 1, _hp)
+Sakuya::Sakuya(int _x, int _y, int _hp) : PlayerChild(7.0f, 25.0f, 1, _hp)
 {
 	this->p = new Vector2(_x, _y);
 	this->camera = new Vector2(_x, _y);
@@ -28,7 +28,7 @@ Sakuya::~Sakuya()
 
 void Sakuya::initialize()
 {
-	this->moveSpeed = 5.0f;
+	//this->moveSpeed = 5.0f;
 	loadImage();
 }
 

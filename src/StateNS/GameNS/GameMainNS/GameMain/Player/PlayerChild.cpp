@@ -15,7 +15,7 @@ maxJumpCount(_jumpCount)
 
 void PlayerChild::initialize()
 {
-	this->moveSpeed = 0.0f;
+	this->moveSpeed = maxMoveSpeed;
 	this->jumpPower = 0.0f;
 	this->nowJumpCount = 0;
 	this->prePush = false;
@@ -36,10 +36,11 @@ void PlayerChild::draw() const
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 
 	draw_other();
-	draw_changingAnimation();
+	draw_changingAnimation(draw_x, draw_y);
 
 	//for Debug
 	DrawFormatString(0, 50, MyData::BLACK, "%d %d", p->x(), p->y());
+	DrawFormatString(0, 90, MyData::BLACK, "%d", nowJumpCount);
 }
 
 
@@ -72,10 +73,10 @@ bool PlayerChild::canChangeCharacter()
 	return animationTime > 30;
 }
 
-void PlayerChild::draw_changingAnimation() const
+void PlayerChild::draw_changingAnimation(int _draw_x, int _draw_y) const
 {
 	if (animationTime == 0)return;
-	DrawCircle(p->x(), p->y(), animationTime * 2, MyData::WHITE);
+	DrawCircle(_draw_x, _draw_y, animationTime * 2, MyData::WHITE);
 }
 
 //移動
@@ -91,14 +92,26 @@ void PlayerChild::move(const Stage* _stage)
 	if (Input_RIGHT())dx += (int)(moveSpeed * MyData::vectorRate);
 	if (Input_LEFT())dx -= (int)(moveSpeed * MyData::vectorRate);
 
+	//地上にいるなら
+	if (isOnGround(_stage))
+	{
+		nowJumpCount = 0;
+	}
+
 	//ジャンプ
-	if (Input_JUMP() && !prePush)jumpPower = maxJumpPower;
+	if (Input_JUMP() && !prePush && nowJumpCount < maxJumpCount)
+	{
+		jumpPower = maxJumpPower;
+		nowJumpCount++;
+	}
 
 	//縦移動
 	dy += gravity() - jump();
 
 	dx = getHorizontalDiffer(_stage, dx);
 	dy = getVerticalDiffer(_stage, dy);
+
+	//天井に当たったら
 	if (dy == 0)jumpPower = 0;
 
 	p->raw_x += dx;
@@ -141,6 +154,29 @@ void PlayerChild::move(const Stage* _stage)
 	prePush = Input_JUMP();
 }
 
+bool PlayerChild::isOnGround(const Stage* _stage)
+{
+	//posはキャラの最下端よりひとつ下
+	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
+	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate);
+	
+	
+	//右上に向けた斜めブロックなら
+	if (chipType == Stage::ChipType::TYPE_DOWN_SLANT_RIGHT)
+	{
+		pos.pos_y -= (MyData::CHIP_WIDTH_RATE() - p->pos_x() % MyData::CHIP_WIDTH_RATE());
+		chipType = _stage->getChipType(pos / MyData::vectorRate);
+	}
+
+	//左上に向けた斜めブロックなら
+	else if (chipType == Stage::ChipType::TYPE_DOWN_SLANT_LEFT)
+	{
+		pos.pos_y -= p->pos_x() % MyData::CHIP_WIDTH_RATE();
+		chipType = _stage->getChipType(pos / MyData::vectorRate);
+	}
+
+	return chipType != Stage::ChipType::TYPE_BACK;
+}
 
 int PlayerChild::getHorizontalDiffer(const Stage* _stage, const int _dx) const
 {

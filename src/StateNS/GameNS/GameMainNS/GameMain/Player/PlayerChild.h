@@ -58,10 +58,11 @@ private:
 	//キャラクター切り換え関連
 	bool isCharaChange;
 	void changeCharacter();
-	void draw_changingAnimation() const;
+	void draw_changingAnimation(int, int) const;
 
 	void initialize();
 	void move(const Stage*);
+	bool isOnGround(const Stage*);
 
 	int getVerticalDiffer(const Stage*, const int) const;
 	int getHorizontalDiffer(const Stage*, const int) const;
