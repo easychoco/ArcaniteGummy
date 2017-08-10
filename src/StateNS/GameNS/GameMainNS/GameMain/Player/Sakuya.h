@@ -11,7 +11,8 @@ namespace GameMainNS{
 class Sakuya : public PlayerChild
 {
 public:
-	Sakuya();
+	Sakuya(int, int);
+	Sakuya(int, int, int);
 	~Sakuya();
 	PlayerChild* update(const Stage*);
 
@@ -20,6 +21,7 @@ private:
 	void attack();
 	void draw_other() const;
 	virtual void loadImage() override;
+	virtual void damagedAction() override { /* for Debug */ };
 
 };
 

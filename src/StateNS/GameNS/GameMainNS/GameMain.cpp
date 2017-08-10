@@ -2,6 +2,7 @@
 #include "GameMain\Stage.h"
 #include "GameMain\System.h"
 #include "GameMain\Player\Mokou.h"
+#include "GameMain\Player\Sakuya.h"
 
 #include "GameMain\Enemy\EnemyController.h"
 
@@ -45,9 +46,11 @@ void GameMain::initialize()
 	}
 	nowStageNum = 0;
 
-	mPlayer = new Mokou(96, 96);
+	mPlayer = new Sakuya(96, 96);
 	mSystem = new System(nowStageNum);
 	mEController = new EnemyController();
+
+	changed = false;
 }
 
 Child* GameMain::update(GameParent* _parent)
@@ -56,26 +59,31 @@ Child* GameMain::update(GameParent* _parent)
 
 	nowStageNum = mSystem->getNowStage();
 
+
+
 	mStages[nowStageNum]->update(mPlayer);
 	mEController->update();
 
-	
 	PlayerChild* nextPlayer = mPlayer->update(mStages[nowStageNum]);
 
+	changed = false;
 	if (nextPlayer != mPlayer)
 	{
 		SAFE_DELETE(mPlayer);
 		mPlayer = nextPlayer;
+		changed = true;
 	}
 
-
-	mSystem->update(mPlayer->getStageMove());
+	if(changed)mSystem->update(HowStageMove::MOVE_NONE);
+	else mSystem->update(mPlayer->getStageMove());
 	
 	return next;
 }
 
 void GameMain::draw() const
 {
+	if (changed)return;
+
 	//DrawFormatString(0, 20, MyData::WHITE, "GameMain");
 	mStages[nowStageNum]->draw(mPlayer->getCamera());
 	mEController->draw(mPlayer->getCamera());

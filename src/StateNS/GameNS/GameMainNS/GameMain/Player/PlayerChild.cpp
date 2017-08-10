@@ -10,19 +10,25 @@ maxMoveSpeed(_move),
 maxJumpPower(_jump),
 maxJumpCount(_jumpCount)
 {
+	initialize();
+}
+
+void PlayerChild::initialize()
+{
 	this->moveSpeed = 0.0f;
 	this->jumpPower = 0.0f;
 	this->nowJumpCount = 0;
 	this->prePush = false;
 
-	post_x = 0;
-	post_y = 0;
+	post_x = MyData::MAP_WIDTH / 2;
+	post_y = MyData::MAP_HEIGHT / 2;
+
+	animationTime = 0;
 }
 
 void PlayerChild::draw() const
 {
-	DrawFormatString(0, 60, MyData::WHITE, "Mokou");
-
+	
 	int draw_x = 320 + (p->pos_x() - camera->pos_x()) / MyData::vectorRate;
 	int draw_y = 240 + (p->pos_y() - camera->pos_y()) / MyData::vectorRate;
 
@@ -30,6 +36,7 @@ void PlayerChild::draw() const
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 
 	draw_other();
+	draw_changingAnimation();
 
 	//for Debug
 	DrawFormatString(0, 50, MyData::BLACK, "%d %d", p->x(), p->y());
@@ -39,14 +46,42 @@ void PlayerChild::draw() const
 //================================================
 //内部private関数
 //================================================
-void PlayerChild::standardMove(const Stage* _stage)
+void PlayerChild::standardAction(const Stage* _stage)
 {
 	move(_stage);
+	changeCharacter();
+}
+
+//キャラ変更アニメーション
+void PlayerChild::changeCharacter(/*Charaのenum next*/)
+{
+	if (Input_CHANGE())
+	{
+		animationTime = max(animationTime, 1);
+	}
+	if (animationTime == 0)return;
+
+	++animationTime;
+
+}
+
+
+//変更アニメーションが終わってキャラ変更できるかどうか
+bool PlayerChild::canChangeCharacter()
+{
+	return animationTime > 30;
+}
+
+void PlayerChild::draw_changingAnimation() const
+{
+	if (animationTime == 0)return;
+	DrawCircle(p->x(), p->y(), animationTime * 2, MyData::WHITE);
 }
 
 //移動
 void PlayerChild::move(const Stage* _stage)
 {
+	if (animationTime > 0)return;
 	int dx = next_dx;
 	int dy = next_dy;
 

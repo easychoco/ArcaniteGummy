@@ -39,7 +39,6 @@ public:
 		MOVE_DOWN,
 	};
 
-	void changeStage(HowStageMove);
 
 
 private:
@@ -47,6 +46,9 @@ private:
 	PlayerChild* mPlayer;
 	System* mSystem;
 	EnemyController* mEController;
+
+	//キャラを変えたら1フレームだけ表示がおかしくなるからその対策
+	bool changed;
 
 	int nowStageNum;
 };

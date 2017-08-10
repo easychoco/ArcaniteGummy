@@ -22,25 +22,14 @@ public:
 	GameMain::HowStageMove getStageMove() const { return nextStageMove; };
 
 protected:
-	//キャラごとに移動速度などの違いを出すならここの変数をいじくる
-	const float maxMoveSpeed;
-	const float maxJumpPower;
-	const int maxJumpCount;
-
-	//他の変数
-	//Vector2* p; //staticではないからキャラ変更のたびにdeleteしよう
-	Vector2* camera;
+	//変数
 	float moveSpeed;
-	float jumpPower;
-	int nowJumpCount;
-	bool prePush;
-	GameMain::HowStageMove nextStageMove;
-
+	Vector2* camera;
 	int mImage;
-	int post_x;
-	int post_y;
+	int animationTime;
 
 	//共通の行動
+	bool canChangeCharacter();
 	virtual void attack() = 0;
 	virtual void draw_other() const = 0; //自機以外を描画する
 	virtual void loadImage() = 0;
@@ -48,16 +37,38 @@ protected:
 	//Characterの関数
 	//virtual void damagedAction() = 0;
 
-	void standardMove(const Stage*);
+	void standardAction(const Stage*);
 
 private:
+	//キャラごとに移動速度などの違いを出すならここの変数をいじくる
+	const float maxMoveSpeed;
+	const float maxJumpPower;
+	const int maxJumpCount;
+
+	//他の変数
+	float jumpPower;
+	int nowJumpCount;
+	bool prePush;
+	GameMain::HowStageMove nextStageMove;
+
+	//前フレームでの自機の位置
+	int post_x;
+	int post_y;
+
+	//キャラクター切り換え関連
+	bool isCharaChange;
+	void changeCharacter();
+	void draw_changingAnimation() const;
+
+	void initialize();
 	void move(const Stage*);
+
+	int getVerticalDiffer(const Stage*, const int) const;
+	int getHorizontalDiffer(const Stage*, const int) const;
 
 	int jump();
 	int gravity();
 
-	int getVerticalDiffer(const Stage*, const int) const;
-	int getHorizontalDiffer(const Stage*, const int) const;
 
 	//各状態
 	enum ActionState

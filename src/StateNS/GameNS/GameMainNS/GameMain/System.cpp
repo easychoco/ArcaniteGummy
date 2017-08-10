@@ -44,7 +44,8 @@ void System::update(GameMain::HowStageMove _nextStage)
 
 void System::draw() const
 {
-	DrawFormatString(0, 80, MyData::BLACK, "%d", nowStage);
+	//for Debug
+	DrawFormatString(0, 70, MyData::BLACK, "%d", nowStage);
 }
 
 
