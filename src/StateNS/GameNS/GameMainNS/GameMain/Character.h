@@ -2,32 +2,38 @@
 
 #include "..\..\..\..\Data.h"
 #include "HPController.h"
+#include "Stage.h"
+
 
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+	class Collision;
 
 //Ž©‹@‚Æ“G‚Å‹¤’Ê‚·‚és“®
 class Character
 {
 public:
-	Character(int _hp) : hpController(HPController(this, _hp)) { p = 0; next_dx = next_dy = 0; }
-	virtual ~Character() { SAFE_DELETE(p); }
+	Character(int hp, int w, int h);
+	virtual ~Character();
 	virtual void damagedAction() = 0;
-	const Vector2* getVector2() { return p; }
-	void moveCharacter(float _dx, float _dy)
-	{
-		this->next_dx += (int)(_dx * MyData::vectorRate);
-		this->next_dy += (int)(_dy * MyData::vectorRate);
-	}
-
+	const Vector2* getVector2() const { return p; }
+	void moveCharacter(float _dx, float _dy);
+	bool isHit(const Character*) const;
 	HPController hpController;
+	Collision* collision;
 
 protected:
 	Vector2* p;
 	int next_dx;
 	int next_dy;
+	int width;
+	int height;
+
+	int getTopDiffer(const Stage*, const int) const;
+	int getBottomDiffer(const Stage*, const int) const;
+	int getHorizontalDiffer(const Stage*, const int) const;
 };
 
 

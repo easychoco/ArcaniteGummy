@@ -57,14 +57,13 @@ Child* GameMain::update(GameParent* _parent)
 {
 	Child* next = this;
 
+	//¡‚Ìstage‚ðget
 	nowStageNum = mSystem->getNowStage();
+	Stage* stage = mStages[nowStageNum];
 
-
-
-	mStages[nowStageNum]->update(mPlayer);
-	mEController->update();
-
-	PlayerChild* nextPlayer = mPlayer->update(mStages[nowStageNum]);
+	stage->update(mPlayer);
+	mEController->update(stage);
+	PlayerChild* nextPlayer = mPlayer->update(stage);
 
 	changed = false;
 	if (nextPlayer != mPlayer)

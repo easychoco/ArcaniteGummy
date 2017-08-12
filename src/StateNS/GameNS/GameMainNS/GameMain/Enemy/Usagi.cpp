@@ -7,9 +7,9 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Usagi::Usagi(int _x, int _y) : EnemyChild(100)
+Usagi::Usagi(int _x, int _y) : EnemyChild(100, 32, 32)
 {
-	this->point = new Vector2(_x, _y);
+	this->p = new Vector2(_x, _y);
 
 	if(!imgLoad)loadImage();
 	assert(mImage != -1 && "Usagi‰æ‘œ“Ç‚Ýž‚ÝƒGƒ‰[!");
@@ -25,36 +25,20 @@ Usagi::~Usagi()
 
 void Usagi::initialize()
 {
-	mTime = 0;
-	mDirection = false;
+
 }
 
-void Usagi::update()
+void Usagi::update(const Stage* _stage)
 {
 	mTime++;
-
-
+	standardMove(_stage);
 }
 
-void Usagi::draw(const Vector2* _camera) const
+void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
 {
-	//composite‚Í‚±‚±‚É‘‚­
 
-
-	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	if (abs(point->pos_x() - _camera->pos_x()) > 350000 || abs(point->pos_y() - _camera->pos_y()) > 270000)return;
-
-
-
-	int draw_x = 320 + (point->pos_x() - _camera->pos_x()) / MyData::vectorRate;
-	int draw_y = 240 + (point->pos_y() - _camera->pos_y()) / MyData::vectorRate;
-
-	//•`‰æ
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
-
-
-	//DrawFormatString(0, 0, MyData::BLACK, "%d", draw_x);
-	//DrawFormatString(0, 20, MyData::BLACK, "%d", draw_y);
+	_dx = getHorizontalDiffer(_stage, _dx);
+	_dy = getBottomDiffer(_stage, _dy);
 }
 
 

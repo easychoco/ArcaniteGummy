@@ -14,18 +14,20 @@ public:
 	Usagi(int x, int y);
 	~Usagi();
 
-	void update();
-	void draw(const Vector2*) const;
+	void update(const Stage* _stage);
 
 private:
-
 	//Character‚ÌŠÖ”
 	void damagedAction();
 
-	void initialize();
-	void loadImage() { mImage = LoadGraph("Data/Image/usagi.png"); imgLoad = true; }
+	//Enemychild‚ÌŠÖ”
+	void move(const Stage*, int& dx, int& dy);
+	void loadImage() { images = LoadGraph("Data/Image/usagi.png"); mImage = images; imgLoad = true; }
 
-	int mImage;
+
+	void initialize();
+
+	int images;
 	bool imgLoad = false;
 	
 	int mTime;

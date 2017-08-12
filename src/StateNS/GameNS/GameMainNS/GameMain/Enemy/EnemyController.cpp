@@ -28,11 +28,11 @@ EnemyController::~EnemyController()
 	enemies.shrink_to_fit();
 }
 
-void EnemyController::update()
+void EnemyController::update(const Stage* _stage)
 {
 	for (auto& enemy : enemies)
 	{
-		enemy->update();
+		enemy->update(_stage);
 	}
 }
 

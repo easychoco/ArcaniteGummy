@@ -64,8 +64,8 @@ private:
 	void move(const Stage*);
 	bool isOnGround(const Stage*);
 
-	int getVerticalDiffer(const Stage*, const int) const;
-	int getHorizontalDiffer(const Stage*, const int) const;
+	//int getVerticalDiffer(const Stage*, const int) const;
+	//int getHorizontalDiffer(const Stage*, const int) const;
 
 	int jump();
 	int gravity();

@@ -8,6 +8,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 class EnemyChild;
+class Stage;
 
 class EnemyController
 {
@@ -15,7 +16,7 @@ public:
 	EnemyController();
 	~EnemyController();
 
-	void update();
+	void update(const Stage*);
 	void draw(const Vector2*) const;
 
 	void createEnemy();
