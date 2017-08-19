@@ -34,6 +34,7 @@ GameMain::~GameMain()
 
 void GameMain::initialize()
 {
+	//for Debug
 	for (int i = 0; i < 4; i++)
 	{
 		mStages.push_back(new Stage(0, i));
@@ -57,12 +58,15 @@ Child* GameMain::update(GameParent* _parent)
 {
 	Child* next = this;
 
-	//¡‚Ìstage‚ðget
+	//¡‚Ìstage‚ðÝ’è
 	nowStageNum = mSystem->getNowStage();
 	Stage* stage = mStages[nowStageNum];
 
 	stage->update(mPlayer);
+
 	mEController->update(stage);
+	mEController->processCollision(mPlayer);
+
 	PlayerChild* nextPlayer = mPlayer->update(stage);
 
 	changed = false;
@@ -96,7 +100,6 @@ void GameMain::draw() const
 //==============================================
 
 //‚»‚ñ‚È‚à‚Ì‚Í‚È‚¢
-
 
 
 }

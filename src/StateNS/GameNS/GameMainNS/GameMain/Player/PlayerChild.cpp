@@ -1,11 +1,15 @@
 #include "PlayerChild.h"
 #include "..\Stage.h"
 
+//for Debug
+#include "..\Collision.h"
+
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-PlayerChild::PlayerChild(float _move, float _jump, int _jumpCount, int _hp) : Character(_hp, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT),
+PlayerChild::PlayerChild(int _x, int _y, float _move, float _jump, int _jumpCount, int _hp) : 
+Character(_hp, _x, _y, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT),
 maxMoveSpeed(_move),
 maxJumpPower(_jump),
 maxJumpCount(_jumpCount)
@@ -39,8 +43,9 @@ void PlayerChild::draw() const
 	draw_changingAnimation(draw_x, draw_y);
 
 	//for Debug
+	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
 	DrawFormatString(0, 50, MyData::BLACK, "%d %d", p->x(), p->y());
-	DrawFormatString(0, 90, MyData::BLACK, "%d", nowJumpCount);
+	DrawFormatString(0, 70, MyData::BLACK, "%d %d", collision->p->x(), collision->p->y());
 }
 
 

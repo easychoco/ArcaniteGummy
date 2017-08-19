@@ -14,7 +14,7 @@ class Stage;
 class PlayerChild : public Character
 {
 public:
-	PlayerChild(float maxMoveSpeed , float maxJumpPower, int maxJumpCount, int maxHP);
+	PlayerChild(int x, int y, float maxMoveSpeed , float maxJumpPower, int maxJumpCount, int maxHP);
 	virtual ~PlayerChild() { SAFE_DELETE(p); };
 	virtual PlayerChild* update(const Stage*) = 0;
 	void draw() const;

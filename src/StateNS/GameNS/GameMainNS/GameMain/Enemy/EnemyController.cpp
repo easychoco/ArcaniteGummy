@@ -3,6 +3,10 @@
 #include "EnemyChild.h"
 #include "Usagi.h"
 
+#include "..\Player\PlayerChild.h"
+
+//for Debug
+#include "..\Collision.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -22,7 +26,6 @@ EnemyController::~EnemyController()
 	for (auto& enemy : enemies)
 	{
 		SAFE_DELETE(enemy);
-
 	}
 	enemies.clear();
 	enemies.shrink_to_fit();
@@ -41,6 +44,20 @@ void EnemyController::draw(const Vector2* _camera) const
 	for (auto& enemy : enemies)
 	{
 		enemy->draw(_camera);
+	}
+
+	//for Debug
+	DrawFormatString(0, 90, MyData::BLACK, "%d, %d", enemies[0]->collision->p->x(), enemies[0]->collision->p->y());
+}
+
+void EnemyController::processCollision(PlayerChild* _player)
+{
+	for (auto& enemy : enemies)
+	{
+		if (_player->isHit(enemy))
+		{
+			_player->hpController.damage(10);
+		}
 	}
 }
 

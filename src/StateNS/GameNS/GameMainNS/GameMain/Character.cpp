@@ -5,13 +5,15 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Character::Character(int _hp, int _w, int _h) : hpController(HPController(this, _hp))
+Character::Character(int _hp, int _x, int _y, int _w, int _h) : 
+hpController(HPController(this, _hp)),
+p(new Vector2(_x, _y))
 {
-	collision = new Collision(this, _w, _h);
 	width = _w;
 	height = _h;
-	p = 0;
 	next_dx = next_dy = 0;
+
+	collision = new Collision(this, _w, _h);
 }
 
 Character::~Character()

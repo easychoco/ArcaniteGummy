@@ -9,13 +9,13 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-	class Collision;
+class Collision;
 
 //é©ã@Ç∆ìGÇ≈ã§í Ç∑ÇÈçsìÆ
 class Character
 {
 public:
-	Character(int hp, int w, int h);
+	Character(int hp, int x, int y, int w, int h);
 	virtual ~Character();
 	virtual void damagedAction() = 0;
 	const Vector2* getVector2() const { return p; }

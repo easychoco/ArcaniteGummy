@@ -49,8 +49,10 @@ private:
 
 	//キャラを変えたら1フレームだけ表示がおかしくなるからその対策
 	bool changed;
-
+	
 	int nowStageNum;
+
+	void processCollision();
 };
 
 

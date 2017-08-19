@@ -10,8 +10,8 @@ Collision::Collision(Character* _parent, int _w, int _h) :
 parent(_parent)
 {
 	this->p = _parent->getVector2();
-	this->width = _w;
-	this->height = _h;
+	this->width = _w * MyData::vectorRate;
+	this->height = _h * MyData::vectorRate;
 }
 
 Collision::~Collision()
