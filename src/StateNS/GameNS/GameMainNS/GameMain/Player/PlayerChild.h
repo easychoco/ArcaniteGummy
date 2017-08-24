@@ -1,15 +1,19 @@
 #pragma once
 
+#include "..\Character.h"
+#include "..\Attack.h"
+
 #include "..\..\..\..\..\Data.h"
 #include "..\..\..\..\..\KeyInput.h"
-#include "..\Character.h"
 #include "..\..\GameMain.h"
+
 
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
 class Stage;
+class Attack;
 
 class PlayerChild : public Character
 {
@@ -27,13 +31,17 @@ protected:
 	Vector2* camera;
 	int mImage;
 	int animationTime;
+	bool direction;
+
+	//攻撃のvector
+	vector<Attack*> attacks;
 
 	//共通の行動
 	bool canChangeCharacter();
 	virtual void attack() = 0;
 	virtual void draw_other() const = 0; //自機以外を描画する
 	virtual void loadImage() = 0;
-
+	
 	//Characterの関数
 	//virtual void damagedAction() = 0;
 
@@ -60,16 +68,15 @@ private:
 	void changeCharacter();
 	void draw_changingAnimation(int, int) const;
 
+	//その他
 	void initialize();
+	void processDamage();
+	void hittedAction() override;
 	void move(const Stage*);
 	bool isOnGround(const Stage*);
 
-	//int getVerticalDiffer(const Stage*, const int) const;
-	//int getHorizontalDiffer(const Stage*, const int) const;
-
 	int jump();
 	int gravity();
-
 
 	//各状態
 	enum ActionState

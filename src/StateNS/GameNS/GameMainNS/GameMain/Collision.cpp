@@ -1,12 +1,12 @@
 #include "Collision.h"
-#include "Character.h"
+#include "DynamicObject.h"
 
 
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Collision::Collision(Character* _parent, int _w, int _h) : 
+Collision::Collision(DynamicObject* _parent, int _w, int _h) :
 parent(_parent)
 {
 	this->p = _parent->getVector2();

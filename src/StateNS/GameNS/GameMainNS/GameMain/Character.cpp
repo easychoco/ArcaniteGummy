@@ -6,19 +6,20 @@ namespace GameNS {
 namespace GameMainNS{
 
 Character::Character(int _hp, int _x, int _y, int _w, int _h) : 
-hpController(HPController(this, _hp)),
-p(new Vector2(_x, _y))
+DynamicObject(_x, _y, _w, _h),
+hpController(HPController(this, _hp))
 {
 	width = _w;
 	height = _h;
 	next_dx = next_dy = 0;
 
-	collision = new Collision(this, _w, _h);
+	damaged = false;
+	damagedTime = 0;
 }
 
 Character::~Character()
 {
-	SAFE_DELETE(p);
+
 }
 
 //ƒLƒƒƒ‰‚ðdx, dy‚¾‚¯ˆÚ“®‚³‚¹‚é
@@ -27,12 +28,6 @@ void Character::moveCharacter(float _dx, float _dy)
 	this->next_dx += (int)(_dx * MyData::vectorRate);
 	this->next_dy += (int)(_dy * MyData::vectorRate);
 }
-
-bool Character::isHit(const Character* _other) const
-{
-	return this->collision->isHit(_other->collision);
-}
-
 
 int Character::getTopDiffer(const Stage* _stage, const int _dy) const
 {

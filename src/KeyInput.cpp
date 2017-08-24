@@ -99,3 +99,8 @@ bool Input_CHANGE()
 {
 	return toBoolean[CheckHitKey(KEY_INPUT_RETURN)];
 }
+
+bool Input_ATTACK()
+{
+	return toBoolean[CheckHitKey(KEY_INPUT_A)];
+}

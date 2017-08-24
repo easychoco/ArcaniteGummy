@@ -43,7 +43,7 @@ void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
 //内部プライベート関数
 //==============================================
 
-void Usagi::damagedAction()
+void Usagi::hittedAction()
 {
 
 }

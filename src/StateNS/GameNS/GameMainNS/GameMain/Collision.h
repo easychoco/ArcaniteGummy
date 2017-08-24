@@ -7,16 +7,16 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-class Character;
+class DynamicObject;
 
 class Collision
 {
 public:
-	Collision(Character*, int, int);
+	Collision(DynamicObject*, int w, int h);
 	~Collision();
 	bool isHit(const Collision* other) const;
 	
-	Character* parent;
+	DynamicObject* parent;
 	const Vector2* p;
 	int width;
 	int height;

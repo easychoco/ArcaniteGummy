@@ -5,6 +5,7 @@
 #include "GameMain\Player\Sakuya.h"
 
 #include "GameMain\Enemy\EnemyController.h"
+#include "GameMain\Enemy\EnemyChild.h"
 
 #include "..\..\..\Data.h"
 #include "..\..\..\KeyInput.h"
@@ -62,13 +63,11 @@ Child* GameMain::update(GameParent* _parent)
 	nowStageNum = mSystem->getNowStage();
 	Stage* stage = mStages[nowStageNum];
 
+	//Stageのupdate
 	stage->update(mPlayer);
 
-	mEController->update(stage);
-	mEController->processCollision(mPlayer);
-
+	//Playerのupdate
 	PlayerChild* nextPlayer = mPlayer->update(stage);
-
 	changed = false;
 	if (nextPlayer != mPlayer)
 	{
@@ -77,6 +76,16 @@ Child* GameMain::update(GameParent* _parent)
 		changed = true;
 	}
 
+	//enemyのupdate
+	mEController->update(stage);
+
+	//衝突判定
+	processCollision();
+
+	//for Debug
+	mPlayer->hpController.recover(1);
+
+	//Systemのupdate
 	if(changed)mSystem->update(HowStageMove::MOVE_NONE);
 	else mSystem->update(mPlayer->getStageMove());
 	
@@ -99,8 +108,17 @@ void GameMain::draw() const
 //内部プライベート関数
 //==============================================
 
-//そんなものはない
-
+void GameMain::processCollision()
+{
+	auto enemies = mEController->getEnemies();
+	for (auto& enemy : enemies)
+	{
+		if (mPlayer->isHit(enemy))
+		{
+			mPlayer->hpController.damage(5);
+		}
+	}
+}
 
 }
 }
