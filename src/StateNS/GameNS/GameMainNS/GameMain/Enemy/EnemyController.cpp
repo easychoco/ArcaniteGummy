@@ -46,9 +46,6 @@ void EnemyController::draw(const Vector2* _camera) const
 	{
 		enemy->draw(_camera);
 	}
-
-	//for Debug
-	DrawFormatString(0, 90, MyData::BLACK, "%d, %d", enemies[0]->collision->p->x(), enemies[0]->collision->p->y());
 }
 
 //Ž©‹@‚Æ“G‚Ì–{‘Ì“¯Žm‚ÌÕ“Ë”»’è

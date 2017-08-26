@@ -19,7 +19,7 @@ class PlayerChild : public Character
 {
 public:
 	PlayerChild(int x, int y, float maxMoveSpeed , float maxJumpPower, int maxJumpCount, int maxHP);
-	virtual ~PlayerChild() { SAFE_DELETE(p); };
+	virtual ~PlayerChild();
 	virtual PlayerChild* update(const Stage*) = 0;
 	void draw() const;
 	const Vector2* getCamera() const { return camera; }
@@ -42,9 +42,6 @@ protected:
 	virtual void draw_other() const = 0; //é©ã@à»äOÇï`âÊÇ∑ÇÈ
 	virtual void loadImage() = 0;
 	
-	//CharacterÇÃä÷êî
-	//virtual void damagedAction() = 0;
-
 	void standardAction(const Stage*);
 
 private:
@@ -73,6 +70,7 @@ private:
 	void processDamage();
 	void hittedAction() override;
 	void move(const Stage*);
+	void updateCamera();
 	bool isOnGround(const Stage*);
 
 	int jump();

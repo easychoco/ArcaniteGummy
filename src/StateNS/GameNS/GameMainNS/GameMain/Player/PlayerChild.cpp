@@ -17,6 +17,18 @@ maxJumpPower(_jump),
 maxJumpCount(_jumpCount)
 {
 	initialize();
+	assert(mImage != -1 && "自機画像読み込みエラー");
+}
+
+PlayerChild::~PlayerChild()
+{
+	SAFE_DELETE(camera);
+	for (auto& a : attacks)
+	{
+		SAFE_DELETE(a);
+	}
+	attacks.clear();
+	attacks.shrink_to_fit();
 }
 
 void PlayerChild::initialize()
@@ -30,14 +42,12 @@ void PlayerChild::initialize()
 
 	post_x = MyData::MAP_WIDTH / 2;
 	post_y = MyData::MAP_HEIGHT / 2;
-
 }
 
 void PlayerChild::draw() const
-{
-	
-	int draw_x = 320 + (p->pos_x() - camera->pos_x()) / MyData::vectorRate;
-	int draw_y = 240 + (p->pos_y() - camera->pos_y()) / MyData::vectorRate;
+{	
+	int draw_x = MyData::CX + (p->pos_x() - camera->pos_x()) / MyData::vectorRate;
+	int draw_y = MyData::CY + (p->pos_y() - camera->pos_y()) / MyData::vectorRate;
 
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, direction);
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
@@ -47,8 +57,9 @@ void PlayerChild::draw() const
 
 	//for Debug
 	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
-	DrawFormatString(0, 50, MyData::BLACK, "%d %d", p->x(), p->y());
-	DrawFormatString(0, 70, MyData::BLACK, "%d %d", collision->p->x(), collision->p->y());
+	DrawFormatString(0, 50, MyData::BLACK, "player : %d %d", p->pos_x(), p->pos_y());
+	DrawFormatString(0, 70, MyData::BLACK, "colli  : %d %d", collision->p->x(), collision->p->y());
+	DrawFormatString(0, 90, MyData::BLACK, "camera : %d %d", camera->x(), camera->y());
 }
 
 
@@ -58,6 +69,7 @@ void PlayerChild::draw() const
 void PlayerChild::standardAction(const Stage* _stage)
 {
 	move(_stage);
+	updateCamera();
 	changeCharacter();
 	processDamage();
 }
@@ -176,15 +188,29 @@ void PlayerChild::move(const Stage* _stage)
 
 	post_x = p->x();
 	post_y = p->y();
-
-
-	//カメラ位置を更新	
-	*camera = Vector2(
-		max(320, min(MyData::MAP_WIDTH  - 320, p->x())),
-		max(240, min(MyData::MAP_HEIGHT - 240, p->y()))
-	);
 	
 	prePush = Input_JUMP();
+}
+
+void PlayerChild::updateCamera()
+{
+	//for Debug
+	//MyData::MAP_WIDTH * 2 の2はマップをつなげた個数
+
+	//カメラ位置を更新
+	//int tmp_x = max(MyData::CX, min(MyData::MAP_WIDTH  * 2 - MyData::CX, p->raw_x / MyData::vectorRate));
+	//int tmp_y = max(MyData::CY, min(MyData::MAP_HEIGHT * 2 - MyData::CY, p->raw_y / MyData::vectorRate));
+
+	int tmp_x = p->raw_x / MyData::vectorRate;
+	int tmp_y = p->raw_y / MyData::vectorRate;
+
+	if(tmp_x % 960 < 320)tmp_x = 960 * (tmp_x / 960) + 320;
+	if (tmp_x % 960 > 640)tmp_x = 960 * (tmp_x / 960) + 640;
+
+	if (tmp_y % 640 < 240)tmp_y = 640 * (tmp_y / 640) + 240;
+	if (tmp_y % 640 > 400)tmp_y = 640 * (tmp_y / 640) + 400;
+
+	*camera = Vector2(tmp_x, tmp_y);
 }
 
 bool PlayerChild::isOnGround(const Stage* _stage)

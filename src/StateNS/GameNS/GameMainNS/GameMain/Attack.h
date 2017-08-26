@@ -17,14 +17,18 @@ class Attack : public DynamicObject
 public:
 	Attack(int x, int y, int w, int h);
 	virtual ~Attack();
+	virtual void setStatus(Vector2, int status) = 0;
 	virtual void update() = 0;
-	virtual void draw(const Vector2*) const = 0;
+	void draw(const Vector2*) const;
+	void checkActive(const Vector2* camera);
 	int getDamageValue() { return damageValue; }
 
 	bool isActive;
 	Character* parent;
 
-private:
+protected:
+	int mImage;
+	bool mDirection;
 	int damageValue;
 };
 

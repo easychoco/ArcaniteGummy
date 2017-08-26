@@ -160,10 +160,10 @@ void Stage::loadMap(int _stageID, int _mapID)
 template<typename Arr>
 void Stage::drawMap(Arr _mapData, const Vector2* _camera) const
 {
-	//マップ描画をする際に，自機の位置依存で描画位置の座標が変わる
+	//マップ描画をする際に，カメラの位置依存で描画位置の座標が変わる
+	int draw_x = _camera->x() - MyData::CX;
+	int draw_y = _camera->y() - MyData::CY;
 
-	int draw_x = _camera->pos_x() / MyData::vectorRate - MyData::CX;
-	int draw_y = _camera->pos_y() / MyData::vectorRate - MyData::CY;
 
 	//マップ描画
 	for (unsigned y = 0; y < mapData.size(); y++)

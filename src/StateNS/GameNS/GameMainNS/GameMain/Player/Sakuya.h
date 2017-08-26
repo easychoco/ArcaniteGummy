@@ -22,20 +22,18 @@ private:
 	void draw_other() const;
 	virtual void loadImage() override;
 
+	//UŒ‚•û–@‚Ì“à•”ƒNƒ‰ƒX
 	class Knife : public Attack
 	{
 	public:
 		Knife(int x, int y, int w, int h, int dx);
 		~Knife();
 		void update();
-		void draw(const Vector2* camera) const;
+		void setStatus(Vector2, int dx);
 		void hittedAction();
-
 
 	private:
 		int dx;
-		int mImage;
-		bool mDirection;
 	};
 };
 

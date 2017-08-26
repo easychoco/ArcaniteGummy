@@ -21,8 +21,7 @@ Sakuya::Sakuya(int _x, int _y) : Sakuya(_x, _y, 100)
 
 Sakuya::~Sakuya()
 {
-	SAFE_DELETE(p);
-	SAFE_DELETE(camera);
+
 }
 
 void Sakuya::initialize()
@@ -42,12 +41,15 @@ PlayerChild* Sakuya::update(const Stage* _stage)
 	{
 		attack();
 	}
+	
 	for (auto& a : attacks)
 	{
-		a->update();
-		if (!a->isActive)SAFE_DELETE(a);
+		if (a->isActive)
+		{
+			a->update();
+			a->checkActive(camera);
+		}
 	}
-
 
 	//for Debug
 	if (canChangeCharacter())
@@ -70,18 +72,32 @@ PlayerChild* Sakuya::update(const Stage* _stage)
 //==============================================
 void Sakuya::attack()
 {
-	attacks.push_back(new Knife(this->p->x(), this->p->y(), 32, 32, 5));
+	//使っていないオブジェクトを再利用
+	for (auto& a : attacks)
+	{
+		if (!a->isActive)
+		{
+			a->setStatus(*p, 5);
+			a->isActive = true;
+			return;
+		}
+	}
+
+	//すべて使っていたらnewする
+	attacks.push_back(new Knife(this->p->raw_x, this->p->raw_y, 32, 32, 5));
 }
 
 void Sakuya::draw_other() const
 {
-	for (auto& a : attacks)
+	for (const auto& a : attacks)
 	{
-		a->draw(camera);
+		if(a->isActive)a->draw(camera);
 	}
 
 	//for Debug
 	DrawFormatString(0, 30, MyData::BLACK, "Sakuya");
+	DrawFormatString(0, 130, MyData::BLACK, "cam_raw : %d %d", camera->raw_x, camera->raw_y);
+	if(attacks.size() > 0)if(attacks[0]->isActive)DrawFormatString(0, 150, MyData::BLACK, "atk0   : %d %d", attacks[0]->p->raw_x, attacks[0]->p->raw_y);
 }
 
 void Sakuya::loadImage()
@@ -90,7 +106,9 @@ void Sakuya::loadImage()
 	assert(mImage != -1 && "自機画像読み込みエラー");
 }
 
+//==============================================
 //Knifeクラス
+//==============================================
 Sakuya::Knife::Knife(int _x, int _y, int _w, int _h, int _dx) :
 Attack(_x, _y, _w, _h)
 {
@@ -111,23 +129,17 @@ void Sakuya::Knife::update()
 	this->p->raw_x += dx;
 }
 
-void Sakuya::Knife::draw(const Vector2* _camera) const
+void Sakuya::Knife::setStatus(Vector2 _pos, int _dx)
 {
-	//画面内にいなければreturn
-	if (abs(p->pos_x() - _camera->pos_x()) > 350000 || abs(p->pos_y() - _camera->pos_y()) > 270000)return;
-
-
-	int draw_x = 320 + (p->pos_x() - _camera->pos_x()) / MyData::vectorRate;
-	int draw_y = 240 + (p->pos_y() - _camera->pos_y()) / MyData::vectorRate;
-
-	//描画
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
+	*(this->p) = _pos;
+	this->dx = _dx * MyData::vectorRate;
 }
 
 void Sakuya::Knife::hittedAction()
 {
 	this->isActive = false;
 }
+
 
 }
 }
