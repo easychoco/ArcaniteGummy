@@ -25,9 +25,6 @@ void Attack::draw(const Vector2* _camera) const
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
 	if (abs(p->raw_x - _camera->raw_x) > 350000 || abs(p->raw_y - _camera->raw_y) > 270000)return;
 
-
-	//int draw_x = 320 + (p->pos_x() - _camera->pos_x()) / MyData::vectorRate;
-	//int draw_y = 240 + (p->pos_y() - _camera->pos_y()) / MyData::vectorRate;
 	int draw_x = 320 + (p->x() - _camera->x());
 	int draw_y = 240 + (p->y() - _camera->y());
 
@@ -38,7 +35,7 @@ void Attack::draw(const Vector2* _camera) const
 
 void Attack::checkActive(const Vector2* _camera)
 {
-	if (abs(p->raw_x - _camera->raw_x) > 350000 || abs(p->raw_y - _camera->raw_y) > 270000)isActive = false;
+	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)isActive = false;
 }
 
 //==============================================

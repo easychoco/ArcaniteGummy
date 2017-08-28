@@ -23,6 +23,10 @@ public:
 	Collision* collision;
 
 
+	//for Debug
+	int getColliX() const;
+	int getColliY() const;
+
 private:
 };
 

@@ -26,6 +26,18 @@ bool DynamicObject::isHit(const DynamicObject* _other) const
 }
 
 
+//for Debug
+int DynamicObject::getColliX() const
+{
+	return collision->p->raw_x;
+}
+
+//for Debug
+int DynamicObject::getColliY() const
+{
+	return collision->p->raw_y;
+}
+
 
 //==============================================
 //内部プライベート関数

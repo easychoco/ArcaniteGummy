@@ -17,7 +17,7 @@ namespace GameMainNS{
 
 EnemyController::EnemyController()
 {
-	enemies.push_back(new Usagi(96, 96));
+	//enemies.push_back(new Usagi(96, 96));
 	enemies.push_back(new Usagi(480, 128));
 	enemies.push_back(new Usagi(320, 240));
 }
@@ -46,6 +46,9 @@ void EnemyController::draw(const Vector2* _camera) const
 	{
 		enemy->draw(_camera);
 	}
+
+	//for Debug
+	if (enemies.size() >= 2)DrawFormatString(0, 190, MyData::BLACK, "ene1_hp %d", enemies[1]->hpController.getHP());
 }
 
 //Ž©‹@‚Æ“G‚Ì–{‘Ì“¯Žm‚ÌÕ“Ë”»’è

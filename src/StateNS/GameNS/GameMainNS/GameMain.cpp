@@ -110,14 +110,40 @@ void GameMain::draw() const
 
 void GameMain::processCollision()
 {
+	//TODO -> ‚‘¬‰»‚µ‚½‚¢
+	//ˆá‚¤ƒXƒe[ƒW‚Ì‚à‚Ì‚Íˆ—‚µ‚È‚¢‚Æ‚©
+
+	//“G
 	auto enemies = mEController->getEnemies();
+
+	//ƒvƒŒƒCƒ„[‚ÌUŒ‚
+	auto p_attacks = mPlayer->getAtacks();
+
+	//“G‚ÌUŒ‚
+	//...
+
 	for (auto& enemy : enemies)
 	{
+		//ƒvƒŒƒCƒ„[‚Æ“G‚ÌÕ“Ë
 		if (mPlayer->isHit(enemy))
 		{
 			mPlayer->hpController.damage(5);
 		}
+
+		//ƒvƒŒƒCƒ„[‚ÌUŒ‚‚Æ“G‚ÌÕ“Ë
+		for (auto& attack : p_attacks)
+		{
+			if (attack->isActive)
+			{
+				if (attack->isHit(enemy))
+				{
+					enemy->hpController.damage(attack->getDamageValue());
+					attack->hittedAction();
+				}
+			}
+		}
 	}
+
 }
 
 }

@@ -27,10 +27,7 @@ void HPController::damage(int _val, bool action)
 {
 	if (parent->damaged)return;
 	this->HP = max(this->HP - _val, 0);
-	if (action)
-	{
-		parent->damaged = true;
-	}
+	parent->damaged = action;
 }
 
 void HPController::recover(int _val)

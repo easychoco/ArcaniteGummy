@@ -24,11 +24,12 @@ void EnemyChild::initialize()
 void EnemyChild::draw(const Vector2* _camera) const
 {
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
+	if (!isAlive)return;
 	if (abs(p->pos_x() - _camera->pos_x()) > 350000 || abs(p->pos_y() - _camera->pos_y()) > 270000)return;
 
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
 
-	int draw_x = 320 + (p->pos_x() - _camera->pos_x()) / MyData::vectorRate;
-	int draw_y = 240 + (p->pos_y() - _camera->pos_y()) / MyData::vectorRate;
 
 	//•`‰æ
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
@@ -37,13 +38,17 @@ void EnemyChild::draw(const Vector2* _camera) const
 void EnemyChild::standardAction(const Stage* _stage)
 {
 	++mTime;
+	checkIsAlive(_stage);
+	if (!this->isAlive)return;
+
+	processDamage();
 	standardMove(_stage);
 }
 
 
 void EnemyChild::standardMove(const Stage* _stage)
 {
-	//ƒLƒƒƒ‰Œð‘ã’†‚È‚çreturn
+	//‚â‚ç‚ê‚Ä‚¢‚é‚È‚çreturn
 	if (!isAlive)return;
 
 	int dx = next_dx;
@@ -59,6 +64,29 @@ void EnemyChild::standardMove(const Stage* _stage)
 	p->raw_x += dx;
 	p->raw_y += dy;
 }
+
+
+void EnemyChild::checkIsAlive(const Stage* _stage)
+{
+	isAlive *= this->hpController.getHP() > 0;
+	isAlive *= this->p->raw_y % MyData::MAP_HEIGHT_RATE() < (this->p->raw_y + 10000) % MyData::MAP_HEIGHT_RATE();
+}
+
+void EnemyChild::processDamage()
+{
+	if (damaged)
+	{
+		++damagedTime;
+		if (damagedTime < 3)hittedAction();
+		if (damagedTime > 60)
+		{
+			damaged = false;
+			damagedTime = 0;
+		}
+	}
+}
+
+
 
 }
 }

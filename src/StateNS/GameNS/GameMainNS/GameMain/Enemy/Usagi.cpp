@@ -23,19 +23,31 @@ Usagi::~Usagi()
 
 void Usagi::initialize()
 {
-
+	this->mDirection = false;
+	this->moveSpeed = 3000;
 }
 
 void Usagi::update(const Stage* _stage)
 {
 	mTime++;
-	standardMove(_stage);
+	standardAction(_stage);
+	
 }
 
 void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
 {
-	_dx = getHorizontalDiffer(_stage, _dx);
-	_dy = getBottomDiffer(_stage, _dy);
+	_dx = getHorizontalDiffer(_stage, moveSpeed);
+	_dy = getBottomDiffer(_stage, 4000);
+
+	//_dx‚ª0‚Å•Ç‚É‚Ô‚Â‚©‚é
+	if (_dx == 0)
+	{
+		mDirection = !mDirection;
+		moveSpeed = -moveSpeed;
+	}
+
+	//_dy‚ª0‚Å‚È‚©‚Á‚½‚ç‹ó’†‚É‚¢‚é
+	if (_dy != 0)_dx = 0;
 }
 
 

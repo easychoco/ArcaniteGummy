@@ -23,6 +23,7 @@ public:
 	virtual PlayerChild* update(const Stage*) = 0;
 	void draw() const;
 	const Vector2* getCamera() const { return camera; }
+	vector<Attack*> getAtacks() const { return attacks; }
 	GameMain::HowStageMove getStageMove() const { return nextStageMove; };
 
 protected:

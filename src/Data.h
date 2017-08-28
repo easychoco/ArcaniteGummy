@@ -70,13 +70,17 @@ constexpr int CHIP_HEIGHT = 32;
 //1ピクセルをどれだけ拡張するか
 constexpr int vectorRate = 1000;
 
-//vectorRateを考慮したマップチップのサイズ
+//vectorRateを考慮しプレイヤーチップのサイズ
 constexpr int PLAYER_CHIP_WIDTH_RATE() { return PLAYER_CHIP_WIDTH * vectorRate; }
 constexpr int PLAYER_CHIP_HEIGHT_RATE() { return PLAYER_CHIP_HEIGHT * vectorRate; }
 
 //vectorRateを考慮したマップチップのサイズ
 constexpr int CHIP_WIDTH_RATE() { return CHIP_WIDTH * vectorRate; }
 constexpr int CHIP_HEIGHT_RATE() { return CHIP_HEIGHT * vectorRate; }
+
+//vectorRateを考慮したマップのサイズ
+constexpr int MAP_WIDTH_RATE() { return MAP_WIDTH * vectorRate; }
+constexpr int MAP_HEIGHT_RATE() { return MAP_HEIGHT * vectorRate; }
 
 //マップのマスに合わせて調整
 int fixToStageWidth(int _a);

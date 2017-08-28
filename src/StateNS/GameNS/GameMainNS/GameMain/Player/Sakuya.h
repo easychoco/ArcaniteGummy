@@ -17,8 +17,12 @@ public:
 	PlayerChild* update(const Stage*);
 
 private:
+	int attackTime;
+	const int attackInterval = 10;//UŒ‚‚ÌŠÔŠu
+
 	void initialize();
 	void attack();
+	int getAttackDx() const;
 	void draw_other() const;
 	virtual void loadImage() override;
 

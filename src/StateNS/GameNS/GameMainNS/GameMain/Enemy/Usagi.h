@@ -31,7 +31,8 @@ private:
 	bool imgLoad = false;
 	
 	int mTime;
-	bool mDirection;
+
+	int moveSpeed;
 };
 
 

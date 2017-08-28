@@ -137,8 +137,16 @@ void PlayerChild::move(const Stage* _stage)
 	next_dx = next_dy = 0;
 
 	//ì¸óÕ
-	if (Input_RIGHT())dx += (int)(moveSpeed * MyData::vectorRate);
-	if (Input_LEFT())dx -= (int)(moveSpeed * MyData::vectorRate);
+	if (Input_RIGHT())
+	{
+		dx += (int)(moveSpeed * MyData::vectorRate);
+		direction = false;
+	}
+	if (Input_LEFT())
+	{
+		dx -= (int)(moveSpeed * MyData::vectorRate);
+		direction = true;
+	}
 
 	//ínè„Ç…Ç¢ÇÈÇ»ÇÁ
 	if (jumpPower == 0 && isOnGround(_stage))
