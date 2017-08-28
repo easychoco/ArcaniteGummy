@@ -20,6 +20,9 @@ public:
 	void update(const Stage*);
 	void draw(const Vector2*) const;
 
+	vector<EnemyChild*>& getEnemies() { return enemies; }
+
+	//©‹@‚Æ“G‚ÌUŒ‚‚Æ‚Ì“–‚½‚è”»’è
 	void processCollision(PlayerChild*);
 
 	void createEnemy();

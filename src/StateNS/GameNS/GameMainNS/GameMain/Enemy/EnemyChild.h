@@ -15,7 +15,6 @@ public:
 	virtual void update(const Stage*) = 0;
 	void draw(const Vector2* camera) const;
 
-
 protected:
 	int mTime;
 	int mImage;
@@ -26,13 +25,14 @@ protected:
 	virtual void loadImage() = 0;
 
 	void standardAction(const Stage* _stage);
-	void standardMove(const Stage* _stage);
 
 private:
 	bool isAlive;
 
 	void initialize();
-
+	void standardMove(const Stage* stage);
+	void checkIsAlive(const Stage* stage);
+	void processDamage();
 
 
 

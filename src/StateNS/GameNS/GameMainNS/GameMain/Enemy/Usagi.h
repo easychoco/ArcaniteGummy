@@ -18,7 +18,7 @@ public:
 
 private:
 	//Character‚ÌŠÖ”
-	void damagedAction();
+	void hittedAction();
 
 	//Enemychild‚ÌŠÖ”
 	void move(const Stage*, int& dx, int& dy);
@@ -31,7 +31,8 @@ private:
 	bool imgLoad = false;
 	
 	int mTime;
-	bool mDirection;
+
+	int moveSpeed;
 };
 
 

@@ -121,24 +121,6 @@ package State_1{
       class MovingFloor{
         '落ちる床もここで実装
       }
-      class SlippingFloor{
-
-      }
-      class DroppingRock{
-
-      }
-      class ドッスン{
-
-      }
-      class BeltConveyor{
-
-      }
-      class CheckPoint{
-
-      }
-      class Switch{
-
-      }
 
       abstract PlayerChild{
         protected bool atari
@@ -185,6 +167,16 @@ package State_1{
         void draw()
       }
 
+      class DynamicObject{
+        Vector2* p
+        Collision* collision
+        bool isHit()
+      }
+
+      class Collision{
+        DynamicObject* parent
+      }
+
 
       Play <|-- GameMain
       Play <|-- Pause
@@ -194,9 +186,14 @@ package State_1{
       Stage *-- GimmickChild
       GameMain *--EnemyChild
       GameMain *-- PlayerChild
+      DynamicObject <|-- Character
+      DynamicObject <|-- Attack
+      DynamicObject *-* Collision
       Character <|-- EnemyChild
       Character <|-- PlayerChild
-      Character *- HPController
+      PlayerChild *- Attack
+      EnemyChild *- Attack
+      HPController -* Character
       GimmickChild <|-- MovingFloor
       GimmickChild <|-- SlippingFloor
       GimmickChild <|-- DroppingRock

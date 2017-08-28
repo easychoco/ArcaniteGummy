@@ -20,13 +20,14 @@ HPController::~HPController()
 
 void HPController::damage(int _val)
 {
-	this->HP = max(this->HP - _val, 0);
+	this->damage(_val, true);
 }
 
-void HPController::damageWithAction(int _val)
+void HPController::damage(int _val, bool action)
 {
+	if (parent->damaged)return;
 	this->HP = max(this->HP - _val, 0);
-	if (parent)parent->damagedAction();
+	parent->damaged = action;
 }
 
 void HPController::recover(int _val)

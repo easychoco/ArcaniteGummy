@@ -17,8 +17,9 @@ namespace GameMainNS{
 
 EnemyController::EnemyController()
 {
-	enemies.push_back(new Usagi(96, 96));
+	//enemies.push_back(new Usagi(96, 96));
 	enemies.push_back(new Usagi(480, 128));
+	enemies.push_back(new Usagi(320, 240));
 }
 
 EnemyController::~EnemyController()
@@ -47,9 +48,10 @@ void EnemyController::draw(const Vector2* _camera) const
 	}
 
 	//for Debug
-	DrawFormatString(0, 90, MyData::BLACK, "%d, %d", enemies[0]->collision->p->x(), enemies[0]->collision->p->y());
+	if (enemies.size() >= 2)DrawFormatString(0, 190, MyData::BLACK, "ene1_hp %d", enemies[1]->hpController.getHP());
 }
 
+//©‹@‚Æ“G‚Ì–{‘Ì“¯m‚ÌÕ“Ë”»’è
 void EnemyController::processCollision(PlayerChild* _player)
 {
 	for (auto& enemy : enemies)

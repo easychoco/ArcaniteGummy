@@ -23,19 +23,31 @@ Usagi::~Usagi()
 
 void Usagi::initialize()
 {
-
+	this->mDirection = false;
+	this->moveSpeed = 3000;
 }
 
 void Usagi::update(const Stage* _stage)
 {
 	mTime++;
-	standardMove(_stage);
+	standardAction(_stage);
+	
 }
 
 void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
 {
-	_dx = getHorizontalDiffer(_stage, _dx);
-	_dy = getBottomDiffer(_stage, _dy);
+	_dx = getHorizontalDiffer(_stage, moveSpeed);
+	_dy = getBottomDiffer(_stage, 4000);
+
+	//_dxが0で壁にぶつかる
+	if (_dx == 0)
+	{
+		mDirection = !mDirection;
+		moveSpeed = -moveSpeed;
+	}
+
+	//_dyが0でなかったら空中にいる
+	if (_dy != 0)_dx = 0;
 }
 
 
@@ -43,7 +55,7 @@ void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
 //内部プライベート関数
 //==============================================
 
-void Usagi::damagedAction()
+void Usagi::hittedAction()
 {
 
 }

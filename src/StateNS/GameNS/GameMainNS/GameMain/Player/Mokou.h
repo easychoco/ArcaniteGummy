@@ -11,7 +11,7 @@ namespace GameMainNS{
 class Mokou : public PlayerChild
 {
 public:
-	Mokou(int, int, int);
+	Mokou(int x, int y, int hp);
 	Mokou(int, int);
 	~Mokou();
 	PlayerChild* update(const Stage*);
@@ -21,7 +21,6 @@ private:
 	void attack();
 	void draw_other() const;
 	virtual void loadImage() override;
-	virtual void damagedAction() override { /* for Debug */ };
 };
 
 

@@ -20,6 +20,7 @@ bool Input_JUMP();
 bool Input_OK();
 bool Input_NO();
 bool Input_CHANGE();
+bool Input_ATTACK();
 
 void keyConfig();
 
