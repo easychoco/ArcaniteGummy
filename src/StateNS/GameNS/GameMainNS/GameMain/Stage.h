@@ -13,11 +13,16 @@ class GimmickChild;
 class Stage
 {
 public:
-	Stage(int stageID);
+	Stage(int mapID, int stageID);
 	~Stage();
 	void initialize();
 	void update(PlayerChild*);
 	void draw(const Vector2* player) const;
+	void setStageSize(int _x, int _y)
+	{
+		stage_max_x = _x;
+		stage_max_y = _y;
+	}
 
 	enum ChipType
 	{
@@ -29,18 +34,23 @@ public:
 		TYPE_UP_SLANT_RIGHT		= 0b0100000, //右上へ向けた斜めブロック, 下がブロックなし
 		TYPE_UP_SLANT_LEFT		= 0b1000000, //左上へ向けた斜めブロック, 下がブロックなし
 	};
-	ChipType getChipType(const Vector2) const;
-	ChipType getChipType(const RawVector2) const;
+	ChipType getChipType(const Vector2&) const;
+	ChipType getChipType(const RawVector2&) const;
 
-	bool isRigid_down(ChipType _ct) const { return (_ct & 0b1110110) != 0; }
-	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b0011010) != 0; }
-	bool isSlant(ChipType _ct)		const { return (_ct & 0b1111000) != 0; }
-
+	bool isRigid_down(ChipType _ct) const { return (_ct & 0b1100110) != 0; }//下にすり抜けられないブロック，床になる
+	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b0011010) != 0; }//上にすり抜けられないブロック，天井になる
+	bool isSlant(ChipType _ct)		const { return (_ct & 0b1111000) != 0; }//斜めブロック
+	
 private:
 	int mBackImg;
+	int stage_max_x;
+	int stage_max_y;
 
 	//ギミックの配列
 	std::vector< GimmickChild* > mGimmicks;
+
+
+	//以下マップ関連
 
 	//mapChipの画像(32x32pixcels)
 	int mapChip[7];
@@ -50,13 +60,11 @@ private:
 	//mapData[~19][~29]
 	std::array< std::array<int, 30>, 20> mapData;
 
-	//マップ描画
-
 	//前景描画
 	template<typename Arr>
 	void drawMap(Arr, const Vector2*) const;
 
-	void loadMap(int stageID);
+	void loadMap(int stageID, int mapID);
 
 	class Chip
 	{

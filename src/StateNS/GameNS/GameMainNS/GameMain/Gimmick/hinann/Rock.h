@@ -12,14 +12,16 @@ namespace GameMainNS{
 
 class Child;
 
-class SlippingFloor : public GimmickChild
+class Rock : public GimmickChild
 {
 public:
-	SlippingFloor();
-	~SlippingFloor();
+	Rock();
+	~Rock();
 	void initialize();
 	void update(PlayerChild*);
 	void draw() const;
+	bool isHit(const Vector2&) const;
+	Stage::ChipType getChipType() const;
 
 private:
 };

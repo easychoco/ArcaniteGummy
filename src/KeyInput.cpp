@@ -94,3 +94,8 @@ bool Input_NO()
 {
 	return toBoolean[CheckHitKey(KEY_INPUT_X)];
 }
+
+bool Input_CHANGE()
+{
+	return toBoolean[CheckHitKey(KEY_INPUT_RETURN)];
+}

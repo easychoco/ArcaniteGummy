@@ -7,22 +7,35 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-class EnemyChild
+class EnemyChild : public Character
 {
 public:
-	virtual ~EnemyChild() {};
-	virtual void update() = 0;
-	virtual void draw() = 0;
+	EnemyChild(int hp, int x, int y, int w, int h);
+	virtual ~EnemyChild();
+	virtual void update(const Stage*) = 0;
+	void draw(const Vector2* camera) const;
 
-	//‚±‚Ì2‚Â‚Í‚¢‚ç‚È‚¢‚©‚à‚µ‚ê‚È‚¢
-	virtual void move() = 0;
-	virtual void attack() = 0;
-
-	//Character‚ÌŠÖ”
-	virtual void damagedAction() = 0;
 
 protected:
-	Vector2* point;
+	int mTime;
+	int mImage;
+	bool mDirection;
+
+	//dx ‚Æ dy ‚ÉˆÚ“®—Ê‚ğ“ü‚ê‚é
+	virtual void move(const Stage*, int& dx, int& dy) = 0;
+	virtual void loadImage() = 0;
+
+	void standardAction(const Stage* _stage);
+	void standardMove(const Stage* _stage);
+
+private:
+	bool isAlive;
+
+	void initialize();
+
+
+
+
 };
 
 

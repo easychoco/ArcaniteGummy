@@ -15,13 +15,23 @@ class Child;
 class BeltConveyor : public GimmickChild
 {
 public:
-	BeltConveyor();
+	BeltConveyor(float, Vector2);
 	~BeltConveyor();
 	void initialize();
-	void update(PlayerChild*);
-	void draw() const;
+	void update();
+	void draw(const Vector2*) const;
+	void apply(Character*);
+	bool isOverlap(int, int) const;
+	bool onActiveArea(const Vector2*) const;
+	Stage::ChipType getChipType() const;
+
+	void setMovingSpeed(float _dx) { dx = _dx; }
 
 private:
+	float dx;
+	Vector2 pos;
+	int mImage;
+	int mTime;
 };
 
 

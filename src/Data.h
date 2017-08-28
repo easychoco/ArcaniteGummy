@@ -55,11 +55,11 @@ constexpr int PLAYER_CHIP_WIDTH = 32;
 constexpr int CX = 320;
 constexpr int CY = 240;
 
-//マップのサイズ(ピクセル数)
+//マップ1つ分のサイズ(ピクセル数)
 constexpr int MAP_WIDTH = 960;
 constexpr int MAP_HEIGHT = 640;
 
-//マップのサイズ(チップ数)
+//マップ1つ分のサイズ(チップ数)
 constexpr int MAP_WIDTH_NUM = 30;
 constexpr int MAP_HEIGHT_NUM = 20;
 
@@ -103,22 +103,33 @@ class Vector2
 {
 
 public:
-	int pos_x;
-	int pos_y;
+	int raw_x, raw_y;
 
-	Vector2() :
-		Vector2(0, 0)
+	Vector2() : Vector2(0, 0, false)
 	{
 
 	}
-	Vector2(int _x, int _y)
+	Vector2(int _x, int _y) : Vector2(_x, _y, false)
 	{
-		this->pos_x = _x * vectorRate;
-		this->pos_y = _y * vectorRate;
+
+	}
+	Vector2(int _x, int _y, bool useRawValue)
+	{
+		this->raw_x = _x;
+		this->raw_y = _y;
+		
+		if (!useRawValue)
+		{
+			this->raw_x *= vectorRate;
+			this->raw_y *= vectorRate;
+		}
 	}
 
-	virtual int x() const { return this->pos_x / vectorRate; }
-	virtual int y() const { return this->pos_y / vectorRate; }
+
+	const int x() const { return (this->raw_x / vectorRate) % MAP_WIDTH; }
+	const int y() const { return (this->raw_y / vectorRate) % MAP_HEIGHT; }
+	const int pos_x() const { return this->raw_x % (MAP_WIDTH * vectorRate); }
+	const int pos_y() const { return this->raw_y % (MAP_HEIGHT * vectorRate); }
 
 
 	bool isZero() const
@@ -136,23 +147,23 @@ public:
 	}
 	const Vector2 operator + (const Vector2& other)
 	{
-		return Vector2(pos_x + other.x(), pos_y + other.y());
+		return Vector2(raw_x + other.x(), raw_y + other.y());
 	}
 	const Vector2 operator - (const Vector2& other)
 	{
-		return Vector2(pos_x - other.x(), pos_y - other.y());
+		return Vector2(raw_x - other.x(), raw_y - other.y());
 	}
 	const Vector2 operator * (int other) const
 	{
-		return Vector2(pos_x * other, pos_y * other);
+		return Vector2(raw_x * other, raw_y * other);
 	}
 	const Vector2 operator / (int other) const
 	{
-		return Vector2(this->pos_x / other, this->pos_y / other);
+		return Vector2(this->raw_x / other, this->raw_y / other);
 	}
 	bool operator == (const Vector2& other) const
 	{
-		return (pos_x == other.x()) && (pos_y == other.y());
+		return (raw_x == other.x()) && (raw_y == other.y());
 	}
 	bool operator != (const Vector2& other) const
 	{
