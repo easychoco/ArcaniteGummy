@@ -31,6 +31,7 @@ void Mokou::initialize()
 {
 	//this->moveSpeed = 5.0f;
 	loadImage();
+	attackTime = 0;
 }
 
 PlayerChild* Mokou::update(const Stage* _stage)
@@ -38,6 +39,26 @@ PlayerChild* Mokou::update(const Stage* _stage)
 	PlayerChild* next = this;
 
 	standardAction(_stage);
+
+	//攻撃
+	for (auto& a : attacks)
+	{
+		if (a->isActive)
+		{
+			a->update();
+			a->checkActive(camera);
+		}
+	}
+
+	if (Input_ATTACK())
+	{
+		attack();
+	}
+	else
+	{
+		attackTime = 0;
+	}
+
 
 	//for Debug
 	if (canChangeCharacter())
@@ -57,11 +78,30 @@ PlayerChild* Mokou::update(const Stage* _stage)
 //==============================================
 void Mokou::attack()
 {
+	if (attacks.size() == 0)
+	{
+		attacks.push_back(new Fire(0, 0, 32, 32, true));
+		attacks.push_back(new Fire(0, 0, 32, 32, true));
+		attacks.push_back(new Fire(0, 0, 32, 32, true));
+	}
 
+	++attackTime;
+	//if (attackTime > 0)
+	int new_pos = 32000 * ((direction) ? -1 : 1);
+
+	attacks[0]->setStatus(Vector2(this->p->raw_x + new_pos * 1, this->p->raw_y, true), this->direction);
+	if (attackTime > 10)attacks[1]->setStatus(Vector2(this->p->raw_x + new_pos * 2, this->p->raw_y, true), this->direction);
+	if (attackTime > 20)attacks[2]->setStatus(Vector2(this->p->raw_x + new_pos * 3, this->p->raw_y, true), this->direction);
+	
 }
 
 void Mokou::draw_other() const
 {
+	for (const auto& a : attacks)
+	{
+		if (a->isActive)a->draw(camera);
+	}
+
 	//for Debug
 	DrawFormatString(0, 30, MyData::BLACK, "Mokou");
 }
@@ -72,6 +112,48 @@ void Mokou::loadImage()
 	mImage = LoadGraph("Data/Image/mokou.png");
 	assert(mImage != -1 && "自機画像読み込みエラー");
 }
+
+//==============================================
+//Fireクラス
+//==============================================
+Mokou::Fire::Fire(int _x, int _y, int _w, int _h, bool _direction) :
+Attack(_x, _y, _w, _h)
+{
+	this->mTime = 0;
+	mDirection = _direction;
+
+	//for Debug
+	this->damageValue = 20;
+
+	mImage = LoadGraph("Data/Image/fire.png");
+	assert(mImage != -1 && "Fire画像読み込みエラー");
+}
+
+Mokou::Fire::~Fire()
+{
+	DeleteGraph(mImage);
+}
+
+void Mokou::Fire::update()
+{
+	mTime++;
+	isActive = false;
+}
+
+void Mokou::Fire::setStatus(Vector2 _pos, int direction)
+{
+	*(this->p) = _pos;
+	this->mDirection = direction;
+
+	isActive = true;
+
+}
+
+void Mokou::Fire::hittedAction()
+{
+	//do nothing
+}
+
 
 
 }

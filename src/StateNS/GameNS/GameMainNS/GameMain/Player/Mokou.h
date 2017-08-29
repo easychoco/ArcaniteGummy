@@ -17,10 +17,28 @@ public:
 	PlayerChild* update(const Stage*);
 
 private:
+	int attackTime;
+	const int attackInterval = 10;//UŒ‚‚ÌŠÔŠu
+
 	void initialize();
 	void attack();
 	void draw_other() const;
 	virtual void loadImage() override;
+	
+	//UŒ‚•û–@‚Ì“à•”ƒNƒ‰ƒX
+	class Fire : public Attack
+	{
+	public:
+		Fire(int x, int y, int w, int h, bool direction);
+		~Fire();
+		void update();
+		void setStatus(Vector2, int dx);
+		void hittedAction();
+
+	private:
+		int mTime;
+
+	};
 };
 
 
