@@ -68,8 +68,9 @@ void EnemyChild::standardMove(const Stage* _stage)
 
 void EnemyChild::checkIsAlive(const Stage* _stage)
 {
-	isAlive *= this->hpController.getHP() > 0;
-	isAlive *= this->p->raw_y % MyData::MAP_HEIGHT_RATE() < (this->p->raw_y + 10000) % MyData::MAP_HEIGHT_RATE();
+	isAlive &= (this->hpController.getHP() > 0);
+	isAlive &= (this->p->raw_y % MyData::MAP_HEIGHT_RATE() < (this->p->raw_y + 10000) % MyData::MAP_HEIGHT_RATE());
+	isAlive &= (this->p->raw_y % MyData::MAP_HEIGHT_RATE() > (this->p->raw_y - 10000) % MyData::MAP_HEIGHT_RATE());
 }
 
 void EnemyChild::processDamage()

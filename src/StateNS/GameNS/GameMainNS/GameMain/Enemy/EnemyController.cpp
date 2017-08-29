@@ -63,7 +63,7 @@ void EnemyController::processCollision(PlayerChild* _player)
 	}
 }
 
-void EnemyController::createEnemy()
+void EnemyController::createEnemy(/*—ñ‹“Œ^‚Å“GŽw’è*/)
 {
 
 }
