@@ -3,4 +3,4 @@
 //全てのギミックをインクルードするだけ
 #include "BeltConveyor.h"
 #include "MovingFloor.h"
-
+#include "Spring.h"

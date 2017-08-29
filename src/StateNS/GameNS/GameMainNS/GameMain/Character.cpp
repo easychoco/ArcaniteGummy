@@ -29,6 +29,14 @@ void Character::moveCharacter(float _dx, float _dy)
 	this->next_dy += (int)(_dy * MyData::vectorRate);
 }
 
+//キャラをx, yの位置に移動させる
+void Character::arrangeCharacter(float _x, float _y)
+{
+	p->raw_x = (int)(_x * MyData::vectorRate);
+	p->raw_y = (int)(_y * MyData::vectorRate);
+}
+
+
 int Character::getTopDiffer(const Stage* _stage, const int _dy) const
 {
 	//斜めブロックなら

@@ -19,6 +19,7 @@ public:
 	virtual ~Character();
 	virtual void hittedAction() = 0;
 	void moveCharacter(float _dx, float _dy);
+	void arrangeCharacter(float _x, float _y);
 
 	HPController hpController;
 	bool damaged;
