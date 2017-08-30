@@ -24,21 +24,22 @@ public:
 
 	void setJumpPower(float _x) { jumpPower = _x; }
 
-	int jump();
-	int gravity();
-
-
 	//for Debug
 	int getColliX() const;
 	int getColliY() const;
 
 protected:
+	//自機だけでなく敵もジャンプさせるのでここに書く
 	const float maxJumpPower;
 	const int maxJumpCount;
 	float jumpPower;
 	int nowJumpCount;
 
+	int jump();
+	int gravity();
 
+	//cameraを中心とした描画
+	void standardDraw(const Vector2* camera, const Vector2* pos, const int& image, const bool& direction) const;
 };
 
 

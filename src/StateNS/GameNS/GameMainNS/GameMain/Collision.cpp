@@ -23,10 +23,10 @@ Collision::~Collision()
 bool Collision::isHit(const Collision* other) const
 {
 	return
-		this->p->pos_x()			    < other->p->pos_x() + other->width  &&
-		this->p->pos_x() + this->width  > other->p->pos_x()					&&
-		this->p->pos_y()			    < other->p->pos_y() + other->height &&
-		this->p->pos_y() + this->height > other->p->pos_y();
+		this->p->raw_x			      < other->p->raw_x + other->width  &&
+		this->p->raw_x + this->width  > other->p->raw_x					&&
+		this->p->raw_y			      < other->p->raw_y + other->height &&
+		this->p->raw_y + this->height > other->p->raw_y;
 }
 
 

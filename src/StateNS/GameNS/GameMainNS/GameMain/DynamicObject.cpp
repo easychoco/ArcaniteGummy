@@ -30,6 +30,43 @@ bool DynamicObject::isHit(const DynamicObject* _other) const
 }
 
 
+//for Debug
+int DynamicObject::getColliX() const
+{
+	return collision->p->raw_x;
+}
+
+//for Debug
+int DynamicObject::getColliY() const
+{
+	return collision->p->raw_y;
+}
+
+
+//==============================================
+//内部protected関数
+//==============================================
+//cameraを中心とした描画
+void DynamicObject::standardDraw(const Vector2* _camera, const Vector2* _pos, const int& _image, const bool& _direction) const
+{
+
+	if (//同じステージにいなければreturn
+		_pos->raw_x / MAP_WIDTH_RATE() != _camera->raw_x / MAP_WIDTH_RATE() ||
+		_pos->raw_y / MAP_HEIGHT_RATE() != _camera->raw_y / MAP_HEIGHT_RATE()
+		)
+	return;
+
+	//画面内にいなければreturn
+	if (abs(_pos->pos_x() - _camera->pos_x()) > 480000 || abs(p->pos_y() - _camera->pos_y()) > 320000)return;
+
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	//描画
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, _image, true, _direction);
+}
+
+
 //ジャンプでの移動量を返す
 //正の値で上方向
 int DynamicObject::jump()
@@ -45,23 +82,6 @@ int DynamicObject::gravity()
 	//for Debug
 	//このままいくならconstexprで
 	return 7 * MyData::vectorRate;
-}
-
-
-
-
-
-
-//for Debug
-int DynamicObject::getColliX() const
-{
-	return collision->p->raw_x;
-}
-
-//for Debug
-int DynamicObject::getColliY() const
-{
-	return collision->p->raw_y;
 }
 
 

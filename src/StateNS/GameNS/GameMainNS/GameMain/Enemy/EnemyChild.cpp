@@ -17,29 +17,23 @@ EnemyChild::~EnemyChild()
 void EnemyChild::initialize()
 {
 	this->mTime = 0;
-	this->isAlive = true;
+	this->mIsAlive = true;
 	this->mDirection = false;
 }
 
 void EnemyChild::draw(const Vector2* _camera) const
 {
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	if (!isAlive)return;
-	if (abs(p->pos_x() - _camera->pos_x()) > 350000 || abs(p->pos_y() - _camera->pos_y()) > 270000)return;
-
-	int draw_x = 320 + p->x() - _camera->x();
-	int draw_y = 240 + p->y() - _camera->y();
-
-
-	//•`‰æ
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
+	if (!mIsAlive)return;
+	
+	standardDraw(_camera, p, mImage, mDirection);
 }
 
 void EnemyChild::standardAction(const Stage* _stage)
 {
 	++mTime;
 	checkIsAlive(_stage);
-	if (!this->isAlive)return;
+	if (!this->mIsAlive)return;
 
 	processDamage();
 	standardMove(_stage);
@@ -49,7 +43,7 @@ void EnemyChild::standardAction(const Stage* _stage)
 void EnemyChild::standardMove(const Stage* _stage)
 {
 	//‚â‚ç‚ê‚Ä‚¢‚é‚È‚çreturn
-	if (!isAlive)return;
+	if (!mIsAlive)return;
 
 	int dx = next_dx;
 	int dy = next_dy;
@@ -68,9 +62,9 @@ void EnemyChild::standardMove(const Stage* _stage)
 
 void EnemyChild::checkIsAlive(const Stage* _stage)
 {
-	isAlive &= (this->hpController.getHP() > 0);
-	isAlive &= (this->p->raw_y % MyData::MAP_HEIGHT_RATE() < (this->p->raw_y + 10000) % MyData::MAP_HEIGHT_RATE());
-	isAlive &= (this->p->raw_y % MyData::MAP_HEIGHT_RATE() > (this->p->raw_y - 10000) % MyData::MAP_HEIGHT_RATE());
+	mIsAlive &= (this->hpController.getHP() > 0);
+	mIsAlive &= (this->p->raw_y % MyData::MAP_HEIGHT_RATE() < (this->p->raw_y + 10000) % MyData::MAP_HEIGHT_RATE());
+	mIsAlive &= (this->p->raw_y % MyData::MAP_HEIGHT_RATE() > (this->p->raw_y - 10000) % MyData::MAP_HEIGHT_RATE());
 }
 
 void EnemyChild::processDamage()

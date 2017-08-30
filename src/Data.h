@@ -224,5 +224,4 @@ public:
 
 }
 
-using MyData::Vector2;
-using MyData::RawVector2;
+using namespace MyData;

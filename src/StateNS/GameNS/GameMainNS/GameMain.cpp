@@ -125,7 +125,7 @@ void GameMain::processCollision()
 	for (auto& enemy : enemies)
 	{
 		//ƒvƒŒƒCƒ„[‚Æ“G‚ÌÕ“Ë
-		if (mPlayer->isHit(enemy))
+		if (enemy->isAlive() && mPlayer->isHit(enemy))
 		{
 			mPlayer->hpController.damage(5);
 		}

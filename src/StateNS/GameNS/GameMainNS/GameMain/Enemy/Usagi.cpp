@@ -36,7 +36,7 @@ void Usagi::update(const Stage* _stage)
 
 void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
 {
-	_dx = getHorizontalDiffer(_stage, moveSpeed);
+	_dx = 0;// getHorizontalDiffer(_stage, moveSpeed);
 	_dy = getBottomDiffer(_stage, 4000);
 
 	//_dx‚ª0‚Å•Ç‚É‚Ô‚Â‚©‚é

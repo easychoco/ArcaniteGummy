@@ -8,8 +8,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Attack::Attack(int _x, int _y, int _w, int _h,float _jump,int _jumpCount) :
-DynamicObject(_x / MyData::vectorRate, _y / MyData::vectorRate, _w, _h,_jump,_jumpCount)
+Attack::Attack(int _x, int _y, int _w, int _h) :
+DynamicObject(_x / MyData::vectorRate, _y / MyData::vectorRate, _w, _h, 0, 0)
 {
 	isActive = true;
 	assert(mImage != -1 && "Attack‰æ‘œ“Ç‚Ýž‚ÝƒGƒ‰[");
@@ -22,14 +22,11 @@ Attack::~Attack()
 
 void Attack::draw(const Vector2* _camera) const
 {
-	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	if (abs(p->raw_x - _camera->raw_x) > 350000 || abs(p->raw_y - _camera->raw_y) > 270000)return;
+	standardDraw(_camera, p, mImage, mDirection);
 
+	//for Debug
 	int draw_x = 320 + (p->x() - _camera->x());
 	int draw_y = 240 + (p->y() - _camera->y());
-
-	//•`‰æ
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
 	DrawFormatString(0, 110, MyData::BLACK, "attack : %d %d", draw_x, draw_y);
 }
 

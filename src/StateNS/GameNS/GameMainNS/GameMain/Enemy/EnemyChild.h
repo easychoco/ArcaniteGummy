@@ -14,6 +14,7 @@ public:
 	virtual ~EnemyChild();
 	virtual void update(const Stage*) = 0;
 	void draw(const Vector2* camera) const;
+	bool isAlive() const { return mIsAlive; }
 
 protected:
 	int mTime;
@@ -27,7 +28,7 @@ protected:
 	void standardAction(const Stage* _stage);
 
 private:
-	bool isAlive;
+	bool mIsAlive;
 
 	void initialize();
 	void standardMove(const Stage* stage);
