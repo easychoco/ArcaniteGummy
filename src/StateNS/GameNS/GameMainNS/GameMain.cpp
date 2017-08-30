@@ -48,7 +48,7 @@ void GameMain::initialize()
 	}
 	nowStageNum = 0;
 
-	mPlayer = new Sakuya(96, 96);
+	mPlayer = new Sakuya(96, 96,100);
 	mSystem = new System(nowStageNum);
 	mEController = new EnemyController();
 
