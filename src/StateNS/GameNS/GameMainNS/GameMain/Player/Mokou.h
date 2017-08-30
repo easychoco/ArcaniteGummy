@@ -29,7 +29,7 @@ private:
 	class Fire : public Attack
 	{
 	public:
-		Fire(int x, int y, int w, int h, bool direction);
+		Fire(int x, int y, int w, int h, bool direction,float jump,int jumpCount);
 		~Fire();
 		void update();
 		void setStatus(Vector2, int dx);

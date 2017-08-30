@@ -33,7 +33,7 @@ private:
 	int mImage;
 	int mTime;
 	int aTime;
-	bool isJump;
+
 };
 
 

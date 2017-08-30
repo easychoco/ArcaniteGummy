@@ -18,13 +18,14 @@ class Attack;
 class PlayerChild : public Character
 {
 public:
-	PlayerChild(int x, int y, float maxMoveSpeed , float maxJumpPower, int maxJumpCount, int maxHP);
+	PlayerChild(int x, int y, float maxMoveSpeed ,float jump,int jumpCount, int maxHP);
 	virtual ~PlayerChild();
 	virtual PlayerChild* update(const Stage*) = 0;
 	void draw() const;
 	const Vector2* getCamera() const { return camera; }
 	vector<Attack*> getAtacks() const { return attacks; }
 	GameMain::HowStageMove getStageMove() const { return nextStageMove; };
+
 
 protected:
 	//変数
@@ -48,12 +49,8 @@ protected:
 private:
 	//キャラごとに移動速度などの違いを出すならここの変数をいじくる
 	const float maxMoveSpeed;
-	const float maxJumpPower;
-	const int maxJumpCount;
 
 	//他の変数
-	float jumpPower;
-	int nowJumpCount;
 	bool prePush;
 	GameMain::HowStageMove nextStageMove;
 
@@ -74,8 +71,6 @@ private:
 	void updateCamera();
 	bool isOnGround(const Stage*);
 
-	int jump();
-	int gravity();
 
 	//各状態
 	enum ActionState

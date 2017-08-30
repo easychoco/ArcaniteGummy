@@ -27,7 +27,6 @@ void Spring::initialize()
 	dy = 0.0f;
 	mTime = 0;
 	aTime = 0;
-	isJump = false;
 }
 
 void Spring::update()
@@ -46,21 +45,14 @@ void Spring::draw(const Vector2* _camera) const
 
 	//描画
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
-	DrawFormatString(300, 0, GetColor(0, 0, 0), "%d",isJump);
+
 }
 
 void Spring::apply(Character* _character)
 {
-	if (isJump) 
-	{
-		_character->moveCharacter(0, -16);
-		isJump = (this->pos.y() - _character->getVector2()->pos_y() / MyData::CHIP_HEIGHT <=4)||
-			abs(this->pos.x()-_character->getVector2()->pos_x())<=MyData::CHIP_WIDTH/2;
-	}
-	else 
-	{
-		isJump = (this->pos.y() - _character->getVector2()->pos_y() / MyData::CHIP_HEIGHT <= 1);
-	}
+	//要調整
+	//このままだとどちらかというとトランポリンっぽい。
+	_character->setJumpPower(30);
 
 
 }
@@ -83,7 +75,7 @@ bool Spring::onActiveArea(const Vector2* _player) const
 	return
 		abs(this->pos.x() - _player->x()) <= MyData::CHIP_WIDTH / 2  &&
 		0<=(this->pos.y() - _player->y()) / MyData::CHIP_HEIGHT &&
-		(this->pos.y() - _player->y()) / MyData::CHIP_HEIGHT <=3 ;
+		(this->pos.y() - _player->y()) / MyData::CHIP_HEIGHT <=1 ;
 
 }
 

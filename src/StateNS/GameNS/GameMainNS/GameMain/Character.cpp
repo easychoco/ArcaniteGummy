@@ -5,8 +5,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Character::Character(int _hp, int _x, int _y, int _w, int _h) : 
-DynamicObject(_x, _y, _w, _h),
+Character::Character(int _hp, int _x, int _y, int _w, int _h,float _jump,int _jumpCount) : 
+DynamicObject(_x, _y, _w, _h,_jump,_jumpCount),
 hpController(HPController(this, _hp))
 {
 	width = _w;

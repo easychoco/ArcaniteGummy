@@ -86,7 +86,7 @@ void Sakuya::attack()
 	}
 
 	//‚·‚×‚ÄŽg‚Á‚Ä‚¢‚½‚çnew‚·‚é
-	attacks.push_back(new Knife(this->p->raw_x, this->p->raw_y, 32, 32, dx));
+	attacks.push_back(new Knife(this->p->raw_x, this->p->raw_y, 32, 32, dx,0,0));
 }
 
 int Sakuya::getAttackDx() const
@@ -124,8 +124,8 @@ void Sakuya::loadImage()
 //==============================================
 //KnifeƒNƒ‰ƒX
 //==============================================
-Sakuya::Knife::Knife(int _x, int _y, int _w, int _h, int _dx) :
-Attack(_x, _y, _w, _h)
+Sakuya::Knife::Knife(int _x, int _y, int _w, int _h, int _dx,float _jump,int _jumpCount) :
+Attack(_x, _y, _w, _h,_jump,_jumpCount)
 {
 	this->dx = _dx * MyData::vectorRate;
 	mDirection = _dx < 0;

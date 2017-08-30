@@ -8,8 +8,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Attack::Attack(int _x, int _y, int _w, int _h) :
-DynamicObject(_x / MyData::vectorRate, _y / MyData::vectorRate, _w, _h)
+Attack::Attack(int _x, int _y, int _w, int _h,float _jump,int _jumpCount) :
+DynamicObject(_x / MyData::vectorRate, _y / MyData::vectorRate, _w, _h,_jump,_jumpCount)
 {
 	isActive = true;
 	assert(mImage != -1 && "Attack‰æ‘œ“Ç‚İ‚İƒGƒ‰[");

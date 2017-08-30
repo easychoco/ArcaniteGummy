@@ -10,11 +10,9 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-PlayerChild::PlayerChild(int _x, int _y, float _move, float _jump, int _jumpCount, int _hp) : 
-Character(_hp, _x, _y, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT),
-maxMoveSpeed(_move),
-maxJumpPower(_jump),
-maxJumpCount(_jumpCount)
+PlayerChild::PlayerChild(int _x, int _y, float _move,float _jump,int _jumpCount, int _hp) : 
+Character(_hp, _x, _y, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT,_jump,_jumpCount),
+maxMoveSpeed(_move)
 {
 	initialize();
 	assert(mImage != -1 && "自機画像読み込みエラー");
@@ -244,24 +242,6 @@ bool PlayerChild::isOnGround(const Stage* _stage)
 
 	return chipType != Stage::ChipType::TYPE_BACK;
 }
-
-//ジャンプでの移動量を返す
-//正の値で上方向
-int PlayerChild::jump()
-{
-	jumpPower = max(0.0f, jumpPower - 1.0f);
-	return (int)(jumpPower * MyData::vectorRate);
-}
-
-//かかる重力を返す
-//正の値で下方向
-int PlayerChild::gravity()
-{
-	//for Debug
-	//このままいくならconstexprで
-	return 7 * MyData::vectorRate;
-}
-
 
 }
 }

@@ -15,7 +15,7 @@ namespace GameMainNS{
 class Character : public DynamicObject
 {
 public:
-	Character(int hp, int x, int y, int w, int h);
+	Character(int hp, int x, int y, int w, int h,float jump,int jumpCount);
 	virtual ~Character();
 	virtual void hittedAction() = 0;
 	void moveCharacter(float _dx, float _dy);

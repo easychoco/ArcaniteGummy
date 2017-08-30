@@ -10,7 +10,7 @@ namespace GameMainNS{
 class EnemyChild : public Character
 {
 public:
-	EnemyChild(int hp, int x, int y, int w, int h);
+	EnemyChild(int hp, int x, int y, int w, int h,float jump,int jumpCount);
 	virtual ~EnemyChild();
 	virtual void update(const Stage*) = 0;
 	void draw(const Vector2* camera) const;

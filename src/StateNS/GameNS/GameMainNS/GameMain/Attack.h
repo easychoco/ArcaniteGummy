@@ -15,7 +15,7 @@ class Character;
 class Attack : public DynamicObject
 {
 public:
-	Attack(int x, int y, int w, int h);
+	Attack(int x, int y, int w, int h,float jump,int jumpCount);
 	virtual ~Attack();
 	virtual void setStatus(Vector2, int status) = 0;
 	virtual void update() = 0;
