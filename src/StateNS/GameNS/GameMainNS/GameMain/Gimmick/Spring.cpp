@@ -45,7 +45,6 @@ void Spring::draw(const Vector2* _camera) const
 
 	//描画
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
-
 }
 
 void Spring::apply(Character* _character)
@@ -53,8 +52,6 @@ void Spring::apply(Character* _character)
 	//要調整
 	//このままだとどちらかというとトランポリンっぽい。
 	_character->setJumpPower(30);
-
-
 }
 
 bool Spring::isOverlap(int _sub_x, int _sub_y) const
