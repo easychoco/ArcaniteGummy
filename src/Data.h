@@ -100,6 +100,36 @@ const unsigned GREEN = GetColor(0, 255, 0);
 const unsigned BLUE = GetColor(0, 0, 255);
 
 
+//ゲーム内に存在する全オブジェクト
+//粒度は具体クラス単位
+enum ObjectID
+{
+	ID_NONE,
+
+	//Player
+	P_MOKOU,
+	P_SAKUYA,
+	P_NUE,
+
+	//Attack
+	A_FIRE,
+	A_KNIFE,
+
+	//Enemy
+	E_USAGI,
+	E_BALOON,
+
+	//MapChip
+	M_BLOCK,
+
+	//Gimmick
+	G_BELT,
+	G_SPRING,
+
+	//DynamicGimmick
+	DG_BLOCK
+};
+
 
 //整数値2次元ベクトル
 //内部では座標をvectorRate倍して持っている

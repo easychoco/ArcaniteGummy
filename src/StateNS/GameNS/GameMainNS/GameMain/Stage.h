@@ -9,6 +9,7 @@ namespace GameMainNS{
 
 class PlayerChild;
 class GimmickChild;
+class DynamicGimmickChild;
 
 class Stage
 {
@@ -48,6 +49,7 @@ private:
 
 	//ギミックの配列
 	std::vector< GimmickChild* > mGimmicks;
+	std::vector< DynamicGimmickChild* > mDynamicGimmicks;
 
 
 	//以下マップ関連
@@ -65,6 +67,7 @@ private:
 	void drawMap(Arr, const Vector2*) const;
 
 	void loadMap(int stageID, int mapID);
+	//void loadGimmick();
 
 	class Chip
 	{

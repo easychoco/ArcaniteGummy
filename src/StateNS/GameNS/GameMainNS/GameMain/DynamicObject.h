@@ -13,7 +13,7 @@ class Collision;
 class DynamicObject
 {
 public:
-	DynamicObject(int x, int y, int w, int h,float jump,int jumpCount);
+	DynamicObject(int x, int y, int w, int h, float jump, int jumpCount);
 	virtual ~DynamicObject();
 	virtual void hittedAction() = 0;
 	const Vector2* getVector2() const { return p; }

@@ -1,6 +1,7 @@
 #include "Stage.h"
 #include "Player\PlayerChild.h"
 #include "Gimmick\GimmickChild.h"
+#include "Gimmick\DynamicGimmickChild.h"
 #include "Gimmick\AllGimmicks.h"
 
 #include "..\..\..\..\KeyInput.h"
@@ -33,6 +34,10 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
+	//loadGimmick()
+	//とかいう関数で外部のテキストデータから読み込み
+
+	//for Debug
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 176)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 176)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 208)));
