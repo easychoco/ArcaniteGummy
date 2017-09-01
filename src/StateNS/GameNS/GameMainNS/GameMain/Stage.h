@@ -26,13 +26,15 @@ public:
 
 	enum ChipType
 	{
-		TYPE_BACK				= 0b0000001, //すり抜けられる
-		TYPE_RIGID				= 0b0000010, //すり抜けられない
-		TYPE_RIDE				= 0b0000100, //下からはすり抜け、上からはすり抜けられない
-		TYPE_DOWN_SLANT_RIGHT	= 0b0001000, //右上へ向けた斜めブロック, 上がブロックなし
-		TYPE_DOWN_SLANT_LEFT	= 0b0010000, //左上へ向けた斜めブロック, 上がブロックなし
-		TYPE_UP_SLANT_RIGHT		= 0b0100000, //右上へ向けた斜めブロック, 下がブロックなし
-		TYPE_UP_SLANT_LEFT		= 0b1000000, //左上へ向けた斜めブロック, 下がブロックなし
+		TYPE_BACK				= 0b00000001, //すり抜けられる
+		TYPE_RIGID				= 0b00000010, //すり抜けられない
+		TYPE_RIDE				= 0b00000100, //下からはすり抜け、上からはすり抜けられない
+		TYPE_DOWN_SLANT_RIGHT	= 0b00001000, //右上へ向けた斜めブロック, 上がブロックなし
+		TYPE_DOWN_SLANT_LEFT	= 0b00010000, //左上へ向けた斜めブロック, 上がブロックなし
+		TYPE_UP_SLANT_RIGHT		= 0b00100000, //右上へ向けた斜めブロック, 下がブロックなし
+		TYPE_UP_SLANT_LEFT		= 0b01000000, //左上へ向けた斜めブロック, 下がブロックなし
+		TYPE_LADDER				= 0b10000000, //はしご
+
 	};
 	ChipType getChipType(const Vector2&) const;
 	ChipType getChipType(const RawVector2&) const;
@@ -53,7 +55,7 @@ private:
 	//以下マップ関連
 
 	//mapChipの画像(32x32pixcels)
-	int mapChip[7];
+	int mapChip[8];
 
 	//map(y:20 x:30 :: 320chips)
 	//mapData[y][x]でアクセスできる
@@ -78,7 +80,7 @@ private:
 	};
 
 	//マップチップ
-	array<Chip, 7> chip
+	array<Chip, 8> chip
 	{
 		Chip(ChipType::TYPE_BACK),
 		Chip(ChipType::TYPE_RIGID),
@@ -86,7 +88,8 @@ private:
 		Chip(ChipType::TYPE_DOWN_SLANT_RIGHT),
 		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
 		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
-		Chip(ChipType::TYPE_UP_SLANT_LEFT)
+		Chip(ChipType::TYPE_UP_SLANT_LEFT),
+		Chip(ChipType::TYPE_LADDER)
 	};
 
 
