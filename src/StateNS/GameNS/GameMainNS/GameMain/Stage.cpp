@@ -39,8 +39,8 @@ void Stage::initialize()
 	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(144, 208)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(176, 208)));
 	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(208, 208)));
-	mGimmicks.push_back(new Spring(2.0, Vector2(240, 384)));
-
+	mGimmicks.push_back(new Spring(Vector2(240, 384)));
+	mGimmicks.push_back(new Dossunn(Vector2(432, 176)));
 }
 
 void Stage::update(PlayerChild* _player)

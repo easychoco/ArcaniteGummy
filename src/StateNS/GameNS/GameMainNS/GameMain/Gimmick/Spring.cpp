@@ -6,7 +6,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-Spring::Spring(float _dx, Vector2 _pos)
+Spring::Spring(Vector2 _pos)
 {
 	initialize();
 	

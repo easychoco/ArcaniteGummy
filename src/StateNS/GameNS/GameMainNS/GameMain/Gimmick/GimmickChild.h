@@ -30,6 +30,8 @@ public:
 
 	//画面状に表示して、更新するかどうかのpublic変数
 	bool isActive;
+
+
 };
 
 
