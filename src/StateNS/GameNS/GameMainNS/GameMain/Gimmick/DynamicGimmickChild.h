@@ -16,7 +16,7 @@ class DynamicGimmickChild : public DynamicObject
 public:
 	DynamicGimmickChild(int x, int y, int w, int h) : DynamicObject(x, y, w, h, 0, 0) {};
 	virtual ~DynamicGimmickChild() {};
-	virtual void update() = 0;
+	virtual void update(PlayerChild*) = 0;
 	virtual void draw(const Vector2* camera) const = 0;
 	virtual void apply(Character*) = 0;
 	virtual void hittedAction() override = 0;

@@ -38,13 +38,15 @@ void Stage::initialize()
 	//とかいう関数で外部のテキストデータから読み込み
 
 	//for Debug
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 176)));
+	//mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 176)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 176)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 208)));
 	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(144, 208)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(176, 208)));
 	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(208, 208)));
 	mGimmicks.push_back(new Spring(2.0, Vector2(240, 384)));
+
+	mDynamicGimmicks.push_back(new Block(80, 176, 32, 32));
 
 }
 
@@ -60,6 +62,14 @@ void Stage::update(PlayerChild* _player)
 				gimmick->apply(_player);
 		}
 	}
+
+	//for Debug
+	//高速化とか未考慮
+	for (auto& d_gimmick : mDynamicGimmicks)
+	{
+		d_gimmick->update(_player);
+	}
+
 }
 
 void Stage::draw(const Vector2* _camera) const
@@ -71,6 +81,12 @@ void Stage::draw(const Vector2* _camera) const
 	{
 		if(gimmick->isActive)gimmick->draw(_camera);
 	}
+
+	for (const auto& d_gimmick : mDynamicGimmicks)
+	{
+		d_gimmick->draw(_camera);
+	}
+
 }
 
 Stage::ChipType Stage::getChipType(const Vector2& _player) const
@@ -93,6 +109,20 @@ Stage::ChipType Stage::getChipType(const Vector2& _player) const
 	ChipType ret = TYPE_BACK;
 	if(sub_y < MyData::MAP_HEIGHT_NUM && sub_x < MyData::MAP_WIDTH_NUM)
 		ret = chip[mapData[sub_y][sub_x]].getChipType();
+
+	//TODO
+	//今のままだと、Gimmickのほうを優先しちゃう
+	//つまり、RIGIDなDynamicGimmickとBACKなGimmickが重なると透過しちゃう
+	for (const auto& d_gimmick : mDynamicGimmicks)
+	{
+		if (d_gimmick->isActive)
+		{
+			if (d_gimmick->isOverlap(sub_x, sub_y))
+			{
+				ret = d_gimmick->getChipType();
+			}
+		}
+	}
 
 	for (const auto& gimmick : mGimmicks)
 	{
