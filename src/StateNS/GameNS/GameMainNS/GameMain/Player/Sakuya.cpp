@@ -35,6 +35,9 @@ PlayerChild* Sakuya::update(const Stage* _stage)
 	PlayerChild* next = this;
 
 	standardAction(_stage);
+	actCheck();
+	animeNum = animation();
+	
 
 	//攻撃
 	attackTime++;
@@ -117,8 +120,9 @@ void Sakuya::draw_other() const
 
 void Sakuya::loadImage()
 {
-	mImage = LoadGraph("Data/Image/sakuya.png");
-	assert(mImage != -1 && "自機画像読み込みエラー");
+//	mImage = LoadGraph("Data/Image/sakuya.png");
+	LoadDivGraph("Data/Image/Character/chip_sakuya.png", 40, 8, 5, 32, 64, mImage, TRUE);
+	assert(*mImage != -1 && "自機画像読み込みエラー");
 }
 
 //==============================================

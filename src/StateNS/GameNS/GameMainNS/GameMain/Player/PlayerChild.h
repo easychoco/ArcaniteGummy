@@ -31,9 +31,11 @@ protected:
 	//変数
 	float moveSpeed;
 	Vector2* camera;
-	int mImage;
+	int mImage[40];
 	int animationTime;
 	bool direction;
+	int animeNum;
+	int animeCount;
 
 	//攻撃のvector
 	vector<Attack*> attacks;
@@ -43,8 +45,24 @@ protected:
 	virtual void attack() = 0;
 	virtual void draw_other() const = 0; //自機以外を描画する
 	virtual void loadImage() = 0;
-	
+
+
 	void standardAction(const Stage*);
+	int animation();
+	void actCheck();
+	//各状態
+	enum ActionState
+	{
+		ACT_NORMAL, //通常状態
+		ACT_WALK,//歩いている
+		ACT_RUN,//走っている
+		ACT_AIR, //空中にいる
+		ACT_ATTACK, //攻撃
+		ACT_SIT, //しゃがみ
+
+	};
+	ActionState actionState;
+
 
 private:
 	//キャラごとに移動速度などの違いを出すならここの変数をいじくる
@@ -73,14 +91,6 @@ private:
 	bool isOnLadder(const Stage*);
 
 
-	//各状態
-	enum ActionState
-	{
-		ACT_NORMAL, //通常状態
-		ACT_AIR, //空中にいる
-		ACT_ATTACK, //攻撃
-		ACT_SIT, //しゃがみ
-	};
 
 };
 

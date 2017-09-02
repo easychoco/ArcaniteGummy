@@ -15,7 +15,7 @@ namespace StateNS {
 				maxMoveSpeed(_move)
 			{
 				initialize();
-				assert(mImage != -1 && "自機画像読み込みエラー");
+				assert(*mImage != -1 && "自機画像読み込みエラー");
 			}
 
 			PlayerChild::~PlayerChild()
@@ -37,9 +37,13 @@ namespace StateNS {
 				this->prePush = false;
 				this->direction = false;
 				this->animationTime = 0;
+				this->actionState = ACT_NORMAL;
+				this->animeNum = 0;
+				this->animeCount = 0;
 
 				post_x = MyData::MAP_WIDTH / 2;
 				post_y = MyData::MAP_HEIGHT / 2;
+
 			}
 
 			void PlayerChild::draw() const
@@ -47,7 +51,8 @@ namespace StateNS {
 				int draw_x = MyData::CX + (p->pos_x() - camera->pos_x()) / MyData::vectorRate;
 				int draw_y = MyData::CY + (p->pos_y() - camera->pos_y()) / MyData::vectorRate;
 
-				DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, direction);
+				DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage[animeNum], true);
+
 				DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 
 				draw_other();
@@ -150,19 +155,20 @@ namespace StateNS {
 				if (jumpPower == 0 && isOnGround(_stage))
 				{
 					nowJumpCount = 0;
+
 				}
 
 				//はしごにのぼる
-				if (isOnLadder(_stage) && Input_UP())
+				if (isOnLadder(_stage) && Input_UP() && !isOnGround(_stage))
 				{
 					dy -= (int)(moveSpeed * MyData::vectorRate);
-					nowJumpCount = 0;
+					jumpPower = 2;
 				}
 
-				if (isOnLadder(_stage) && Input_DOWN())
+				if (isOnLadder(_stage) && Input_DOWN() && !isOnGround(_stage))
 				{
 					dy += (int)(moveSpeed * MyData::vectorRate);
-					nowJumpCount = 0;
+					jumpPower = 2;
 				}
 
 				//ジャンプ
@@ -259,13 +265,47 @@ namespace StateNS {
 			bool PlayerChild::isOnLadder(const Stage* _stage)
 			{
 
-				RawVector2 pos = RawVector2(p->pos_x(), p->pos_y());
+				RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() - MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1);
 				Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate);
 
 				return chipType == Stage::ChipType::TYPE_LADDER;
 			}
 
+			int PlayerChild::animation() 
+			{
+				int num = 0 + direction;
+				switch (actionState) 
+				{
+				case ACT_WALK:
+					num = 8 + (animeCount/10) % 4 + 8 * direction;
+					break;
+				case ACT_RUN:
+					num = 12 + (animeCount / 10) % 4 + 8 * direction;
+					break;
+				case ACT_SIT:
+					num = 24 + (animeCount>=10);
+					break;
+				case ACT_ATTACK:
+					num = 26 + direction;
+					break;
+				default:
+					animeCount = 0;
+					break;
+				}
+				animeCount++;
+				return num;
+			}
+
+			void PlayerChild::actCheck()
+			{
+				if (Input_ATTACK())actionState = ACT_ATTACK;
+				else if (Input_DOWN())actionState = ACT_SIT;
+				else if (Input_LEFT() || Input_RIGHT())actionState = ACT_WALK;
+				else actionState = ACT_NORMAL;
+			}
+
 
 		}
+		
 	}
 }
