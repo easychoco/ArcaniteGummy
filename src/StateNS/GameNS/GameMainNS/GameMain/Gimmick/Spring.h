@@ -15,7 +15,7 @@ class Child;
 class Spring : public GimmickChild
 {
 public:
-	Spring(float, Vector2);
+	Spring(Vector2);
 	~Spring();
 	void initialize();
 	void update();

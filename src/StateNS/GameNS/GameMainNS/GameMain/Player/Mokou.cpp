@@ -39,7 +39,8 @@ PlayerChild* Mokou::update(const Stage* _stage)
 	PlayerChild* next = this;
 
 	standardAction(_stage);
-
+	actCheck();
+	animeNum = animation();
 	//攻撃
 	for (auto& a : attacks)
 	{
@@ -109,8 +110,9 @@ void Mokou::draw_other() const
 
 void Mokou::loadImage()
 {
-	mImage = LoadGraph("Data/Image/mokou.png");
-	assert(mImage != -1 && "自機画像読み込みエラー");
+//	mImage = LoadGraph("Data/Image/mokou.png");
+	LoadDivGraph("Data/Image/Character/chip_mokou.png", 40, 8, 5, 32, 64, mImage, TRUE);
+	assert(*mImage != -1 && "自機画像読み込みエラー");
 }
 
 //==============================================

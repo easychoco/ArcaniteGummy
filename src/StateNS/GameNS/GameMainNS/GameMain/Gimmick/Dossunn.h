@@ -5,30 +5,40 @@
 
 
 namespace StateNS {
-namespace GameNS {
+	namespace GameNS {
 
 
-namespace GameMainNS{
+		namespace GameMainNS {
 
-class Child;
+			class Child;
 
-class Dossunn : public GimmickChild
-{
-public:
-	Dossunn();
-	~Dossunn();
-	void initialize();
-	void update(PlayerChild*);
-	void draw() const;
-	bool isHit(const Vector2&) const;
-	Stage::ChipType getChipType() const;
-
-private:
-};
-
-
+			class Dossunn : public GimmickChild
+			{
+			public:
+				Dossunn(Vector2);
+				~Dossunn();
+				void initialize();
+				void update();
+				void draw(const Vector2*) const;
+				void apply(Character*);
+				void move(int);
+				bool isOverlap(int, int) const;
+				bool onActiveArea(const Vector2*) const;
+				Stage::ChipType getChipType() const;
 
 
-}
-}
+
+			private:
+				float dx;
+				Vector2 pos;
+				int mImage;
+				int mTime;
+				bool isMove;
+			};
+
+
+
+
+		}
+	}
 }

@@ -17,7 +17,8 @@ Stage::Stage(int _stageID, int _mapID)
 {
 	initialize();
 
-	loadMap(_stageID, _mapID);
+//	loadMap(_stageID, _mapID);
+	loadMap(_stageID, 0);
 	mBackImg = LoadGraph("Data/Image/back.jpg");
 	assert(mBackImg != -1 && "背景画像読み込みエラー");
 }
@@ -34,20 +35,22 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
+<<<<<<< HEAD
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
 
+	/*
 	//for Debug
-	//mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 176)));
+	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 176)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 176)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 208)));
 	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(144, 208)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(176, 208)));
 	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(208, 208)));
+
 	mGimmicks.push_back(new Spring(2.0, Vector2(240, 384)));
-
 	mDynamicGimmicks.push_back(new Block(80, 176, 32, 32));
-
+	*/
 }
 
 void Stage::update(PlayerChild* _player)
@@ -172,7 +175,8 @@ void Stage::loadMap(int _stageID, int _mapID)
 	//imgFile += ".png";
 	string imgFile = "Data/Image/block0.png";
 
-	int tmp = LoadDivGraph(imgFile.c_str(), 7, 7, 1, 32, 32, mapChip);
+	//int tmp = LoadDivGraph(imgFile.c_str(), 7, 7, 1, 32, 32, mapChip);
+	int tmp = LoadDivGraph(imgFile.c_str(), 8, 8, 1, 32, 32, mapChip);
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 
 	string textFile = "Data/Text/stage";
