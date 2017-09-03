@@ -60,7 +60,8 @@ private:
 	//map(y:20 x:30 :: 320chips)
 	//mapData[y][x]でアクセスできる
 	//mapData[~19][~29]
-	std::array< std::array<int, 30>, 20> mapData;
+//	std::array< std::array<int, 30>, 20> mapData;
+	std::array< std::array<int, MAP_WIDTH_NUM>, MAP_HEIGHT_NUM> mapData;
 
 	//前景描画
 	template<typename Arr>

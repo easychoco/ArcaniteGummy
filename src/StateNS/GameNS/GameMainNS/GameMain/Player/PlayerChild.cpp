@@ -229,11 +229,13 @@ namespace StateNS {
 				int tmp_x = p->raw_x / MyData::vectorRate;
 				int tmp_y = p->raw_y / MyData::vectorRate;
 
-				if (tmp_x % 960 < 320)tmp_x = 960 * (tmp_x / 960) + 320;
-				if (tmp_x % 960 > 640)tmp_x = 960 * (tmp_x / 960) + 640;
+				
+				if (tmp_x % MyData:: MAP_WIDTH < MyData::CX)tmp_x = MyData::MAP_WIDTH * (tmp_x / MyData::MAP_WIDTH) + MyData::CX;
+				if (tmp_x % MyData::MAP_WIDTH > MyData::MAP_WIDTH - MyData::CX)tmp_x = MyData::MAP_WIDTH * (tmp_x / MyData::MAP_WIDTH) + MyData::MAP_WIDTH - MyData::CX;
 
-				if (tmp_y % 640 < 240)tmp_y = 640 * (tmp_y / 640) + 240;
-				if (tmp_y % 640 > 400)tmp_y = 640 * (tmp_y / 640) + 400;
+				if (tmp_y % MyData::MAP_HEIGHT < MyData::CY)tmp_y = MyData::MAP_HEIGHT * (tmp_y / MyData::MAP_HEIGHT) + MyData::CY;
+				if (tmp_y % MyData::MAP_HEIGHT > MyData::MAP_HEIGHT - MyData::CY)tmp_y = MyData::MAP_HEIGHT * (tmp_y / MyData::MAP_HEIGHT) + MyData::MAP_HEIGHT - MyData::CY;
+			
 
 				*camera = Vector2(tmp_x, tmp_y);
 			}

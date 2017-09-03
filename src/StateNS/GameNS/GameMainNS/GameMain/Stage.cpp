@@ -16,7 +16,8 @@ Stage::Stage(int _stageID, int _mapID)
 {
 	initialize();
 
-	loadMap(_stageID, _mapID);
+//	loadMap(_stageID, _mapID);
+	loadMap(_stageID, 0);
 	mBackImg = LoadGraph("Data/Image/back.jpg");
 	assert(mBackImg != -1 && "îwåiâÊëúì«Ç›çûÇ›ÉGÉâÅ[");
 }
@@ -33,6 +34,7 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
+	/*
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 176)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 176)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 208)));
@@ -41,6 +43,7 @@ void Stage::initialize()
 	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(208, 208)));
 	mGimmicks.push_back(new Spring(Vector2(240, 384)));
 	mGimmicks.push_back(new Dossunn(Vector2(432, 176)));
+	*/
 }
 
 void Stage::update(PlayerChild* _player)
