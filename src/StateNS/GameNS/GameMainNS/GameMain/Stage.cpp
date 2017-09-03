@@ -35,7 +35,6 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
-<<<<<<< HEAD
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
 

@@ -176,7 +176,6 @@ void GameMain::processCollision(Stage* _stage)
 
 					if(attack->id == ObjectID::A_FIRE)
 						gimmick->burnedAction();
-
 				}
 			}
 		}
