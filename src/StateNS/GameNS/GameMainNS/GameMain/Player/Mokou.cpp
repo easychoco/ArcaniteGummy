@@ -117,7 +117,7 @@ void Mokou::loadImage()
 //FireƒNƒ‰ƒX
 //==============================================
 Mokou::Fire::Fire(int _x, int _y, int _w, int _h, bool _direction) :
-Attack(_x, _y, _w, _h)
+Attack(_x, _y, _w, _h, ObjectID::A_FIRE)
 {
 	this->mTime = 0;
 	mDirection = _direction;

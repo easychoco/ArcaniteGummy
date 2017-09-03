@@ -24,6 +24,7 @@ public:
 
 	void apply(Character*);
 	void hittedAction() override;
+	void burnedAction() override;
 	bool isOverlap(int sub_x, int sub_y) const;
 	bool onActiveArea(const Vector2*) const;
 

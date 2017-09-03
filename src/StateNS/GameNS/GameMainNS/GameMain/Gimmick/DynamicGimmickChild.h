@@ -20,6 +20,7 @@ public:
 	virtual void draw(const Vector2* camera) const = 0;
 	virtual void apply(Character*) = 0;
 	virtual void hittedAction() override = 0;
+	virtual void burnedAction() = 0;
 
 	//画面上で重なっているか，当たり判定用
 	//引数はマップ換算の値

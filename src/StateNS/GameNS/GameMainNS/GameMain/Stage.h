@@ -42,6 +42,8 @@ public:
 	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b0011010) != 0; }//上にすり抜けられないブロック，天井になる
 	bool isSlant(ChipType _ct)		const { return (_ct & 0b1111000) != 0; }//斜めブロック
 	
+	std::vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
+
 private:
 	int mBackImg;
 	int stage_max_x;

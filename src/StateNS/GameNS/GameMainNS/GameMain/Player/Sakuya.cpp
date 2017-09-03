@@ -125,7 +125,7 @@ void Sakuya::loadImage()
 //KnifeƒNƒ‰ƒX
 //==============================================
 Sakuya::Knife::Knife(int _x, int _y, int _w, int _h, int _dx) :
-Attack(_x, _y, _w, _h)
+Attack(_x, _y, _w, _h, ObjectID::A_KNIFE)
 {
 	this->dx = _dx * MyData::vectorRate;
 	mDirection = _dx < 0;

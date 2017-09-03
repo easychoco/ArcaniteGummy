@@ -52,7 +52,7 @@ private:
 	
 	int nowStageNum;
 
-	void processCollision();
+	void processCollision(Stage* stage);
 };
 
 

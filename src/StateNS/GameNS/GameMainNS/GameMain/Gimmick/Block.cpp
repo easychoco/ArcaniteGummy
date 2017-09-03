@@ -41,6 +41,14 @@ void Block::hittedAction()
 
 }
 
+void Block::burnedAction()
+{
+	//TODO -> アニメーションをつける
+
+	//燃やされると消える
+	this->isActive = false;
+}
+
 bool Block::isOverlap(int _sub_x, int _sub_y) const
 {
 	//for Debug

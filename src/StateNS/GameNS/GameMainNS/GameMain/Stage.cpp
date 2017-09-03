@@ -77,14 +77,16 @@ void Stage::draw(const Vector2* _camera) const
 	DrawGraph(0, 0, mBackImg, true);
 	drawMap(mapData, _camera);
 
+	//ギミックの描画
 	for (const auto& gimmick : mGimmicks)
 	{
 		if(gimmick->isActive)gimmick->draw(_camera);
 	}
 
-	for (const auto& d_gimmick : mDynamicGimmicks)
+	//ダイナミックギミックの描画
+	for (const auto& gimmick : mDynamicGimmicks)
 	{
-		d_gimmick->draw(_camera);
+		if(gimmick->isActive)gimmick->draw(_camera);
 	}
 
 }

@@ -7,6 +7,8 @@
 #include "GameMain\Enemy\EnemyController.h"
 #include "GameMain\Enemy\EnemyChild.h"
 
+#include "GameMain\Gimmick\DynamicGimmickChild.h"
+
 #include "..\..\..\Data.h"
 #include "..\..\..\KeyInput.h"
 
@@ -42,6 +44,7 @@ void GameMain::initialize()
 	}
 
 	//ステージの全体的な縦と横の数を設定
+	//TODO なんで設定したんだっけ...？
 	for (auto& stage : mStages)
 	{
 		stage->setStageSize(2, 2);
@@ -80,7 +83,7 @@ Child* GameMain::update(GameParent* _parent)
 	mEController->update(stage);
 
 	//衝突判定
-	processCollision();
+	processCollision(stage);
 
 	//for Debug
 	mPlayer->hpController.recover(1);
@@ -108,7 +111,7 @@ void GameMain::draw() const
 //内部プライベート関数
 //==============================================
 
-void GameMain::processCollision()
+void GameMain::processCollision(Stage* _stage)
 {
 	//TODO -> 高速化したい
 	//違うステージのものは処理しないとか
@@ -124,8 +127,10 @@ void GameMain::processCollision()
 
 	for (auto& enemy : enemies)
 	{
+		if (!enemy->isAlive())continue;
+
 		//プレイヤーと敵の衝突
-		if (enemy->isAlive() && mPlayer->isHit(enemy))
+		if (mPlayer->isHit(enemy))
 		{
 			mPlayer->hpController.damage(5);
 		}
@@ -139,9 +144,43 @@ void GameMain::processCollision()
 				{
 					enemy->hpController.damage(attack->getDamageValue());
 					attack->hittedAction();
+
 				}
 			}
 		}
+	}
+
+	//DynamicGimmick
+	auto d_gimmicks = _stage->getDynamicGimmicks();
+
+	for (auto& gimmick : d_gimmicks)
+	{
+		if (!gimmick->isActive)continue;
+
+		//プレイヤーとDynamicGimmickの衝突
+		if (mPlayer->isHit(gimmick))
+		{
+
+		}
+
+		//プレイヤーの攻撃とDynamicGimmickの衝突
+		//プレイヤーの攻撃と敵の衝突
+		for (auto& attack : p_attacks)
+		{
+			if (attack->isActive)
+			{
+				if (attack->isHit(gimmick))
+				{
+					gimmick->hittedAction();
+					attack->hittedAction();
+
+					if(attack->id == ObjectID::A_FIRE)
+						gimmick->burnedAction();
+
+				}
+			}
+		}
+
 	}
 
 }
