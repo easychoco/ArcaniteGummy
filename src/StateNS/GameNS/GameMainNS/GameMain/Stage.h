@@ -35,7 +35,6 @@ public:
 		TYPE_UP_SLANT_RIGHT		= 0b00100000, //右上へ向けた斜めブロック, 下がブロックなし
 		TYPE_UP_SLANT_LEFT		= 0b01000000, //左上へ向けた斜めブロック, 下がブロックなし
 		TYPE_LADDER				= 0b10000000, //はしご
-
 	};
 	ChipType getChipType(const Vector2&) const;
 	ChipType getChipType(const RawVector2&) const;

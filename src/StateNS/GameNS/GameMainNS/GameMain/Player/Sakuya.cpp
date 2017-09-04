@@ -35,8 +35,6 @@ PlayerChild* Sakuya::update(const Stage* _stage)
 	PlayerChild* next = this;
 
 	standardAction(_stage);
-	actCheck();
-	animeNum = animation();
 	
 
 	//攻撃
@@ -56,13 +54,13 @@ PlayerChild* Sakuya::update(const Stage* _stage)
 		}
 	}
 
-	//for Debug
 	if (canChangeCharacter())
 	{
 		animationTime = 0;
 		int x = p->raw_x / MyData::vectorRate;
 		int y = p->raw_y / MyData::vectorRate;
 
+		//for Debug
 		next = new Mokou(x, y, hpController.getHP());
 	}
 
@@ -121,8 +119,8 @@ void Sakuya::draw_other() const
 void Sakuya::loadImage()
 {
 //	mImage = LoadGraph("Data/Image/sakuya.png");
-	LoadDivGraph("Data/Image/Character/chip_sakuya.png", 40, 8, 5, 32, 64, mImage, TRUE);
-	assert(*mImage != -1 && "自機画像読み込みエラー");
+	int tmp = LoadDivGraph("Data/Image/Character/chip_sakuya.png", 40, 8, 5, 32, 64, mImage);
+	assert(tmp != -1 && "自機画像読み込みエラー");
 }
 
 //==============================================

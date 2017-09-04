@@ -1,4 +1,7 @@
 #include "GameMain.h"
+
+#include "Converse.h"
+
 #include "GameMain\Stage.h"
 #include "GameMain\System.h"
 #include "GameMain\Player\Mokou.h"
@@ -91,6 +94,10 @@ Child* GameMain::update(GameParent* _parent)
 	//System‚Ìupdate
 	if(changed)mSystem->update(HowStageMove::MOVE_NONE);
 	else mSystem->update(mPlayer->getStageMove());
+
+	//for Debug
+	if(CheckHitKey(KEY_INPUT_1))
+		next = new Converse(this, 0);
 	
 	return next;
 }

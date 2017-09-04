@@ -17,8 +17,9 @@ Stage::Stage(int _stageID, int _mapID)
 {
 	initialize();
 
-//	loadMap(_stageID, _mapID);
+	//for Debug
 	loadMap(_stageID, 0);
+	//loadMap(_stageID, _mapID);
 	mBackImg = LoadGraph("Data/Image/back.jpg");
 	assert(mBackImg != -1 && "背景画像読み込みエラー");
 }
@@ -31,6 +32,13 @@ Stage::~Stage()
 	}
 	mGimmicks.clear();
 	mGimmicks.shrink_to_fit();
+
+	for (auto& gimmick : mDynamicGimmicks)
+	{
+		SAFE_DELETE(gimmick);
+	}
+	mDynamicGimmicks.clear();
+	mDynamicGimmicks.shrink_to_fit();
 }
 
 void Stage::initialize()
@@ -65,8 +73,6 @@ void Stage::update(PlayerChild* _player)
 		}
 	}
 
-	//for Debug
-	//高速化とか未考慮
 	for (auto& d_gimmick : mDynamicGimmicks)
 	{
 		d_gimmick->update(_player);
@@ -145,21 +151,6 @@ Stage::ChipType Stage::getChipType(const Vector2& _player) const
 Stage::ChipType Stage::getChipType(const RawVector2& _player) const
 {
 	return getChipType(Vector2(_player.pos_x, _player.pos_y));
-
-	/*
-	//範囲外(左か上の端)ならTYPE_RIGIDを返す
-	if (_player.pos_y() < 0 || _player.pos_x() < 0)
-		return ChipType::TYPE_RIGID;
-
-	int sub_y = _player.pos_y() / 32;
-	int sub_x = _player.pos_x() / 32;
-
-	//範囲外(右か下の端)ならTYPE_RIGIDを返す
-	if (MyData::MAP_HEIGHT_NUM <= sub_y || MyData::MAP_WIDTH_NUM <= sub_x)
-		return ChipType::TYPE_RIGID;
-
-	return chip[mapData[sub_y][sub_x]].getChipType();
-	//*/
 }
 
 
