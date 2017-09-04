@@ -9,7 +9,7 @@ class Parent;
 namespace GameNS {
 
 namespace GameMainNS {
-	class GameMain;
+	class Child;
 }
 
 //SateNS::GameNS‚Å‚ÌParent‚Ì–ð–Ú
@@ -19,8 +19,8 @@ public:
 	enum NextSequence
 	{
 		SEQ_TITLE,
-		SEQ_PAUSE,
-		SEQ_CONVERSE,
+		//SEQ_PAUSE,
+		//SEQ_CONVERSE,
 		SEQ_LOAD,
 		SEQ_SAVE,
 		SEQ_CLEAR,
@@ -38,7 +38,7 @@ public:
 	void moveTo(NextSequence);
 
 private:
-	GameMainNS::GameMain* gameMain;
+	GameMainNS::Child* gameMain;
 	NextSequence mNextSeq;
 };
 

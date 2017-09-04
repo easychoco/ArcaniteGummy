@@ -8,13 +8,14 @@
 #include <queue>
 #include <vector>
 #include <algorithm>
+#include <utility>
 
 
 using std::array;
 using std::string;
 using std::queue;
 using std::vector;
-
+using std::pair;
 
 //‰~Žü—¦
 constexpr float Pi = 3.14159265358979f;

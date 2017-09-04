@@ -39,8 +39,7 @@ PlayerChild* Mokou::update(const Stage* _stage)
 	PlayerChild* next = this;
 
 	standardAction(_stage);
-	actCheck();
-	animeNum = animation();
+
 	//UŒ‚
 	for (auto& a : attacks)
 	{

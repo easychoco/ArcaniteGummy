@@ -1,6 +1,7 @@
 #include "Play.h"
 #include "Clear.h"
 #include "GameMainNS\GameMain.h"
+#include "GameMainNS\GameMainChild.h"
 
 
 #include "..\..\Data.h"
@@ -29,7 +30,7 @@ void Play::initialize()
 Child* Play::update(Parent* parent)
 {
 	Child* next = this;
-	gameMain->update(this);
+	gameMain = gameMain->update(this);
 
 	if (Input_X())
 	{
@@ -42,7 +43,6 @@ Child* Play::update(Parent* parent)
 
 void Play::draw() const
 {
-	DrawFormatString(0, 0, MyData::WHITE, "Play");
 	gameMain->draw();
 }
 
