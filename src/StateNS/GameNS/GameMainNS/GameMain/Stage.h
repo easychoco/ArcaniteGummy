@@ -27,21 +27,22 @@ public:
 
 	enum ChipType
 	{
-		TYPE_BACK				= 0b00000001, //すり抜けられる
-		TYPE_RIGID				= 0b00000010, //すり抜けられない
-		TYPE_RIDE				= 0b00000100, //下からはすり抜け、上からはすり抜けられない
-		TYPE_DOWN_SLANT_RIGHT	= 0b00001000, //右上へ向けた斜めブロック, 上がブロックなし
-		TYPE_DOWN_SLANT_LEFT	= 0b00010000, //左上へ向けた斜めブロック, 上がブロックなし
-		TYPE_UP_SLANT_RIGHT		= 0b00100000, //右上へ向けた斜めブロック, 下がブロックなし
-		TYPE_UP_SLANT_LEFT		= 0b01000000, //左上へ向けた斜めブロック, 下がブロックなし
-		TYPE_LADDER				= 0b10000000, //はしご
+		TYPE_BACK				= 0b000000001, //すり抜けられる
+		TYPE_RIGID				= 0b000000010, //すり抜けられない
+		TYPE_RIDE				= 0b000000100, //下からはすり抜け、上からはすり抜けられない
+		TYPE_DOWN_SLANT_RIGHT	= 0b000001000, //右上へ向けた斜めブロック, 上がブロックなし
+		TYPE_DOWN_SLANT_LEFT	= 0b000010000, //左上へ向けた斜めブロック, 上がブロックなし
+		TYPE_UP_SLANT_RIGHT		= 0b000100000, //右上へ向けた斜めブロック, 下がブロックなし
+		TYPE_UP_SLANT_LEFT		= 0b001000000, //左上へ向けた斜めブロック, 下がブロックなし
+		TYPE_LADDER				= 0b010000000, //はしご
+		TYPE_LADDER_TOP			= 0b100000000, //はしごの上
 	};
 	ChipType getChipType(const Vector2&) const;
 	ChipType getChipType(const RawVector2&) const;
 
-	bool isRigid_down(ChipType _ct) const { return (_ct & 0b1100110) != 0; }//下にすり抜けられないブロック，床になる
-	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b0011010) != 0; }//上にすり抜けられないブロック，天井になる
-	bool isSlant(ChipType _ct)		const { return (_ct & 0b1111000) != 0; }//斜めブロック
+	bool isRigid_down(ChipType _ct) const { return (_ct & 0b101100110) != 0; }//下にすり抜けられないブロック，床になる
+	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b000011010) != 0; }//上にすり抜けられないブロック，天井になる
+	bool isSlant(ChipType _ct)		const { return (_ct & 0b001111000) != 0; }//斜めブロック
 	
 	std::vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
 
@@ -58,7 +59,7 @@ private:
 	//以下マップ関連
 
 	//mapChipの画像(32x32pixcels)
-	int mapChip[8];
+	int mapChip[9];
 
 	//map(y:20 x:30 :: 320chips)
 	//mapData[y][x]でアクセスできる
@@ -85,7 +86,7 @@ private:
 	};
 
 	//マップチップ
-	array<Chip, 8> chip
+	array<Chip, 9> chip
 	{
 		Chip(ChipType::TYPE_BACK),
 		Chip(ChipType::TYPE_RIGID),
@@ -94,7 +95,8 @@ private:
 		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
 		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
 		Chip(ChipType::TYPE_UP_SLANT_LEFT),
-		Chip(ChipType::TYPE_LADDER)
+		Chip(ChipType::TYPE_LADDER),
+		Chip(ChipType::TYPE_LADDER_TOP)
 	};
 
 

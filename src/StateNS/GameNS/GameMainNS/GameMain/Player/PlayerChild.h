@@ -88,7 +88,7 @@ private:
 	void move(const Stage*);
 	void updateCamera();
 	bool isOnGround(const Stage*);
-	bool isOnLadder(const Stage*);
+	bool isOnLadder(const Stage*) const;
 
 
 

@@ -161,13 +161,13 @@ void PlayerChild::move(const Stage* _stage)
 	}
 
 	//ÇÕÇµÇ≤Ç…ÇÃÇ⁄ÇÈ
-	if (isOnLadder(_stage) && Input_UP() && !isOnGround(_stage))
+	if (isOnLadder(_stage) && Input_UP())
 	{
 		dy -= (int)(moveSpeed * MyData::vectorRate);
 		jumpPower = 2;
 	}
 
-	if (isOnLadder(_stage) && Input_DOWN() && !isOnGround(_stage))
+	if (isOnLadder(_stage) && Input_DOWN())
 	{
 		dy += (int)(moveSpeed * MyData::vectorRate);
 		jumpPower = 2;
@@ -180,8 +180,13 @@ void PlayerChild::move(const Stage* _stage)
 		nowJumpCount++;
 	}
 
+	//for Debug
+	if (CheckHitKey(KEY_INPUT_Y))
+		int gomi = 0;
+
+
 	//ècà⁄ìÆ
-	dy += gravity() - jump();// * (!isOnLadder(_stage)) - jump();
+	dy += gravity() * (!isOnLadder(_stage)) - jump();
 
 	dx = getHorizontalDiffer(_stage, dx);
 	dy = dy < 0.0f ? getTopDiffer(_stage, dy) : getBottomDiffer(_stage, dy);
@@ -191,6 +196,10 @@ void PlayerChild::move(const Stage* _stage)
 
 	p->raw_x += dx;
 	p->raw_y += dy;
+
+	//for Debug
+	if (CheckHitKey(KEY_INPUT_Y))
+		int gomi = 0;
 
 	int dx_onScreen = p->x() - post_x;
 	int dy_onScreen = p->y() - post_y;
@@ -231,11 +240,10 @@ void PlayerChild::updateCamera()
 	int tmp_x = p->raw_x / MyData::vectorRate;
 	int tmp_y = p->raw_y / MyData::vectorRate;
 
-	
-	if (tmp_x % MyData:: MAP_WIDTH < MyData::CX)tmp_x = MyData::MAP_WIDTH * (tmp_x / MyData::MAP_WIDTH) + MyData::CX;
-	if (tmp_x % MyData::MAP_WIDTH > MyData::MAP_WIDTH - MyData::CX)tmp_x = MyData::MAP_WIDTH * (tmp_x / MyData::MAP_WIDTH) + MyData::MAP_WIDTH - MyData::CX;
+	if (tmp_x % MyData::MAP_WIDTH  <                     MyData::CX)tmp_x = MyData::MAP_WIDTH * (tmp_x / MyData::MAP_WIDTH) + MyData::CX;
+	if (tmp_x % MyData::MAP_WIDTH  > MyData::MAP_WIDTH - MyData::CX)tmp_x = MyData::MAP_WIDTH * (tmp_x / MyData::MAP_WIDTH) + MyData::MAP_WIDTH - MyData::CX;
 
-	if (tmp_y % MyData::MAP_HEIGHT < MyData::CY)tmp_y = MyData::MAP_HEIGHT * (tmp_y / MyData::MAP_HEIGHT) + MyData::CY;
+	if (tmp_y % MyData::MAP_HEIGHT <                      MyData::CY)tmp_y = MyData::MAP_HEIGHT * (tmp_y / MyData::MAP_HEIGHT) + MyData::CY;
 	if (tmp_y % MyData::MAP_HEIGHT > MyData::MAP_HEIGHT - MyData::CY)tmp_y = MyData::MAP_HEIGHT * (tmp_y / MyData::MAP_HEIGHT) + MyData::MAP_HEIGHT - MyData::CY;
 
 
@@ -266,10 +274,10 @@ bool PlayerChild::isOnGround(const Stage* _stage)
 	return chipType != Stage::ChipType::TYPE_BACK;
 }
 
-bool PlayerChild::isOnLadder(const Stage* _stage)
+bool PlayerChild::isOnLadder(const Stage* _stage) const
 {
 
-	RawVector2 pos = RawVector2(p->raw_x, p->raw_y - MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1000);
+	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1);
 	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate);
 
 	return chipType == Stage::ChipType::TYPE_LADDER;
