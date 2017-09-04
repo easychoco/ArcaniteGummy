@@ -25,16 +25,22 @@ void Converse::initialize()
 	passageNum = 0;
 
 	//for Debug
-	allPassages.push_back(Passage("sakuya", "tesてすテスト"));
+	allPassages.push_back(Passage("sakuya", "tesてすテスト1"));
+	allPassages.push_back(Passage("sakuya", "tesてすテスト2"));
+	allPassages.push_back(Passage("sakuya", "ばーい"));
 }
 
 Child* Converse::update(GameParent* _parent)
 {
 	Child* next = this;
 
+	bool finish = false;
+	if (Input_Z() && !prePush)finish = nextPassage();
+
+	prePush = Input_Z();
+
 	//for Debug
-	if (CheckHitKey(KEY_INPUT_2))
-		next = main;
+	if (finish)next = main;
 
 	return next;
 }
@@ -48,6 +54,9 @@ void Converse::draw() const
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 200);
 
 	allPassages[passageNum].show();
+
+	//for Debug
+	DrawFormatString(560, 320, WHITE, "%d / %d", passageNum + 1, allPassages.size());
 }
 
 //==============================================
@@ -75,6 +84,7 @@ void Converse::Passage::show() const
 	DrawBox(10, 250, 150, 290, WHITE, false);
 	DrawBox(10, 300, 630, 470, WHITE, false);
 
+	DrawString(480, 450, "press Z to next", WHITE);
 
 	//文章表示
 
@@ -84,9 +94,15 @@ void Converse::Passage::show() const
 	DrawString(20, 320, passage.c_str(), WHITE);
 }
 
-void Converse::nextPassage()
+bool Converse::nextPassage()
 {
-
+	++passageNum;
+	if (passageNum >= allPassages.size())
+	{
+		passageNum = allPassages.size() - 1;
+		return true;
+	}
+	return false;
 }
 
 

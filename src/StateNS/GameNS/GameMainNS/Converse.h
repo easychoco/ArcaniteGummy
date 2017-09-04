@@ -19,10 +19,11 @@ public:
 	void draw() const;
 
 private:
-	int passageNum;
+	unsigned passageNum;
+	bool prePush;
 	GameMain* main;
 
-	void nextPassage();
+	bool nextPassage();
 
 
 	class Passage
