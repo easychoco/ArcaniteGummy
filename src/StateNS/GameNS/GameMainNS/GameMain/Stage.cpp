@@ -18,8 +18,7 @@ Stage::Stage(int _stageID, int _mapID)
 	initialize();
 
 	//for Debug
-	loadMap(_stageID, 0);
-	//loadMap(_stageID, _mapID);
+	loadMap(_stageID, _mapID);
 	mBackImg = LoadGraph("Data/Image/back.jpg");
 	assert(mBackImg != -1 && "背景画像読み込みエラー");
 }
@@ -165,7 +164,6 @@ void Stage::loadMap(int _stageID, int _mapID)
 	//imgFile += ".png";
 	string imgFile = "Data/Image/block0.png";
 
-	//int tmp = LoadDivGraph(imgFile.c_str(), 7, 7, 1, 32, 32, mapChip);
 	int tmp = LoadDivGraph(imgFile.c_str(), 9, 9, 1, 32, 32, mapChip);
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 

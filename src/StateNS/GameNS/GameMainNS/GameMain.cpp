@@ -41,7 +41,7 @@ GameMain::~GameMain()
 void GameMain::initialize()
 {
 	//for Debug
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i <= 2; i++)
 	{
 		mStages.push_back(new Stage(0, i));
 	}
@@ -50,7 +50,7 @@ void GameMain::initialize()
 	//TODO ‚È‚ñ‚Åİ’è‚µ‚½‚ñ‚¾‚Á‚¯...H
 	for (auto& stage : mStages)
 	{
-		stage->setStageSize(2, 2);
+		stage->setStageSize(3, 1);//‚æ‚±A‚½‚Ä
 	}
 	nowStageNum = 0;
 

@@ -20,7 +20,7 @@ System::~System()
 
 void System::initialize()
 {
-	stage_x = stage_y = 2;
+	stage_x = stage_y = 3;
 }
 
 void System::update(GameMain::HowStageMove _nextStage)
