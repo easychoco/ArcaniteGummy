@@ -1,5 +1,6 @@
 #include "StateParent.h"
 #include "Title.h"
+#include "Config.h"
 #include "GameNS\Play.h"
 
 #include "..\Data.h"
@@ -41,7 +42,9 @@ Child* Parent::update(const GrandParent* parent)
 	//シーケンス間遷移
 	switch (mNextSeq)
 	{
-	case SEQ_TITLE: next = new Title();
+	case SEQ_TITLE: next = new Title(); break;
+	case SEQ_CONFIG: next = new Config(); break;
+
 	}
 
 	mNextSeq = SEQ_NONE;

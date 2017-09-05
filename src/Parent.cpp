@@ -1,5 +1,6 @@
 #include "Parent.h"
 #include "StateNS\Title.h"
+#include "StateNS\Config.h"
 #include "StateNS\StateParent.h"
 
 #include "Data.h"
