@@ -10,7 +10,6 @@ namespace GameMainNS{
 
 Sakuya::Sakuya(int _x, int _y, int _hp) : PlayerChild(_x, _y, 7.0f, 25.0f, 1, _hp)
 {
-	this->camera = new Vector2(_x, _y);
 	initialize();
 }
 
@@ -108,12 +107,6 @@ void Sakuya::draw_other() const
 
 	//for Debug
 	DrawFormatString(0, 30, MyData::BLACK, "Sakuya");
-	DrawFormatString(0, 130, MyData::BLACK, "cam_raw : %d %d", camera->raw_x, camera->raw_y);
-	if (attacks.size() > 0)if (attacks[0]->isActive)
-	{
-		DrawFormatString(0, 150, MyData::BLACK, "atk0     : %d %d", attacks[0]->p->raw_x, attacks[0]->p->raw_y);
-		DrawFormatString(0, 170, MyData::BLACK, "atk0_col : %d %d", attacks[0]->getColliX(),  attacks[0]->getColliY());
-	}
 }
 
 void Sakuya::loadImage()

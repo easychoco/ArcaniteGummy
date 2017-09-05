@@ -8,9 +8,9 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-DynamicObject::DynamicObject(int _x, int _y, int _w, int _h,float _jump,int _jumpCount):
-	maxJumpPower(_jump),
-	maxJumpCount(_jumpCount)
+DynamicObject::DynamicObject(int _x, int _y, int _w, int _h, float _jump,int _jumpCount):
+maxJumpPower(_jump),
+maxJumpCount(_jumpCount)
 {
 	p = new Vector2(_x, _y);
 	collision = new Collision(this, _w, _h);
@@ -49,7 +49,24 @@ int DynamicObject::getColliY() const
 //cameraを中心とした描画
 void DynamicObject::standardDraw(const Vector2* _camera, const Vector2* _pos, const int& _image, const bool& _direction) const
 {
+	if (//同じステージにいなければreturn
+		_pos->raw_x / MAP_WIDTH_RATE() != _camera->raw_x / MAP_WIDTH_RATE() ||
+		_pos->raw_y / MAP_HEIGHT_RATE() != _camera->raw_y / MAP_HEIGHT_RATE()
+		)
+		return;
 
+	//画面内にいなければreturn
+	if (abs(_pos->pos_x() - _camera->pos_x()) > 480000 || abs(p->pos_y() - _camera->pos_y()) > 320000)return;
+
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	//描画
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, _image, true, _direction);
+}
+
+void DynamicObject::standardDraw(const Vector2* _camera, const Vector2* _pos, const double& scale_x, const double& scale_y, const int& _image, const bool& _direction) const
+{
 	if (//同じステージにいなければreturn
 		_pos->raw_x / MAP_WIDTH_RATE() != _camera->raw_x / MAP_WIDTH_RATE() ||
 		_pos->raw_y / MAP_HEIGHT_RATE() != _camera->raw_y / MAP_HEIGHT_RATE()
@@ -63,8 +80,9 @@ void DynamicObject::standardDraw(const Vector2* _camera, const Vector2* _pos, co
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//描画
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, _image, true, _direction);
+	DrawRotaGraph3(draw_x, draw_y, 16, 16, scale_x, scale_y, 0.0, _image, true, _direction);
 }
+
 
 
 //ジャンプでの移動量を返す

@@ -14,7 +14,12 @@ class Character;
 class DynamicGimmickChild : public DynamicObject
 {
 public:
-	DynamicGimmickChild(int x, int y, int w, int h) : DynamicObject(x, y, w, h, 0, 0) {};
+	DynamicGimmickChild(int x, int y, int w, int h) : DynamicObject(x, y, w, h, 0, 0) 
+	{
+		scale_x = w / 32.0;
+		scale_y = h / 32.0;
+		mDirection = false;
+	}
 	virtual ~DynamicGimmickChild() {};
 	virtual void update(PlayerChild*) = 0;
 	virtual void draw(const Vector2* camera) const = 0;
@@ -38,6 +43,8 @@ public:
 protected:
 	int mImage;
 	bool mDirection;
+	double scale_x;
+	double scale_y;
 
 	virtual void loadImage() = 0;
 };

@@ -18,8 +18,8 @@ namespace GameMainNS{
 EnemyController::EnemyController()
 {
 	//enemies.push_back(new Usagi(96, 96));
-	enemies.push_back(new Usagi(480, 128));
-	enemies.push_back(new Usagi(320, 240));
+	//enemies.push_back(new Usagi(480, 128));
+	//enemies.push_back(new Usagi(320, 240));
 }
 
 EnemyController::~EnemyController()

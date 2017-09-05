@@ -30,6 +30,9 @@ public:
 
 
 private:
+	int width;
+	int height;
+
 	void loadImage();
 };
 

@@ -45,6 +45,8 @@ void Stage::initialize()
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
 
+	mDynamicGimmicks.push_back(new Block(200, 1500, 64, 64));
+
 	/*
 	//for Debug
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 176)));

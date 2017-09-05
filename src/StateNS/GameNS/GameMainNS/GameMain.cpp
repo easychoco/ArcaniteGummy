@@ -54,7 +54,7 @@ void GameMain::initialize()
 	}
 	nowStageNum = 0;
 
-	mPlayer = new Sakuya(96, 96,100);
+	mPlayer = new Sakuya(96, 1500, 100);
 	mSystem = new System(nowStageNum);
 	mEController = new EnemyController();
 
@@ -104,7 +104,7 @@ Child* GameMain::update(GameParent* _parent)
 
 void GameMain::draw() const
 {
-	if (changed)return;
+	//if (changed)return;
 
 	//DrawFormatString(0, 20, MyData::WHITE, "GameMain");
 	mStages[nowStageNum]->draw(mPlayer->getCamera());

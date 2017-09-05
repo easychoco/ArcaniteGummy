@@ -10,9 +10,13 @@ namespace GameNS {
 namespace GameMainNS {
 
 PlayerChild::PlayerChild(int _x, int _y, float _move, float _jump, int _jumpCount, int _hp) :
-	Character(_hp, _x, _y, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT, _jump, _jumpCount),
-	maxMoveSpeed(_move)
+Character(_hp, _x, _y, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT, _jump, _jumpCount),
+maxMoveSpeed(_move)
 {
+	post_x = _x;
+	post_y = _y;
+	this->camera = new Vector2(_x, _y);
+
 	initialize();
 	assert(*mImage != -1 && "自機画像読み込みエラー");
 }
@@ -20,6 +24,7 @@ PlayerChild::PlayerChild(int _x, int _y, float _move, float _jump, int _jumpCoun
 PlayerChild::~PlayerChild()
 {
 	SAFE_DELETE(camera);
+
 	for (auto& a : attacks)
 	{
 		SAFE_DELETE(a);
@@ -36,13 +41,13 @@ void PlayerChild::initialize()
 	this->prePush = false;
 	this->direction = false;
 	this->animationTime = 0;
-	this->actionState = ACT_NORMAL;
 	this->animeNum = 0;
 	this->animeCount = 0;
+	this->onGround = false;
+	this->onLadder = false;
+	this->actionState = ACT_NORMAL;
 
-	post_x = MyData::MAP_WIDTH / 2;
-	post_y = MyData::MAP_HEIGHT / 2;
-
+	updateCamera();
 }
 
 void PlayerChild::draw() const
@@ -55,12 +60,11 @@ void PlayerChild::draw() const
 	draw_other();
 	draw_changingAnimation(draw_x, draw_y);
 
+	//hpController.draw();
+
 	//for Debug
 	//DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
-	DrawFormatString(0, 50, MyData::BLACK, "player : %d %d", p->pos_x(), p->pos_y());
-	DrawFormatString(0, 70, MyData::BLACK, "colli  : %d %d", collision->p->x(), collision->p->y());
-	DrawFormatString(0, 90, MyData::BLACK, "camera : %d %d", camera->x(), camera->y());
 }
 
 
@@ -69,6 +73,8 @@ void PlayerChild::draw() const
 //================================================
 void PlayerChild::standardAction(const Stage* _stage)
 {
+	onGround = isOnGround(_stage);
+	onLadder = isOnLadder(_stage);
 
 	actCheck();
 	animeNum = animation();
@@ -154,23 +160,26 @@ void PlayerChild::move(const Stage* _stage)
 	}
 
 	//地上にいるなら
-	if (jumpPower == 0 && isOnGround(_stage))
+	if (jumpPower == 0 && onGround)
 	{
 		nowJumpCount = 0;
 
 	}
 
 	//はしごにのぼる
-	if (isOnLadder(_stage) && Input_UP())
+	if (onLadder)
 	{
-		dy -= (int)(moveSpeed * MyData::vectorRate);
-		jumpPower = 2;
-	}
+		if (Input_UP())
+		{
+			dy -= (int)(moveSpeed * MyData::vectorRate);
+			jumpPower = 0.0f;
+		}
 
-	if (isOnLadder(_stage) && Input_DOWN())
-	{
-		dy += (int)(moveSpeed * MyData::vectorRate);
-		jumpPower = 2;
+		if (Input_DOWN())
+		{
+			dy += (int)(moveSpeed * MyData::vectorRate);
+			jumpPower = 0.0f;
+		}
 	}
 
 	//ジャンプ
@@ -180,13 +189,10 @@ void PlayerChild::move(const Stage* _stage)
 		nowJumpCount++;
 	}
 
-	//for Debug
-	if (CheckHitKey(KEY_INPUT_Y))
-		int gomi = 0;
 
 
 	//縦移動
-	dy += gravity() * (!isOnLadder(_stage)) - jump();
+	dy += gravity() * (actionState != ACT_LADDER) - jump();
 
 	dx = getHorizontalDiffer(_stage, dx);
 	dy = dy < 0.0f ? getTopDiffer(_stage, dy) : getBottomDiffer(_stage, dy);
@@ -196,10 +202,6 @@ void PlayerChild::move(const Stage* _stage)
 
 	p->raw_x += dx;
 	p->raw_y += dy;
-
-	//for Debug
-	if (CheckHitKey(KEY_INPUT_Y))
-		int gomi = 0;
 
 	int dx_onScreen = p->x() - post_x;
 	int dy_onScreen = p->y() - post_y;
@@ -271,7 +273,7 @@ bool PlayerChild::isOnGround(const Stage* _stage)
 		chipType = _stage->getChipType(pos / MyData::vectorRate);
 	}
 
-	return chipType != Stage::ChipType::TYPE_BACK;
+	return !(chipType & (Stage::ChipType::TYPE_BACK | Stage::ChipType::TYPE_LADDER));
 }
 
 bool PlayerChild::isOnLadder(const Stage* _stage) const
@@ -313,7 +315,25 @@ int PlayerChild::animation()
 
 void PlayerChild::actCheck()
 {
-	if (Input_ATTACK())actionState = ACT_ATTACK;
+	if (onLadder)
+	{
+		if (Input_UP() || Input_DOWN())
+		{
+			actionState = ACT_LADDER;
+		}
+
+		if (Input_LEFT() || Input_RIGHT())
+		{
+			actionState = ((onGround) ? ACT_WALK : ACT_AIR);
+		}
+
+		if (onGround && !Input_UP())
+		{
+			actionState = ACT_NORMAL;
+		}
+	}
+	else if (Input_ATTACK())actionState = ACT_ATTACK;
+	else if (!onGround)actionState = ACT_AIR;
 	else if (Input_DOWN())actionState = ACT_SIT;
 	else if (Input_LEFT() || Input_RIGHT())actionState = ACT_WALK;
 	else actionState = ACT_NORMAL;

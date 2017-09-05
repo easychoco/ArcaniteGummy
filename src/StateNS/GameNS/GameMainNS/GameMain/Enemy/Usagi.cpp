@@ -36,8 +36,16 @@ void Usagi::update(const Stage* _stage)
 
 void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
 {
-	_dx = getHorizontalDiffer(_stage, moveSpeed);
 	_dy = getBottomDiffer(_stage, 4000);
+
+	//_dy‚ª0‚Å‚È‚©‚Á‚½‚ç‹ó’†‚É‚¢‚é
+	if (_dy != 0)
+	{
+		_dx = 0;
+		return;
+	}
+
+	_dx = getHorizontalDiffer(_stage, moveSpeed);
 
 	//_dx‚ª0‚Å•Ç‚É‚Ô‚Â‚©‚é
 	if (_dx == 0)
@@ -46,8 +54,6 @@ void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
 		moveSpeed = -moveSpeed;
 	}
 
-	//_dy‚ª0‚Å‚È‚©‚Á‚½‚ç‹ó’†‚É‚¢‚é
-	if (_dy != 0)_dx = 0;
 }
 
 

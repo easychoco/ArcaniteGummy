@@ -40,6 +40,8 @@ protected:
 
 	//camera‚ğ’†S‚Æ‚µ‚½•`‰æ
 	void standardDraw(const Vector2* camera, const Vector2* pos, const int& image, const bool& direction) const;
+	//Šg‘å—¦w’è”Å
+	void standardDraw(const Vector2* camera, const Vector2* pos, const double& scale_x, const double& scale_y, const int& image, const bool& direction) const;
 };
 
 

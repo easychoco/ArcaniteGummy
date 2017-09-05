@@ -50,6 +50,7 @@ protected:
 	void standardAction(const Stage*);
 	int animation();
 	void actCheck();
+
 	//Šeó‘Ô
 	enum ActionState
 	{
@@ -59,6 +60,7 @@ protected:
 		ACT_AIR, //‹ó’†‚É‚¢‚é
 		ACT_ATTACK, //UŒ‚
 		ACT_SIT, //‚µ‚á‚ª‚İ
+		ACT_LADDER, //‚Í‚µ‚²
 
 	};
 	ActionState actionState;
@@ -80,6 +82,10 @@ private:
 	bool isCharaChange;
 	void changeCharacter();
 	void draw_changingAnimation(int, int) const;
+
+	//¡‚¢‚éˆÊ’uŠÖŒW
+	bool onGround;
+	bool onLadder;
 
 	//‚»‚Ì‘¼
 	void initialize();
