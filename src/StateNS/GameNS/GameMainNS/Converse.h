@@ -20,13 +20,12 @@ public:
 
 
 private:
+	int stageNum;
 	unsigned passageNum;
 	bool prePush;
 	GameMain* main;
-	int stageNum;
-	bool prePush;
-
-	void nextPassage();
+	
+	bool nextPassage();
 	string YennToCR(string);
 
 	class Passage
@@ -39,6 +38,7 @@ private:
 		string speaker;
 		string passage;
 	};
+
 	vector<Passage> allPassages;
 
 

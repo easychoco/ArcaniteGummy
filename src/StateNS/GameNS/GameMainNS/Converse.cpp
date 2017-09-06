@@ -2,6 +2,7 @@
 
 #include "GameMain.h"
 #include "..\..\..\KeyInput.h"
+
 #include <fstream>
 
 namespace StateNS {
@@ -57,10 +58,7 @@ Child* Converse::update(GameParent* _parent)
 	prePush = Input_Z();
 
 	//for Debug
-	if (Input_Z() && !prePush)
-		passageNum++;
-	if (CheckHitKey(KEY_INPUT_2) || passageNum>=allPassages.size())
-		next = main;
+	if (finish)next = main;
 	
 	prePush = Input_Z();
 
