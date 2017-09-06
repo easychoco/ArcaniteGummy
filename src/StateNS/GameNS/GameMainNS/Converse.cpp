@@ -2,16 +2,19 @@
 
 #include "GameMain.h"
 #include "..\..\..\KeyInput.h"
-
+#include <fstream>
 
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS {
 
+/////////ステージごとにテキストで分割。
 
-Converse::Converse(GameMain* _main, int _convNum)
+
+Converse::Converse(GameMain* _main, int _stageNum1,int _stageNum2)
 {
 	main = _main;
+	stageNum = _stageNum1 * 10 + _stageNum2;
 	initialize();
 }
 
@@ -20,14 +23,28 @@ Converse::~Converse()
 
 }
 
+
 void Converse::initialize()
 {
 	passageNum = 0;
+	prePush = false;
+
+	string textFile = "Data/Text/Converse/stage";
+	textFile += std::to_string(stageNum);
+	textFile += ".txt";
+
+	std::ifstream fin(textFile);
+	assert(fin && "会話データ読み込みエラー");
+
+	string name, serifu;
+	while (fin >> name >> serifu) {
+		allPassages.push_back(Passage(name, YennToCR(serifu)));
+	}
+
+
 
 	//for Debug
-	allPassages.push_back(Passage("sakuya", "tesてすテスト1"));
-	allPassages.push_back(Passage("sakuya", "tesてすテスト2"));
-	allPassages.push_back(Passage("sakuya", "ばーい"));
+//	allPassages.push_back(Passage("sakuya", "tesてすテスト\n忠誠心は鼻から出る\n\nこ　ん　に　ち　は"));
 }
 
 Child* Converse::update(GameParent* _parent)
@@ -40,7 +57,12 @@ Child* Converse::update(GameParent* _parent)
 	prePush = Input_Z();
 
 	//for Debug
-	if (finish)next = main;
+	if (Input_Z() && !prePush)
+		passageNum++;
+	if (CheckHitKey(KEY_INPUT_2) || passageNum>=allPassages.size())
+		next = main;
+	
+	prePush = Input_Z();
 
 	return next;
 }
@@ -58,6 +80,8 @@ void Converse::draw() const
 	//for Debug
 	DrawFormatString(560, 320, WHITE, "%d / %d", passageNum + 1, allPassages.size());
 }
+
+
 
 //==============================================
 //内部プライベートメンバ
@@ -105,6 +129,22 @@ bool Converse::nextPassage()
 	return false;
 }
 
+
+string Converse::YennToCR(string str)
+{
+	string s = str;
+	string YenN = "\\n";
+	string CR = "\n";
+
+	std::string::size_type pos = s.find_first_of(YenN, 0);
+
+	while (std::string::npos != pos) {
+		s.replace(pos, YenN.length(), CR);
+		pos = s.find_first_of(YenN, pos);
+	}
+
+	return s;
+}
 
 
 

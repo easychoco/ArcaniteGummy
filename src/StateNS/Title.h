@@ -13,9 +13,15 @@ public:
 	void initialize();
 	Child* update(const GrandParent*);
 	void draw() const;
+	Child* nextScene(int);
+
 
 private:
 	int mBackImg;
+	int count = 0;
+	bool pushZ, pushUP, pushDOWN;
+	int step;
+	int select;
 };
 
 

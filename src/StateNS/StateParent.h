@@ -14,7 +14,8 @@ public:
 	enum NextSequence
 	{
 		SEQ_TITLE,
-
+		SEQ_MUSICROOM,
+		SEQ_CONFIG,
 		SEQ_NONE,
 	};
 

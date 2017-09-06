@@ -12,19 +12,22 @@ class GameMain;
 class Converse : public Child
 {
 public:
-	Converse(GameMain*, int convNum);
+	Converse(GameMain*, int stageNum1,int stageNum2);
 	~Converse();
 	void initialize();
 	Child* update(GameParent*);
 	void draw() const;
 
+
 private:
 	unsigned passageNum;
 	bool prePush;
 	GameMain* main;
+	int stageNum;
+	bool prePush;
 
-	bool nextPassage();
-
+	void nextPassage();
+	string YennToCR(string);
 
 	class Passage
 	{

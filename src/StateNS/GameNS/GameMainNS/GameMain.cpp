@@ -97,7 +97,7 @@ Child* GameMain::update(GameParent* _parent)
 
 	//for Debug
 	if(CheckHitKey(KEY_INPUT_1))
-		next = new Converse(this, 0);
+		next = new Converse(this, 1,1);
 	
 	return next;
 }
