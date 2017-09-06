@@ -90,6 +90,7 @@ void Title::draw() const
 
 Child* Title::nextScene(int n) {
 	Child* scene;
+	///////////‚à‚Á‚Æ‚¤‚Ü‚¢‘‚«•û‚ ‚Á‚½‚ç‹³‚¦‚Ä‚­‚ê/////////////////
 	switch (n) {
 	case 0:scene = new Parent(); break;
 	case 1:scene = new Parent(); break;
