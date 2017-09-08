@@ -80,8 +80,7 @@ void Title::draw() const
 {
 	DrawFormatString(0, 0, WHITE, "Titleeeeee");
 	DrawGraph(0, 0, movie, FALSE);
-	//DrawGraph(0, 0, graph[0], FALSE);
-	//////////////////////////////////////////////////////これはひどいコード/////////////////////////////////////
+
 	switch (step) {
 	case 1:
 		pressZ_draw();
@@ -107,13 +106,17 @@ void Title::pressZ_draw() const
 
 void Title::command_draw()const
 {
+
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+	DrawBox(200, 280, 440, 420, BLACK, TRUE);
+
 	DrawFormatString(250, 300, WHITE, "ゲームスタート");
 	DrawFormatString(250, 330, WHITE, "みゅーじっくるーむ");
 	DrawFormatString(250, 360, WHITE, "せってい");
 	DrawFormatString(250, 390, WHITE, "おわる");
 
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	DrawBox(200, 280, 440, 420, WHITE, FALSE);
 	if (select == 0)DrawFormatString(250, 300, WHITE, "ゲームスタート");
 	else if (select == 1)DrawFormatString(250, 330, WHITE, "みゅーじっくるーむ");
 	else if (select == 2)DrawFormatString(250, 360, WHITE, "せってい");
