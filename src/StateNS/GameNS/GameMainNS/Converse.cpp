@@ -44,6 +44,7 @@ void Converse::initialize()
 
 
 
+
 	//for Debug
 //	allPassages.push_back(Passage("sakuya", "tesてすテスト\n忠誠心は鼻から出る\n\nこ　ん　に　ち　は"));
 }
