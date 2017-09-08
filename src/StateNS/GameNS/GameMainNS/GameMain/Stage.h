@@ -59,7 +59,7 @@ private:
 	//以下マップ関連
 
 	//mapChipの画像(32x32pixcels)
-	int mapChip[9];
+	int mapChip[120];
 
 	//map(y:20 x:30 :: 320chips)
 	//mapData[y][x]でアクセスできる
@@ -72,7 +72,7 @@ private:
 	void drawMap(Arr, const Vector2*) const;
 
 	void loadMap(int stageID, int mapID);
-	//void loadGimmick();
+	void loadGimmick();
 
 	class Chip
 	{
@@ -86,17 +86,29 @@ private:
 	};
 
 	//マップチップ
-	array<Chip, 9> chip
+	array<Chip, 20> chip
 	{
 		Chip(ChipType::TYPE_BACK),
+		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIDE),
 		Chip(ChipType::TYPE_DOWN_SLANT_RIGHT),
 		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
 		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
 		Chip(ChipType::TYPE_UP_SLANT_LEFT),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_LADDER),
-		Chip(ChipType::TYPE_LADDER_TOP)
+		Chip(ChipType::TYPE_LADDER_TOP),
+
 	};
 
 

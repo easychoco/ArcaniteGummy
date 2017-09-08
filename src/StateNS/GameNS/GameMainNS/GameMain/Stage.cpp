@@ -45,6 +45,10 @@ void Stage::initialize()
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
 
+
+	mGimmicks.push_back(new Dossunn(Vector2(100, 1400)));
+
+
 	/*
 	//for Debug
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 176)));
@@ -164,7 +168,8 @@ void Stage::loadMap(int _stageID, int _mapID)
 	//imgFile += ".png";
 	string imgFile = "Data/Image/block0.png";
 
-	int tmp = LoadDivGraph(imgFile.c_str(), 9, 9, 1, 32, 32, mapChip);
+	//256*480
+	int tmp = LoadDivGraph(imgFile.c_str(), 120, 8, 15, 32, 32, mapChip);
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 
 	string textFile = "Data/Text/stage";
@@ -204,6 +209,15 @@ void Stage::drawMap(Arr _mapData, const Vector2* _camera) const
 			DrawGraph(x * 32 - draw_x, y * 32 - draw_y, mapChip[_mapData[y][x]], true);
 		}
 	}
+}
+
+
+void Stage::loadGimmick()
+{
+
+
+
+
 }
 
 
