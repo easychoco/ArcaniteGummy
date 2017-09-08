@@ -46,7 +46,7 @@ Child* Title::update(const GrandParent* parent)
 		break;
 	}
 
-
+	
 	if (!Input_Z())pushZ = true;
 	else pushZ = false;
 
@@ -77,8 +77,8 @@ void Title::draw() const
 		DrawFormatString(250, 330, WHITE, "みゅーじっくるーむ");
 		DrawFormatString(250, 360, WHITE, "せってい");
 		DrawFormatString(250, 390, WHITE, "おわる");
-
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
 		if(select==0)DrawFormatString(250, 300, WHITE, "ゲームスタート");
 		else if(select==1)DrawFormatString(250, 330, WHITE, "みゅーじっくるーむ");
 		else if(select==2)DrawFormatString(250, 360, WHITE, "せってい");

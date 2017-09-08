@@ -61,10 +61,15 @@ void PlayerChild::draw() const
 	draw_changingAnimation(draw_x, draw_y);
 
 	//hpController.draw();
+	//for Debug
+	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
 
 	//for Debug
-	//DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
-	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
+	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
+	//DrawBox(draw_x, draw_y, draw_x + 32, draw_y + 64, BLACK, false);
+	DrawFormatString(300, 140, BLACK, "p: %d %d", collision->p->raw_x, collision->p->raw_y);
+
+
 }
 
 
@@ -163,7 +168,6 @@ void PlayerChild::move(const Stage* _stage)
 	if (jumpPower == 0 && onGround)
 	{
 		nowJumpCount = 0;
-
 	}
 
 	//はしごにのぼる
@@ -189,20 +193,23 @@ void PlayerChild::move(const Stage* _stage)
 		nowJumpCount++;
 	}
 
-
-
 	//縦移動
 	dy += gravity() * (actionState != ACT_LADDER) - jump();
 
 	dx = getHorizontalDiffer(_stage, dx);
-	dy = dy < 0.0f ? getTopDiffer(_stage, dy) : getBottomDiffer(_stage, dy);
+	dy = dy < 0 ? getTopDiffer(_stage, dy) : getBottomDiffer(_stage, dy);
 
 	//天井に当たったら
 	if (abs(dy) <= 1000)jumpPower = 0;
 
+	//for Debug
+	if (Input_UP()) dy = getTopDiffer(_stage, -3000);
+	if (Input_DOWN())dy = getBottomDiffer(_stage, 3000);
+
 	p->raw_x += dx;
 	p->raw_y += dy;
 
+	//マップ間移動
 	int dx_onScreen = p->x() - post_x;
 	int dy_onScreen = p->y() - post_y;
 
@@ -236,9 +243,6 @@ void PlayerChild::updateCamera()
 	//MyData::MAP_WIDTH * 2 の2はマップをつなげた個数
 
 	//カメラ位置を更新
-	//int tmp_x = max(MyData::CX, min(MyData::MAP_WIDTH  * 2 - MyData::CX, p->raw_x / MyData::vectorRate));
-	//int tmp_y = max(MyData::CY, min(MyData::MAP_HEIGHT * 2 - MyData::CY, p->raw_y / MyData::vectorRate));
-
 	int tmp_x = p->raw_x / MyData::vectorRate;
 	int tmp_y = p->raw_y / MyData::vectorRate;
 
@@ -255,22 +259,22 @@ void PlayerChild::updateCamera()
 bool PlayerChild::isOnGround(const Stage* _stage)
 {
 	//posはキャラの最下端よりひとつ下
-	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
-	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate);
+	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 + 1000);
+	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 
 
 	//右上に向けた斜めブロックなら
 	if (chipType == Stage::ChipType::TYPE_DOWN_SLANT_RIGHT)
 	{
 		pos.pos_y -= (MyData::CHIP_WIDTH_RATE() - p->pos_x() % MyData::CHIP_WIDTH_RATE());
-		chipType = _stage->getChipType(pos / MyData::vectorRate);
+		chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 	}
 
 	//左上に向けた斜めブロックなら
 	else if (chipType == Stage::ChipType::TYPE_DOWN_SLANT_LEFT)
 	{
 		pos.pos_y -= p->pos_x() % MyData::CHIP_WIDTH_RATE();
-		chipType = _stage->getChipType(pos / MyData::vectorRate);
+		chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 	}
 
 	return !(chipType & (Stage::ChipType::TYPE_BACK | Stage::ChipType::TYPE_LADDER));
@@ -280,7 +284,7 @@ bool PlayerChild::isOnLadder(const Stage* _stage) const
 {
 
 	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1);
-	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate);
+	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 
 	return chipType == Stage::ChipType::TYPE_LADDER;
 }

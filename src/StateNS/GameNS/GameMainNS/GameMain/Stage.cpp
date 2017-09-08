@@ -45,7 +45,14 @@ void Stage::initialize()
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
 
-	mDynamicGimmicks.push_back(new Block(200, 1500, 64, 64));
+	mDynamicGimmicks.push_back(new Block(700, 1520, 3.0));
+	mDynamicGimmicks.push_back(new Block(560, 1536, 2.0));
+	mDynamicGimmicks.push_back(new Block(500, 1552, 1.0));
+
+	mDynamicGimmicks.push_back(new Block(160, 1500, 3.0));
+	mDynamicGimmicks.push_back(new Block(280, 1500, 2.0));
+	mDynamicGimmicks.push_back(new Block(400, 1500, 1.0));
+
 
 	/*
 	//for Debug
@@ -76,7 +83,10 @@ void Stage::update(PlayerChild* _player)
 
 	for (auto& d_gimmick : mDynamicGimmicks)
 	{
-		d_gimmick->update(_player);
+		if (d_gimmick->isActive)
+		{
+			d_gimmick->update(this);
+		}
 	}
 
 }
@@ -93,18 +103,43 @@ void Stage::draw(const Vector2* _camera) const
 	}
 
 	//ダイナミックギミックの描画
-	for (const auto& gimmick : mDynamicGimmicks)
+	for (const auto& d_gimmick : mDynamicGimmicks)
 	{
-		if(gimmick->isActive)gimmick->draw(_camera);
+		if(d_gimmick->isActive)d_gimmick->draw(_camera);
 	}
-
 }
 
-Stage::ChipType Stage::getChipType(const Vector2& _player) const
+int Stage::getTopPosition(const Vector2* _pos, const int& _dy) const
 {
+	//もらった座標に他のObjectがあったら、そのObjectの上のy座標を返す
 
-	int sub_x = _player.raw_x / MyData::vectorRate / MyData::CHIP_WIDTH;
-	int sub_y = _player.raw_y / MyData::vectorRate / MyData::CHIP_HEIGHT;
+	int ret = fixToVectorHeight(_pos->pos_y());
+
+	//*
+	//メモリリークこわ
+	Vector2* tmp = new Vector2(_pos->pos_x(), _pos->pos_y() + _dy, true);
+
+	for (const auto& d_gimmick : mDynamicGimmicks)
+	{
+		//足元にRIGIDのd_gimmickがあるなら
+		if (d_gimmick->isOverlap(tmp) && isRigid_down(d_gimmick->getChipType()))
+		{
+			ret = d_gimmick->getTopPosition();
+		}
+	}
+
+	//メモリリークこわ
+	SAFE_DELETE(tmp);
+	//*/
+
+
+	return ret;
+}
+
+Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
+{
+	int sub_x = _other.raw_x / MyData::vectorRate / MyData::CHIP_WIDTH;
+	int sub_y = _other.raw_y / MyData::vectorRate / MyData::CHIP_HEIGHT;
 
 	//Stageの範囲外(左か上の端)ならTYPE_RIGIDを返す
 	if (sub_y < 0 || sub_x < 0)
@@ -121,6 +156,10 @@ Stage::ChipType Stage::getChipType(const Vector2& _player) const
 	if(sub_y < MyData::MAP_HEIGHT_NUM && sub_x < MyData::MAP_WIDTH_NUM)
 		ret = chip[mapData[sub_y][sub_x]].getChipType();
 
+	if (!isPlayer)return ret;
+
+	//Playerなら以下を読む
+
 	//TODO
 	//今のままだと、Gimmickのほうを優先しちゃう
 	//つまり、RIGIDなDynamicGimmickとBACKなGimmickが重なると透過しちゃう
@@ -128,12 +167,15 @@ Stage::ChipType Stage::getChipType(const Vector2& _player) const
 	{
 		if (d_gimmick->isActive)
 		{
-			if (d_gimmick->isOverlap(sub_x, sub_y))
+			if (d_gimmick->isOverlap(&_other))
 			{
 				ret = d_gimmick->getChipType();
 			}
 		}
 	}
+
+	//for Debug
+	return ret;
 
 	for (const auto& gimmick : mGimmicks)
 	{
@@ -149,9 +191,14 @@ Stage::ChipType Stage::getChipType(const Vector2& _player) const
 }
 
 //ポリモーフィズム
-Stage::ChipType Stage::getChipType(const RawVector2& _player) const
+Stage::ChipType Stage::getChipType(const Vector2& _other) const
 {
-	return getChipType(Vector2(_player.pos_x, _player.pos_y));
+	return getChipType(_other, true);
+}
+
+Stage::ChipType Stage::getChipType(const RawVector2& _other, bool _isPlayer) const
+{
+	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
 }
 
 
