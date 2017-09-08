@@ -9,6 +9,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 class Collision;
+class Stage;
 
 class DynamicObject
 {
@@ -34,14 +35,20 @@ protected:
 	const int maxJumpCount;
 	float jumpPower;
 	int nowJumpCount;
+	int width;
+	int height;
 
 	int jump();
 	int gravity();
 
+	int getTopDiffer(const Stage*, const int dy, bool isPlayer) const;
+	int getBottomDiffer(const Stage*, const int dy, bool isPlayer) const;
+	int getHorizontalDiffer(const Stage*, const int dx, bool isPlayer) const;
+
 	//camera‚ğ’†S‚Æ‚µ‚½•`‰æ
 	void standardDraw(const Vector2* camera, const Vector2* pos, const int& image, const bool& direction) const;
 	//Šg‘å—¦w’è”Å
-	void standardDraw(const Vector2* camera, const Vector2* pos, const double& scale_x, const double& scale_y, const int& image, const bool& direction) const;
+	void standardDraw(const Vector2* camera, const Vector2* pos, const double& scale, const int& image, const bool& direction) const;
 };
 
 

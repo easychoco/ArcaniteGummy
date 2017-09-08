@@ -14,14 +14,9 @@ class Character;
 class DynamicGimmickChild : public DynamicObject
 {
 public:
-	DynamicGimmickChild(int x, int y, int w, int h) : DynamicObject(x, y, w, h, 0, 0) 
-	{
-		scale_x = w / 32.0;
-		scale_y = h / 32.0;
-		mDirection = false;
-	}
-	virtual ~DynamicGimmickChild() {};
-	virtual void update(PlayerChild*) = 0;
+	DynamicGimmickChild(int x, int y, double _scale);
+	virtual ~DynamicGimmickChild();
+	virtual void update(const Stage*) = 0;
 	virtual void draw(const Vector2* camera) const = 0;
 	virtual void apply(Character*) = 0;
 	virtual void hittedAction() override = 0;
@@ -29,7 +24,7 @@ public:
 
 	//画面上で重なっているか，当たり判定用
 	//引数はマップ換算の値
-	virtual bool isOverlap(int sub_x, int sub_y) const = 0;
+	virtual bool isOverlap(const Vector2* player) const = 0;
 
 	//対象がギミックの効果範囲内にいるか
 	//引数はマップ換算の値
@@ -37,16 +32,21 @@ public:
 
 	virtual Stage::ChipType getChipType() const = 0;
 
+	//自分の上端の座標を返す
+	int getTopPosition() { return p->raw_y - height * vectorRate / 2; }
 	//画面上に表示して、更新するかどうかのpublic変数
 	bool isActive;
 
 protected:
 	int mImage;
 	bool mDirection;
-	double scale_x;
-	double scale_y;
+	double scale;
 
 	virtual void loadImage() = 0;
+	int getTopDiffer(const Stage*, const int dy) const;
+	int getBottomDiffer(const Stage*, const int dy) const;
+	int getHorizontalDiffer(const Stage*, const int dx) const;
+
 };
 
 

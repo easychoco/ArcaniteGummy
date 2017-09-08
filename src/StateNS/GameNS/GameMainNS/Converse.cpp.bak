@@ -2,6 +2,7 @@
 
 #include "GameMain.h"
 #include "..\..\..\KeyInput.h"
+
 #include <fstream>
 
 namespace StateNS {
@@ -23,7 +24,6 @@ Converse::~Converse()
 
 }
 
-
 void Converse::initialize()
 {
 	passageNum = 0;
@@ -41,16 +41,14 @@ void Converse::initialize()
 		allPassages.push_back(Passage(name, YennToCR(serifu)));
 	}
 
-
-
-	//for Debug
 <<<<<<< HEAD
-	allPassages.push_back(Passage("sakuya", "tesてすテスト1"));
-	allPassages.push_back(Passage("sakuya", "tesてすテスト2"));
-	allPassages.push_back(Passage("sakuya", "ばーい"));
+
+
+
 =======
-//	allPassages.push_back(Passage("sakuya", "tesてすテスト\n忠誠心は鼻から出る\n\nこ　ん　に　ち　は"));
->>>>>>> origin/Mori
+>>>>>>> develop
+	//for Debug
+	//allPassages.push_back(Passage("sakuya", "tesてすテスト\n忠誠心は鼻から出る\n\nこ　ん　に　ち　は"));
 }
 
 Child* Converse::update(GameParent* _parent)
@@ -63,18 +61,9 @@ Child* Converse::update(GameParent* _parent)
 	prePush = Input_Z();
 
 	//for Debug
-<<<<<<< HEAD
 	if (finish)next = main;
-=======
-	if (Input_Z() && !prePush)
-		passageNum++;
-	if (CheckHitKey(KEY_INPUT_2) || passageNum>=allPassages.size())
-		next = main;
 	
 	prePush = Input_Z();
-
-
->>>>>>> origin/Mori
 
 	return next;
 }
@@ -98,6 +87,36 @@ void Converse::draw() const
 //==============================================
 //内部プライベートメンバ
 //==============================================
+bool Converse::nextPassage()
+{
+	++passageNum;
+	if (passageNum >= allPassages.size())
+	{
+		passageNum = allPassages.size() - 1;
+		return true;
+	}
+	return false;
+}
+
+
+string Converse::YennToCR(string str)
+{
+	string s = str;
+	string YenN = "\\n";
+	string CR = "\n";
+
+	std::string::size_type pos = s.find_first_of(YenN, 0);
+
+	while (std::string::npos != pos)
+	{
+		s.replace(pos, YenN.length(), CR);
+		pos = s.find_first_of(YenN, pos);
+	}
+
+	return s;
+}
+
+
 Converse::Passage::Passage(string _speaker, string _passage)
 {
 	speaker = _speaker;
@@ -129,35 +148,6 @@ void Converse::Passage::show() const
 	//文章
 	DrawString(20, 320, passage.c_str(), WHITE);
 }
-
-bool Converse::nextPassage()
-{
-	++passageNum;
-	if (passageNum >= allPassages.size())
-	{
-		passageNum = allPassages.size() - 1;
-		return true;
-	}
-	return false;
-}
-
-
-string Converse::YennToCR(string str)
-{
-	string s = str;
-	string YenN = "\\n";
-	string CR = "\n";
-
-	std::string::size_type pos = s.find_first_of(YenN, 0);
-
-	while (std::string::npos != pos) {
-		s.replace(pos, YenN.length(), CR);
-		pos = s.find_first_of(YenN, pos);
-	}
-
-	return s;
-}
-
 
 
 

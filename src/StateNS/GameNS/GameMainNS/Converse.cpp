@@ -24,7 +24,6 @@ Converse::~Converse()
 
 }
 
-
 void Converse::initialize()
 {
 	passageNum = 0;
@@ -42,11 +41,8 @@ void Converse::initialize()
 		allPassages.push_back(Passage(name, YennToCR(serifu)));
 	}
 
-
-
-
 	//for Debug
-//	allPassages.push_back(Passage("sakuya", "tesてすテスト\n忠誠心は鼻から出る\n\nこ　ん　に　ち　は"));
+	//allPassages.push_back(Passage("sakuya", "tesてすテスト\n忠誠心は鼻から出る\n\nこ　ん　に　ち　は"));
 }
 
 Child* Converse::update(GameParent* _parent)
@@ -85,6 +81,36 @@ void Converse::draw() const
 //==============================================
 //内部プライベートメンバ
 //==============================================
+bool Converse::nextPassage()
+{
+	++passageNum;
+	if (passageNum >= allPassages.size())
+	{
+		passageNum = allPassages.size() - 1;
+		return true;
+	}
+	return false;
+}
+
+
+string Converse::YennToCR(string str)
+{
+	string s = str;
+	string YenN = "\\n";
+	string CR = "\n";
+
+	std::string::size_type pos = s.find_first_of(YenN, 0);
+
+	while (std::string::npos != pos)
+	{
+		s.replace(pos, YenN.length(), CR);
+		pos = s.find_first_of(YenN, pos);
+	}
+
+	return s;
+}
+
+
 Converse::Passage::Passage(string _speaker, string _passage)
 {
 	speaker = _speaker;
@@ -116,35 +142,6 @@ void Converse::Passage::show() const
 	//文章
 	DrawString(20, 320, passage.c_str(), WHITE);
 }
-
-bool Converse::nextPassage()
-{
-	++passageNum;
-	if (passageNum >= allPassages.size())
-	{
-		passageNum = allPassages.size() - 1;
-		return true;
-	}
-	return false;
-}
-
-
-string Converse::YennToCR(string str)
-{
-	string s = str;
-	string YenN = "\\n";
-	string CR = "\n";
-
-	std::string::size_type pos = s.find_first_of(YenN, 0);
-
-	while (std::string::npos != pos) {
-		s.replace(pos, YenN.length(), CR);
-		pos = s.find_first_of(YenN, pos);
-	}
-
-	return s;
-}
-
 
 
 

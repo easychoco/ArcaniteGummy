@@ -37,13 +37,15 @@ public:
 		TYPE_LADDER				= 0b010000000, //はしご
 		TYPE_LADDER_TOP			= 0b100000000, //はしごの上
 	};
+	ChipType getChipType(const Vector2&, bool isPlayer) const;
 	ChipType getChipType(const Vector2&) const;
-	ChipType getChipType(const RawVector2&) const;
+	ChipType getChipType(const RawVector2&, bool isPlayer) const;
 
 	bool isRigid_down(ChipType _ct) const { return (_ct & 0b101100110) != 0; }//下にすり抜けられないブロック，床になる
 	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b000011010) != 0; }//上にすり抜けられないブロック，天井になる
 	bool isSlant(ChipType _ct)		const { return (_ct & 0b001111000) != 0; }//斜めブロック
 	
+	int getTopPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 	std::vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
 
 private:
@@ -64,7 +66,6 @@ private:
 	//map(y:20 x:30 :: 320chips)
 	//mapData[y][x]でアクセスできる
 	//mapData[~19][~29]
-//	std::array< std::array<int, 30>, 20> mapData;
 	std::array< std::array<int, MAP_WIDTH_NUM>, MAP_HEIGHT_NUM> mapData;
 
 	//前景描画

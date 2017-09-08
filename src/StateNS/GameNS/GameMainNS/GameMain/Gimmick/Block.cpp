@@ -1,5 +1,7 @@
 #include "Block.h"
 
+#include "..\Character.h"
+
 
 //for Debug
 #include "..\Collision.h"
@@ -9,11 +11,13 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-Block::Block(int _x, int _y, int _w, int _h) : 
-DynamicGimmickChild(_x, _y, _w, _h)
+Block::Block(int _x, int _y, double _scale) : 
+DynamicGimmickChild(_x, _y, _scale)
 {
-	this->width = _w;
-	this->height = _h;
+	this->width  = (int)(32 * _scale);
+	this->height = (int)(32 * _scale);
+
+	assert(width == height && "Blockの縦横のサイズが等しくないです");
 	initialize();
 }
 
@@ -25,25 +29,35 @@ Block::~Block()
 void Block::initialize()
 {
 	loadImage();
+	dy = 0;
 }
 
-void Block::update(PlayerChild* _player)
+void Block::update(const Stage* _stage)
 {
-
+	//this->dy = getBottomDiffer(_stage, 4000);
+	//this->p->raw_y += this->dy;
 }
 
 void Block::draw(const Vector2* _camera) const
 {
-	standardDraw(_camera, p, scale_x, scale_y, mImage, mDirection);
+	standardDraw(_camera, p, scale, mImage, mDirection);
 
 	//for Debug
-	DrawFormatString(300, 100, BLACK, "%lf %lf", scale_x, scale_y);
-	DrawFormatString(300, 120, BLACK, "%d %d", collision->width, collision->height);
+	//DrawFormatString(0, 50, BLACK, "%d %d", width, height);
+	//DrawFormatString(300, 100, BLACK, "%lf", scale);
+	DrawFormatString(300, 120, BLACK, "b: %d %d", collision->p->raw_x, collision->p->raw_y);
+
+
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	DrawCircle(draw_x, draw_y, 5, GREEN);
+	//DrawBox(draw_x, draw_y, draw_x + width, draw_y + height, BLACK, false);
 }
 
 void Block::apply(Character* _character)
 {
-
+	_character->moveCharacter(0.0f, (float)dy);
 }
 
 void Block::hittedAction()
@@ -59,20 +73,24 @@ void Block::burnedAction()
 	this->isActive = false;
 }
 
-bool Block::isOverlap(int _sub_x, int _sub_y) const
+bool Block::isOverlap(const Vector2* _player) const
 {
-	//for Debug
-	//このままだと、32[pixcel]区切りでしか箱を置けない
-	//32区切りでないところに置いても、当たり判定が対応しない
-	int  left_x = (this->p->x() - this->width + 32) / MyData::CHIP_WIDTH;
-	int right_x = (this->p->x()/* + this->width - 16*/) / MyData::CHIP_WIDTH;
-
-	int   up_y =  this->p->y() / MyData::CHIP_HEIGHT;
-	int down_y = (this->p->y() + this->height - 16) / MyData::CHIP_HEIGHT;
+	int tmp_w = this->width  * vectorRate / 2;
+	int tmp_h = this->height * vectorRate / 2;
 
 	return
-		left_x <= _sub_x && _sub_x <= right_x &&
-		  up_y <= _sub_y && _sub_y <=  down_y;
+		this->p->raw_x - tmp_w < _player->raw_x &&
+		this->p->raw_x + tmp_w > _player->raw_x &&
+		this->p->raw_y - tmp_h < _player->raw_y &&
+		this->p->raw_y + tmp_h > _player->raw_y;
+
+	/* Collisionの当たり判定
+	return
+		this->p->raw_x			      < other->p->raw_x + other->width  &&
+		this->p->raw_x + this->width  > other->p->raw_x					&&
+		this->p->raw_y			      < other->p->raw_y + other->height &&
+		this->p->raw_y + this->height > other->p->raw_y;
+	*/
 }
 
 bool Block::onActiveArea(const Vector2* _player) const
