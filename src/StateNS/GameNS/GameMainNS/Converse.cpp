@@ -86,7 +86,7 @@ bool Converse::nextPassage()
 	++passageNum;
 	if (passageNum >= allPassages.size())
 	{
-		passageNum = allPassages.size() - 1;
+		passageNum = (int)allPassages.size() - 1;
 		return true;
 	}
 	return false;

@@ -67,7 +67,7 @@ void PlayerChild::draw() const
 	//for Debug
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 	//DrawBox(draw_x, draw_y, draw_x + 32, draw_y + 64, BLACK, false);
-	DrawFormatString(300, 140, BLACK, "p: %d %d", collision->p->raw_x, collision->p->raw_y);
+	DrawFormatString(2, 50, BLACK, "P: %d %d", p->x(), p->y());
 
 
 }
@@ -194,7 +194,11 @@ void PlayerChild::move(const Stage* _stage)
 	}
 
 	//縦移動
-	dy += gravity() * (actionState != ACT_LADDER) - jump();
+
+	//重力の値
+	//はしごにいるか，dyが0でない(moveCharacterが呼ばれている)なら重力の値は0
+	int gravity_value = gravity() * (actionState != ACT_LADDER) * (dy == 0);
+	dy += gravity_value - jump();
 
 	dx = getHorizontalDiffer(_stage, dx);
 	dy = dy < 0 ? getTopDiffer(_stage, dy) : getBottomDiffer(_stage, dy);

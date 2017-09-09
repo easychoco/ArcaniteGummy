@@ -2,105 +2,103 @@
 #include "..\Character.h"
 
 namespace StateNS {
-	namespace GameNS {
-		namespace GameMainNS {
+namespace GameNS {
+namespace GameMainNS {
 
 
-			Dossunn::Dossunn(Vector2 _pos)
-			{
-				initialize();
+Dossunn::Dossunn(int _x, int _y, double _scale) :
+DynamicGimmickChild(_x, _y, _scale)
+{
+	this->width = (int)(32 * _scale);
+	this->height = (int)(32 * _scale);
 
-				pos = _pos;
+	initialize();
+}
 
-				mImage = LoadGraph("Data/Image/Dossunn.png");
-				assert(mImage != -1 && "どっすん画像読み込みエラー！");
-			}
+Dossunn::~Dossunn()
+{
 
-			Dossunn::~Dossunn()
-			{
+}
 
-			}
+void Dossunn::initialize()
+{
+	loadImage();
 
-			void Dossunn::initialize()
-			{
-				isActive = true;
-				//dx = 1.0f;
-				mTime = 0;
-				isMove = false;
-			}
+	mTime = 0;
+	isActive = true;
+	isMove = false;
+}
 
-			void Dossunn::update()
-			{
-				if (isMove && mTime<=150)
-				{
-					mTime++;
-					move(mTime);
-				}
-				else 
-				{
-					mTime = 0;
-					isMove = false;
+void Dossunn::update(const Stage* _stage)
+{
+	move();
+	standardMove(_stage);
+}
 
-				}
-			}
+void Dossunn::draw(const Vector2* _camera) const
+{
+	standardDraw(_camera, p, mImage, mDirection);
 
-			void Dossunn::move(int time) 
-			{
-				if(time<30)pos.raw_y += MyData::CHIP_WIDTH * 100;
-				else pos.raw_y -= MyData::CHIP_WIDTH * 25;
+	//for Debug
+	DrawFormatString(0, 70, BLACK, "D: %d, %d", p->x(), p->y());
+}
 
-				
-			}
+void Dossunn::apply(Character* _character)
+{
+	this->isMove = true;
+}
 
-			void Dossunn::draw(const Vector2* _camera) const
-			{
-				//画面内にいなければreturn
-				if (abs(pos.pos_x() - _camera->pos_x()) > 350000 || abs(pos.pos_y() - _camera->pos_y()) > 270000)return;
+void Dossunn::hittedAction()
+{
+	/* do nothing */
+}
 
+void Dossunn::burnedAction()
+{
+	/* do nothing */
+}
 
-				int draw_x = 320 + (pos.pos_x() - _camera->pos_x()) / MyData::vectorRate;
-				int draw_y = 240 + (pos.pos_y() - _camera->pos_y()) / MyData::vectorRate;
+bool Dossunn::isOverlap(const Vector2* _player) const
+{
+	return standardOverLap(_player);
+}
 
-				//描画
-				DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
+bool Dossunn::onActiveArea(const Vector2* _player) const
+{
+	return
+		abs(this->p->x() - _player->x()) <= CHIP_WIDTH * 5 &&
+		abs(this->p->y() - _player->y()) <= CHIP_WIDTH * 5;
+}
 
+//==============================================
+//内部プライベート関数
+//==============================================
+void Dossunn::loadImage()
+{
+	this->mImage = LoadGraph("Data/Image/dossunn.png");
+	assert(mImage != -1 && "Dossunn画像読み込みエラー!");
+}
 
-			}
-
-
-			void Dossunn::apply(Character* _character)
-			{
-				this->isMove = true;
-
-			}
-
-			bool Dossunn::isOverlap(int _sub_x, int _sub_y) const
-			{
-				return
-					this->pos.x() / MyData::CHIP_WIDTH == _sub_x &&
-					this->pos.y() / MyData::CHIP_HEIGHT == _sub_y;
-			}
-
-			bool Dossunn::onActiveArea(const Vector2* _player) const
-			{
-				return
-					abs(this->pos.x() - _player->x()) <= MyData::CHIP_WIDTH * 5 &&
-					abs(this->pos.y() - _player->y()) <= MyData::CHIP_WIDTH * 5;
-			}
-
-			Stage::ChipType Dossunn::getChipType() const
-			{
-				return Stage::ChipType::TYPE_RIGID;
-			}
-
-			//==============================================
-			//内部プライベート関数
-			//==============================================
-
-			//そんなものはない
-
-
-
-		}
+void Dossunn::move()
+{
+	if (isMove && mTime <= 150)
+	{
+		++mTime;
+		if (mTime < 30)dy = CHIP_HEIGHT * 100;
+		else dy = - CHIP_HEIGHT * 25;
 	}
+	else
+	{
+		dy = 0;
+		mTime = 0;
+		isMove = false;
+	}
+
+}
+
+
+
+
+}
+}
 }

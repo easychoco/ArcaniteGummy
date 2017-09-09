@@ -53,7 +53,7 @@ void Stage::initialize()
 	mDynamicGimmicks.push_back(new Block(280, 1500, 2.0));
 	mDynamicGimmicks.push_back(new Block(400, 1500, 1.0));
 
-	mGimmicks.push_back(new Dossunn(Vector2(100, 1400)));
+	mDynamicGimmicks.push_back(new Dossunn(100, 1400, 1.0));
 
 
 	/*
@@ -88,9 +88,14 @@ void Stage::update(PlayerChild* _player)
 		if (d_gimmick->isActive)
 		{
 			d_gimmick->update(this);
+
+			if (d_gimmick->onActiveArea(_player->getVector2()))
+				d_gimmick->apply(_player);
+
+			if (d_gimmick->rideOnGimmick(_player->getVector2()))
+				_player->moveCharacter(d_gimmick->getDX(), d_gimmick->getDY());
 		}
 	}
-
 }
 
 void Stage::draw(const Vector2* _camera) const

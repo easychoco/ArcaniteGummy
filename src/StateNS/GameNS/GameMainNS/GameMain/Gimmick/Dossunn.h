@@ -1,44 +1,47 @@
 #pragma once
 
-#include "GimmickChild.h"
+#include "DynamicGimmickChild.h"
 
 
 
 namespace StateNS {
-	namespace GameNS {
+namespace GameNS {
 
 
-		namespace GameMainNS {
+namespace GameMainNS {
 
-			class Child;
+class Child;
 
-			class Dossunn : public GimmickChild
-			{
-			public:
-				Dossunn(Vector2);
-				~Dossunn();
-				void initialize();
-				void update();
-				void draw(const Vector2*) const;
-				void apply(Character*);
-				void move(int);
-				bool isOverlap(int, int) const;
-				bool onActiveArea(const Vector2*) const;
-				Stage::ChipType getChipType() const;
+class Dossunn : public DynamicGimmickChild
+{
+public:
+	Dossunn(int x, int y, double scale);
+	~Dossunn();
+	void initialize();
+	void update(const Stage*);
+	void draw(const Vector2* camera) const;
+	Stage::ChipType getChipType() const { return Stage::ChipType::TYPE_RIGID; };
 
-
-
-			private:
-				float dx;
-				Vector2 pos;
-				int mImage;
-				int mTime;
-				bool isMove;
-			};
+	void apply(Character*);
+	void hittedAction() override;
+	void burnedAction() override;
+	bool isOverlap(const Vector2*) const;
+	bool onActiveArea(const Vector2*) const;
 
 
+private:
+	float dx;
+	int mImage;
+	int mTime;
+	bool isMove;
+
+	void loadImage();
+	void move();
+};
 
 
-		}
-	}
+
+
+}
+}
 }

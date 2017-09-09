@@ -17,7 +17,6 @@ DynamicGimmickChild(_x, _y, _scale)
 	this->width  = (int)(32 * _scale);
 	this->height = (int)(32 * _scale);
 
-	assert(width == height && "Block‚Ìc‰¡‚ÌƒTƒCƒY‚ª“™‚µ‚­‚È‚¢‚Å‚·");
 	initialize();
 }
 
@@ -34,6 +33,7 @@ void Block::initialize()
 
 void Block::update(const Stage* _stage)
 {
+	standardMove(_stage);
 	//this->dy = getBottomDiffer(_stage, 4000);
 	//this->p->raw_y += this->dy;
 }
@@ -75,6 +75,9 @@ void Block::burnedAction()
 
 bool Block::isOverlap(const Vector2* _player) const
 {
+	return standardOverLap(_player);
+
+	/*
 	int tmp_w = this->width  * vectorRate / 2;
 	int tmp_h = this->height * vectorRate / 2;
 
@@ -83,6 +86,7 @@ bool Block::isOverlap(const Vector2* _player) const
 		this->p->raw_x + tmp_w > _player->raw_x &&
 		this->p->raw_y - tmp_h < _player->raw_y &&
 		this->p->raw_y + tmp_h > _player->raw_y;
+	*/
 
 	/* Collision‚Ì“–‚½‚è”»’è
 	return

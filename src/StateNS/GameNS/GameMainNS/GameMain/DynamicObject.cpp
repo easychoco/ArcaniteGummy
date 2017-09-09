@@ -275,15 +275,8 @@ int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _isP
 	pos = RawVector2(p->pos_x(), p->pos_y() + (height * vectorRate) / 2);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 
-
 	//TODO 
 	//_stage->getTopPositionは高速化できる
-
-	//通れないブロックなら
-	if (_stage->isRigid_down(chipType))
-	{
-		return _stage->getTopPosition(p, 0) - p->pos_y();
-	}
 
 	//移動した先のチップの最下端
 	pos = RawVector2(p->pos_x(), p->pos_y() + (height * vectorRate) / 2 + _dy);

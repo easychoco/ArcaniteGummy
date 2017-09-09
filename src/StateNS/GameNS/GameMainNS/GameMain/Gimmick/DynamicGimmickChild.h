@@ -33,16 +33,28 @@ public:
 	virtual Stage::ChipType getChipType() const = 0;
 
 	//自分の上端の座標を返す
-	int getTopPosition() { return p->raw_y - height * vectorRate / 2; }
+	int getTopPosition() const { return p->raw_y - height * vectorRate / 2; }
+
 	//画面上に表示して、更新するかどうかのpublic変数
 	bool isActive;
 
+	//ギミックの上に乗っているかどうかの判定
+	bool rideOnGimmick(const Vector2*) const;
+
+	int getDX() const { return dx / vectorRate; }
+	int getDY() const { return dy / vectorRate; }
+
 protected:
+	int dx;
+	int dy;
 	int mImage;
 	bool mDirection;
 	double scale;
 
 	virtual void loadImage() = 0;
+
+	void standardMove(const Stage*);
+	bool standardOverLap(const Vector2*) const;
 	int getTopDiffer(const Stage*, const int dy) const;
 	int getBottomDiffer(const Stage*, const int dy) const;
 	int getHorizontalDiffer(const Stage*, const int dx) const;

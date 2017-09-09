@@ -25,15 +25,15 @@ Character::~Character()
 //ƒLƒƒƒ‰‚ðdx, dy‚¾‚¯ˆÚ“®‚³‚¹‚é
 void Character::moveCharacter(float _dx, float _dy)
 {
-	this->next_dx += (int)(_dx * MyData::vectorRate);
-	this->next_dy += (int)(_dy * MyData::vectorRate);
+	this->next_dx += (int)(_dx * vectorRate);
+	this->next_dy += (int)(_dy * vectorRate);
 }
 
 //ƒLƒƒƒ‰‚ðx, y‚ÌˆÊ’u‚ÉˆÚ“®‚³‚¹‚é
-void Character::arrangeCharacter(float _x, float _y)
+void Character::warpCharacter(float _x, float _y)
 {
-	p->raw_x = (int)(_x * MyData::vectorRate);
-	p->raw_y = (int)(_y * MyData::vectorRate);
+	p->raw_x = (int)(_x * vectorRate);
+	p->raw_y = (int)(_y * vectorRate);
 }
 
 int Character::getTopDiffer(const Stage* _stage, const int dy) const { return DynamicObject::getTopDiffer(_stage, dy, true); }
