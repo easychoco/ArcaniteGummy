@@ -59,43 +59,12 @@ void Stage::initialize()
 
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
-<<<<<<< HEAD
 
 	//mGimmicksの0番目はclearFlag
 	this->clearFlag = new ClearFlag(Vector2(400, 1552));
 	mGimmicks.push_back(clearFlag);
 
 
-=======
-	/*
->>>>>>> origin/Mori
-	mDynamicGimmicks.push_back(new Block(700, 1520, 3.0));
-	mDynamicGimmicks.push_back(new Block(560, 1536, 2.0));
-	mDynamicGimmicks.push_back(new Block(500, 1552, 1.0));
-
-	//mDynamicGimmicks.push_back(new Block(160, 1500, 3.0));
-	//mDynamicGimmicks.push_back(new Block(280, 1500, 2.0));
-	//mDynamicGimmicks.push_back(new Block(400, 1500, 1.0));
-
-	//mDynamicGimmicks.push_back(new Dossunn(100, 1400, 1.0));
-
-<<<<<<< HEAD
-
-=======
-	*/
-	/*
->>>>>>> origin/Mori
-	//for Debug
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 1552)));
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 1552)));
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(144, 1552)));
-	/*
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(176, 208)));
-	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(208, 208)));
-
-	mGimmicks.push_back(new Spring(2.0, Vector2(240, 384)));
-	mDynamicGimmicks.push_back(new Block(80, 176, 32, 32));
-	*/
 }
 
 void Stage::update(PlayerChild* _player)
