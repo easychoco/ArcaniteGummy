@@ -46,6 +46,7 @@ public:
 	bool isSlant(ChipType _ct)		const { return (_ct & 0b001111000) != 0; }//斜めブロック
 	
 	int getTopPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
+	int getBottomPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 	std::vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
 
 	bool isClear() const;

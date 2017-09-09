@@ -188,18 +188,17 @@ int DynamicObject::getTopDiffer(const Stage* _stage, const int _dy, bool _isPlay
 		return dy;
 	}
 
-	//チップの上端より少し上
-	pos = RawVector2(p->x(), p->y() - height / 2 - 1);
-	chipType = _stage->getChipType(pos, _isPlayer);
+	//斜めじゃないチップに対して
+
+	//移動した先のチップタイプを取得
+	pos = RawVector2(p->pos_x(), p->pos_y() - (height * vectorRate) / 2 + _dy);
+	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 
 	//移動先が通れないブロックなら
 	if (_stage->isRigid_up(chipType))
 	{
-		int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - height)) * MyData::vectorRate;
-
-		//天井に当たっている場合はfixToStageHeightの結果が少し変わるから調整
-		if (pos.pos_y < 0)dy -= (height * MyData::vectorRate) / 2;
-		return dy;
+		const int half_height = (height * vectorRate) / 2;
+		return _stage->getBottomPosition(p, -half_height + _dy) - (p->pos_y() - half_height);
 	}
 
 	return _dy;
@@ -275,27 +274,28 @@ int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _isP
 		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + (height * MyData::vectorRate) / 2) + MyData::CHIP_WIDTH_RATE() - p->pos_x() % MyData::CHIP_WIDTH_RATE();
 	}
 
-
-	//チップの最下端
-	pos = RawVector2(p->pos_x(), p->pos_y() + (height * vectorRate) / 2);
-	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
+	//斜めじゃないチップに対して
 
 	//TODO 
 	//_stage->getTopPositionは高速化できる
 
-	//移動した先のチップの最下端
+	//移動した先のチップタイプを取得
 	pos = RawVector2(p->pos_x(), p->pos_y() + (height * vectorRate) / 2 + _dy);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 
 	//移動先が通れないブロックなら
 	if (_stage->isRigid_down(chipType))
 	{
-		const int quart_height = PLAYER_CHIP_HEIGHT_RATE() / 4;
-		int differ = _stage->getTopPosition(p, quart_height * 3) - fixToVectorHeight(p->pos_y() + quart_height * 3);
-		differ %= (quart_height * 2);
-		return fixToVectorHeight(p->pos_y() + quart_height) - p->pos_y() + differ;
+		const int half_height = (height * vectorRate) / 2;
+		return _stage->getTopPosition(p, half_height + _dy) - (p->pos_y() + half_height);
+		/*
+		旧式
+		int differ = _stage->getTopPosition(p, half_height + _dy) - fixToVectorHeight(p->pos_y() + half_height + _dy);
+		differ %= half_height;
+		return fixToVectorHeight(p->pos_y() + half_height + _dy) - (p->pos_y() + half_height) + differ;
+		*/
 	}
-
+	
 	return _dy;
 }
 

@@ -199,7 +199,7 @@ void PlayerChild::move(const Stage* _stage)
 
 	//重力の値
 	//はしごにいるか，dyが0でない(moveCharacterが呼ばれている)なら重力の値は0
-	int gravity_value = gravity() * (actionState != ACT_LADDER) * (dy == 0);
+	int gravity_value = gravity() * (actionState != ACT_LADDER) * (dy == 0) * !onGround;
 	if (jumpPower > 0.0f && onLadder)gravity_value = gravity();
 
 	dy += gravity_value - jump();

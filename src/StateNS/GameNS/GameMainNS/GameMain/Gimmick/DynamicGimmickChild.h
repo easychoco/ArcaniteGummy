@@ -34,6 +34,7 @@ public:
 
 	//自分の上端の座標を返す
 	int getTopPosition() const { return p->raw_y - height * vectorRate / 2; }
+	int getBottomPosition() const { return p->raw_y + height * vectorRate / 2; }
 
 	//画面上に表示して、更新するかどうかのpublic変数
 	bool isActive;
