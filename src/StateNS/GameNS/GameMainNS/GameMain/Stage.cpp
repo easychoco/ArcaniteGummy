@@ -44,6 +44,9 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
+	//mGimmicksの0番目はclearFlag
+	this->clearFlag = new ClearFlag(Vector2(400, 1552));
+	mGimmicks.push_back(clearFlag);
 
 	for (unsigned y = 0; y < gimmickData.size(); y++)
 	{
@@ -60,9 +63,6 @@ void Stage::initialize()
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
 
-	//mGimmicksの0番目はclearFlag
-	this->clearFlag = new ClearFlag(Vector2(400, 1552));
-	mGimmicks.push_back(clearFlag);
 
 
 }
@@ -178,12 +178,6 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 		}
 	}
 
-<<<<<<< HEAD
-=======
-	//for Debug
-	//return ret;
-
->>>>>>> origin/Mori
 	for (const auto& gimmick : mGimmicks)
 	{
 		if (gimmick->isActive)
@@ -289,8 +283,8 @@ void Stage::loadGimmick(int _x,int _y)
 	//Dynamickじゃないものはy座標を+16
 	switch (gimmickData[_y][_x]) {
 	case 56:mDynamicGimmicks.push_back(new Block(_x * 32, _y * 32, 3.0)); break;//はこ
-	case 57:mGimmicks.push_back(new Spring(Vector2(_x*32, _y*32+16))); break;//ばね
-	case 58:mGimmicks.push_back(new BeltConveyor(2.0, Vector2(_x*32,_y*32+16))); break;//ベルトコンベア
+	case 57:mGimmicks.push_back(new Spring(Vector2(_x*32 + 16, _y*32+16))); break;//ばね
+	case 58:mGimmicks.push_back(new BeltConveyor(2.0, Vector2(_x*32 + 16,_y*32+16))); break;//ベルトコンベア
 	case 59:mDynamicGimmicks.push_back(new Dossunn(_x*32, _y*32, 1.0)); break;//ドッスン
 	}
 
