@@ -67,13 +67,14 @@ private:
 	//mapData[y][x]でアクセスできる
 	//mapData[~19][~29]
 	std::array< std::array<int, MAP_WIDTH_NUM>, MAP_HEIGHT_NUM> mapData;
+	std::array< std::array<int, MAP_WIDTH_NUM>, MAP_HEIGHT_NUM> gimmickData;
 
 	//前景描画
 	template<typename Arr>
 	void drawMap(Arr, const Vector2*) const;
 
 	void loadMap(int stageID, int mapID);
-	void loadGimmick();
+	void loadGimmick(int x,int y);
 
 	class Chip
 	{
