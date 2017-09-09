@@ -15,10 +15,11 @@ namespace GameMainNS{
 
 Stage::Stage(int _stageID, int _mapID)
 {
-	initialize();
+
 
 	//for Debug
 	loadMap(_stageID, _mapID);
+	initialize();
 	mBackImg = LoadGraph("Data/Image/back.jpg");
 	assert(mBackImg != -1 && "背景画像読み込みエラー");
 }
@@ -43,14 +44,31 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
+
+	for (unsigned y = 0; y < gimmickData.size(); y++)
+	{
+		for (unsigned x = 0; x < gimmickData[0].size(); x++)
+		{
+			loadGimmick(x, y);
+			//DrawGraph(x * 32 - draw_x, y * 32 - draw_y, mapChip[_mapData[y][x]], true);
+		}
+	}
+
+
+	mDynamicGimmicks.push_back(new Block(700, 1520, 3.0));
+
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
+<<<<<<< HEAD
 
 	//mGimmicksの0番目はclearFlag
 	this->clearFlag = new ClearFlag(Vector2(400, 1552));
 	mGimmicks.push_back(clearFlag);
 
 
+=======
+	/*
+>>>>>>> origin/Mori
 	mDynamicGimmicks.push_back(new Block(700, 1520, 3.0));
 	mDynamicGimmicks.push_back(new Block(560, 1536, 2.0));
 	mDynamicGimmicks.push_back(new Block(500, 1552, 1.0));
@@ -61,7 +79,12 @@ void Stage::initialize()
 
 	//mDynamicGimmicks.push_back(new Dossunn(100, 1400, 1.0));
 
+<<<<<<< HEAD
 
+=======
+	*/
+	/*
+>>>>>>> origin/Mori
 	//for Debug
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 1552)));
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 1552)));
@@ -186,6 +209,12 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 		}
 	}
 
+<<<<<<< HEAD
+=======
+	//for Debug
+	//return ret;
+
+>>>>>>> origin/Mori
 	for (const auto& gimmick : mGimmicks)
 	{
 		if (gimmick->isActive)
@@ -231,16 +260,32 @@ void Stage::loadMap(int _stageID, int _mapID)
 
 	string textFile = "Data/Text/stage";
 	textFile += std::to_string(_mapID);
+
+	string textFile2 = textFile + "a";
 	textFile += ".txt";
+	textFile2 += ".txt";
+
+
 
 	std::ifstream fin(textFile);
+	std::ifstream fin2("Data/Text/stage0a.txt");
+
 	assert(fin && "マップデータ読み込みエラー");
+	assert(fin2 && "ギミック読み込みエラー");
 
 	for (auto& mapY : mapData)
 	{
 		for (auto& mapX : mapY)
 		{
 			fin >> mapX;
+		}
+	}
+
+	for (auto& gimmickY : gimmickData)
+	{
+		for (auto& gimmickX : gimmickY)
+		{
+			fin2 >> gimmickX;
 		}
 	}
 
@@ -269,11 +314,16 @@ void Stage::drawMap(Arr _mapData, const Vector2* _camera) const
 }
 
 
-void Stage::loadGimmick()
+void Stage::loadGimmick(int _x,int _y)
 {
 
-
-
+	//Dynamickじゃないものはy座標を+16
+	switch (gimmickData[_y][_x]) {
+	case 56:mDynamicGimmicks.push_back(new Block(_x * 32, _y * 32, 3.0)); break;//はこ
+	case 57:mGimmicks.push_back(new Spring(Vector2(_x*32, _y*32+16))); break;//ばね
+	case 58:mGimmicks.push_back(new BeltConveyor(2.0, Vector2(_x*32,_y*32+16))); break;//ベルトコンベア
+	case 59:mDynamicGimmicks.push_back(new Dossunn(_x*32, _y*32, 1.0)); break;//ドッスン
+	}
 
 }
 
