@@ -12,11 +12,11 @@ namespace GameMainNS{
 
 class Child;
 
-class Spring : public GimmickChild
+class ClearFlag : public GimmickChild
 {
 public:
-	Spring(Vector2);
-	~Spring();
+	ClearFlag(Vector2);
+	~ClearFlag();
 	void initialize();
 	void update();
 	void draw(const Vector2*) const;
@@ -28,10 +28,6 @@ public:
 //	void setMovingSpeed(float _dx) { dx = _dx; }
 
 private:
-	float dy;
-	int mTime;
-	int aTime;
-
 	void loadImage();
 };
 

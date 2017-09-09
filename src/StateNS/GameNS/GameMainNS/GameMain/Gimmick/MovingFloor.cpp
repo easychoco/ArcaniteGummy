@@ -6,7 +6,9 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-MovingFloor::MovingFloor(){
+MovingFloor::MovingFloor(Vector2 _pos):
+GimmickChild(_pos)
+{
 	initialize();
 }
 
@@ -17,6 +19,7 @@ MovingFloor::~MovingFloor()
 
 void MovingFloor::initialize()
 {
+	loadImage();
 	isActive = false;
 }
 
@@ -56,9 +59,12 @@ Stage::ChipType MovingFloor::getChipType() const
 //==============================================
 //内部プライベート関数
 //==============================================
+void MovingFloor::loadImage()
+{
+	mImage = LoadGraph("Data/Image/ClearFlag.png");
+	assert(mImage != -1 && "クリア画像読み込みエラー！");
 
-//そんなものはない
-
+}
 
 
 }

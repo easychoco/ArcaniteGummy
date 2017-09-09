@@ -7,7 +7,6 @@ namespace StateNS {
 class Parent;
 
 namespace GameNS {
-
 namespace GameMainNS {
 	class Child;
 }

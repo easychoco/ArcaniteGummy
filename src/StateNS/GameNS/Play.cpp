@@ -3,6 +3,7 @@
 #include "GameMainNS\GameMain.h"
 #include "GameMainNS\GameMainChild.h"
 
+#include "..\StateParent.h"
 
 #include "..\..\Data.h"
 #include "..\..\KeyInput.h"
@@ -19,15 +20,16 @@ Play::Play()
 
 Play::~Play()
 {
-
+	SAFE_DELETE(gameMain);
 }
 
 void Play::initialize()
 {
 	gameMain = new GameMainNS::GameMain();
+	mNextSeq = NextSequence::SEQ_NONE;
 }
 
-Child* Play::update(Parent* parent)
+Child* Play::update(Parent* _parent)
 {
 	Child* next = this;
 	gameMain = gameMain->update(this);
@@ -35,8 +37,20 @@ Child* Play::update(Parent* parent)
 	if (Input_X())
 	{
 		SAFE_DELETE(gameMain);
-		next = new Clear();
 	}
+
+	if (mNextSeq != SEQ_NONE)
+	{
+		switch (mNextSeq)
+		{
+		case SEQ_TITLE: _parent->moveTo(_parent->NextSequence::SEQ_TITLE);
+		case SEQ_CLEAR: next = new Clear();
+			/*
+			TODO ‘¼‚Ì‘JˆÚ‚à‘‚­
+			*/
+		}
+	}
+	mNextSeq = SEQ_NONE;
 
 	return next;
 }

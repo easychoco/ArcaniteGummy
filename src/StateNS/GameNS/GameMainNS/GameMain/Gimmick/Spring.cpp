@@ -6,14 +6,11 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-Spring::Spring(Vector2 _pos)
+Spring::Spring(Vector2 _pos) :
+GimmickChild(_pos)
 {
 	initialize();
 	
-	pos = _pos;
-//	setMovingSpeed(_dx);
-	mImage = LoadGraph("Data/Image/Spring.png");
-	assert(mImage != -1 && "バネ画像読み込みエラー！");
 }
 
 Spring::~Spring()
@@ -23,6 +20,8 @@ Spring::~Spring()
 
 void Spring::initialize()
 {
+	loadImage();
+
 	isActive = true;
 	dy = 0.0f;
 	mTime = 0;
@@ -84,9 +83,11 @@ Stage::ChipType Spring::getChipType() const
 //==============================================
 //内部プライベート関数
 //==============================================
-
-//そんなものはない
-
+void Spring::loadImage()
+{
+	mImage = LoadGraph("Data/Image/Spring.png");
+	assert(mImage != -1 && "バネ画像読み込みエラー！");
+}
 
 
 }

@@ -29,9 +29,9 @@ public:
 
 private:
 	float dx;
-	Vector2 pos;
-	int mImage;
 	int mTime;
+
+	void loadImage();
 };
 
 

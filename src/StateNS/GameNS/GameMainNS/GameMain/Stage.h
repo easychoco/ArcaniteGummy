@@ -48,6 +48,8 @@ public:
 	int getTopPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 	std::vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
 
+	bool isClear() const;
+
 private:
 	int mBackImg;
 	int stage_max_x;
@@ -56,6 +58,8 @@ private:
 	//ギミックの配列
 	std::vector< GimmickChild* > mGimmicks;
 	std::vector< DynamicGimmickChild* > mDynamicGimmicks;
+
+	GimmickChild* clearFlag;
 
 
 	//以下マップ関連

@@ -177,12 +177,14 @@ void PlayerChild::move(const Stage* _stage)
 		{
 			dy -= (int)(moveSpeed * MyData::vectorRate);
 			jumpPower = 0.0f;
+			nowJumpCount = 0;
 		}
 
 		if (Input_DOWN())
 		{
 			dy += (int)(moveSpeed * MyData::vectorRate);
 			jumpPower = 0.0f;
+			nowJumpCount = 0;
 		}
 	}
 
@@ -198,6 +200,8 @@ void PlayerChild::move(const Stage* _stage)
 	//重力の値
 	//はしごにいるか，dyが0でない(moveCharacterが呼ばれている)なら重力の値は0
 	int gravity_value = gravity() * (actionState != ACT_LADDER) * (dy == 0);
+	if (jumpPower > 0.0f && onLadder)gravity_value = gravity();
+
 	dy += gravity_value - jump();
 
 	dx = getHorizontalDiffer(_stage, dx);
@@ -207,8 +211,8 @@ void PlayerChild::move(const Stage* _stage)
 	if (abs(dy) <= 1000)jumpPower = 0;
 
 	//for Debug
-	if (Input_UP()) dy = getTopDiffer(_stage, -3000);
-	if (Input_DOWN())dy = getBottomDiffer(_stage, 3000);
+	if (Input_D() && Input_UP()) dy = getTopDiffer(_stage, -3000);
+	if (Input_D() && Input_DOWN())dy = getBottomDiffer(_stage, 3000);
 
 	p->raw_x += dx;
 	p->raw_y += dy;
@@ -290,7 +294,7 @@ bool PlayerChild::isOnLadder(const Stage* _stage) const
 	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1);
 	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 
-	return chipType == Stage::ChipType::TYPE_LADDER;
+	return chipType == Stage::ChipType::TYPE_LADDER || chipType == Stage::ChipType::TYPE_LADDER_TOP;
 }
 
 int PlayerChild::animation() 

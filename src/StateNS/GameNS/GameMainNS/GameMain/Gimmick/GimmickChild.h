@@ -13,6 +13,7 @@ class Character;
 class GimmickChild
 {
 public:
+	GimmickChild(Vector2);
 	virtual ~GimmickChild() {};
 	virtual void update() = 0;
 	virtual void draw(const Vector2*) const = 0;
@@ -31,7 +32,13 @@ public:
 	//画面状に表示して、更新するかどうかのpublic変数
 	bool isActive;
 
-
+protected:
+	Vector2 pos;
+	int mImage;
+	bool mDirection;
+	
+	void standardDraw(const Vector2* _camera) const;
+	virtual void loadImage() = 0;
 };
 
 

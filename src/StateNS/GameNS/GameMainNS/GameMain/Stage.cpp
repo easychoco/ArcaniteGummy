@@ -38,6 +38,7 @@ Stage::~Stage()
 	}
 	mDynamicGimmicks.clear();
 	mDynamicGimmicks.shrink_to_fit();
+
 }
 
 void Stage::initialize()
@@ -45,23 +46,27 @@ void Stage::initialize()
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
 
+	//mGimmicksの0番目はclearFlag
+	this->clearFlag = new ClearFlag(Vector2(400, 1552));
+	mGimmicks.push_back(clearFlag);
+
+
 	mDynamicGimmicks.push_back(new Block(700, 1520, 3.0));
 	mDynamicGimmicks.push_back(new Block(560, 1536, 2.0));
 	mDynamicGimmicks.push_back(new Block(500, 1552, 1.0));
 
-	mDynamicGimmicks.push_back(new Block(160, 1500, 3.0));
-	mDynamicGimmicks.push_back(new Block(280, 1500, 2.0));
-	mDynamicGimmicks.push_back(new Block(400, 1500, 1.0));
+	//mDynamicGimmicks.push_back(new Block(160, 1500, 3.0));
+	//mDynamicGimmicks.push_back(new Block(280, 1500, 2.0));
+	//mDynamicGimmicks.push_back(new Block(400, 1500, 1.0));
 
-	mDynamicGimmicks.push_back(new Dossunn(100, 1400, 1.0));
+	//mDynamicGimmicks.push_back(new Dossunn(100, 1400, 1.0));
 
 
-	/*
 	//for Debug
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 176)));
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 176)));
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 208)));
-	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(144, 208)));
+	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 1552)));
+	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 1552)));
+	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(144, 1552)));
+	/*
 	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(176, 208)));
 	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(208, 208)));
 
@@ -145,8 +150,8 @@ int Stage::getTopPosition(const Vector2* _pos, const int& _dy) const
 
 Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 {
-	int sub_x = _other.raw_x / MyData::vectorRate / MyData::CHIP_WIDTH;
-	int sub_y = _other.raw_y / MyData::vectorRate / MyData::CHIP_HEIGHT;
+	int sub_x = _other.raw_x / CHIP_WIDTH_RATE();
+	int sub_y = _other.raw_y / CHIP_HEIGHT_RATE();
 
 	//Stageの範囲外(左か上の端)ならTYPE_RIGIDを返す
 	if (sub_y < 0 || sub_x < 0)
@@ -181,9 +186,6 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 		}
 	}
 
-	//for Debug
-	return ret;
-
 	for (const auto& gimmick : mGimmicks)
 	{
 		if (gimmick->isActive)
@@ -208,7 +210,10 @@ Stage::ChipType Stage::getChipType(const RawVector2& _other, bool _isPlayer) con
 	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
 }
 
-
+bool Stage::isClear() const
+{
+	return !clearFlag->isActive;
+}
 
 //========================================================================
 // 内部private関数

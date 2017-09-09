@@ -15,7 +15,7 @@ class Child;
 class MovingFloor : public GimmickChild
 {
 public:
-	MovingFloor();
+	MovingFloor(Vector2);
 	~MovingFloor();
 	void initialize();
 	void update(PlayerChild*);
@@ -24,6 +24,7 @@ public:
 	Stage::ChipType getChipType() const;
 
 private:
+	void loadImage();
 };
 
 

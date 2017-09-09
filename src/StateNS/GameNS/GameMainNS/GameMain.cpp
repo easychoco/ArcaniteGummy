@@ -99,6 +99,12 @@ Child* GameMain::update(GameParent* _parent)
 	if(CheckHitKey(KEY_INPUT_1))
 		next = new Converse(this, 1,1);
 	
+	//ƒNƒŠƒA
+	if (stage->isClear())
+	{
+		_parent->moveTo(_parent->NextSequence::SEQ_CLEAR);
+	}
+
 	return next;
 }
 
@@ -112,6 +118,7 @@ void GameMain::draw() const
 	mPlayer->draw();
 	mSystem->draw();
 }
+
 
 
 //==============================================
@@ -151,7 +158,6 @@ void GameMain::processCollision(Stage* _stage)
 				{
 					enemy->hpController.damage(attack->getDamageValue());
 					attack->hittedAction();
-
 				}
 			}
 		}

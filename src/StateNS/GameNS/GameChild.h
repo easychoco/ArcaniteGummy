@@ -5,7 +5,6 @@ namespace StateNS {
 
 class Parent;
 
-
 namespace GameNS{
 
 

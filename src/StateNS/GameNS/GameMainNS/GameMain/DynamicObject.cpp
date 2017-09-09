@@ -52,6 +52,8 @@ int DynamicObject::getColliY() const
 //cameraを中心とした描画
 void DynamicObject::standardDraw(const Vector2* _camera, const Vector2* _pos, const int& _image, const bool& _direction) const
 {
+
+	//TODO 引数の const Vector2* _pos っていらねーじゃん
 	/*
 	if (//同じステージにいなければreturn
 		_pos->raw_x / MAP_WIDTH_RATE() != _camera->raw_x / MAP_WIDTH_RATE() ||
@@ -61,7 +63,7 @@ void DynamicObject::standardDraw(const Vector2* _camera, const Vector2* _pos, co
 	//*/
 	
 	//画面内にいなければreturn
-	if (abs(_pos->pos_x() - _camera->pos_x()) > 480000 || abs(p->pos_y() - _camera->pos_y()) > 320000)return;
+	if (abs(p->pos_x() - _camera->pos_x()) > 480000 || abs(p->pos_y() - _camera->pos_y()) > 320000)return;
 
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
@@ -70,13 +72,16 @@ void DynamicObject::standardDraw(const Vector2* _camera, const Vector2* _pos, co
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, _image, true, _direction);
 }
 
+//cameraを中心とした描画 scaleありバージョン
 void DynamicObject::standardDraw(const Vector2* _camera, const Vector2* _pos, const double& scale, const int& _image, const bool& _direction) const
 {
+	/*
 	if (//同じステージにいなければreturn
 		_pos->raw_x / MAP_WIDTH_RATE() != _camera->raw_x / MAP_WIDTH_RATE() ||
 		_pos->raw_y / MAP_HEIGHT_RATE() != _camera->raw_y / MAP_HEIGHT_RATE()
 	)
 	return;
+	//*/
 
 	//画面内にいなければreturn
 	if (abs(_pos->pos_x() - _camera->pos_x()) > 480000 || abs(p->pos_y() - _camera->pos_y()) > 320000)return;

@@ -41,8 +41,8 @@ public:
 	//ƒMƒ~ƒbƒN‚Ìã‚Éæ‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©‚Ì”»’è
 	bool rideOnGimmick(const Vector2*) const;
 
-	int getDX() const { return dx / vectorRate; }
-	int getDY() const { return dy / vectorRate; }
+	float getDX() const { return dx / (float)vectorRate; }
+	float getDY() const { return dy / (float)vectorRate; }
 
 protected:
 	int dx;

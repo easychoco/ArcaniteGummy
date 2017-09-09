@@ -1,6 +1,8 @@
 #include "Clear.h"
 #include "..\StateParent.h"
 
+#include "Play.h"
+
 #include "..\..\Data.h"
 #include "..\..\KeyInput.h"
 
@@ -32,13 +34,17 @@ Child* Clear::update(StateNS::Parent* _parent)
 	{
 		_parent->moveTo(_parent->NextSequence::SEQ_TITLE);
 	}
+	if (Input_Z())
+	{
+		next = new Play();
+	}
 
 	return next;
 }
 
 void Clear::draw() const
 {
-	DrawFormatString(0, 0, MyData::WHITE, "Clear");
+	DrawFormatString(250, 220, MyData::WHITE, "Ç≠ÇËÇ†Å[ÅI");
 }
 
 

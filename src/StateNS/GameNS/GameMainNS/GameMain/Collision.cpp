@@ -16,8 +16,9 @@ parent(_parent)
 
 Collision::~Collision()
 {
-	parent = 0;
-	p = 0;
+	//‚±‚±‚Å‚Ídelete‚µ‚È‚¢
+	this->parent = 0;
+	this->p = 0;
 }
 
 bool Collision::isHit(const Collision* other) const

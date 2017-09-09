@@ -6,14 +6,12 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-BeltConveyor::BeltConveyor(float _dx, Vector2 _pos)
+BeltConveyor::BeltConveyor(float _dx, Vector2 _pos) : 
+GimmickChild(_pos)
 {
 	initialize();
 	
-	pos = _pos;
 	setMovingSpeed(_dx);
-	mImage = LoadGraph("Data/Image/beltconveyor.png");
-	assert(mImage != -1 && "ベルトコンベヤー画像読み込みエラー！");
 }
 
 BeltConveyor::~BeltConveyor()
@@ -23,6 +21,8 @@ BeltConveyor::~BeltConveyor()
 
 void BeltConveyor::initialize()
 {
+	loadImage();
+
 	isActive = true;
 	dx = 0.0f;
 	mTime = 0;
@@ -73,9 +73,11 @@ Stage::ChipType BeltConveyor::getChipType() const
 //==============================================
 //内部プライベート関数
 //==============================================
-
-//そんなものはない
-
+void BeltConveyor::loadImage()
+{
+	mImage = LoadGraph("Data/Image/beltconveyor.png");
+	assert(mImage != -1 && "ベルトコンベヤー画像読み込みエラー！");
+}
 
 
 }
