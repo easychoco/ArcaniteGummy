@@ -58,11 +58,11 @@ constexpr int CX = 320;
 constexpr int CY = 240;
 
 //マップ1つ分のサイズ(ピクセル数)
-constexpr int MAP_WIDTH = 1600;
+constexpr int MAP_WIDTH = 3200;
 constexpr int MAP_HEIGHT = 1600;
 
 //マップ1つ分のサイズ(チップ数)
-constexpr int MAP_WIDTH_NUM = 50;
+constexpr int MAP_WIDTH_NUM = 100;
 constexpr int MAP_HEIGHT_NUM = 50;
 
 //マップチップのサイズ(ピクセル数)
