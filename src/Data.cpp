@@ -2,14 +2,14 @@
 
 namespace MyData{
 
-int fixToStageWidth(int _a) { return _a / CHIP_WIDTH * CHIP_WIDTH; }
+int fixToStageWidth(int _a) { return ((_a > 0) ? _a : _a - CHIP_WIDTH) / CHIP_WIDTH * CHIP_WIDTH; }
 
-int fixToStageHeight(int _a) { return _a / CHIP_HEIGHT * CHIP_HEIGHT; }
+int fixToStageHeight(int _a) { return ((_a > 0) ? _a : _a - CHIP_HEIGHT) / CHIP_HEIGHT * CHIP_HEIGHT; }
 
 
-int fixToVectorWidth(int _a) { return _a / CHIP_WIDTH_RATE() * CHIP_WIDTH_RATE(); }
+int fixToVectorWidth(int _a) { return ( (_a > 0) ? _a : _a - CHIP_WIDTH_RATE()  ) / CHIP_WIDTH_RATE() * CHIP_WIDTH_RATE(); }
 
-int fixToVectorHeight(int _a) { return _a / CHIP_HEIGHT_RATE() * CHIP_HEIGHT_RATE(); }
+int fixToVectorHeight(int _a) { return ( (_a > 0) ? _a : _a - CHIP_HEIGHT_RATE() ) / CHIP_HEIGHT_RATE() * CHIP_HEIGHT_RATE(); }
 
 
 const Vector2 Vector2::ZERO(0, 0);

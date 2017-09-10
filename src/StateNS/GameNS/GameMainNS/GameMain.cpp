@@ -52,13 +52,13 @@ void GameMain::initialize()
 	}
 
 	//ステージの全体的な縦と横の数を設定
-	//TODO なんで設定したんだっけ...？
-	/*
-	for (auto& stage : mStages)
-	{
-		stage->setStageSize(2, 1);//よこ、たて
-	}
-	*/
+
+	//TODO 数値をファイルより取得
+	int stage_x = 2;
+	int stage_y = 1;
+	nowStageNum = 0;
+
+
 	nowStageNum = 0;
 
 	mPlayer = new Mokou(96, 1500, 100);

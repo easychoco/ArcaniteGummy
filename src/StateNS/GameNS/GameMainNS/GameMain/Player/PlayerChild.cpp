@@ -13,8 +13,8 @@ PlayerChild::PlayerChild(int _x, int _y, float _move, float _jump, int _jumpCoun
 Character(_hp, _x, _y, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT, _jump, _jumpCount),
 maxMoveSpeed(_move)
 {
-	post_x = _x;
-	post_y = _y;
+	post_x = _x % MAP_WIDTH;
+	post_y = _y % MAP_HEIGHT;
 	this->camera = new Vector2(_x, _y);
 
 	initialize();
@@ -67,7 +67,7 @@ void PlayerChild::draw() const
 	//for Debug
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 	//DrawBox(draw_x, draw_y, draw_x + 32, draw_y + 64, BLACK, false);
-	DrawFormatString(2, 50, BLACK, "P: %d %d", p->x(), p->y());
+	DrawFormatString(2, 50, BLACK, "P: %d %d", p->raw_x, p->raw_y);
 
 
 }
@@ -222,21 +222,27 @@ void PlayerChild::move(const Stage* _stage)
 	int dy_onScreen = p->y() - post_y;
 
 	nextStageMove = GameMain::MOVE_NONE;
-	if (dx_onScreen < -MyData::MAP_WIDTH / 2)
+	if (abs(dx_onScreen) > MyData::MAP_WIDTH / 2)
 	{
-		nextStageMove = GameMain::MOVE_RIGHT;
+		if (dx_onScreen < 0)
+		{
+			nextStageMove = GameMain::MOVE_RIGHT;
+		}
+		else
+		{
+			nextStageMove = GameMain::MOVE_LEFT;
+		}
 	}
-	else if (dx_onScreen > MyData::MAP_WIDTH / 2)
+	if (abs(dy_onScreen) > MyData::MAP_HEIGHT / 2)
 	{
-		nextStageMove = GameMain::MOVE_LEFT;
-	}
-	else if (dy_onScreen > MyData::MAP_HEIGHT / 2)
-	{
-		nextStageMove = GameMain::MOVE_UP;
-	}
-	else if (dy_onScreen < -MyData::MAP_HEIGHT / 2)
-	{
-		nextStageMove = GameMain::MOVE_DOWN;
+		if (dy_onScreen < 0)
+		{
+			nextStageMove = GameMain::MOVE_UP;
+		}
+		else
+		{
+			nextStageMove = GameMain::MOVE_DOWN;
+		}
 	}
 
 	post_x = p->x();

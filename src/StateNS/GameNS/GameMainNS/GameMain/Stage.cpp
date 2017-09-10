@@ -15,6 +15,8 @@ namespace GameMainNS{
 
 Stage::Stage(int _stageID, int _mapID,int _x,int _y)
 {
+	loadMap(_stageID, _mapID);
+	this->mapID = _mapID;
 
 	stage_max_x = _x;
 	stage_max_y = _y;
@@ -46,6 +48,9 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
+	stage_x = 0;
+	stage_y = 0;
+
 	//mGimmicksの0番目はclearFlag
 	this->clearFlag = new ClearFlag(Vector2(400, 1552));
 	mGimmicks.push_back(clearFlag);
@@ -178,20 +183,55 @@ int Stage::getBottomPosition(const Vector2* _pos, const int& _dy) const
 Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 {
 	int sub_x = _other.raw_x / CHIP_WIDTH_RATE();
+	if (_other.raw_x < 0)--sub_x;
+
 	int sub_y = _other.raw_y / CHIP_HEIGHT_RATE();
+	if (_other.raw_y < 0)--sub_y;
 
-	//Stageの範囲外(左か上の端)ならTYPE_RIGIDを返す
-	if (sub_y < 0 || sub_x < 0)
-		return ChipType::TYPE_RIGID;
 
-	////////////////////////////////////////////////////ここおかしい///////////////////////////
-	//Stageの範囲外(右か下の端)ならTYPE_RIGIDを返す
-	if (MyData::MAP_HEIGHT_NUM * stage_max_y <= sub_y || 
-		MyData::MAP_WIDTH_NUM  * stage_max_x <= sub_x)
-		return ChipType::TYPE_RIGID;
+	//Stageの範囲外(右の端)なら
+	if (MyData::MAP_WIDTH_NUM <= sub_x)
+	{
+		if (stage_x == stage_max_x)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+	//Stageの範囲外(左の端)なら
+	if (sub_x < 0)
+	{
+		if (stage_x == 0)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+	//Stageの範囲外(上の端)なら
+	if (sub_y < 0)
+	{
+		if (stage_y == 0)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+	//Stageの範囲外(下の端)なら
+	if (MyData::MAP_HEIGHT_NUM <= sub_y)
+	{
+		if (stage_y == stage_max_y)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		//return ChipType::TYPE_LESAL;
+		return ChipType::TYPE_BACK;
+	}
 
 	
-	ChipType ret = TYPE_BACK;
+	ChipType ret = ChipType::TYPE_BACK;
 	if(sub_y < MyData::MAP_HEIGHT_NUM && sub_x < MyData::MAP_WIDTH_NUM)
 		ret = chip[mapData[sub_y][sub_x]].getChipType();
 

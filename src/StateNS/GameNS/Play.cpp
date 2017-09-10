@@ -54,8 +54,8 @@ Child* Play::update(Parent* _parent)
 	{
 		switch (mNextSeq)
 		{
-		case SEQ_TITLE: _parent->moveTo(_parent->NextSequence::SEQ_TITLE);
-		case SEQ_CLEAR: next = new Clear();
+		case SEQ_TITLE: _parent->moveTo(_parent->NextSequence::SEQ_TITLE); break;
+		case SEQ_CLEAR: next = new Clear(); break;
 			/*
 			TODO ‘¼‚Ì‘JˆÚ‚à‘‚­
 			*/
