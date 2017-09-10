@@ -25,7 +25,7 @@ Play::~Play()
 
 void Play::initialize()
 {
-	gameMain = new GameMainNS::GameMain();
+	gameMain = new GameMainNS::GameMain(0);
 	mNextSeq = NextSequence::SEQ_NONE;
 }
 
@@ -43,8 +43,8 @@ Child* Play::update(Parent* _parent)
 	{
 		switch (mNextSeq)
 		{
-		case SEQ_TITLE: _parent->moveTo(_parent->NextSequence::SEQ_TITLE);
-		case SEQ_CLEAR: next = new Clear();
+		case SEQ_TITLE: _parent->moveTo(_parent->NextSequence::SEQ_TITLE); break;
+		case SEQ_CLEAR: next = new Clear(); break;
 			/*
 			TODO ‘¼‚Ì‘JˆÚ‚à‘‚­
 			*/

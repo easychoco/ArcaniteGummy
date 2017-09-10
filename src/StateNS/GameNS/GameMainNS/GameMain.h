@@ -23,9 +23,9 @@ class EnemyController;
 class GameMain : public Child
 {
 public:
-	GameMain();
+	GameMain(int stageNum);
 	~GameMain();
-	void initialize();
+	void initialize(int);
 	Child* update(GameParent*);
 	void draw() const;
 

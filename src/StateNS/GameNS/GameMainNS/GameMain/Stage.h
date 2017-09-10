@@ -21,8 +21,11 @@ public:
 	void draw(const Vector2* player) const;
 	void setStageSize(int _x, int _y)
 	{
-		stage_max_x = _x;
-		stage_max_y = _y;
+		stage_max_x = _x - 1;
+		stage_max_y = _y - 1;
+
+		stage_x = mapID % _x;
+		stage_y = mapID / _x;
 	}
 
 	enum ChipType
@@ -37,14 +40,15 @@ public:
 		TYPE_LADDER				= 0b010000000, //はしご
 		TYPE_LADDER_TOP			= 0b100000000, //はしごの上
 	};
-	ChipType getChipType(const Vector2&, bool isPlayer) const;
-	ChipType getChipType(const Vector2&) const;
-	ChipType getChipType(const RawVector2&, bool isPlayer) const;
 
 	bool isRigid_down(ChipType _ct) const { return (_ct & 0b101100110) != 0; }//下にすり抜けられないブロック，床になる
 	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b000011010) != 0; }//上にすり抜けられないブロック，天井になる
 	bool isSlant(ChipType _ct)		const { return (_ct & 0b001111000) != 0; }//斜めブロック
-	
+
+	ChipType getChipType(const Vector2&, bool isPlayer) const;
+	ChipType getChipType(const Vector2&) const;
+	ChipType getChipType(const RawVector2&, bool isPlayer) const;
+
 	int getTopPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 	int getBottomPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 	std::vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
@@ -53,8 +57,11 @@ public:
 
 private:
 	int mBackImg;
+	int mapID;
 	int stage_max_x;
 	int stage_max_y;
+	int stage_x;
+	int stage_y;
 
 	//ギミックの配列
 	std::vector< GimmickChild* > mGimmicks;

@@ -20,8 +20,8 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-GameMain::GameMain(){
-	initialize();
+GameMain::GameMain(int _stageNum){
+	initialize(_stageNum);
 }
 
 GameMain::~GameMain()
@@ -38,24 +38,29 @@ GameMain::~GameMain()
 	SAFE_DELETE(mEController);
 }
 
-void GameMain::initialize()
+void GameMain::initialize(int _stageNum)
 {
 	//for Debug
 	for (int i = 0; i <= 1; i++)
 	{
-		mStages.push_back(new Stage(0, i));
+		mStages.push_back(new Stage(_stageNum, i));
 	}
 
 	//ステージの全体的な縦と横の数を設定
+
+	//TODO 数値をファイルより取得
+	int stage_x = 2;
+	int stage_y = 1;
+	nowStageNum = 0;
+
 	//TODO なんで設定したんだっけ...？
 	for (auto& stage : mStages)
 	{
-		stage->setStageSize(2, 1);//よこ、たて
+		stage->setStageSize(stage_x, stage_y);//よこ、たて
 	}
-	nowStageNum = 0;
 
 	mPlayer = new Sakuya(96, 1500, 100);
-	mSystem = new System(nowStageNum);
+	mSystem = new System(nowStageNum, stage_x, stage_y);
 	mEController = new EnemyController();
 
 	changed = false;
