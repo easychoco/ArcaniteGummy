@@ -14,7 +14,7 @@ class DynamicGimmickChild;
 class Stage
 {
 public:
-	Stage(int mapID, int stageID);
+	Stage(int mapID, int stageID,int stage_max_x,int stage_max_y);
 	~Stage();
 	void initialize();
 	void update(PlayerChild*);

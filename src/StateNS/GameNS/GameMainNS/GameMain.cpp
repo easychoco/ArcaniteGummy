@@ -43,19 +43,21 @@ void GameMain::initialize()
 	//for Debug
 	for (int i = 0; i <= 1; i++)
 	{
-		mStages.push_back(new Stage(0, i));
+		mStages.push_back(new Stage(11, i, 2, 1));
 	}
 
 	//ステージの全体的な縦と横の数を設定
 	//TODO なんで設定したんだっけ...？
+	/*
 	for (auto& stage : mStages)
 	{
 		stage->setStageSize(2, 1);//よこ、たて
 	}
+	*/
 	nowStageNum = 0;
 
-	mPlayer = new Sakuya(96, 1500, 100);
-	mSystem = new System(nowStageNum);
+	mPlayer = new Mokou(96, 1500, 100);
+	mSystem = new System(nowStageNum,2,1);
 	mEController = new EnemyController();
 
 	changed = false;

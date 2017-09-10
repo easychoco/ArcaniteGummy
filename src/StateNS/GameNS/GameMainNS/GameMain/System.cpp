@@ -8,8 +8,10 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-System::System(int _stage){
+System::System(int _stage,int _stage_x,int _stage_y){
 	nowStage = _stage;
+	stage_x = _stage_x;
+	stage_y = _stage_y;
 	initialize();
 }
 
@@ -20,8 +22,8 @@ System::~System()
 
 void System::initialize()
 {
-	stage_x = 3;
-	stage_y = 1;
+//	stage_x = 3;
+//	stage_y = 1;
 }
 
 void System::update(GameMain::HowStageMove _nextStage)

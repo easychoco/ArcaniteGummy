@@ -13,7 +13,7 @@ class Child;
 class System
 {
 public:
-	System(int);
+	System(int stagenum,int stageX,int stageY);
 	~System();
 	void initialize();
 	void update(GameMain::HowStageMove);

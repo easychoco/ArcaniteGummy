@@ -13,12 +13,14 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-Stage::Stage(int _stageID, int _mapID)
+Stage::Stage(int _stageID, int _mapID,int _x,int _y)
 {
 
-
+	stage_max_x = _x;
+	stage_max_y = _y;
 	//for Debug
 	loadMap(_stageID, _mapID);
+
 	initialize();
 	mBackImg = LoadGraph("Data/Image/back.jpg");
 	assert(mBackImg != -1 && "背景画像読み込みエラー");
@@ -255,6 +257,8 @@ void Stage::loadMap(int _stageID, int _mapID)
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 
 	string textFile = "Data/Text/stage";
+	textFile += std::to_string(_stageID);
+	textFile += "/stage";
 	textFile += std::to_string(_mapID);
 
 	string textFile2 = textFile + "a";
