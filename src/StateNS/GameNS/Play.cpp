@@ -49,6 +49,7 @@ Child* Play::update(Parent* _parent)
 	if (Input_X())
 	{
 		SAFE_DELETE(gameMain);
+		next = new Clear();
 	}
 
 	if (mNextSeq != SEQ_NONE)

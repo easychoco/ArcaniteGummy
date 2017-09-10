@@ -40,16 +40,11 @@ GameMain::~GameMain()
 	SAFE_DELETE(mEController);
 }
 
-void GameMain::initialize(int _stageNum)
+void GameMain::initialize()
 {
-
-	//for Debug
-
-
-	for (int i = 0; i < xNum*yNum; i++)
+	for (int i = 0; i < xNum * yNum; i++)
 	{
-		mStages.push_back(new Stage(stageID, i, xNum,yNum));
-
+		mStages.push_back(new Stage(stageID, i, xNum - 1, yNum - 1));
 	}
 
 	//ステージの全体的な縦と横の数を設定
@@ -59,10 +54,8 @@ void GameMain::initialize(int _stageNum)
 	int stage_y = 1;
 	nowStageNum = 0;
 
-	nowStageNum = 0;
-
 	mPlayer = new Mokou(96, 1500, 100);
-	mSystem = new System(nowStageNum,xNum,yNum);
+	mSystem = new System(nowStageNum, xNum, yNum);
 
 	mEController = new EnemyController();
 

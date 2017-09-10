@@ -24,6 +24,7 @@ private:
 	int nowStage;
 	int stage_x;
 	int stage_y;
+	int stage_num;
 };
 
 

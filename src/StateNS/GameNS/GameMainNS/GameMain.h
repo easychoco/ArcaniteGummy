@@ -25,7 +25,7 @@ class GameMain : public Child
 public:
 	GameMain(int stageID,int width,int height);
 	~GameMain();
-	void initialize(int);
+	void initialize();
 	Child* update(GameParent*);
 	void draw() const;
 

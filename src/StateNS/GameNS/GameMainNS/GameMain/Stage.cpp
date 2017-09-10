@@ -13,15 +13,13 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-Stage::Stage(int _stageID, int _mapID,int _x,int _y)
+Stage::Stage(int _stageID, int _stage_num,int _stage_max_x,int _stage_max_y)
 {
-	loadMap(_stageID, _mapID);
-	this->mapID = _mapID;
+	loadMap(_stageID, _stage_num);
+	this->stage_num = _stage_num;
 
-	stage_max_x = _x;
-	stage_max_y = _y;
-	//for Debug
-	loadMap(_stageID, _mapID);
+	stage_max_x = _stage_max_x;
+	stage_max_y = _stage_max_y;
 
 	initialize();
 	mBackImg = LoadGraph("Data/Image/back.jpg");
@@ -48,8 +46,8 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
-	stage_x = 0;
-	stage_y = 0;
+	stage_num_x = stage_num % (stage_max_x + 1);
+	stage_num_y = stage_num / (stage_max_x + 1);
 
 	//mGimmicksの0番目はclearFlag
 	this->clearFlag = new ClearFlag(Vector2(400, 1552));
@@ -187,13 +185,16 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 
 	int sub_y = _other.raw_y / CHIP_HEIGHT_RATE();
 	if (_other.raw_y < 0)--sub_y;
-<<<<<<< HEAD
 
+	if (Input_S() && isPlayer)
+	{
+		int gomi = 0;
+	}
 
 	//Stageの範囲外(右の端)なら
 	if (MyData::MAP_WIDTH_NUM <= sub_x)
 	{
-		if (stage_x == stage_max_x)
+		if (stage_num_x == stage_max_x)
 			return ChipType::TYPE_RIGID;
 
 		//else
@@ -203,7 +204,7 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 	//Stageの範囲外(左の端)なら
 	if (sub_x < 0)
 	{
-		if (stage_x == 0)
+		if (stage_num_x == 0)
 			return ChipType::TYPE_RIGID;
 
 		//else
@@ -213,51 +214,16 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 	//Stageの範囲外(上の端)なら
 	if (sub_y < 0)
 	{
-		if (stage_y == 0)
+		if (stage_num_y == 0)
 			return ChipType::TYPE_RIGID;
 
 		//else
 		return ChipType::TYPE_BACK;
 	}
-
-=======
-
-
-	//Stageの範囲外(右の端)なら
-	if (MyData::MAP_WIDTH_NUM <= sub_x)
-	{
-		if (stage_x == stage_max_x)
-			return ChipType::TYPE_RIGID;
-
-		//else
-		return ChipType::TYPE_BACK;
-	}
-
-	//Stageの範囲外(左の端)なら
-	if (sub_x < 0)
-	{
-		if (stage_x == 0)
-			return ChipType::TYPE_RIGID;
-
-		//else
-		return ChipType::TYPE_BACK;
-	}
-
-	//Stageの範囲外(上の端)なら
-	if (sub_y < 0)
-	{
-		if (stage_y == 0)
-			return ChipType::TYPE_RIGID;
-
-		//else
-		return ChipType::TYPE_BACK;
-	}
-
->>>>>>> develop
 	//Stageの範囲外(下の端)なら
 	if (MyData::MAP_HEIGHT_NUM <= sub_y)
 	{
-		if (stage_y == stage_max_y)
+		if (stage_num_y == stage_max_y)
 			return ChipType::TYPE_RIGID;
 
 		//else
@@ -339,7 +305,6 @@ void Stage::loadMap(int _stageID, int _mapID)
 	string textFile2 = textFile + "a";
 	textFile += ".txt";
 	textFile2 += ".txt";
-
 
 
 	std::ifstream fin(textFile);

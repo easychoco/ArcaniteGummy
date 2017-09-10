@@ -235,7 +235,7 @@ void PlayerChild::move(const Stage* _stage)
 	}
 	if (abs(dy_onScreen) > MyData::MAP_HEIGHT / 2)
 	{
-		if (dy_onScreen < 0)
+		if (dy_onScreen > 0)
 		{
 			nextStageMove = GameMain::MOVE_UP;
 		}
