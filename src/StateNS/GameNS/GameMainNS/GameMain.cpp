@@ -20,7 +20,9 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-GameMain::GameMain(){
+GameMain::GameMain(int _n,int _x,int _y){
+	xNum = _x, yNum = _y;
+	stageID = _n;
 	initialize();
 }
 
@@ -40,10 +42,13 @@ GameMain::~GameMain()
 
 void GameMain::initialize()
 {
+
 	//for Debug
-	for (int i = 0; i <= 1; i++)
+
+
+	for (int i = 0; i < xNum*yNum; i++)
 	{
-		mStages.push_back(new Stage(11, i, 2, 1));
+		mStages.push_back(new Stage(stageID, i, xNum,yNum));
 	}
 
 	//ステージの全体的な縦と横の数を設定
@@ -57,7 +62,7 @@ void GameMain::initialize()
 	nowStageNum = 0;
 
 	mPlayer = new Mokou(96, 1500, 100);
-	mSystem = new System(nowStageNum,2,1);
+	mSystem = new System(nowStageNum,xNum,yNum);
 	mEController = new EnemyController();
 
 	changed = false;

@@ -7,7 +7,7 @@
 
 #include "..\..\Data.h"
 #include "..\..\KeyInput.h"
-
+#include <fstream>
 
 
 namespace StateNS {
@@ -25,7 +25,18 @@ Play::~Play()
 
 void Play::initialize()
 {
-	gameMain = new GameMainNS::GameMain();
+	std::ifstream fin("Data/Text/stagelist.txt");
+	int a, b, x, y;
+//	for (int i = 0; i < 15; i++) {
+	for (int i = 0; i < 2; i++) {
+		fin >> a >> b >> x >> y;
+		stageMapID[i] = a * 10 + b;
+		stageMapXNum[i] = x;
+		stageMapYNum[i] = y;
+	}
+
+
+	gameMain = new GameMainNS::GameMain(stageMapID[1],stageMapXNum[1],stageMapYNum[1]);
 	mNextSeq = NextSequence::SEQ_NONE;
 }
 

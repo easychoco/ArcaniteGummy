@@ -23,7 +23,7 @@ class EnemyController;
 class GameMain : public Child
 {
 public:
-	GameMain();
+	GameMain(int stageID,int width,int height);
 	~GameMain();
 	void initialize();
 	Child* update(GameParent*);
@@ -46,6 +46,8 @@ private:
 	PlayerChild* mPlayer;
 	System* mSystem;
 	EnemyController* mEController;
+	int stageID;
+	int xNum, yNum;
 
 	//キャラを変えたら1フレームだけ表示がおかしくなるからその対策
 	bool changed;
