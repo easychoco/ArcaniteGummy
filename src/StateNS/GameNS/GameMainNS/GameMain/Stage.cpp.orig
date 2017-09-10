@@ -13,13 +13,23 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-Stage::Stage(int _stageID, int _mapID)
+Stage::Stage(int _stageID, int _mapID,int _x,int _y)
 {
+	loadMap(_stageID, _mapID);
+	this->mapID = _mapID;
 
-
+<<<<<<< HEAD
+	stage_max_x = _x;
+	stage_max_y = _y;
 	//for Debug
 	loadMap(_stageID, _mapID);
+
 	initialize();
+=======
+	initialize();
+
+	//for Debug
+>>>>>>> develop
 	mBackImg = LoadGraph("Data/Image/back.jpg");
 	assert(mBackImg != -1 && "背景画像読み込みエラー");
 }
@@ -44,6 +54,12 @@ Stage::~Stage()
 
 void Stage::initialize()
 {
+	stage_x = 0;
+	stage_y = 0;
+
+	//mGimmicksの0番目はclearFlag
+	this->clearFlag = new ClearFlag(Vector2(400, 1552));
+	mGimmicks.push_back(clearFlag);
 
 	for (unsigned y = 0; y < gimmickData.size(); y++)
 	{
@@ -54,55 +70,13 @@ void Stage::initialize()
 		}
 	}
 
-
-	mDynamicGimmicks.push_back(new Block(700, 1520, 3.0));
+	mDynamicGimmicks.push_back(new Block(700, 1500, 3.0));
 
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-	//mGimmicksの0番目はclearFlag
-	this->clearFlag = new ClearFlag(Vector2(400, 1552));
-	mGimmicks.push_back(clearFlag);
 
 
-=======
-	/*
->>>>>>> origin/Mori
-=======
-	/*
->>>>>>> origin/Mori
-	mDynamicGimmicks.push_back(new Block(700, 1520, 3.0));
-	mDynamicGimmicks.push_back(new Block(560, 1536, 2.0));
-	mDynamicGimmicks.push_back(new Block(500, 1552, 1.0));
 
-	//mDynamicGimmicks.push_back(new Block(160, 1500, 3.0));
-	//mDynamicGimmicks.push_back(new Block(280, 1500, 2.0));
-	//mDynamicGimmicks.push_back(new Block(400, 1500, 1.0));
-
-	//mDynamicGimmicks.push_back(new Dossunn(100, 1400, 1.0));
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> origin/Mori
-	*/
-	/*
->>>>>>> origin/Mori
-	//for Debug
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(80, 1552)));
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(112, 1552)));
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(144, 1552)));
-	/*
-	mGimmicks.push_back(new BeltConveyor(0.5, Vector2(176, 208)));
-	mGimmicks.push_back(new BeltConveyor(2.0, Vector2(208, 208)));
-
-	mGimmicks.push_back(new Spring(2.0, Vector2(240, 384)));
-	mDynamicGimmicks.push_back(new Block(80, 176, 32, 32));
-	*/
 }
 
 void Stage::update(PlayerChild* _player)
@@ -155,7 +129,7 @@ int Stage::getTopPosition(const Vector2* _pos, const int& _dy) const
 {
 	//もらった座標に他のObjectがあったら、そのObjectの上のy座標を返す
 
-	int ret = fixToVectorHeight(_pos->pos_y());
+	int ret = fixToVectorHeight(_pos->pos_y() + _dy);
 
 	//*
 	//メモリリークこわ
@@ -164,9 +138,12 @@ int Stage::getTopPosition(const Vector2* _pos, const int& _dy) const
 	for (const auto& d_gimmick : mDynamicGimmicks)
 	{
 		//足元にRIGIDのd_gimmickがあるなら
-		if (d_gimmick->isOverlap(tmp) && isRigid_down(d_gimmick->getChipType()))
+		if (d_gimmick->isActive)
 		{
-			ret = d_gimmick->getTopPosition();
+			if (d_gimmick->isOverlap(tmp) && isRigid_down(d_gimmick->getChipType()))
+			{
+				ret = d_gimmick->getTopPosition();
+			}
 		}
 	}
 
@@ -178,23 +155,124 @@ int Stage::getTopPosition(const Vector2* _pos, const int& _dy) const
 	return ret;
 }
 
+int Stage::getBottomPosition(const Vector2* _pos, const int& _dy) const
+{
+	//もらった座標に他のObjectがあったら、そのObjectの底のy座標を返す
+
+	int ret = fixToVectorHeight(_pos->pos_y() + _dy) +CHIP_HEIGHT_RATE();
+
+	//*
+	//メモリリークこわ
+	Vector2* tmp = new Vector2(_pos->pos_x(), _pos->pos_y() + _dy, true);
+
+	for (const auto& d_gimmick : mDynamicGimmicks)
+	{
+		//頭上にRIGIDのd_gimmickがあるなら
+		if (d_gimmick->isActive)
+		{
+			if (d_gimmick->isOverlap(tmp) && isRigid_up(d_gimmick->getChipType()))
+			{
+				ret = d_gimmick->getBottomPosition();
+			}
+		}
+	}
+
+	//メモリリークこわ
+	SAFE_DELETE(tmp);
+	//*/
+
+
+	return ret;
+}
+
+
 Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 {
 	int sub_x = _other.raw_x / CHIP_WIDTH_RATE();
+	if (_other.raw_x < 0)--sub_x;
+
 	int sub_y = _other.raw_y / CHIP_HEIGHT_RATE();
-
-	//Stageの範囲外(左か上の端)ならTYPE_RIGIDを返す
-	if (sub_y < 0 || sub_x < 0)
-		return ChipType::TYPE_RIGID;
+	if (_other.raw_y < 0)--sub_y;
+<<<<<<< HEAD
 
 
-	//Stageの範囲外(右か下の端)ならTYPE_RIGIDを返す
-	if (MyData::MAP_HEIGHT_NUM * stage_max_y <= sub_y || 
-		MyData::MAP_WIDTH_NUM  * stage_max_x <= sub_x)
-		return ChipType::TYPE_RIGID;
+	//Stageの範囲外(右の端)なら
+	if (MyData::MAP_WIDTH_NUM <= sub_x)
+	{
+		if (stage_x == stage_max_x)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+	//Stageの範囲外(左の端)なら
+	if (sub_x < 0)
+	{
+		if (stage_x == 0)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+	//Stageの範囲外(上の端)なら
+	if (sub_y < 0)
+	{
+		if (stage_y == 0)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+=======
+
+
+	//Stageの範囲外(右の端)なら
+	if (MyData::MAP_WIDTH_NUM <= sub_x)
+	{
+		if (stage_x == stage_max_x)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+	//Stageの範囲外(左の端)なら
+	if (sub_x < 0)
+	{
+		if (stage_x == 0)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+	//Stageの範囲外(上の端)なら
+	if (sub_y < 0)
+	{
+		if (stage_y == 0)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+>>>>>>> develop
+	//Stageの範囲外(下の端)なら
+	if (MyData::MAP_HEIGHT_NUM <= sub_y)
+	{
+		if (stage_y == stage_max_y)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		//return ChipType::TYPE_LESAL;
+		return ChipType::TYPE_BACK;
+	}
 
 	
-	ChipType ret = TYPE_BACK;
+	ChipType ret = ChipType::TYPE_BACK;
 	if(sub_y < MyData::MAP_HEIGHT_NUM && sub_x < MyData::MAP_WIDTH_NUM)
 		ret = chip[mapData[sub_y][sub_x]].getChipType();
 
@@ -216,12 +294,6 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 		}
 	}
 
-<<<<<<< HEAD
-=======
-	//for Debug
-	//return ret;
-
->>>>>>> origin/Mori
 	for (const auto& gimmick : mGimmicks)
 	{
 		if (gimmick->isActive)
@@ -266,6 +338,8 @@ void Stage::loadMap(int _stageID, int _mapID)
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 
 	string textFile = "Data/Text/stage";
+	textFile += std::to_string(_stageID);
+	textFile += "/stage";
 	textFile += std::to_string(_mapID);
 
 	string textFile2 = textFile + "a";
@@ -327,8 +401,8 @@ void Stage::loadGimmick(int _x,int _y)
 	//Dynamickじゃないものはy座標を+16
 	switch (gimmickData[_y][_x]) {
 	case 56:mDynamicGimmicks.push_back(new Block(_x * 32, _y * 32, 3.0)); break;//はこ
-	case 57:mGimmicks.push_back(new Spring(Vector2(_x*32, _y*32+16))); break;//ばね
-	case 58:mGimmicks.push_back(new BeltConveyor(2.0, Vector2(_x*32,_y*32+16))); break;//ベルトコンベア
+	case 57:mGimmicks.push_back(new Spring(Vector2(_x*32 + 16, _y*32+16))); break;//ばね
+	case 58:mGimmicks.push_back(new BeltConveyor(2.0, Vector2(_x*32 + 16,_y*32+16))); break;//ベルトコンベア
 	case 59:mDynamicGimmicks.push_back(new Dossunn(_x*32, _y*32, 1.0)); break;//ドッスン
 	}
 

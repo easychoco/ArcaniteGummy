@@ -187,6 +187,7 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 
 	int sub_y = _other.raw_y / CHIP_HEIGHT_RATE();
 	if (_other.raw_y < 0)--sub_y;
+<<<<<<< HEAD
 
 
 	//Stageの範囲外(右の端)なら
@@ -219,6 +220,40 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 		return ChipType::TYPE_BACK;
 	}
 
+=======
+
+
+	//Stageの範囲外(右の端)なら
+	if (MyData::MAP_WIDTH_NUM <= sub_x)
+	{
+		if (stage_x == stage_max_x)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+	//Stageの範囲外(左の端)なら
+	if (sub_x < 0)
+	{
+		if (stage_x == 0)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+	//Stageの範囲外(上の端)なら
+	if (sub_y < 0)
+	{
+		if (stage_y == 0)
+			return ChipType::TYPE_RIGID;
+
+		//else
+		return ChipType::TYPE_BACK;
+	}
+
+>>>>>>> develop
 	//Stageの範囲外(下の端)なら
 	if (MyData::MAP_HEIGHT_NUM <= sub_y)
 	{

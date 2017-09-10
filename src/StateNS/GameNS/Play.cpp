@@ -37,6 +37,7 @@ void Play::initialize()
 
 
 	gameMain = new GameMainNS::GameMain(stageMapID[1],stageMapXNum[1],stageMapYNum[1]);
+
 	mNextSeq = NextSequence::SEQ_NONE;
 }
 
