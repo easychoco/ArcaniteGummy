@@ -71,6 +71,12 @@ PlayerChild* Mokou::update(const Stage* _stage)
 	return next;
 }
 
+int Mokou::specialAction() 
+{
+	return 0;
+}
+
+
 //==============================================
 //内部プライベート関数
 //==============================================

@@ -46,7 +46,7 @@ void PlayerChild::initialize()
 	this->onGround = false;
 	this->onLadder = false;
 	this->actionState = ACT_NORMAL;
-
+	this->prePushC = false;
 	updateCamera();
 }
 
@@ -95,6 +95,7 @@ bool PlayerChild::canChangeCharacter()
 {
 	return animationTime > 30;
 }
+
 
 
 

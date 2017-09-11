@@ -7,5 +7,6 @@
 #include "Block.h"
 #include "Dossunn.h"
 #include "ClearFlag.h"
+#include "UFO.h"
 
 

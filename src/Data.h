@@ -116,6 +116,7 @@ enum ObjectID
 	//Attack
 	A_FIRE,
 	A_KNIFE,
+	A_SPEAR,
 
 	//Enemy
 	E_USAGI,

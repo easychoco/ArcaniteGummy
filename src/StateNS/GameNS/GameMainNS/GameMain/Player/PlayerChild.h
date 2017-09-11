@@ -26,7 +26,7 @@ public:
 	vector<Attack*> getAtacks() const { return attacks; }
 	GameMain::HowStageMove getStageMove() const { return nextStageMove; };
 
-
+	virtual int specialAction() = 0;
 protected:
 	//•Ï”
 	float moveSpeed;
@@ -36,6 +36,7 @@ protected:
 	bool direction;
 	int animeNum;
 	int animeCount;
+	bool prePushC;
 
 	//UŒ‚‚Ìvector
 	vector<Attack*> attacks;
@@ -49,6 +50,7 @@ protected:
 
 	void standardAction(const Stage*);
 	int animation();
+
 	void actCheck();
 
 	//Šeó‘Ô
