@@ -68,7 +68,7 @@ void PlayerChild::draw() const
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 	//DrawBox(draw_x, draw_y, draw_x + 32, draw_y + 64, BLACK, false);
 	DrawFormatString(2, 50, BLACK, "P: %d %d", p->raw_x, p->raw_y);
-
+	DrawFormatString(2, 350, BLACK, "P: %d %d", p->x(), p->y());
 
 }
 

@@ -30,6 +30,8 @@ namespace StateNS {
 				//this->moveSpeed = 5.0f;
 				loadImage();
 				attackTime = 0;
+				isUFO = false;
+				
 			}
 
 			PlayerChild* Nue::update(const Stage* _stage)
@@ -56,25 +58,45 @@ namespace StateNS {
 				{
 					attackTime = 0;
 				}
+				if (isUFO) {
+					ufo->update(_stage);
 
+					if (abs(this->p->y() - ufo->p->y()) < CHIP_HEIGHT * 3 / 2 &&
+						abs(this->p->x() - ufo->p->x()) < CHIP_WIDTH * 3 / 2)
+					{	
+							this->warpCharacter(ufo->p->x(), ufo->p->y() - 48);
+							nowJumpCount = 0;
+							jumpPower = 0.0f;
+					}
+						//this->warpCharacter(this->p->x(), ufo->p->y() - CHIP_HEIGHT-1);
 
+					if (ufo->onActiveArea(this->getVector2()))
+						ufo->apply(this);
+
+					if (ufo->rideOnGimmick(this->getVector2()))
+						this->moveCharacter(ufo->getDX(), ufo->getDY());
+					
+				}
 				//for Debug
 				if (canChangeCharacter())
 				{
 					animationTime = 0;
 					int x = p->raw_x / MyData::vectorRate;
 					int y = p->raw_y / MyData::vectorRate;
-
+					ufo->isActive = false;
 					next = new Mokou(x, y, hpController.getHP());
 				}
-
+				specialAction();
 				return next;
 			}
 
 			int Nue::specialAction() {
 				int x = 0;
-				if (Input_C() && !prePushC)x = 1;
-				prePushC = Input_C();
+				if (Input_C() && !isUFO) {
+					ufo =new UFO((p->x()/CHIP_WIDTH+1)*CHIP_WIDTH-CHIP_WIDTH/2, (p->y() / CHIP_HEIGHT + 1)*CHIP_HEIGHT - CHIP_HEIGHT / 2);
+					isUFO = true;
+				}
+//				prePushC = Input_C();
 				return x;
 			}
 
@@ -106,6 +128,8 @@ namespace StateNS {
 				{
 					if (a->isActive)a->draw(camera);
 				}
+
+				if(isUFO)ufo->draw(camera);
 
 				//for Debug
 				DrawFormatString(0, 30, MyData::BLACK, "Nue");

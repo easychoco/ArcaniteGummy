@@ -15,7 +15,13 @@ class Child;
 class UFO : public DynamicGimmickChild
 {
 public:
-	UFO(int x, int y, double scale);
+	UFO(int x, int y);
+	/*
+	static UFO* getInstance(int _x,int _y) {
+		static UFO obj(_x, _y);
+		return &obj;
+	}
+	*/
 	~UFO();
 	void initialize();
 	void update(const Stage*);

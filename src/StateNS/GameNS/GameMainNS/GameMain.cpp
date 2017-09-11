@@ -84,7 +84,7 @@ Child* GameMain::update(GameParent* _parent)
 		changed = true;
 	}
 	///‚Ê‚¦‚ÌUFO
-	if (mPlayer->specialAction() == 1)stage->addGimmick(mPlayer->p->x()/CHIP_WIDTH,mPlayer->p->y()/CHIP_HEIGHT, 60);
+//	if (mPlayer->specialAction() == 1)stage->addGimmick(mPlayer->p->x()/CHIP_WIDTH,mPlayer->p->y()/CHIP_HEIGHT, 60);
 
 	//enemy‚Ìupdate
 	mEController->update(stage);

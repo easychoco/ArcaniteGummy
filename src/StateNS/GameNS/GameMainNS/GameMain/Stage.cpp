@@ -364,7 +364,7 @@ void Stage::loadGimmick(int _x, int _y, int _n)
 	case 57:mGimmicks.push_back(new Spring(Vector2(_x*32 + 16, _y*32+16))); break;//ばね
 	case 58:mGimmicks.push_back(new BeltConveyor(2.0, Vector2(_x*32 + 16,_y*32+16))); break;//ベルトコンベア
 	case 59:mDynamicGimmicks.push_back(new Dossunn(_x*32, _y*32, 1.0)); break;//ドッスン
-	case 60:mDynamicGimmicks.push_back(new UFO(_x * 32, _y * 32, 1.0)); break;//ぬえのUFO
+	//case 60:mDynamicGimmicks.push_back(new UFO(_x * 32, _y * 32, 1.0)); break;//ぬえのUFO
 	}
 
 }

@@ -13,11 +13,11 @@ namespace GameNS {
 namespace GameMainNS {
 
 
-UFO::UFO(int _x, int _y, double _scale) :
-DynamicGimmickChild(_x, _y, _scale)
+UFO::UFO(int _x, int _y) :
+DynamicGimmickChild(_x, _y, 1)
 {
 	this->width = (int)(32 * 3);
-	this->height = (int)(32 * _scale);
+	this->height = (int)(32 * 1);
 
 	initialize();
 }
@@ -55,6 +55,7 @@ void UFO::draw(const Vector2* _camera) const
 
 	//for Debug
 	DrawFormatString(0, 70, BLACK, "UFO: %d, %d", p->x(), p->y());
+
 }
 
 void UFO::apply(Character* _character)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "PlayerChild.h"
+#include "..\Gimmick\UFO.h"
 
 
 namespace StateNS {
@@ -41,6 +42,8 @@ namespace StateNS {
 					int mTime;
 
 				};
+				bool isUFO;
+				UFO* ufo;
 			};
 
 
