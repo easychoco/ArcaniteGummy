@@ -24,7 +24,7 @@ DynamicGimmickChild::~DynamicGimmickChild()
 void DynamicGimmickChild::standardMove(const Stage* _stage)
 {
 	this->p->raw_x += getHorizontalDiffer(_stage, dx);
-	this->p->raw_y += ( (dy < 0) ? getTopDiffer(_stage, dy) : getTopDiffer(_stage, dy) );
+	this->p->raw_y += ( (dy < 0) ? getTopDiffer(_stage, dy) : getBottomDiffer(_stage, dy) );
 }
 
 
