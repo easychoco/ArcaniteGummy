@@ -46,6 +46,7 @@ public:
 	std::vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
 
 	bool isClear() const;
+	void addGimmick(int x, int y, int ID) { loadGimmick(x, y, ID); }
 
 private:
 	int mBackImg;
@@ -78,7 +79,7 @@ private:
 	void drawMap(Arr, const Vector2*) const;
 
 	void loadMap(int stageID, int mapID);
-	void loadGimmick(int x,int y);
+	void loadGimmick(int x,int y,int ID);
 
 	class Chip
 	{

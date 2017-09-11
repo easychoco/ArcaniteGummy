@@ -2,7 +2,7 @@
 
 #include "..\..\..\..\..\Data.h"
 #include "..\..\..\..\..\KeyInput.h"
-#include "Mokou.h"
+#include "Nue.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -60,10 +60,15 @@ PlayerChild* Sakuya::update(const Stage* _stage)
 		int y = p->raw_y / MyData::vectorRate;
 
 		//for Debug
-		next = new Mokou(x, y, hpController.getHP());
+		next = new Nue(x, y, hpController.getHP());
 	}
 
 	return next;
+}
+
+int Sakuya::specialAction()
+{
+	return 0;
 }
 
  

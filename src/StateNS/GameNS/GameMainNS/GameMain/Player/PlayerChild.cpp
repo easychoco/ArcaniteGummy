@@ -46,7 +46,7 @@ void PlayerChild::initialize()
 	this->onGround = false;
 	this->onLadder = false;
 	this->actionState = ACT_NORMAL;
-
+	this->prePushC = false;
 	updateCamera();
 }
 
@@ -68,7 +68,7 @@ void PlayerChild::draw() const
 	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
 	//DrawBox(draw_x, draw_y, draw_x + 32, draw_y + 64, BLACK, false);
 	DrawFormatString(2, 50, BLACK, "P: %d %d", p->raw_x, p->raw_y);
-
+	DrawFormatString(2, 350, BLACK, "P: %d %d", p->x(), p->y());
 
 }
 
@@ -95,6 +95,7 @@ bool PlayerChild::canChangeCharacter()
 {
 	return animationTime > 30;
 }
+
 
 
 

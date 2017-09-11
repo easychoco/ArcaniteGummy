@@ -8,4 +8,5 @@
 #include "Dossunn.h"
 #include "ClearFlag.h"
 #include "MovingFloor.h"
+#include "UFO.h"
 

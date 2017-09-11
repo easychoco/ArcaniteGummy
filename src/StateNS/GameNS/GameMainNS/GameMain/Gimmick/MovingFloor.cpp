@@ -137,6 +137,7 @@ void MovingFloor::loadImage()
 {
 	this->mImage = LoadGraph("Data/Image/movingfloor.png");
 	assert(mImage != -1 && "MovingFloor‰æ‘œ“Ç‚İ‚İƒGƒ‰[!");
+
 }
 
 

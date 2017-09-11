@@ -6,6 +6,7 @@
 #include "GameMain\System.h"
 #include "GameMain\Player\Mokou.h"
 #include "GameMain\Player\Sakuya.h"
+#include "GameMain\Player\Nue.h"
 
 #include "GameMain\Enemy\EnemyController.h"
 #include "GameMain\Enemy\EnemyChild.h"
@@ -54,7 +55,7 @@ void GameMain::initialize()
 	int stage_y = 1;
 	nowStageNum = 0;
 
-	mPlayer = new Mokou(96, 1500, 100);
+	mPlayer = new Nue(96, 1500, 100);
 	mSystem = new System(nowStageNum, xNum, yNum);
 
 	mEController = new EnemyController();
@@ -82,6 +83,8 @@ Child* GameMain::update(GameParent* _parent)
 		mPlayer = nextPlayer;
 		changed = true;
 	}
+	///‚Ê‚¦‚ÌUFO
+//	if (mPlayer->specialAction() == 1)stage->addGimmick(mPlayer->p->x()/CHIP_WIDTH,mPlayer->p->y()/CHIP_HEIGHT, 60);
 
 	//enemy‚Ìupdate
 	mEController->update(stage);
