@@ -30,18 +30,13 @@ public:
 
 
 private:
-	//開始点
-	int start_x;
-	int start_y;
+	int mTime = 0;
 
-	//終了点
-	int term_x;
-	int term_y;
-
-	float movingSpeed;
+	//あっちに行って元の場所に戻るまでのフレーム数
+	int interval;
 	
-	int motion_dx;
-	int motion_dy;
+	float motion_dx;
+	float motion_dy;
 
 	void loadImage();
 };

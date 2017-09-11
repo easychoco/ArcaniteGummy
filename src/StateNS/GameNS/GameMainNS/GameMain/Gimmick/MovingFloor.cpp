@@ -5,6 +5,7 @@
 
 //for Debug
 #include "..\Collision.h"
+#include "..\..\..\..\..\KeyInput.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -17,13 +18,19 @@ DynamicGimmickChild(_x, _y, 1.0)
 	this->width  = 64;
 	this->height = 32;
 
-	this->start_x = _x;
-	this->start_y = _y;
+	float differ_x = (float)(_term_x - _x);
+	float differ_y = (float)(_term_y - _y);
 
-	this->term_x = _term_x;
-	this->term_x = _term_y;
 
-	this->movingSpeed = _movingSpeed;
+	//‰•œ‚É‚©‚©‚éŽžŠÔ‚ðŒvŽZ
+	this->interval = (int)(2 * hypotf(differ_x, differ_y) / _movingSpeed);
+
+	//2’¸“_ŠÔ‚ÌŠp“x‚ðŒvŽZ
+	float angle = atan2f(differ_y, differ_x);
+
+	this->motion_dx = _movingSpeed * cosf(angle);
+	this->motion_dy = _movingSpeed * sinf(angle);
+
 
 	initialize();
 }
@@ -35,18 +42,29 @@ MovingFloor::~MovingFloor()
 
 void MovingFloor::initialize()
 {
+	mTime = 0;
 	loadImage();
-	motion_dx = (int)((term_x - start_x) / movingSpeed);
-	motion_dy = (int)((term_y - start_y) / movingSpeed);
 }
 
 void MovingFloor::update(const Stage* _stage)
 {
+	mTime++;
+	mTime %= interval;
 
-	dx = motion_dx;
-	dy = motion_dy;
+	float tmp_dx = ((mTime - interval / 2 < 0) ? motion_dx : -motion_dx);
+	float tmp_dy = ((mTime - interval / 2 < 0) ? motion_dy : -motion_dy);
+
+	dx = (int)(tmp_dx * vectorRate);
+	dy = (int)(tmp_dy * vectorRate);
+
+	//for Debug
+	if (Input_S())
+	{
+		int gpmi = 0;
+	}
 
 	standardMove(_stage);
+
 }
 
 void MovingFloor::draw(const Vector2* _camera) const
@@ -68,12 +86,12 @@ void MovingFloor::draw(const Vector2* _camera) const
 
 void MovingFloor::apply(Character* _character)
 {
-	_character->moveCharacter((float)dx, (float)dy);
+	_character->moveCharacter((float)dx / vectorRate, (float)dy / vectorRate);
 }
 
 void MovingFloor::hittedAction()
 {
-
+	/*do nothing*/
 }
 
 void MovingFloor::burnedAction()
@@ -107,8 +125,9 @@ bool MovingFloor::isOverlap(const Vector2* _player) const
 
 bool MovingFloor::onActiveArea(const Vector2* _player) const
 {
-	//for Debug
-	return false;
+	return
+		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH &&
+		(this->p->y() - _player->y()) / MyData::CHIP_HEIGHT == 1;
 }
 
 //==============================================

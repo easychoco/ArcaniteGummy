@@ -150,6 +150,12 @@ void PlayerChild::move(const Stage* _stage)
 	int dx = next_dx;
 	int dy = next_dy;
 
+	//for Debug
+	if (Input_S())
+	{
+		int gpmi = 0;
+	}
+
 	next_dx = next_dy = 0;
 
 	//“ü—Í

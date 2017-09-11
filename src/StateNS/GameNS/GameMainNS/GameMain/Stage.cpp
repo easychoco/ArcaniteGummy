@@ -62,6 +62,8 @@ void Stage::initialize()
 		}
 	}
 
+	// for Debug
+	mDynamicGimmicks.push_back(new MovingFloor(300, 1400, 360, 1200, 3.0));
 	mDynamicGimmicks.push_back(new Dossunn(700, 1200, 3.0));
 
 	//loadGimmick()

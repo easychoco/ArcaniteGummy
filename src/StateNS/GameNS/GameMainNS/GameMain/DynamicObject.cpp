@@ -129,7 +129,7 @@ int DynamicObject::getTopDiffer(const Stage* _stage, const int _dy, bool _isPlay
 		____
 		\==|
 		 \=|
-		 \|
+		  \|
 
 		*/
 
@@ -324,13 +324,13 @@ int DynamicObject::getHorizontalDiffer(const Stage* _stage, const int _dx, bool 
 
 
 	//チップの上半分の真ん中
-	pos = RawVector2(p->pos_x() + _dx, p->pos_y() - (height * MyData::vectorRate) / 2 + MyData::vectorRate);
+	pos = RawVector2(p->pos_x() + _dx, p->pos_y() - (height * MyData::vectorRate) / 4);//2 + MyData::vectorRate);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (chipType == _stage->TYPE_RIGID)return 0;
 
 
 	//チップの下半分の真ん中
-	pos = RawVector2(p->pos_x() + _dx, p->pos_y() + (height * MyData::vectorRate) / 2 - MyData::vectorRate);
+	pos = RawVector2(p->pos_x() + _dx, p->pos_y() + (height * MyData::vectorRate) / 4);// 2 - MyData::vectorRate);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (chipType == _stage->TYPE_RIGID)return 0;
 
