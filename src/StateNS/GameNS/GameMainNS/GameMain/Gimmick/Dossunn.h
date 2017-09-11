@@ -30,7 +30,6 @@ public:
 
 
 private:
-	float dx;
 	int mImage;
 	int mTime;
 	bool isMove;

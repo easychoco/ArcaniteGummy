@@ -62,7 +62,7 @@ void Stage::initialize()
 		}
 	}
 
-	mDynamicGimmicks.push_back(new Block(700, 1500, 3.0));
+	mDynamicGimmicks.push_back(new Dossunn(700, 1200, 3.0));
 
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
