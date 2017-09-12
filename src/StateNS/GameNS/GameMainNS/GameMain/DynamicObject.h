@@ -46,6 +46,8 @@ protected:
 	int getBottomDiffer(const Stage*, const int dy, bool isPlayer) const;
 	int getHorizontalDiffer(const Stage*, const int dx, bool isPlayer) const;
 
+	virtual bool onRigidBlock() const { return false; }
+
 	//camera‚ğ’†S‚Æ‚µ‚½•`‰æ
 	void standardDraw(const Vector2* camera, const Vector2* pos, const int& image, const bool& direction) const;
 	//Šg‘å—¦w’è”Å

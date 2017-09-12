@@ -46,7 +46,7 @@ protected:
 	virtual void attack() = 0;
 	virtual void draw_other() const = 0; //Ž©‹@ˆÈŠO‚ð•`‰æ‚·‚é
 	virtual void loadImage() = 0;
-
+	virtual bool onRigidBlock() const override { return false; }
 
 	void standardAction(const Stage*);
 	int animation();

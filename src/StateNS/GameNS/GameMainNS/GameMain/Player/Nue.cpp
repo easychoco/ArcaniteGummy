@@ -64,7 +64,12 @@ PlayerChild* Nue::update(const Stage* _stage)
 	{
 		attackTime = 0;
 	}
-	if (isUFO)updateUFO(_stage);
+
+	specialAction();
+	if (isUFO)
+	{
+		updateUFO(_stage);
+	}
 
 	
 	//for Debug
@@ -75,17 +80,19 @@ PlayerChild* Nue::update(const Stage* _stage)
 		int y = p->raw_y / MyData::vectorRate;
 		next = new Mokou(x, y, hpController.getHP());
 	}
-	specialAction();
 	return next;
 }
 
 int Nue::specialAction() {
 	int x = 0;
 	if (Input_C() && !isUFO) {
-		ufo =new UFO((p->x()/CHIP_WIDTH+1)*CHIP_WIDTH-CHIP_WIDTH/2, (p->y() / CHIP_HEIGHT + 1)*CHIP_HEIGHT - CHIP_HEIGHT / 2);
+		int x = (p->x() / CHIP_WIDTH  + 1) * CHIP_WIDTH - CHIP_WIDTH / 2;
+		int y = (p->y() / CHIP_HEIGHT + 1) * CHIP_HEIGHT - CHIP_HEIGHT / 2;
+		ufo = new UFO(x, y);
+		
 		isUFO = true;
+		this->next_dy -= 32000;
 	}
-	//prePushC = Input_C();
 	return x;
 }
 
@@ -99,26 +106,28 @@ void Nue::updateUFO(const Stage* _stage)
 	ufo->update(_stage);
 
 	//UFOの上に乗る処理
-	if (abs(this->p->y() - ufo->getVector2()->y()) < CHIP_HEIGHT * 3 / 2 &&
-		abs(this->p->x() - ufo->getVector2()->x()) < CHIP_WIDTH * 3 / 2)
+	if (
+		abs(this->p->y() - ufo->getVector2()->y()) < CHIP_HEIGHT * 3 / 2 &&
+		abs(this->p->x() - ufo->getVector2()->x()) < CHIP_WIDTH * 3 / 2
+		)
 	{
-		this->warpCharacter(ufo->getVector2()->x(), ufo->getVector2()->y() - 48);
+		//this->warpCharacter(ufo->getVector2()->x(), ufo->getVector2()->y() - 48);
 		nowJumpCount = 0;
 		jumpPower = 0.0f;
 	}
 
 	///////////////////ギミックと同じ///////////////
-	if (ufo->onActiveArea(this->getVector2()))
+	if (ufo->onActiveArea(p))
 		ufo->apply(this);
 
-	if (ufo->rideOnGimmick(this->getVector2()))
+	if (ufo->rideOnGimmick(p))
 		this->moveCharacter(ufo->getDX(), ufo->getDY());
 	/////////////////////ここまで///////////////////
 
 
 	if (!ufo->isActive) {
 		isUFO = false;
-		delete ufo;
+		SAFE_DELETE(ufo);
 	}
 }
 
@@ -156,12 +165,11 @@ void Nue::draw_other() const
 	DrawFormatString(0, 30, MyData::BLACK, "Nue");
 }
 
-
 void Nue::loadImage()
 {
 	//	mImage = LoadGraph("Data/Image/Nue.png");
-	LoadDivGraph("Data/Image/Character/chip_Nue.png", 40, 8, 5, 32, 64, mImage, TRUE);
-	assert(*mImage != -1 && "自機画像読み込みエラー");
+	int tmp = LoadDivGraph("Data/Image/Character/chip_Nue.png", 40, 8, 5, 32, 64, mImage, TRUE);
+	assert(tmp != -1 && "自機画像読み込みエラー");
 }
 
 //==============================================
@@ -210,10 +218,10 @@ void Nue::Spear::hittedAction()
 ///////////////////////////UFO/////////////////////////////
 
 Nue::UFO::UFO(int _x, int _y) :
-	DynamicGimmickChild(_x, _y, 1)
+DynamicGimmickChild(_x, _y, 1.0)
 {
-	this->width = (int)(32 * 3);
-	this->height = (int)(32 * 1);
+	this->width  = 96;
+	this->height = 32;
 
 	initialize();
 }
@@ -230,9 +238,6 @@ void Nue::UFO::initialize()
 	mTime = 0;
 	isActive = true;
 	isMove = false;
-
-
-
 }
 
 void Nue::UFO::update(const Stage* _stage)

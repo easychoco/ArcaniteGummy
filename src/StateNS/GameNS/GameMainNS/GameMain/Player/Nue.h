@@ -1,7 +1,6 @@
 #pragma once
 
 #include "PlayerChild.h"
-//#include "..\Gimmick\UFO.h"
 #include "..\Gimmick\DynamicGimmickChild.h"
 
 
@@ -29,6 +28,8 @@ private:
 
 	virtual int specialAction()override;
 	void updateUFO(const Stage*);
+
+	virtual bool onRigidBlock() const override { return isUFO && ufo->onActiveArea(p); }
 
 	//UŒ‚•û–@‚Ì“à•”ƒNƒ‰ƒX
 	class Spear : public Attack
@@ -61,7 +62,6 @@ private:
 		void burnedAction() override;
 		bool isOverlap(const Vector2*) const;
 		bool onActiveArea(const Vector2*) const;
-
 
 	private:
 		int mImage;
