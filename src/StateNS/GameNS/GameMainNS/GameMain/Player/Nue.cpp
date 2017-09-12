@@ -5,6 +5,11 @@
 #include "Mokou.h"
 
 
+const int d_x[4] = { 0,1,0,-1 };
+const int d_y[4] = { -1,0,1,0 };
+
+
+
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS {
@@ -23,7 +28,7 @@ Nue::Nue(int _x, int _y) : Nue(_x, _y, 100)
 Nue::~Nue()
 {
 	SAFE_DELETE(p);
-	SAFE_DELETE(ufo);
+	//SAFE_DELETE(ufo);
 }
 
 void Nue::initialize()
@@ -59,33 +64,15 @@ PlayerChild* Nue::update(const Stage* _stage)
 	{
 		attackTime = 0;
 	}
-	if (isUFO) {
-		ufo->update(_stage);
-		const Vector2* ufo_p = ufo->getVector2();
+	if (isUFO)updateUFO(_stage);
 
-		if (abs(this->p->y() - ufo_p->y()) < CHIP_HEIGHT * 3 / 2 &&
-			abs(this->p->x() - ufo_p->x()) < CHIP_WIDTH * 3 / 2)
-		{	
-				this->warpCharacter(ufo_p->x(), ufo_p->y() - 48);
-				nowJumpCount = 0;
-				jumpPower = 0.0f;
-		}
-			//this->warpCharacter(this->p->x(), ufo->p->y() - CHIP_HEIGHT-1);
-
-		if (ufo->onActiveArea(this->getVector2()))
-			ufo->apply(this);
-
-		if (ufo->rideOnGimmick(this->getVector2()))
-			this->moveCharacter(ufo->getDX(), ufo->getDY());
-		
-	}
+	
 	//for Debug
 	if (canChangeCharacter())
 	{
 		animationTime = 0;
 		int x = p->raw_x / MyData::vectorRate;
 		int y = p->raw_y / MyData::vectorRate;
-		ufo->isActive = false;
 		next = new Mokou(x, y, hpController.getHP());
 	}
 	specialAction();
@@ -102,9 +89,41 @@ int Nue::specialAction() {
 	return x;
 }
 
+
 //==============================================
 //内部プライベート関数
 //==============================================
+
+void Nue::updateUFO(const Stage* _stage)
+{
+	ufo->update(_stage);
+
+	//UFOの上に乗る処理
+	if (abs(this->p->y() - ufo->getVector2()->y()) < CHIP_HEIGHT * 3 / 2 &&
+		abs(this->p->x() - ufo->getVector2()->x()) < CHIP_WIDTH * 3 / 2)
+	{
+		this->warpCharacter(ufo->getVector2()->x(), ufo->getVector2()->y() - 48);
+		nowJumpCount = 0;
+		jumpPower = 0.0f;
+	}
+
+	///////////////////ギミックと同じ///////////////
+	if (ufo->onActiveArea(this->getVector2()))
+		ufo->apply(this);
+
+	if (ufo->rideOnGimmick(this->getVector2()))
+		this->moveCharacter(ufo->getDX(), ufo->getDY());
+	/////////////////////ここまで///////////////////
+
+
+	if (!ufo->isActive) {
+		isUFO = false;
+		delete ufo;
+	}
+}
+
+
+
 void Nue::attack()
 {
 	if (attacks.size() == 0)
@@ -149,7 +168,7 @@ void Nue::loadImage()
 //Spearクラス
 //==============================================
 Nue::Spear::Spear(int _x, int _y, int _w, int _h, bool _direction) :
-Attack(_x, _y, _w, _h, ObjectID::A_SPEAR)
+	Attack(_x, _y, _w, _h, ObjectID::A_SPEAR)
 {
 	this->mTime = 0;
 	mDirection = _direction;
@@ -185,6 +204,114 @@ void Nue::Spear::hittedAction()
 {
 	//do nothing
 }
+
+
+
+///////////////////////////UFO/////////////////////////////
+
+Nue::UFO::UFO(int _x, int _y) :
+	DynamicGimmickChild(_x, _y, 1)
+{
+	this->width = (int)(32 * 3);
+	this->height = (int)(32 * 1);
+
+	initialize();
+}
+
+Nue::UFO::~UFO()
+{
+	DeleteGraph(mImage);
+}
+
+void Nue::UFO::initialize()
+{
+	loadImage();
+	direction = -1;
+	mTime = 0;
+	isActive = true;
+	isMove = false;
+
+
+
+}
+
+void Nue::UFO::update(const Stage* _stage)
+{
+	mTime++;
+	move();
+	standardMove(_stage);
+
+	if (mTime > 300) isActive = false;
+
+	
+}
+
+void Nue::UFO::draw(const Vector2* _camera) const
+{
+	if (mTime > 150 && mTime/10 % 2)return;
+
+	standardDraw(_camera, p, mImage, mDirection);
+
+	//for Debug
+	DrawFormatString(0, 70, BLACK, "UFO: %d, %d", p->x(), p->y());
+
+}
+
+void Nue::UFO::apply(Character* _character)
+{
+	if (direction == -1)
+	{
+		if (Input_UP())direction = 0;
+		else if (Input_RIGHT())direction = 1;
+		else if (Input_DOWN())direction = 2;
+		else if (Input_LEFT())direction = 3;
+		mTime = 0;
+	}
+
+
+	//	else _character->moveCharacter(3.2f, 0.0f);
+	this->isMove = true;
+}
+
+void Nue::UFO::hittedAction()
+{
+	/* do nothing */
+}
+
+void Nue::UFO::burnedAction()
+{
+	/* do nothing */
+}
+
+bool Nue::UFO::isOverlap(const Vector2* _player) const
+{
+	return standardOverLap(_player);
+}
+
+bool Nue::UFO::onActiveArea(const Vector2* _player) const
+{
+	return rideOnGimmick(_player);
+}
+
+//==============================================
+//内部プライベート関数
+//==============================================
+void Nue::UFO::loadImage()
+{
+	this->mImage = LoadGraph("Data/Image/UFO.png");
+	assert(mImage != -1 && "UFO画像読み込みエラー!");
+}
+
+void Nue::UFO::move()
+{
+	if (direction != -1) {
+		dx = d_x[direction] * 3200;
+		dy = d_y[direction] * 3200;
+	}
+}
+
+
+
 
 
 

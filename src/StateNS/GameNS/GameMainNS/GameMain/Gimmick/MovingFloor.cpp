@@ -57,12 +57,6 @@ void MovingFloor::update(const Stage* _stage)
 	dx = (int)(tmp_dx * vectorRate);
 	dy = (int)(tmp_dy * vectorRate);
 
-	//for Debug
-	if (Input_S())
-	{
-		int gpmi = 0;
-	}
-
 	standardMove(_stage);
 
 }

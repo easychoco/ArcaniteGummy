@@ -24,15 +24,15 @@ DynamicGimmickChild::~DynamicGimmickChild()
 void DynamicGimmickChild::standardMove(const Stage* _stage)
 {
 	this->p->raw_x += getHorizontalDiffer(_stage, dx);
-	this->p->raw_y += ( (dy < 0) ? getTopDiffer(_stage, dy) : getTopDiffer(_stage, dy) );
+	this->p->raw_y += ( (dy < 0) ? getTopDiffer(_stage, dy) : getBottomDiffer(_stage, dy) );
 }
 
 
 bool DynamicGimmickChild::rideOnGimmick(const Vector2* _player) const 
 {
 	return
-		abs( p->y() - (_player->y() + PLAYER_CHIP_HEIGHT / 2) ) <= height/32*16 &&
-		abs( p->x() - _player->x() ) < width/32*16;
+		abs( p->y() - (_player->y() + PLAYER_CHIP_HEIGHT / 2) ) <= height / 32 * 16 &&
+		abs( p->x() - _player->x() ) < width/32 * 16;
 }
 
 bool DynamicGimmickChild::standardOverLap(const Vector2* _player) const

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "PlayerChild.h"
-#include "..\Gimmick\UFO.h"
+//#include "..\Gimmick\UFO.h"
+#include "..\Gimmick\DynamicGimmickChild.h"
 
 
 namespace StateNS {
@@ -26,7 +27,8 @@ private:
 	void draw_other() const;
 	virtual void loadImage() override;
 
-	virtual int specialAction() override;
+	virtual int specialAction()override;
+	void updateUFO(const Stage*);
 
 	//攻撃方法の内部クラス
 	class Spear : public Attack
@@ -42,6 +44,37 @@ private:
 		int mTime;
 
 	};
+
+	class UFO : public DynamicGimmickChild
+	{
+	public:
+		UFO(int x, int y);
+
+		~UFO();
+		void initialize();
+		void update(const Stage*);
+		void draw(const Vector2* camera) const;
+		Stage::ChipType getChipType() const { return Stage::ChipType::TYPE_RIGID; };
+
+		void apply(Character*);
+		void hittedAction() override;
+		void burnedAction() override;
+		bool isOverlap(const Vector2*) const;
+		bool onActiveArea(const Vector2*) const;
+
+
+	private:
+		int mImage;
+		int mTime;
+		bool isMove;
+		int direction;//0上1右2下3左
+
+		void loadImage();
+		void move();
+
+	};
+
+
 	bool isUFO;
 	UFO* ufo;
 };
