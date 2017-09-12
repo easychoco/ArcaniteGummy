@@ -42,9 +42,9 @@ protected:
 	int jump();
 	int gravity();
 
-	int getTopDiffer(const Stage*, const int dy, bool isPlayer) const;
-	int getBottomDiffer(const Stage*, const int dy, bool isPlayer) const;
-	int getHorizontalDiffer(const Stage*, const int dx, bool isPlayer) const;
+	int getTopDiffer(const Stage*, const int dy, bool moveLeft, bool isPlayer) const;
+	int getBottomDiffer(const Stage*, const int dy, bool moveLeft, bool isPlayer) const;
+	int getHorizontalDiffer(const Stage*, const int dx, bool moveUp, bool isPlayer) const;
 
 	virtual bool onRigidBlock() const { return false; }
 

@@ -205,15 +205,15 @@ void PlayerChild::move(const Stage* _stage)
 
 	dy += gravity_value - jump();
 
-	dx = getHorizontalDiffer(_stage, dx);
-	dy = dy < 0 ? getTopDiffer(_stage, dy) : getBottomDiffer(_stage, dy);
+	dx = getHorizontalDiffer(_stage, dx, dy < 0);
+	dy = dy < 0 ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0);
 
 	//“Vˆä‚É“–‚½‚Á‚½‚ç
 	if (abs(dy) <= 1000)jumpPower = 0;
 
 	//for Debug
-	if (Input_D() && Input_UP()) dy = getTopDiffer(_stage, -3000);
-	if (Input_D() && Input_DOWN())dy = getBottomDiffer(_stage, 3000);
+	if (Input_D() && Input_UP()) dy = getTopDiffer(_stage, -3000, dx < 0);
+	if (Input_D() && Input_DOWN())dy = getBottomDiffer(_stage, 3000, dx < 0);
 
 	p->raw_x += dx;
 	p->raw_y += dy;

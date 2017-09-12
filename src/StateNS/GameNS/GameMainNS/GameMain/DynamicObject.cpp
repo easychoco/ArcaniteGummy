@@ -114,12 +114,16 @@ int DynamicObject::gravity()
 	return 7 * MyData::vectorRate;
 }
 
-int DynamicObject::getTopDiffer(const Stage* _stage, const int _dy, bool _isPlayer) const
+int DynamicObject::getTopDiffer(const Stage* _stage, const int _dy, bool _moveLeft, bool _isPlayer) const
 {
+	//widthが32じゃなかったら，その分ずらして計算する必要がある
+	int extraDiffer = (width - CHIP_WIDTH) / 2;
+	if (_moveLeft)extraDiffer *= -1;
+
 	//斜めブロックなら
 
 	//チップの上端
-	RawVector2 pos = RawVector2(p->x(), p->y() - height / 2);
+	RawVector2 pos = RawVector2(p->x() + extraDiffer, p->y() - height / 2);
 	Stage::ChipType chipType = _stage->getChipType(pos, _isPlayer);
 
 	if (chipType == _stage->TYPE_UP_SLANT_LEFT)
@@ -154,7 +158,7 @@ int DynamicObject::getTopDiffer(const Stage* _stage, const int _dy, bool _isPlay
 	}
 
 	//チップの上半分の中心
-	pos = RawVector2(p->x(), p->y() - height / 4);
+	pos = RawVector2(p->x() + extraDiffer, p->y() - height / 4);
 	chipType = _stage->getChipType(pos, _isPlayer);
 
 	if (chipType == _stage->TYPE_UP_SLANT_LEFT)
@@ -191,7 +195,7 @@ int DynamicObject::getTopDiffer(const Stage* _stage, const int _dy, bool _isPlay
 	//斜めじゃないチップに対して
 
 	//移動した先のチップタイプを取得
-	pos = RawVector2(p->pos_x(), p->pos_y() - (height * vectorRate) / 2 + _dy);
+	pos = RawVector2(p->pos_x() + extraDiffer, p->pos_y() - (height * vectorRate) / 2 + _dy);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 
 	//移動先が通れないブロックなら
@@ -208,14 +212,17 @@ int DynamicObject::getTopDiffer(const Stage* _stage, const int _dy, bool _isPlay
 //========================================================================
 // 内部protected関数
 //========================================================================
-int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _isPlayer) const
+int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _moveLeft, bool _isPlayer) const
 {
+	//widthが32じゃなかったら，その分ずらして計算する必要がある
+	int extraDiffer = vectorRate * (width - CHIP_WIDTH) / 2;
+	if(_moveLeft)extraDiffer *= -1;
+
 	//下方向
 	//チップの最下端より少し上
-	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + (height * vectorRate) / 2 - 1);
+	RawVector2 pos = RawVector2(p->pos_x() + extraDiffer, p->pos_y() + (height * vectorRate) / 2 - 1);
 	Stage::ChipType	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (this->onRigidBlock())chipType = Stage::ChipType::TYPE_RIGID;
-
 
 	//斜めブロックなら
 	if (chipType == _stage->TYPE_DOWN_SLANT_LEFT)
@@ -228,7 +235,7 @@ int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _isP
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + (height * MyData::vectorRate) / 2) + p->pos_x() % MyData::CHIP_WIDTH_RATE();
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + (height * vectorRate) / 2) + p->pos_x() % CHIP_WIDTH_RATE();
 	}
 
 	if (chipType == _stage->TYPE_DOWN_SLANT_RIGHT)
@@ -246,7 +253,7 @@ int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _isP
 
 
 	//チップの下半分の中心
-	pos = RawVector2(p->pos_x(), p->pos_y() + (height * MyData::vectorRate) / 4);
+	pos = RawVector2(p->pos_x() + extraDiffer, p->pos_y() + (height * MyData::vectorRate) / 4);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 
 	//斜めブロックなら
@@ -282,7 +289,7 @@ int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _isP
 	//_stage->getTopPositionは高速化できる
 
 	//移動した先のチップタイプを取得
-	pos = RawVector2(p->pos_x(), p->pos_y() + (height * vectorRate) / 2 + _dy);
+	pos = RawVector2(p->pos_x() + extraDiffer, p->pos_y() + (height * vectorRate) / 2 + _dy);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (this->onRigidBlock())chipType = Stage::ChipType::TYPE_RIGID;
 
@@ -302,7 +309,7 @@ int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _isP
 	return _dy;
 }
 
-int DynamicObject::getHorizontalDiffer(const Stage* _stage, const int _dx, bool _isPlayer) const
+int DynamicObject::getHorizontalDiffer(const Stage* _stage, const int _dx, bool _moveUp, bool _isPlayer) const
 {
 	//斜めブロックの場合はそのまま返す
 
