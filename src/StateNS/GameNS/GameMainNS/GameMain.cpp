@@ -60,7 +60,7 @@ void GameMain::initialize()
 
 	mEController = new EnemyController();
 
-	changed = false;
+	stopDynamicObject = false;
 }
 
 Child* GameMain::update(GameParent* _parent)
@@ -71,23 +71,17 @@ Child* GameMain::update(GameParent* _parent)
 	nowStageNum = mSystem->getNowStage();
 	Stage* stage = mStages[nowStageNum];
 
-	//Stageのupdate
-	stage->update(mPlayer);
+	//DynamicObjectを更新
+	if(!stopDynamicObject)updateDynamics(stage);
 
 	//Playerのupdate
 	PlayerChild* nextPlayer = mPlayer->update(stage);
-	changed = false;
+	stopDynamicObject = mPlayer->setStopDynamicObject();
 	if (nextPlayer != mPlayer)
 	{
 		SAFE_DELETE(mPlayer);
 		mPlayer = nextPlayer;
-		changed = true;
 	}
-	///ぬえのUFO
-//	if (mPlayer->specialAction() == 1)stage->addGimmick(mPlayer->p->x()/CHIP_WIDTH,mPlayer->p->y()/CHIP_HEIGHT, 60);
-
-	//enemyのupdate
-	mEController->update(stage);
 
 	//衝突判定
 	processCollision(stage);
@@ -96,8 +90,9 @@ Child* GameMain::update(GameParent* _parent)
 	mPlayer->hpController.recover(1);
 
 	//Systemのupdate
-	if(changed)mSystem->update(HowStageMove::MOVE_NONE);
-	else mSystem->update(mPlayer->getStageMove());
+	//if(changed)mSystem->update(HowStageMove::MOVE_NONE);
+	//else 
+	mSystem->update(mPlayer->getStageMove());
 
 	//for Debug
 	if(CheckHitKey(KEY_INPUT_1))
@@ -114,9 +109,6 @@ Child* GameMain::update(GameParent* _parent)
 
 void GameMain::draw() const
 {
-	//if (changed)return;
-
-	//DrawFormatString(0, 20, MyData::WHITE, "GameMain");
 	mStages[nowStageNum]->draw(mPlayer->getCamera());
 	mEController->draw(mPlayer->getCamera());
 	mPlayer->draw();
@@ -128,6 +120,14 @@ void GameMain::draw() const
 //==============================================
 //内部プライベート関数
 //==============================================
+void GameMain::updateDynamics(Stage* stage)
+{
+	//Stageのupdate
+	stage->update(mPlayer);
+
+	//enemyのupdate
+	mEController->update(stage);
+}
 
 void GameMain::processCollision(Stage* _stage)
 {
@@ -138,7 +138,7 @@ void GameMain::processCollision(Stage* _stage)
 	auto enemies = mEController->getEnemies();
 
 	//プレイヤーの攻撃
-	auto p_attacks = mPlayer->getAtacks();
+	auto p_attacks = mPlayer->getAttacks();
 
 	//敵の攻撃
 	//...

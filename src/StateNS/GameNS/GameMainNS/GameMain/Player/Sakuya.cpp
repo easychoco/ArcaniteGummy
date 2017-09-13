@@ -53,6 +53,13 @@ PlayerChild* Sakuya::update(const Stage* _stage)
 		}
 	}
 
+	//C‚ÅŽžŽ~‚ß
+	if (Input_C() && !prePushC)
+	{
+		stopDynamics = !stopDynamics;
+	}
+	prePushC = Input_C();
+
 	if (canChangeCharacter())
 	{
 		animationTime = 0;
@@ -91,7 +98,7 @@ void Sakuya::attack()
 	}
 
 	//‚·‚×‚ÄŽg‚Á‚Ä‚¢‚½‚çnew‚·‚é
-	attacks.push_back(new Knife(this->p->raw_x, this->p->raw_y, 32, 32, dx));
+	attacks.push_back(new Knife(this, this->p->raw_x, this->p->raw_y, 32, 32, dx));
 }
 
 int Sakuya::getAttackDx() const
@@ -124,8 +131,8 @@ void Sakuya::loadImage()
 //==============================================
 //KnifeƒNƒ‰ƒX
 //==============================================
-Sakuya::Knife::Knife(int _x, int _y, int _w, int _h, int _dx) :
-Attack(_x, _y, _w, _h, ObjectID::A_KNIFE)
+Sakuya::Knife::Knife(const PlayerChild* _parent, int _x, int _y, int _w, int _h, int _dx) :
+Attack(_parent, _x, _y, _w, _h, ObjectID::A_KNIFE)
 {
 	this->dx = _dx * MyData::vectorRate;
 	mDirection = _dx < 0;

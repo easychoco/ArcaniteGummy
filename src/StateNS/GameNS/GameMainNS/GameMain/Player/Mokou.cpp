@@ -84,9 +84,9 @@ void Mokou::attack()
 {
 	if (attacks.size() == 0)
 	{
-		attacks.push_back(new Fire(0, 0, 32, 32, true));
-		attacks.push_back(new Fire(0, 0, 32, 32, true));
-		attacks.push_back(new Fire(0, 0, 32, 32, true));
+		attacks.push_back(new Fire(this, 0, 0, 32, 32, true));
+		attacks.push_back(new Fire(this, 0, 0, 32, 32, true));
+		attacks.push_back(new Fire(this, 0, 0, 32, 32, true));
 	}
 
 	++attackTime;
@@ -121,8 +121,8 @@ void Mokou::loadImage()
 //==============================================
 //FireƒNƒ‰ƒX
 //==============================================
-Mokou::Fire::Fire(int _x, int _y, int _w, int _h, bool _direction) :
-Attack(_x, _y, _w, _h, ObjectID::A_FIRE)
+Mokou::Fire::Fire(const PlayerChild* _parent, int _x, int _y, int _w, int _h, bool _direction) :
+Attack(_parent, _x, _y, _w, _h, ObjectID::A_FIRE)
 {
 	this->mTime = 0;
 	mDirection = _direction;

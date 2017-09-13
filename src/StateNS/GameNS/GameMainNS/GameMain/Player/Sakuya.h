@@ -30,7 +30,7 @@ private:
 	class Knife : public Attack
 	{
 	public:
-		Knife(int x, int y, int w, int h, int dx);
+		Knife(const PlayerChild*, int x, int y, int w, int h, int dx);
 		~Knife();
 		void update();
 		void setStatus(Vector2, int dx);

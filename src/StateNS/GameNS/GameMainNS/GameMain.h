@@ -28,6 +28,7 @@ public:
 	void initialize();
 	Child* update(GameParent*);
 	void draw() const;
+	void setStopDynamicObject(bool _flag){ stopDynamicObject = _flag; }
 
 	enum HowStageMove
 	{
@@ -49,11 +50,12 @@ private:
 	int stageID;
 	int xNum, yNum;
 
-	//キャラを変えたら1フレームだけ表示がおかしくなるからその対策
-	bool changed;
-	
 	int nowStageNum;
 
+	//時止めやキャラ変更の時に、動いているものを止める
+	bool stopDynamicObject;
+
+	void updateDynamics(Stage* stage);
 	void processCollision(Stage* stage);
 };
 

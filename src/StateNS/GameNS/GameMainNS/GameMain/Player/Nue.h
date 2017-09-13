@@ -35,7 +35,7 @@ private:
 	class Spear : public Attack
 	{
 	public:
-		Spear(int x, int y, int w, int h, bool direction);
+		Spear(const PlayerChild*, int x, int y, bool direction);
 		~Spear();
 		void update();
 		void setStatus(Vector2, int dx);
@@ -43,6 +43,8 @@ private:
 
 	private:
 		int mTime;
+		const Vector2* parent_p;
+
 
 	};
 

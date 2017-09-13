@@ -29,7 +29,7 @@ private:
 	class Fire : public Attack
 	{
 	public:
-		Fire(int x, int y, int w, int h, bool direction);
+		Fire(const PlayerChild*, int x, int y, int w, int h, bool direction);
 		~Fire();
 		void update();
 		void setStatus(Vector2, int dx);

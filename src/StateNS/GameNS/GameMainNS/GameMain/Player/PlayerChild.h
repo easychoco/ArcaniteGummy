@@ -23,8 +23,9 @@ public:
 	virtual PlayerChild* update(const Stage*) = 0;
 	void draw() const;
 	const Vector2* getCamera() const { return camera; }
-	vector<Attack*> getAtacks() const { return attacks; }
+	vector<Attack*> getAttacks() const { return attacks; }
 	GameMain::HowStageMove getStageMove() const { return nextStageMove; };
+	const bool setStopDynamicObject() const { return stopDynamics; }
 
 	virtual int specialAction() = 0;
 protected:
@@ -37,6 +38,7 @@ protected:
 	int animeNum;
 	int animeCount;
 	bool prePushC;
+	bool stopDynamics;
 
 	//çUåÇÇÃvector
 	vector<Attack*> attacks;

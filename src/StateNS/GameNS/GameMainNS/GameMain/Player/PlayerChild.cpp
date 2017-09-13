@@ -47,6 +47,8 @@ void PlayerChild::initialize()
 	this->onLadder = false;
 	this->actionState = ACT_NORMAL;
 	this->prePushC = false;
+	this->stopDynamics = false;
+
 	updateCamera();
 }
 

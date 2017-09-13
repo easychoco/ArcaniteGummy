@@ -36,6 +36,7 @@ void Nue::initialize()
 	//this->moveSpeed = 5.0f;
 	loadImage();
 	attackTime = 0;
+	attacks.push_back(new Spear(this, 0, 0, direction));
 	isUFO = false;
 	
 }
@@ -135,18 +136,8 @@ void Nue::updateUFO(const Stage* _stage)
 
 void Nue::attack()
 {
-	if (attacks.size() == 0)
-	{
-		attacks.push_back(new Spear(0, 0, 32, 32, true));
-		//attacks.push_back(new Spear(0, 0, 32, 32, true));
-		//attacks.push_back(new Spear(0, 0, 32, 32, true));
-	}
-
-	++attackTime;
-	//if (attackTime > 0)
-	int new_pos = 32000 * ((direction) ? -1 : 1);
-
-	attacks[0]->setStatus(Vector2(this->p->raw_x + new_pos * 1, this->p->raw_y, true), this->direction);
+	if(!attacks[0]->isActive)
+		attacks[0]->setStatus(*p, this->direction);
 	//if (attackTime > 10)attacks[1]->setStatus(Vector2(this->p->raw_x + new_pos * 2, this->p->raw_y, true), this->direction);
 	//if (attackTime > 20)attacks[2]->setStatus(Vector2(this->p->raw_x + new_pos * 3, this->p->raw_y, true), this->direction);
 
@@ -175,14 +166,15 @@ void Nue::loadImage()
 //==============================================
 //Spearクラス
 //==============================================
-Nue::Spear::Spear(int _x, int _y, int _w, int _h, bool _direction) :
-	Attack(_x, _y, _w, _h, ObjectID::A_SPEAR)
+Nue::Spear::Spear(const PlayerChild* _parent, int _x, int _y, bool _direction) :
+Attack(_parent, _x, _y, 32, 32, ObjectID::A_SPEAR)
 {
 	this->mTime = 0;
-	mDirection = _direction;
+	this->mDirection = _direction;
+	this->isActive = false;
 
 	//for Debug
-	this->damageValue = 20;
+	this->damageValue = 100;
 
 	mImage = LoadGraph("Data/Image/Spear.png");
 	assert(mImage != -1 && "Spear画像読み込みエラー");
@@ -196,7 +188,14 @@ Nue::Spear::~Spear()
 void Nue::Spear::update()
 {
 	mTime++;
-	isActive = false;
+	if (mTime > 40)isActive = false;
+
+	int dx = 60 - 3 * abs(mTime - 20);
+	if (mDirection)dx = -dx;
+
+	this->p->raw_y = parent_p->raw_y;
+	this->p->raw_x = parent_p->raw_x + dx * vectorRate;
+
 }
 
 void Nue::Spear::setStatus(Vector2 _pos, int direction)
@@ -204,7 +203,9 @@ void Nue::Spear::setStatus(Vector2 _pos, int direction)
 	*(this->p) = _pos;
 	this->mDirection = direction;
 
+	mTime = 0;
 	isActive = true;
+	this->parent_p = this->parent->getVector2();
 
 }
 
@@ -214,9 +215,9 @@ void Nue::Spear::hittedAction()
 }
 
 
-
-///////////////////////////UFO/////////////////////////////
-
+//==============================================
+//UFOクラス
+//==============================================
 Nue::UFO::UFO(int _x, int _y) :
 DynamicGimmickChild(_x, _y, 1.0)
 {
