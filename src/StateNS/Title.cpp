@@ -35,6 +35,7 @@ void Title::initialize()
 	pushUP = false;
 	pushDOWN = false;
 	fontHandle1 = CreateFontToHandle(NULL, 60, 3);
+	mBackImg = LoadGraph("Data/Image/Title.png");
 	movie = LoadGraph("Data/Movie/OP.ogv");
 	PlayMovieToGraph(movie);
 }
@@ -49,12 +50,12 @@ Child* Title::update(const GrandParent* parent)
 		if (Input_Z())step++;
 		break;
 	case 1://push z key
-		SeekMovieToGraph(movie, 6000);
+		//SeekMovieToGraph(movie, 6000);
 		count = (count + 1) % 120;
 		if (Input_Z() && pushZ)step++;
 		break;
 	case 2://ゲームスタート、そうさせつめい
-		SeekMovieToGraph(movie, 6000);
+//		SeekMovieToGraph(movie, 6000);
 		if (Input_Z() && pushZ)next = nextScene(select);
 
 		if (Input_UP() && pushUP)select = (select + 3) % 4;
@@ -83,9 +84,11 @@ void Title::draw() const
 
 	switch (step) {
 	case 1:
+		DrawGraph(0, 0, mBackImg, FALSE);
 		pressZ_draw();
 		break;
 	case 2:
+		DrawGraph(0, 0, mBackImg, FALSE);
 		command_draw();
 		break;
 	}
@@ -100,7 +103,7 @@ void Title::plusStep(int n)
 void Title::pressZ_draw() const
 {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (count - 60)*(count - 60));
-	DrawStringToHandle(200, 300, "Press Z", WHITE, fontHandle1);
+	DrawStringToHandle(200, 300, "Press Z", BLACK, fontHandle1);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
@@ -116,7 +119,7 @@ void Title::command_draw()const
 	DrawFormatString(250, 390, WHITE, "おわる");
 
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	DrawBox(200, 280, 440, 420, WHITE, FALSE);
+	DrawBox(200, 280, 440, 420, BLACK, FALSE);
 	if (select == 0)DrawFormatString(250, 300, WHITE, "ゲームスタート");
 	else if (select == 1)DrawFormatString(250, 330, WHITE, "みゅーじっくるーむ");
 	else if (select == 2)DrawFormatString(250, 360, WHITE, "せってい");
