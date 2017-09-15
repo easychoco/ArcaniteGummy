@@ -12,6 +12,8 @@
 #include "GameMain\Enemy\EnemyChild.h"
 
 #include "GameMain\Gimmick\DynamicGimmickChild.h"
+#include "GameMain\Gimmick\Block.h"
+#include "GameMain\Gimmick\Switches\SwitchWithBlock.h"
 
 #include "..\..\..\Data.h"
 #include "..\..\..\KeyInput.h"
@@ -192,19 +194,30 @@ void GameMain::processCollision(Stage* _stage)
 		//プレイヤーの攻撃と敵の衝突
 		for (auto& attack : p_attacks)
 		{
-			if (attack->isActive)
+			if (attack->isActive && attack->isHit(gimmick))
 			{
-				if (attack->isHit(gimmick))
-				{
-					gimmick->hittedAction();
-					attack->hittedAction();
+				gimmick->hittedAction();
+				attack->hittedAction();
 
-					if(attack->id == ObjectID::A_FIRE)
-						gimmick->burnedAction();
-				}
+				if (attack->id == ObjectID::A_FIRE)
+					gimmick->burnedAction();
 			}
 		}
 
+		auto s_b = _stage->getSwitchWithBlocks();
+
+		//TODO ネスト減らしたい
+		for (auto& s : s_b)
+		{
+			for (auto& attack : p_attacks)
+			{
+				if (attack->isActive && attack->isHit(s))
+				{
+					s->hittedAction();
+					attack->hittedAction();
+				}
+			}
+		}
 	}
 
 }

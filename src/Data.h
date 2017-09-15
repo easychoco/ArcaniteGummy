@@ -93,6 +93,7 @@ int fixToVectorWidth(int _a);
 int fixToVectorHeight(int _a);
 
 
+
 //F
 const unsigned BLACK = GetColor(0, 0, 0);
 const unsigned GLAY = GetColor(128, 128, 128);
@@ -254,6 +255,11 @@ public:
 	}
 
 };
+
+//2“_ŠÔ‚Ì‹——£‚ğ“¾‚é
+float distance(int x1, int y1, int x2, int y2);
+float distance(int x, int y, const Vector2*);
+float distance(const Vector2*, const Vector2*);
 
 }
 

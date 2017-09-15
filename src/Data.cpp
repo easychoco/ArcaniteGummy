@@ -11,6 +11,21 @@ int fixToVectorWidth(int _a) { return ( (_a > 0) ? _a : _a - CHIP_WIDTH_RATE()  
 
 int fixToVectorHeight(int _a) { return ( (_a > 0) ? _a : _a - CHIP_HEIGHT_RATE() ) / CHIP_HEIGHT_RATE() * CHIP_HEIGHT_RATE(); }
 
+float distance(int x1, int y1, int x2, int y2)
+{
+	return hypotf((float)(x1 - x2), (float)(y1 - y2));
+}
+
+float distance(int x, int y, const Vector2* other)
+{
+	return distance(x, y, other->raw_x, other->raw_y);
+}
+
+float distance(const Vector2* self, const Vector2* other)
+{
+	return distance(self->raw_x, self->raw_y, other->raw_x, other->raw_y);
+}
+
 
 const Vector2 Vector2::ZERO(0, 0);
 const Vector2 Vector2::LEFT(-1, 0);

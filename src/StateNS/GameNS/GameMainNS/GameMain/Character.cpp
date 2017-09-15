@@ -5,7 +5,11 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Character::Character(int _hp, int _x, int _y, int _w, int _h,float _jump,int _jumpCount) : 
+Character::Character(int hp, int x, int y, int w, int h, float jump, int jumpCount):
+Character(hp, x, y, w, h, false, jump, jumpCount)
+{ }
+
+Character::Character(int _hp, int _x, int _y, int _w, int _h, bool _isPlayer, float _jump,int _jumpCount) : 
 DynamicObject(_x, _y, _w, _h,_jump,_jumpCount),
 hpController(HPController(this, _hp))
 {
@@ -13,6 +17,7 @@ hpController(HPController(this, _hp))
 	height = _h;
 	next_dx = next_dy = 0;
 
+	isPlayer = _isPlayer;
 	damaged = false;
 	damagedTime = 0;
 }

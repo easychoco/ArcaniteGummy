@@ -10,6 +10,7 @@ namespace GameMainNS{
 class PlayerChild;
 class GimmickChild;
 class DynamicGimmickChild;
+class SwitchWithBlock;
 
 class Stage
 {
@@ -43,7 +44,10 @@ public:
 
 	int getTopPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 	int getBottomPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
-	std::vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
+
+	vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
+	vector< SwitchWithBlock* > getSwitchWithBlocks() { return mSwitchWithBlocks; }
+
 
 	bool isClear() const;
 	void addGimmick(int x, int y, int ID) { loadGimmick(x, y, ID); }
@@ -59,8 +63,12 @@ private:
 	//ギミックの配列
 	std::vector< GimmickChild* > mGimmicks;
 	std::vector< DynamicGimmickChild* > mDynamicGimmicks;
+	std::vector< SwitchWithBlock* > mSwitchWithBlocks;
 
 	GimmickChild* clearFlag;
+
+	template<typename D_Gmk>
+	void updateDynamicGimmick(D_Gmk, PlayerChild*);
 
 
 	//以下マップ関連

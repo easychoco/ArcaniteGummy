@@ -15,13 +15,15 @@ namespace GameMainNS{
 class Character : public DynamicObject
 {
 public:
-	Character(int hp, int x, int y, int w, int h,float jump,int jumpCount);
+	Character(int hp, int x, int y, int w, int h, float jump, int jumpCount);
+	Character(int hp, int x, int y, int w, int h, bool isPlayer, float jump,int jumpCount);
 	virtual ~Character();
 	virtual void hittedAction() = 0;
 	void moveCharacter(float _dx, float _dy);
 	void warpCharacter(float _x, float _y);
 
 	HPController hpController;
+	bool isPlayer;
 	bool damaged;
 	int damagedTime;
 

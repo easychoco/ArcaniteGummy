@@ -30,12 +30,14 @@ public:
 
 
 private:
+	int img_block;
 	int img_bar;
-	int img_fire;
 	float radian;
 
-	const int r_1 = 48 * vectorRate;
-	const int r_2 = 80 * vectorRate;
+	const int damageValue = 50;
+
+	const int r_1 =  64 * vectorRate;
+	const int r_2 = 128 * vectorRate;
 
 	int x_1, y_1;
 	int x_2, y_2;

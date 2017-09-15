@@ -73,7 +73,6 @@ private:
 
 		void loadImage();
 		void move();
-
 	};
 
 

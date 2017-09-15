@@ -30,6 +30,7 @@ void Mokou::initialize()
 	//this->moveSpeed = 5.0f;
 	loadImage();
 	attackTime = 0;
+	attacks.push_back(new Fire(this, 0, 0, &direction));
 }
 
 PlayerChild* Mokou::update(const Stage* _stage)
@@ -55,7 +56,7 @@ PlayerChild* Mokou::update(const Stage* _stage)
 	}
 	else
 	{
-		attackTime = 0;
+		attacks[0]->setStatus(*p, 0);
 		canMove = true;
 	}
 
@@ -84,21 +85,7 @@ int Mokou::specialAction()
 //==============================================
 void Mokou::attack()
 {
-	if (attacks.size() == 0)
-	{
-		attacks.push_back(new Fire(this, 0, 0, 32, 32, true));
-		attacks.push_back(new Fire(this, 0, 0, 32, 32, true));
-		attacks.push_back(new Fire(this, 0, 0, 32, 32, true));
-	}
-
-	++attackTime;
-	//if (attackTime > 0)
-	int new_pos = 32000 * ((direction) ? -1 : 1);
-
-	attacks[0]->setStatus(Vector2(this->p->raw_x + new_pos * 1, this->p->raw_y, true), this->direction);
-	if (attackTime > 10)attacks[1]->setStatus(Vector2(this->p->raw_x + new_pos * 2, this->p->raw_y, true), this->direction);
-	if (attackTime > 20)attacks[2]->setStatus(Vector2(this->p->raw_x + new_pos * 3, this->p->raw_y, true), this->direction);
-	
+	attacks[0]->isActive = true;
 }
 
 void Mokou::draw_other() const
@@ -123,17 +110,18 @@ void Mokou::loadImage()
 //==============================================
 //Fireクラス
 //==============================================
-Mokou::Fire::Fire(const PlayerChild* _parent, int _x, int _y, int _w, int _h, bool _direction) :
-Attack(_parent, _x, _y, _w, _h, ObjectID::A_FIRE)
+Mokou::Fire::Fire(const PlayerChild* _parent, int _x, int _y, bool *_direction) :
+Attack(_parent, _x, _y, 96, 10, ObjectID::A_FIRE),
+direction(_direction)
 {
 	this->mTime = 0;
-	mDirection = _direction;
 
 	//for Debug
 	this->damageValue = 20;
 
-	mImage = LoadGraph("Data/Image/fire.png");
-	assert(mImage != -1 && "Fire画像読み込みエラー");
+	mImage = 0;
+	int tmp = LoadDivGraph("Data/Image/Fire.png", 3, 1, 3, 96, 32, images);
+	assert(tmp != -1 && "Fire画像読み込みエラー");
 }
 
 Mokou::Fire::~Fire()
@@ -141,6 +129,7 @@ Mokou::Fire::~Fire()
 	DeleteGraph(mImage);
 }
 
+/*
 void Mokou::Fire::update()
 {
 	mTime++;
@@ -153,8 +142,40 @@ void Mokou::Fire::setStatus(Vector2 _pos, int direction)
 	this->mDirection = direction;
 
 	isActive = true;
-
 }
+*/
+
+void Mokou::Fire::update()
+{
+	mTime++;
+	mDirection = *direction;
+
+	this->height = min(mTime, 32) * vectorRate;
+
+	this->p->raw_x = parent->getVector2()->raw_x + ((*direction) ?  -54000 : 54000);
+	this->p->raw_y = parent->getVector2()->raw_y;
+	isActive = false;
+
+	if (mTime < 5)mImage = images[0];
+	else if (mTime < 10)mImage = images[1];
+	else
+	{
+		mImage = images[2];
+
+		float angle = mTime * Pi / 3.0f;
+		this->p->raw_x += (int)(3000 * cosf(angle));
+		this->p->raw_y += (int)(3000 * sinf(angle));
+	}
+}
+
+void Mokou::Fire::setStatus(Vector2 _pos, int direction)
+{
+	this->mTime = 1;
+
+	//ふっとべー
+	this->p->raw_x = -100000;
+}
+
 
 void Mokou::Fire::hittedAction()
 {

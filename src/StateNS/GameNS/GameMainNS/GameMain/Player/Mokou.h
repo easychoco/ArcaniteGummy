@@ -29,15 +29,16 @@ private:
 	class Fire : public Attack
 	{
 	public:
-		Fire(const PlayerChild*, int x, int y, int w, int h, bool direction);
+		Fire(const PlayerChild*, int x, int y, bool *direction);
 		~Fire();
 		void update();
 		void setStatus(Vector2, int dx);
 		void hittedAction();
 
 	private:
+		int images[3];
 		int mTime;
-
+		const bool *direction;
 	};
 };
 

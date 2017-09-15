@@ -41,7 +41,6 @@ Stage::~Stage()
 	}
 	mDynamicGimmicks.clear();
 	mDynamicGimmicks.shrink_to_fit();
-
 }
 
 void Stage::initialize()
@@ -63,19 +62,19 @@ void Stage::initialize()
 	}
 
 	// for Debug
-	mDynamicGimmicks.push_back(new MovingFloor(300, 1400, 360, 1200, 3.0));
+	//mDynamicGimmicks.push_back(new MovingFloor(300, 1400, 360, 1200, 3.0));
 	mDynamicGimmicks.push_back(new FireBar(300, 1500));
+	mSwitchWithBlocks.push_back(new SwitchWithBlock(200, 1472));
+	
+	mSwitchWithBlocks[0]->push_block(new Block(208, 1296, 1.0));
+	mSwitchWithBlocks[0]->push_block(new Block(256, 1312, 2.0));
 
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
-
-
-
 }
 
 void Stage::update(PlayerChild* _player)
 {
-
 	for (auto& gimmick : mGimmicks)
 	{
 		if (gimmick->isActive)
@@ -87,6 +86,14 @@ void Stage::update(PlayerChild* _player)
 		}
 	}
 
+	updateDynamicGimmick(mDynamicGimmicks, _player);
+	updateDynamicGimmick(mSwitchWithBlocks, _player);
+
+	//スイッチのブロックをupdate
+	for (auto& s_b : mSwitchWithBlocks)
+		updateDynamicGimmick(s_b->getBlocks(), _player);
+
+	/*
 	for (auto& d_gimmick : mDynamicGimmicks)
 	{
 		if (d_gimmick->isActive)
@@ -100,12 +107,30 @@ void Stage::update(PlayerChild* _player)
 				_player->moveCharacter(d_gimmick->getDX(), d_gimmick->getDY());
 		}
 	}
+
+	for (auto& s_b : mSwitchWithBlocks)
+	{
+		if (s_b->isActive)s_b->update(this);
+
+		if (s_b->onActiveArea(_player->getVector2()))
+			s_b->apply(_player);
+
+		if (s_b->rideOnGimmick(_player->getVector2()))
+			_player->moveCharacter(s_b->getDX(), s_b->getDY());
+	}
+	*/
 }
 
 void Stage::draw(const Vector2* _camera) const
 {
 	DrawGraph(0, 0, mBackImg, true);
 	drawMap(mapData, _camera);
+
+	//スイッチ関連の描画
+	for (const auto& s_b : mSwitchWithBlocks)
+	{
+		if (s_b->isActive)s_b->draw(_camera);
+	}
 
 	//ギミックの描画
 	for (const auto& gimmick : mGimmicks)
@@ -118,6 +143,16 @@ void Stage::draw(const Vector2* _camera) const
 	{
 		if(d_gimmick->isActive)d_gimmick->draw(_camera);
 	}
+
+	//スイッチのブロックをupdate
+	for (auto& s_b : mSwitchWithBlocks)
+	{
+		for (auto& b : s_b->getBlocks())
+		{
+			b->draw(_camera);
+		}
+	}
+
 }
 
 int Stage::getTopPosition(const Vector2* _pos, const int& _dy) const
@@ -257,6 +292,17 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 		}
 	}
 
+	for (const auto& s_b : mSwitchWithBlocks)
+	{
+		for (auto& b : s_b->getBlocks())
+		{
+			if (b->isOverlap(&_other))
+			{
+				ret = b->getChipType();
+			}
+		}
+	}
+	
 	for (const auto& gimmick : mGimmicks)
 	{
 		if (gimmick->isActive)
@@ -289,6 +335,26 @@ bool Stage::isClear() const
 //========================================================================
 // 内部private関数
 //========================================================================
+template<typename D_Gmk>
+void Stage::updateDynamicGimmick(D_Gmk d_gmk, PlayerChild* _player)
+{
+	for (auto& d_gimmick : d_gmk)
+	{
+		if (d_gimmick->isActive)
+		{
+			d_gimmick->update(this);
+
+			if (d_gimmick->onActiveArea(_player->getVector2()))
+				d_gimmick->apply(_player);
+
+			if (d_gimmick->rideOnGimmick(_player->getVector2()))
+				_player->moveCharacter(d_gimmick->getDX(), d_gimmick->getDY());
+		}
+	}
+}
+
+
+
 void Stage::loadMap(int _stageID, int _mapID)
 {
 	//string imgFile = "Data/Image/block";
