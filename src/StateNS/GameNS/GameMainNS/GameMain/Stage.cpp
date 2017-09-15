@@ -64,7 +64,7 @@ void Stage::initialize()
 
 	// for Debug
 	mDynamicGimmicks.push_back(new MovingFloor(300, 1400, 360, 1200, 3.0));
-	mDynamicGimmicks.push_back(new Dossunn(700, 1200, 3.0));
+	mDynamicGimmicks.push_back(new FireBar(300, 1500));
 
 	//loadGimmick()
 	//とかいう関数で外部のテキストデータから読み込み
@@ -360,7 +360,7 @@ void Stage::drawMap(Arr _mapData, const Vector2* _camera) const
 void Stage::loadGimmick(int _x, int _y, int _n)
 {
 
-	//Dynamickじゃないものはy座標を+16
+	//Dynamicじゃないものはy座標を+16
 	switch (_n) {
 	case 56:mDynamicGimmicks.push_back(new Block(_x * 32, _y * 32, 3.0)); break;//はこ
 	case 57:mGimmicks.push_back(new Spring(Vector2(_x*32 + 16, _y*32+16))); break;//ばね

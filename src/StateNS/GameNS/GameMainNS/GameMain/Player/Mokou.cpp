@@ -51,10 +51,12 @@ PlayerChild* Mokou::update(const Stage* _stage)
 	if (Input_ATTACK())
 	{
 		attack();
+		canMove = false;
 	}
 	else
 	{
 		attackTime = 0;
+		canMove = true;
 	}
 
 

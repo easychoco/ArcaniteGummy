@@ -60,7 +60,7 @@ void GameMain::initialize()
 
 	mEController = new EnemyController();
 
-	stopDynamicObject = false;
+	stopDynamicObject = StopType::TYPE_NONE;
 }
 
 Child* GameMain::update(GameParent* _parent)
@@ -71,12 +71,14 @@ Child* GameMain::update(GameParent* _parent)
 	nowStageNum = mSystem->getNowStage();
 	Stage* stage = mStages[nowStageNum];
 
+	//時が止まっているか更新
+	stopDynamicObject = mPlayer->getStopDynamicObject();
+
 	//DynamicObjectを更新
-	if(!stopDynamicObject)updateDynamics(stage);
+	if(stopDynamicObject == StopType::TYPE_NONE)updateDynamics(stage);
 
 	//Playerのupdate
 	PlayerChild* nextPlayer = mPlayer->update(stage);
-	stopDynamicObject = mPlayer->setStopDynamicObject();
 	if (nextPlayer != mPlayer)
 	{
 		SAFE_DELETE(mPlayer);
@@ -90,8 +92,6 @@ Child* GameMain::update(GameParent* _parent)
 	mPlayer->hpController.recover(1);
 
 	//Systemのupdate
-	//if(changed)mSystem->update(HowStageMove::MOVE_NONE);
-	//else 
 	mSystem->update(mPlayer->getStageMove());
 
 	//for Debug
@@ -109,8 +109,16 @@ Child* GameMain::update(GameParent* _parent)
 
 void GameMain::draw() const
 {
+	if (stopDynamicObject == StopType::TYPE_SAKUYA)
+	{
+		DrawBox(0, 0, 640, 480, WHITE, true);
+		SetDrawBlendMode(DX_BLENDMODE_SUB, 200);
+	}
 	mStages[nowStageNum]->draw(mPlayer->getCamera());
 	mEController->draw(mPlayer->getCamera());
+
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 200);
+
 	mPlayer->draw();
 	mSystem->draw();
 }

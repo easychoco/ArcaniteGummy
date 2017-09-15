@@ -20,9 +20,17 @@ private:
 	int attackTime;
 	const int attackInterval = 10;//UŒ‚‚ÌŠÔŠu
 
+	bool isStoppingTime;
+	int stoppingTime;
+	const int maxStoppingTime = 120;//‚ğ~‚ß‚Ä‚¢‚ç‚ê‚éŠÔ(ƒtƒŒ[ƒ€”)
+
 	void initialize();
-	void attack();
+	virtual void attack() override {}//‰¼‘z
+	void attack(const Stage*);
 	int getAttackDx() const;
+	void processAttack(const Stage*);
+	void processStopDynamics();
+
 	void draw_other() const;
 	virtual void loadImage() override;
 	virtual int specialAction()override;
@@ -30,7 +38,7 @@ private:
 	class Knife : public Attack
 	{
 	public:
-		Knife(const PlayerChild*, int x, int y, int w, int h, int dx);
+		Knife(const PlayerChild*, const Stage*, int x, int y, int dx);
 		~Knife();
 		void update();
 		void setStatus(Vector2, int dx);
@@ -38,6 +46,7 @@ private:
 
 	private:
 		int dx;
+		const Stage* stage;
 	};
 };
 

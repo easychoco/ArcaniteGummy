@@ -39,8 +39,6 @@ void Dossunn::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera, p, scale, mImage, mDirection);
 
-	//for Debug
-	DrawFormatString(0, 70, BLACK, "D: %d, %d", p->x(), p->y());
 }
 
 void Dossunn::apply(Character* _character)

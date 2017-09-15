@@ -25,9 +25,11 @@ public:
 	const Vector2* getCamera() const { return camera; }
 	vector<Attack*> getAttacks() const { return attacks; }
 	GameMain::HowStageMove getStageMove() const { return nextStageMove; };
-	const bool setStopDynamicObject() const { return stopDynamics; }
 
 	virtual int specialAction() = 0;
+
+	const StopType getStopDynamicObject() const { return stopDynamics; }
+
 protected:
 	//•Ï”
 	float moveSpeed;
@@ -35,10 +37,20 @@ protected:
 	int mImage[40];
 	int animationTime;
 	bool direction;
+
 	int animeNum;
 	int animeCount;
+	bool canMove;
 	bool prePushC;
-	bool stopDynamics;
+	StopType stopDynamics;
+
+	//“ü—ÍŠÖŒW
+	bool in_right;
+	bool in_left;
+	bool in_up;
+	bool in_down;
+	bool in_jump;
+
 
 	//UŒ‚‚Ìvector
 	vector<Attack*> attacks;

@@ -46,8 +46,9 @@ void PlayerChild::initialize()
 	this->onGround = false;
 	this->onLadder = false;
 	this->actionState = ACT_NORMAL;
+	this->canMove = true;
 	this->prePushC = false;
-	this->stopDynamics = false;
+	this->stopDynamics = StopType::TYPE_NONE;
 
 	updateCamera();
 }
@@ -83,6 +84,23 @@ void PlayerChild::standardAction(const Stage* _stage)
 	onGround = isOnGround(_stage);
 	onLadder = isOnLadder(_stage);
 
+	if (canMove)
+	{
+		in_right = Input_RIGHT();
+		in_left  = Input_LEFT();
+		in_up    = Input_UP();
+		in_down  = Input_DOWN();
+		in_jump  = Input_JUMP();
+	}
+	else
+	{
+		in_right = false;
+		in_left  = false;
+		in_up    = false;
+		in_down  = false;
+		in_jump  = false;
+	}
+
 	actCheck();
 	animeNum = animation();
 
@@ -111,6 +129,8 @@ void PlayerChild::changeCharacter(/*CharaÇÃenum next*/)
 	if (Input_CHANGE())
 	{
 		animationTime = max(animationTime, 1);
+		stopDynamics = StopType::TYPE_CHENGE;
+		canMove = false;
 	}
 	if (animationTime == 0)return;
 
@@ -156,15 +176,18 @@ void PlayerChild::move(const Stage* _stage)
 	next_dx = next_dy = 0;
 
 	//ì¸óÕ
-	if (Input_RIGHT())
+	if (canMove)
 	{
-		dx += (int)(moveSpeed * MyData::vectorRate);
-		direction = false;
-	}
-	if (Input_LEFT())
-	{
-		dx -= (int)(moveSpeed * MyData::vectorRate);
-		direction = true;
+		if (in_right)
+		{
+			dx += (int)(moveSpeed * MyData::vectorRate);
+			direction = false;
+		}
+		if (in_left)
+		{
+			dx -= (int)(moveSpeed * MyData::vectorRate);
+			direction = true;
+		}
 	}
 
 	//ínè„Ç…Ç¢ÇÈÇ»ÇÁ
@@ -176,14 +199,14 @@ void PlayerChild::move(const Stage* _stage)
 	//ÇÕÇµÇ≤Ç…ÇÃÇ⁄ÇÈ
 	if (onLadder)
 	{
-		if (Input_UP())
+		if (in_up)
 		{
 			dy -= (int)(moveSpeed * MyData::vectorRate);
 			jumpPower = 0.0f;
 			nowJumpCount = 0;
 		}
 
-		if (Input_DOWN())
+		if (in_down)
 		{
 			dy += (int)(moveSpeed * MyData::vectorRate);
 			jumpPower = 0.0f;
@@ -192,7 +215,7 @@ void PlayerChild::move(const Stage* _stage)
 	}
 
 	//ÉWÉÉÉìÉv
-	if (Input_JUMP() && !prePush && nowJumpCount < maxJumpCount)
+	if (in_jump && !prePush && nowJumpCount < maxJumpCount)
 	{
 		jumpPower = maxJumpPower;
 		nowJumpCount++;
@@ -214,8 +237,8 @@ void PlayerChild::move(const Stage* _stage)
 	if (abs(dy) <= 1000)jumpPower = 0;
 
 	//for Debug
-	if (Input_D() && Input_UP()) dy = getTopDiffer(_stage, -3000, dx < 0);
-	if (Input_D() && Input_DOWN())dy = getBottomDiffer(_stage, 3000, dx < 0);
+	if (Input_D() && in_up) dy = getTopDiffer(_stage, -3000, dx < 0);
+	if (Input_D() && in_down)dy = getBottomDiffer(_stage, 3000, dx < 0);
 
 	p->raw_x += dx;
 	p->raw_y += dy;
@@ -251,7 +274,7 @@ void PlayerChild::move(const Stage* _stage)
 	post_x = p->x();
 	post_y = p->y();
 
-	prePush = Input_JUMP();
+	prePush = in_jump;
 }
 
 void PlayerChild::updateCamera()
@@ -338,25 +361,25 @@ void PlayerChild::actCheck()
 {
 	if (onLadder)
 	{
-		if (Input_UP() || Input_DOWN())
+		if (in_up || in_down)
 		{
 			actionState = ACT_LADDER;
 		}
 
-		if (Input_LEFT() || Input_RIGHT())
+		if (in_left || in_right)
 		{
 			actionState = ((onGround) ? ACT_WALK : ACT_AIR);
 		}
 
-		if (onGround && !Input_UP())
+		if (onGround && !in_up)
 		{
 			actionState = ACT_NORMAL;
 		}
 	}
 	else if (Input_ATTACK())actionState = ACT_ATTACK;
 	else if (!onGround)actionState = ACT_AIR;
-	else if (Input_DOWN())actionState = ACT_SIT;
-	else if (Input_LEFT() || Input_RIGHT())actionState = ACT_WALK;
+	else if (in_down)actionState = ACT_SIT;
+	else if (in_left || in_right)actionState = ACT_WALK;
 	else actionState = ACT_NORMAL;
 }
 

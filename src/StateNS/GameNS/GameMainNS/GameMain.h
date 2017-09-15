@@ -3,7 +3,7 @@
 #include "GameMainChild.h"
 
 //#include <string>
-#include <vector>
+//#include <vector>
 
 
 
@@ -20,6 +20,8 @@ class PlayerChild;
 class System;
 class EnemyController;
 
+enum StopType { TYPE_SAKUYA, TYPE_CHENGE, TYPE_NONE };
+
 class GameMain : public Child
 {
 public:
@@ -28,7 +30,6 @@ public:
 	void initialize();
 	Child* update(GameParent*);
 	void draw() const;
-	void setStopDynamicObject(bool _flag){ stopDynamicObject = _flag; }
 
 	enum HowStageMove
 	{
@@ -53,7 +54,7 @@ private:
 	int nowStageNum;
 
 	//~‚ß‚âƒLƒƒƒ‰•ÏX‚Ì‚ÉA“®‚¢‚Ä‚¢‚é‚à‚Ì‚ğ~‚ß‚é
-	bool stopDynamicObject;
+	StopType stopDynamicObject;
 
 	void updateDynamics(Stage* stage);
 	void processCollision(Stage* stage);

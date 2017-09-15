@@ -26,6 +26,10 @@ Sakuya::~Sakuya()
 void Sakuya::initialize()
 {
 	attackTime = 0;
+
+	stoppingTime = 0;
+	isStoppingTime = false;
+
 	loadImage();
 }
 
@@ -35,29 +39,12 @@ PlayerChild* Sakuya::update(const Stage* _stage)
 
 	standardAction(_stage);
 	
-
 	//UŒ‚
-	attackTime++;
-	if (Input_ATTACK() && attackTime > attackInterval)
-	{
-		attack();
-		attackTime = 0;
-	}
-	
-	for (auto& a : attacks)
-	{
-		if (a->isActive)
-		{
-			a->update();
-			a->checkActive(camera);
-		}
-	}
+	processAttack(_stage);
 
-	//C‚ÅŽžŽ~‚ß
-	if (Input_C() && !prePushC)
-	{
-		stopDynamics = !stopDynamics;
-	}
+	//ŽžŽ~‚ß‚Ìˆ—
+	processStopDynamics();
+
 	prePushC = Input_C();
 
 	if (canChangeCharacter())
@@ -82,7 +69,7 @@ int Sakuya::specialAction()
 //==============================================
 //“à•”ƒvƒ‰ƒCƒx[ƒgŠÖ”
 //==============================================
-void Sakuya::attack()
+void Sakuya::attack(const Stage* _stage)
 {
 	int dx = getAttackDx();
 
@@ -98,16 +85,57 @@ void Sakuya::attack()
 	}
 
 	//‚·‚×‚ÄŽg‚Á‚Ä‚¢‚½‚çnew‚·‚é
-	attacks.push_back(new Knife(this, this->p->raw_x, this->p->raw_y, 32, 32, dx));
+	attacks.push_back(new Knife(this, _stage, this->p->raw_x, this->p->raw_y, dx));
 }
 
 int Sakuya::getAttackDx() const
 {
 	//5‚Í–_—§‚¿Žž‚Ì‘¬‚³
-	int ret = 5 + (int)moveSpeed * (Input_RIGHT() | Input_LEFT());
+	int ret = 5 + (int)moveSpeed * (in_right | in_left);
 	ret *= ((direction) ? -1 : 1);
 
 	return ret;
+}
+
+void Sakuya::processAttack(const Stage* _stage)
+{
+	attackTime++;
+	if (Input_ATTACK() && attackTime > attackInterval)
+	{
+		attack(_stage);
+		attackTime = 0;
+	}
+
+	for (auto& a : attacks)
+	{
+		if (a->isActive)
+		{
+			a->update();
+			a->checkActive(camera);
+		}
+	}
+}
+
+void Sakuya::processStopDynamics()
+{
+	//C‚ÅŽžŽ~‚ß
+	if (Input_C() && !prePushC)
+	{
+		isStoppingTime = true;
+		stopDynamics = StopType::TYPE_SAKUYA;
+	}
+
+	if (!isStoppingTime)return;
+
+	stoppingTime++;
+
+	//§ŒÀŽžŠÔ‚ð’´‚¦‚½‚ç‰ðœ
+	if (stoppingTime > maxStoppingTime)
+	{
+		stoppingTime = 0;
+		isStoppingTime = false;
+		stopDynamics = StopType::TYPE_NONE;
+	}
 }
 
 void Sakuya::draw_other() const
@@ -118,7 +146,7 @@ void Sakuya::draw_other() const
 	}
 
 	//for Debug
-	DrawFormatString(0, 30, MyData::BLACK, "Sakuya");
+	DrawFormatString(0, 130, BLACK, "%d", attacks.size());
 }
 
 void Sakuya::loadImage()
@@ -131,8 +159,9 @@ void Sakuya::loadImage()
 //==============================================
 //KnifeƒNƒ‰ƒX
 //==============================================
-Sakuya::Knife::Knife(const PlayerChild* _parent, int _x, int _y, int _w, int _h, int _dx) :
-Attack(_parent, _x, _y, _w, _h, ObjectID::A_KNIFE)
+Sakuya::Knife::Knife(const PlayerChild* _parent, const Stage* _stage, int _x, int _y, int _dx) :
+Attack(_parent, _x, _y, 32, 32, ObjectID::A_KNIFE),
+stage(_stage)
 {
 	this->dx = _dx * MyData::vectorRate;
 	mDirection = _dx < 0;
@@ -151,13 +180,17 @@ Sakuya::Knife::~Knife()
 
 void Sakuya::Knife::update()
 {
-	this->p->raw_x += dx;
+	int dx_tmp = getHorizontalDiffer(stage, dx, false, false);
+	this->p->raw_x += dx_tmp;
+
+	if (dx_tmp == 0)this->isActive = false;
 }
 
 void Sakuya::Knife::setStatus(Vector2 _pos, int _dx)
 {
 	*(this->p) = _pos;
 	this->dx = _dx * MyData::vectorRate;
+	this->mDirection = _dx < 0;
 }
 
 void Sakuya::Knife::hittedAction()
