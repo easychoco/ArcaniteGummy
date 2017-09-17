@@ -22,6 +22,7 @@ SwitchWithBlock::~SwitchWithBlock()
 	}
 	blocks.clear();
 	blocks.shrink_to_fit();
+	DeleteGraph(mImage);
 }
 
 void SwitchWithBlock::initialize()

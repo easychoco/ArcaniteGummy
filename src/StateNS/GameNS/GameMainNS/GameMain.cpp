@@ -126,7 +126,7 @@ void GameMain::draw() const
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 200);
 
 	mPlayer->draw();
-	mSystem->draw();
+	mSystem->draw(mPlayer->getVector2());
 }
 
 

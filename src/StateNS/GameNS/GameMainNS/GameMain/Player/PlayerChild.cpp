@@ -284,9 +284,6 @@ void PlayerChild::move(const Stage* _stage)
 
 void PlayerChild::updateCamera()
 {
-	//for Debug
-	//MyData::MAP_WIDTH * 2 の2はマップをつなげた個数
-
 	//カメラ位置を更新
 	int tmp_x = p->raw_x / MyData::vectorRate;
 	int tmp_y = p->raw_y / MyData::vectorRate;
