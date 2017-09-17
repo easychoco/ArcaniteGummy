@@ -16,6 +16,7 @@ class Block : public DynamicGimmickChild
 {
 public:
 	Block(int x, int y, double scale);
+	Block(int x, int y, double scale, bool isBreakable);
 	~Block();
 	void initialize();
 	void update(const Stage*);
@@ -27,12 +28,13 @@ public:
 	void burnedAction() override;
 	bool isOverlap(const Vector2*) const;
 	bool onActiveArea(const Vector2*) const;
-
+	
 
 private:
 	int dy;
 	int width;
 	int height;
+	const bool isBreakable;
 
 	void loadImage();
 };

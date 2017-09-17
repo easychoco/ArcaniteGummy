@@ -110,8 +110,9 @@ Stage::ChipType SwitchWithBlock::getChipType() const
 //==============================================
 void SwitchWithBlock::loadImage()
 {
+	//TODO 画像差し替え
 	mImage = LoadGraph("Data/Image/switch.png");
-	assert(mImage != -1 && "ベルトコンベヤー画像読み込みエラー！");
+	assert(mImage != -1 && "スイッチ画像読み込みエラー！");
 }
 
 

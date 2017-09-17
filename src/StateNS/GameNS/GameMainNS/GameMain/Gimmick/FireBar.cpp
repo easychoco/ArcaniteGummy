@@ -12,10 +12,10 @@ DynamicGimmickChild(_x, _y, 1.0)
 	this->width  = 32;
 	this->height = 32;
 
-	x_1 = x_2 = _x;
+	x_1 = x_2 = x_3 = _x;
 	y_1 = _y - r_1;
 	y_2 = _y - r_2;
-
+	y_3 = _y - r_3;
 
 	initialize();
 }
@@ -82,8 +82,9 @@ bool FireBar::onActiveArea(const Vector2* _player) const
 	//“ñ‚Â‚Ì“_‚Æ‚Ì‹——£‚ª16–¢–ž‚È‚ç return true
 	return
 		distance(x_1, y_1, _player) < 16 * vectorRate ||
-		distance(x_2, y_2, _player) < 16 * vectorRate;
-	
+		distance(x_2, y_2, _player) < 16 * vectorRate ||
+		distance(x_3, y_3, _player) < 16 * vectorRate;
+
 	//for Debug;
 	return false;
 }
@@ -103,10 +104,12 @@ void FireBar::move()
 	float _cos = cosf(radian);
 	x_1 = p->raw_x + (int)(r_1 * _cos);
 	x_2 = p->raw_x + (int)(r_2 * _cos);
+	x_3 = p->raw_x + (int)(r_3 * _cos);
 
 	float _sin = sinf(radian);
 	y_1 = p->raw_y + (int)(r_1 * _sin);
 	y_2 = p->raw_y + (int)(r_2 * _sin);
+	y_3 = p->raw_y + (int)(r_3 * _sin);
 }
 
 

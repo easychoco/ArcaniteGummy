@@ -37,10 +37,12 @@ private:
 	const int damageValue = 50;
 
 	const int r_1 =  64 * vectorRate;
-	const int r_2 = 128 * vectorRate;
+	const int r_2 =  96 * vectorRate;
+	const int r_3 = 128 * vectorRate;
 
 	int x_1, y_1;
 	int x_2, y_2;
+	int x_3, y_3;
 
 	void loadImage();
 	void move();

@@ -10,13 +10,16 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+Block::Block(int _x, int _y, double _scale) :
+	Block(_x, _y, _scale, true){ }
 
-Block::Block(int _x, int _y, double _scale) : 
-DynamicGimmickChild(_x, _y, _scale)
+Block::Block(int _x, int _y, double _scale, bool _isBreakable) :
+DynamicGimmickChild(_x, _y, _scale),
+isBreakable(_isBreakable)
 {
 	this->width  = (int)(32 * _scale);
 	this->height = (int)(32 * _scale);
-
+	
 	initialize();
 }
 
@@ -62,7 +65,7 @@ void Block::apply(Character* _character)
 
 void Block::hittedAction()
 {
-
+	if(isBreakable)this->isActive = false;
 }
 
 void Block::burnedAction()
