@@ -11,6 +11,7 @@ DynamicObject(_x, _y, (int)(32 * _scale), (int)(32 * _scale), 0, 0)
 	dx = dy = 0;
 	mDirection = false;
 	scale = _scale;
+	assert((_x + width / 2) % 32 == 0 && (_y + height / 2) % 32 == 0 && "DynamicGimmickÇÃç¿ïWÇ™ (32 * n + 16) Ç∂Ç·Ç»Ç¢Ç≈Ç∑");
 }
 
 DynamicGimmickChild::~DynamicGimmickChild()
