@@ -10,13 +10,13 @@ namespace GameNS {
 namespace GameMainNS{
 
 class Collision;
-class PlayerChild;
+class Character;
 
 class Attack : public DynamicObject
 {
 public:
-	Attack(const PlayerChild*, int x, int y, int w, int h);
-	Attack(const PlayerChild*, int x, int y, int w, int h, ObjectID);
+	Attack(const Character*, int x, int y, int w, int h);
+	Attack(const Character*, int x, int y, int w, int h, ObjectID);
 	virtual ~Attack();
 	virtual void setStatus(Vector2, int status) = 0;
 	virtual void update() = 0;
@@ -26,7 +26,7 @@ public:
 	int getDamageValue() { return damageValue; }
 
 	bool isActive;
-	const PlayerChild* parent;
+	const Character* parent;
 
 	const ObjectID id;
 

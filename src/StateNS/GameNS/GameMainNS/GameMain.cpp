@@ -140,7 +140,7 @@ void GameMain::updateDynamics(Stage* stage)
 	stage->update(mPlayer);
 
 	//enemy‚Ìupdate
-	mEController->update(stage);
+	mEController->update(stage,mPlayer->getCamera());
 }
 
 void GameMain::processCollision(Stage* _stage)

@@ -26,7 +26,7 @@ void Balloon::initialize()
 	this->mDirection = false;
 }
 
-void Balloon::update(const Stage* _stage)
+void Balloon::update(const Stage* _stage, const Vector2* _camera)
 {
 	mTime++;
 	mTime %= 180;

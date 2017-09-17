@@ -28,6 +28,7 @@ void EnemyChild::draw(const Vector2* _camera) const
 	if (!mIsAlive)return;
 	
 	standardDraw(_camera, p, mImage, mDirection);
+	draw_other(_camera);
 }
 
 void EnemyChild::standardAction(const Stage* _stage)

@@ -14,7 +14,8 @@ public:
 	Balloon(int x, int y);
 	~Balloon();
 
-	void update(const Stage* _stage);
+	void update(const Stage* _stage, const Vector2* _camera);
+
 
 private:
 	int images;

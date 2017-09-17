@@ -14,7 +14,8 @@ public:
 	Usagi(int x, int y);
 	~Usagi();
 
-	void update(const Stage* _stage);
+	void update(const Stage* _stage, const Vector2* _camera);
+
 
 private:
 	//Character‚ÌŠÖ”
