@@ -15,7 +15,7 @@ namespace GameNS {
 namespace GameMainNS {
 
 
-Nue::Nue(int _x, int _y, int _hp) : PlayerChild(_x, _y, 5.0f, 25.0f, 1, _hp)
+Nue::Nue(int _x, int _y, int _hp) : PlayerChild(_x, _y, 3.0f, 22.0f, 1, _hp)
 {
 	initialize();
 }

@@ -80,6 +80,11 @@ bool Input_ESCAPE()
 	return toBoolean[CheckHitKey(KEY_INPUT_ESCAPE)];
 }
 
+bool Input_LSHIFT()
+{
+	return toBoolean[CheckHitKey(KEY_INPUT_LSHIFT)];
+}
+
 bool Input_JUMP()
 {
 	return toBoolean[CheckHitKey(KEY_INPUT_SPACE)] || toBoolean[CheckHitKey(KEY_INPUT_Z)];
