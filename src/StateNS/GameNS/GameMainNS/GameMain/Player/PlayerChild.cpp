@@ -181,12 +181,12 @@ void PlayerChild::move(const Stage* _stage)
 	{
 		if (in_right)
 		{
-			dx += (int)((moveSpeed + (actionState == ACT_RUN || actionState == ACT_RUNJUMP)*2.0f)* MyData::vectorRate);
+			dx += (int)((moveSpeed + (actionState == ACT_RUN || actionState == ACT_RUNJUMP) * 2.0f) * vectorRate);
 			direction = false;
 		}
 		if (in_left)
 		{
-			dx -= (int)((moveSpeed + (actionState == ACT_RUN || actionState == ACT_RUNJUMP)*2.0f)* MyData::vectorRate);
+			dx -= (int)((moveSpeed + (actionState == ACT_RUN || actionState == ACT_RUNJUMP) * 2.0f) * vectorRate);
 			direction = true;
 		}
 	}
@@ -202,14 +202,14 @@ void PlayerChild::move(const Stage* _stage)
 	{
 		if (in_up)
 		{
-			dy -= (int)(moveSpeed * MyData::vectorRate);
+			dy -= (int)(moveSpeed * vectorRate);
 			jumpPower = 0.0f;
 			nowJumpCount = 0;
 		}
 
 		if (in_down)
 		{
-			dy += (int)(moveSpeed * MyData::vectorRate);
+			dy += (int)(moveSpeed * vectorRate);
 			jumpPower = 0.0f;
 			nowJumpCount = 0;
 		}
@@ -234,7 +234,8 @@ void PlayerChild::move(const Stage* _stage)
 
 	dx = getHorizontalDiffer(_stage, dx, dy < 0);
 	dy = dy < 0 ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0);
-	if (actionState == ACT_SIT)dy += (int)(CHIP_HEIGHT/2*vectorRate);
+	if (actionState == ACT_SIT)dy += (int)(CHIP_HEIGHT / 2 * vectorRate);
+
 	//天井に当たったら
 	if (abs(dy) <= 1000)jumpPower = 0;
 
@@ -289,6 +290,7 @@ void PlayerChild::updateCamera()
 	//カメラ位置を更新
 	int tmp_x = p->raw_x / MyData::vectorRate;
 	int tmp_y = p->raw_y / MyData::vectorRate;
+	if (actionState == ACT_SIT)tmp_y -= PLAYER_CHIP_HEIGHT / 4;
 
 	if (tmp_x % MyData::MAP_WIDTH  <                     MyData::CX)tmp_x = MyData::MAP_WIDTH * (tmp_x / MyData::MAP_WIDTH) + MyData::CX;
 	if (tmp_x % MyData::MAP_WIDTH  > MyData::MAP_WIDTH - MyData::CX)tmp_x = MyData::MAP_WIDTH * (tmp_x / MyData::MAP_WIDTH) + MyData::MAP_WIDTH - MyData::CX;

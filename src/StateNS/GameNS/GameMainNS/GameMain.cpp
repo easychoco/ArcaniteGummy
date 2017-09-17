@@ -61,6 +61,7 @@ void GameMain::initialize()
 	mSystem = new System(nowStageNum, xNum, yNum);
 
 	mEController = new EnemyController();
+	mEController->setPlayerPos(mPlayer->getVector2());
 
 	stopDynamicObject = StopType::TYPE_NONE;
 }
@@ -81,10 +82,13 @@ Child* GameMain::update(GameParent* _parent)
 
 	//Player‚Ìupdate
 	PlayerChild* nextPlayer = mPlayer->update(stage);
+
+	//PlayerŒğ‘ã
 	if (nextPlayer != mPlayer)
 	{
 		SAFE_DELETE(mPlayer);
 		mPlayer = nextPlayer;
+		mEController->setPlayerPos(mPlayer->getVector2());
 	}
 
 	//Õ“Ë”»’è

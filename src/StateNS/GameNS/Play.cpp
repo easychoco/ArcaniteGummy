@@ -46,11 +46,14 @@ Child* Play::update(Parent* _parent)
 	Child* next = this;
 	gameMain = gameMain->update(this);
 
+	/*
+	//for Debug
 	if (Input_X())
 	{
 		SAFE_DELETE(gameMain);
 		next = new Clear();
 	}
+	*/
 
 	if (mNextSeq != SEQ_NONE)
 	{

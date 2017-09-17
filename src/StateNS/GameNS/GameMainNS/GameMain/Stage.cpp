@@ -63,7 +63,7 @@ void Stage::initialize()
 
 	// for Debug
 	//mDynamicGimmicks.push_back(new MovingFloor(300, 1400, 360, 1200, 3.0));
-	mDynamicGimmicks.push_back(new FireBar(304, 1488));
+	//mDynamicGimmicks.push_back(new FireBar(304, 1488));
 	mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));
 	mDynamicGimmicks.push_back(new Block(688, 1488, 1.0, false));
 	mSwitchWithBlocks.push_back(new SwitchWithBlock(208, 1488));
@@ -97,10 +97,6 @@ void Stage::update(PlayerChild* _player)
 		updateDynamicGimmick(s_b->getBlocks(), _player);
 	}
 
-	for (auto& s_b : mSwitchWithBlocks)
-	{
-		//s_b->setPreOnActiveArea(_player->getVector2());
-	}
 
 	/*
 	for (auto& d_gimmick : mDynamicGimmicks)
@@ -232,11 +228,6 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 
 	int sub_y = _other.raw_y / CHIP_HEIGHT_RATE();
 	if (_other.raw_y < 0)--sub_y;
-
-	if (Input_S() && isPlayer)
-	{
-		int gomi = 0;
-	}
 
 	//Stage‚Ì”ÍˆÍŠO(‰E‚Ì’[)‚È‚ç
 	if (MyData::MAP_WIDTH_NUM <= sub_x)

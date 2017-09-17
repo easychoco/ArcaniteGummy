@@ -8,32 +8,29 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-class Usagi : public EnemyChild
+class Balloon : public EnemyChild
 {
 public:
-	Usagi(int x, int y);
-	~Usagi();
+	Balloon(int x, int y);
+	~Balloon();
 
 	void update(const Stage* _stage);
 
 private:
+	int images;
+	bool imgLoad = false;
+	int mTime;
+
 	//Character‚ÌŠÖ”
 	void hittedAction();
 
 	//Enemychild‚ÌŠÖ”
 	void move(const Stage*, int& dx, int& dy);
-	void loadImage() { images = LoadGraph("Data/Image/usagi.png"); mImage = images; imgLoad = true; }
+	void loadImage() { images = LoadGraph("Data/Image/balloon.png"); mImage = images; imgLoad = true; }
 
 
 	void initialize();
 
-	int images;
-	bool imgLoad = false;
-	
-	int mTime;
-
-	int moveSpeed;
-	bool preOnGround;
 };
 
 

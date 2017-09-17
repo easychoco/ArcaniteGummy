@@ -4,7 +4,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-EnemyChild::EnemyChild(int _hp, int _x, int _y, int _w, int _h,float _jump,int _jumpCount) : Character(_hp, _x, _y, _w, _h,_jump,_jumpCount)
+EnemyChild::EnemyChild(int _hp, int _x, int _y, int _w, int _h, float _jump, int _jumpCount) : 
+Character(_hp, _x, _y, _w, _h, _jump, _jumpCount)
 {
 	initialize();
 }
@@ -62,9 +63,12 @@ void EnemyChild::standardMove(const Stage* _stage)
 
 void EnemyChild::checkIsAlive(const Stage* _stage)
 {
+	//HPが0ならfalse
 	mIsAlive &= (this->hpController.getHP() > 0);
-	mIsAlive &= (this->p->raw_y % MyData::MAP_HEIGHT_RATE() < (this->p->raw_y + 10000) % MyData::MAP_HEIGHT_RATE());
-	mIsAlive &= (this->p->raw_y % MyData::MAP_HEIGHT_RATE() > (this->p->raw_y - 10000) % MyData::MAP_HEIGHT_RATE());
+
+	//マップ外ならfalse
+	mIsAlive &= (this->p->raw_y % MAP_HEIGHT_RATE() < (this->p->raw_y + 10000) % MAP_HEIGHT_RATE());
+	mIsAlive &= (this->p->raw_y % MAP_HEIGHT_RATE() > (this->p->raw_y - 10000) % MAP_HEIGHT_RATE());
 }
 
 void EnemyChild::processDamage()

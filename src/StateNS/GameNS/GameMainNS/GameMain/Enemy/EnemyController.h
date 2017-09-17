@@ -27,6 +27,7 @@ public:
 
 	void createEnemy();
 	void deleteEnemy(int ID);
+	void setPlayerPos(const Vector2* player);
 
 private:
 	vector<EnemyChild*> enemies;
