@@ -42,7 +42,7 @@ void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
 	//_dyが0でなかったら空中にいる
 	if (_dy != 0)
 	{
-		//*ここをコメントアウトすると，がけで落ちる
+		/*ここをコメントアウトすると，がけで落ちる
 		//右下のチップ
 		RawVector2 pos = RawVector2(p->x() + 1, p->y() + 16);
 		Stage::ChipType chipType_right = _stage->getChipType(pos, false);
@@ -62,12 +62,12 @@ void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
 			mDirection = !mDirection;
 			moveSpeed = -moveSpeed;
 		}
-		else
+		else//*/
 		{
 			_dx = 0;
 			return;
 		}
-		//*/
+
 	}
 
 	_dx = getHorizontalDiffer(_stage, moveSpeed, _dy < 0);
