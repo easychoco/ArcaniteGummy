@@ -363,7 +363,7 @@ void Stage::loadMap(int _stageID, int _mapID)
 	string imgFile = "Data/Image/block0.png";
 
 	//256*480
-	int tmp = LoadDivGraph(imgFile.c_str(), 120, 8, 15, 32, 32, mapChip);
+	int tmp = LoadDivGraph(imgFile.c_str(), 256, 16, 16, 32, 32, mapChip);
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 
 	string textFile = "Data/Text/stage";
@@ -377,7 +377,7 @@ void Stage::loadMap(int _stageID, int _mapID)
 
 
 	std::ifstream fin(textFile);
-	std::ifstream fin2("Data/Text/stage0a.txt");
+	std::ifstream fin2(textFile);
 
 	assert(fin && "マップデータ読み込みエラー");
 	assert(fin2 && "ギミック読み込みエラー");
@@ -389,6 +389,15 @@ void Stage::loadMap(int _stageID, int _mapID)
 			fin >> mapX;
 		}
 	}
+
+	for (unsigned y = 0; y < mapData.size(); y++)
+	{
+		for (unsigned x = 0; x < mapData[0].size(); x++)
+		{
+			if (mapData[y][x] > 111)mapData[y][x] = 0;
+		}
+	}
+
 
 	for (auto& gimmickY : gimmickData)
 	{
