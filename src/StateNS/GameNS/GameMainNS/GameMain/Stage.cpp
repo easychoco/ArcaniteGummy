@@ -363,7 +363,7 @@ void Stage::loadMap(int _stageID, int _mapID)
 	string imgFile = "Data/Image/block0.png";
 
 	//256*480
-	int tmp = LoadDivGraph(imgFile.c_str(), 256, 16, 16, 32, 32, mapChip);
+	int tmp = LoadDivGraph(imgFile.c_str(), 256, 8, 15, 32, 32, mapChip);
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 
 	string textFile = "Data/Text/stage";
@@ -434,6 +434,7 @@ void Stage::drawMap(Arr _mapData, const Vector2* _camera) const
 
 void Stage::loadGimmick(int _x, int _y, int _n)
 {
+	//TODO 変更途中
 
 	//Dynamicじゃないものはy座標を+16
 	switch (_n) {
