@@ -27,7 +27,7 @@ void Usagi::initialize()
 	this->moveSpeed = 3000;
 }
 
-void Usagi::update(const Stage* _stage)
+void Usagi::update(const Stage* _stage,const Vector2* _camera)
 {
 	mTime++;
 

@@ -3,6 +3,7 @@
 #include "EnemyChild.h"
 #include "Usagi.h"
 #include "Balloon.h"
+#include "Yachamo.h"
 
 #include "..\Player\PlayerChild.h"
 
@@ -18,6 +19,7 @@ EnemyController::EnemyController()
 {
 	enemies.push_back(new Balloon(300, 1450));
 	enemies.push_back(new Usagi(200, 1450));
+	enemies.push_back(new Yachamo(1000, 1450));
 	//enemies.push_back(new Usagi(320, 240));
 }
 
@@ -31,11 +33,11 @@ EnemyController::~EnemyController()
 	enemies.shrink_to_fit();
 }
 
-void EnemyController::update(const Stage* _stage)
+void EnemyController::update(const Stage* _stage,const Vector2* _camera)
 {
 	for (auto& enemy : enemies)
 	{
-		enemy->update(_stage);
+		enemy->update(_stage,_camera);
 	}
 }
 

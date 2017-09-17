@@ -2,20 +2,20 @@
 
 
 #include "Collision.h"
-#include "Player\PlayerChild.h"
-//#include "Character.h"
+//#include "Player\PlayerChild.h"
+#include "Character.h"
 
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Attack::Attack(const PlayerChild* _parent, int x, int y, int w, int h) :
+Attack::Attack(const Character* _parent, int x, int y, int w, int h) :
 Attack(_parent, x, y, w, h, ObjectID::ID_NONE)
 {
 
 }
 
-Attack::Attack(const PlayerChild* _parent, int _x, int _y, int _w, int _h, ObjectID _id) :
+Attack::Attack(const Character* _parent, int _x, int _y, int _w, int _h, ObjectID _id) :
 DynamicObject(_x / MyData::vectorRate, _y / MyData::vectorRate, _w, _h, 0, 0),
 parent(_parent),
 id(_id)

@@ -17,7 +17,7 @@ public:
 	EnemyController();
 	~EnemyController();
 
-	void update(const Stage*);
+	void update(const Stage* _stage, const Vector2* _camera);
 	void draw(const Vector2*) const;
 
 	vector<EnemyChild*>& getEnemies() { return enemies; }
