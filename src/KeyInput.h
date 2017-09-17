@@ -15,6 +15,7 @@ bool Input_LEFT();
 bool Input_RETURN();
 bool Input_BACK();
 bool Input_ESCAPE();
+bool Input_LSHIFT();
 
 bool Input_JUMP();
 bool Input_OK();

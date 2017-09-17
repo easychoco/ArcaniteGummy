@@ -175,17 +175,18 @@ void PlayerChild::move(const Stage* _stage)
 
 	next_dx = next_dy = 0;
 
+
 	//入力
-	if (canMove)
+	if (canMove &&actionState != ACT_SIT)
 	{
 		if (in_right)
 		{
-			dx += (int)(moveSpeed * MyData::vectorRate);
+			dx += (int)((moveSpeed + (actionState == ACT_RUN || actionState == ACT_RUNJUMP)*2.0f)* MyData::vectorRate);
 			direction = false;
 		}
 		if (in_left)
 		{
-			dx -= (int)(moveSpeed * MyData::vectorRate);
+			dx -= (int)((moveSpeed + (actionState == ACT_RUN || actionState == ACT_RUNJUMP)*2.0f)* MyData::vectorRate);
 			direction = true;
 		}
 	}
@@ -217,7 +218,7 @@ void PlayerChild::move(const Stage* _stage)
 	//ジャンプ
 	if (in_jump && !prePush && nowJumpCount < maxJumpCount)
 	{
-		jumpPower = maxJumpPower;
+		jumpPower = maxJumpPower + (actionState == ACT_RUN)*3.0f;
 		nowJumpCount++;
 	}
 
@@ -225,14 +226,15 @@ void PlayerChild::move(const Stage* _stage)
 
 	//重力の値
 	//はしごにいるか，dyが0でない(moveCharacterが呼ばれている)なら重力の値は0
-	int gravity_value = gravity() * (actionState != ACT_LADDER) * (dy == 0) * !onGround;
+	int gravity_value = gravity() * (actionState != ACT_LADDER && actionState != ACT_LADDER_STOP) * (dy == 0) * !onGround;
 	if (jumpPower > 0.0f && onLadder)gravity_value = gravity();
 
 	dy += gravity_value - jump();
 
+
 	dx = getHorizontalDiffer(_stage, dx, dy < 0);
 	dy = dy < 0 ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0);
-
+	if (actionState == ACT_SIT)dy += (int)(CHIP_HEIGHT/2*vectorRate);
 	//天井に当たったら
 	if (abs(dy) <= 1000)jumpPower = 0;
 
@@ -242,6 +244,8 @@ void PlayerChild::move(const Stage* _stage)
 
 	p->raw_x += dx;
 	p->raw_y += dy;
+
+
 
 	//マップ間移動
 	int dx_onScreen = p->x() - post_x;
@@ -341,10 +345,17 @@ int PlayerChild::animation()
 		num = 12 + (animeCount / 10) % 4 + 8 * direction;
 		break;
 	case ACT_SIT:
-		num = 24 + (animeCount >= 10);
+//		num = 24 + (animeCount >= 10);
+		num = 25;
 		break;
 	case ACT_ATTACK:
 		num = 26 + direction;
+		break;
+	case ACT_LADDER:
+		num = 28 + (animeCount / 10) % 2;
+		break;
+	case ACT_LADDER_STOP:
+		num = 28 + direction;//あとで修正するかも
 		break;
 	default:
 		animeCount = 0;
@@ -359,8 +370,10 @@ int PlayerChild::animation()
 
 void PlayerChild::actCheck()
 {
+	ActionState preAction = actionState;
 	if (onLadder)
 	{
+		actionState = ACT_LADDER_STOP;
 		if (in_up || in_down)
 		{
 			actionState = ACT_LADDER;
@@ -374,13 +387,23 @@ void PlayerChild::actCheck()
 		if (onGround && !in_up)
 		{
 			actionState = ACT_NORMAL;
+			if (in_down)actionState = ACT_SIT;
 		}
 	}
 	else if (Input_ATTACK())actionState = ACT_ATTACK;
-	else if (!onGround)actionState = ACT_AIR;
+	else if (!onGround) {
+		if (actionState == ACT_RUN || actionState==ACT_RUNJUMP)actionState = ACT_RUNJUMP;
+		else actionState = ACT_AIR;
+	}
 	else if (in_down)actionState = ACT_SIT;
-	else if (in_left || in_right)actionState = ACT_WALK;
+	else if (in_left || in_right)
+	{
+		actionState = ACT_WALK;
+		if (Input_LSHIFT())actionState = ACT_RUN;
+	}
 	else actionState = ACT_NORMAL;
+
+	if (actionState != preAction)animeCount = 0;
 }
 
 

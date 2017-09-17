@@ -10,7 +10,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 //‚à‚±‚½‚ñ‚¢‚ñ‚µ‚½‚¨
-Mokou::Mokou(int _x, int _y, int _hp) : PlayerChild(_x, _y, 5.0f, 25.0f, 2, _hp)
+Mokou::Mokou(int _x, int _y, int _hp) : PlayerChild(_x, _y, 3.0f, 22.0f, 2, _hp)
 {
 	initialize();
 }

@@ -74,10 +74,11 @@ protected:
 		ACT_WALK,//•à‚¢‚Ä‚¢‚é
 		ACT_RUN,//‘–‚Á‚Ä‚¢‚é
 		ACT_AIR, //‹ó’†‚É‚¢‚é
+		ACT_RUNJUMP,//‘–‚Á‚ÄƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚é
 		ACT_ATTACK, //UŒ‚
 		ACT_SIT, //‚µ‚á‚ª‚Ý
 		ACT_LADDER, //‚Í‚µ‚²
-
+		ACT_LADDER_STOP,//‚Í‚µ‚²‚ÅŽ~‚Ü‚Á‚Ä‚¢‚é
 	};
 	ActionState actionState;
 
