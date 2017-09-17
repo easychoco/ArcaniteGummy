@@ -215,12 +215,13 @@ void GameMain::processCollision(Stage* _stage)
 				{
 					s->hittedAction();
 					attack->hittedAction();
+					s->checkOnActiveArea(attack->getVector2());
 				}
 			}
 		}
 	}
-
 }
+
 
 }
 }

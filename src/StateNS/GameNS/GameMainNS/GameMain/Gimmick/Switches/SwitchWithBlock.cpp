@@ -31,11 +31,14 @@ void SwitchWithBlock::initialize()
 	isActive = true;
 	this->isPushed = false;
 	this->preOnActiveArea = false;
+	this->mTime = 0;
 }
 
 void SwitchWithBlock::update(const Stage* _stage)
 {
-	
+	++mTime;
+	preOnActiveArea = tmpOnActiveArea;
+	tmpOnActiveArea = false;
 }
 
 void SwitchWithBlock::draw(const Vector2* _camera) const
@@ -58,15 +61,13 @@ void SwitchWithBlock::apply(Character* _character)
 
 void SwitchWithBlock::hittedAction()
 {
-	isPushed = !isPushed;
+	if (!preOnActiveArea && mTime > 5)isPushed = !isPushed;
+	mTime = 0;
 }
 
 void SwitchWithBlock::burnedAction()
 {
-	//TODO -> アニメーションをつける
 
-	//燃やされると消える
-	this->isActive = false;
 }
 
 bool SwitchWithBlock::isOverlap(const Vector2* _player) const
@@ -95,9 +96,13 @@ bool SwitchWithBlock::isOverlap(const Vector2* _player) const
 
 bool SwitchWithBlock::onActiveArea(const Vector2* _player) const
 {
-	return
+	bool gomi = 
 		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH  / 2 &&
 		abs(this->p->y() - _player->y()) <= MyData::CHIP_HEIGHT / 2;
+
+	this->tmpOnActiveArea |= gomi;
+
+	return gomi;
 }
 
 Stage::ChipType SwitchWithBlock::getChipType() const

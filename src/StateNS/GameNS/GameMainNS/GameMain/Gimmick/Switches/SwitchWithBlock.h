@@ -25,6 +25,7 @@ public:
 	bool isOverlap(const Vector2*) const override;
 
 	bool onActiveArea(const Vector2*) const;
+	void checkOnActiveArea(const Vector2* player) { this->onActiveArea(player); }
 	Stage::ChipType getChipType() const;
 
 	vector<Block*> blocks;
@@ -34,7 +35,9 @@ public:
 
 private:
 	bool isPushed;
-	mutable bool preOnActiveArea;
+	bool preOnActiveArea;
+	mutable bool tmpOnActiveArea;
+	int mTime;
 
 	void loadImage();
 };

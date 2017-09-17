@@ -93,7 +93,14 @@ void Stage::update(PlayerChild* _player)
 
 	//スイッチのブロックをupdate
 	for (auto& s_b : mSwitchWithBlocks)
+	{
 		updateDynamicGimmick(s_b->getBlocks(), _player);
+	}
+
+	for (auto& s_b : mSwitchWithBlocks)
+	{
+		//s_b->setPreOnActiveArea(_player->getVector2());
+	}
 
 	/*
 	for (auto& d_gimmick : mDynamicGimmicks)
