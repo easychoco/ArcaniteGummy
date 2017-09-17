@@ -3,7 +3,7 @@
 #include "..\..\..\..\..\Data.h"
 #include "..\..\..\..\..\KeyInput.h"
 #include "Mokou.h"
-
+#include "..\Collision.h"
 
 const int d_x[4] = { 0,1,0,-1 };
 const int d_y[4] = { -1,0,1,0 };
@@ -72,7 +72,6 @@ PlayerChild* Nue::update(const Stage* _stage)
 		updateUFO(_stage);
 	}
 
-	
 	//for Debug
 	if (canChangeCharacter())
 	{
@@ -267,9 +266,7 @@ void Nue::UFO::apply(Character* _character)
 {
 	if (direction == -1)
 	{
-		if (Input_UP())direction = 0;
-		else if (Input_RIGHT())direction = 1;
-		else if (Input_DOWN())direction = 2;
+		if (Input_RIGHT())direction = 1;
 		else if (Input_LEFT())direction = 3;
 		mTime = 0;
 	}
