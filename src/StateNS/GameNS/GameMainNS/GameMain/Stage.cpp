@@ -63,13 +63,13 @@ void Stage::initialize()
 
 	// for Debug
 	//mDynamicGimmicks.push_back(new MovingFloor(300, 1400, 360, 1200, 3.0));
-	mDynamicGimmicks.push_back(new FireBar(304, 1488,true));
-	mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));
-	mDynamicGimmicks.push_back(new Block(688, 1488, 1.0, false));
-	mSwitchWithBlocks.push_back(new SwitchWithBlock(208, 1488));
+	//mDynamicGimmicks.push_back(new FireBar(304, 1488,true));
+	//mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));
+	//mDynamicGimmicks.push_back(new Block(688, 1488, 1.0, false));
+	//mSwitchWithBlocks.push_back(new SwitchWithBlock(208, 1488));
 	
-	mSwitchWithBlocks[0]->push_block(new Block(208, 1296, 1.0));
-	mSwitchWithBlocks[0]->push_block(new Block(256, 1312, 2.0));
+	//mSwitchWithBlocks[0]->push_block(new Block(208, 1296, 1.0));
+	//mSwitchWithBlocks[0]->push_block(new Block(256, 1312, 2.0));
 
 }
 
