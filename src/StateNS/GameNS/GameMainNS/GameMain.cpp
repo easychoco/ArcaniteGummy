@@ -155,7 +155,7 @@ void GameMain::processCollision(Stage* _stage)
 	auto p_attacks = mPlayer->getAttacks();
 
 	//“G‚ÌUŒ‚
-	//...
+	//mEController->processCollision(mPlayer);
 
 	for (auto& enemy : enemies)
 	{
@@ -165,6 +165,14 @@ void GameMain::processCollision(Stage* _stage)
 		if (mPlayer->isHit(enemy))
 		{
 			mPlayer->hpController.damage(5);
+		}
+		//“G‚ÌUŒ‚‚ÆƒvƒŒƒCƒ„[‚ÌÕ“Ë
+		for (auto& eAttack : enemy->getAttacks())
+		{
+			if (mPlayer->isHit(eAttack)) 
+			{
+				mPlayer->hpController.damage(5);
+			}
 		}
 
 		//ƒvƒŒƒCƒ„[‚ÌUŒ‚‚Æ“G‚ÌÕ“Ë
@@ -179,6 +187,8 @@ void GameMain::processCollision(Stage* _stage)
 				}
 			}
 		}
+
+		
 	}
 
 	//DynamicGimmick
