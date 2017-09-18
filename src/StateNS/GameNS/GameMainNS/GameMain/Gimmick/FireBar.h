@@ -15,7 +15,7 @@ class Child;
 class FireBar : public DynamicGimmickChild
 {
 public:
-	FireBar(int x, int y);
+	FireBar(int x, int y,bool ways);
 	~FireBar();
 	void initialize();
 	void update(const Stage*);
@@ -33,7 +33,7 @@ private:
 	int img_block;
 	int img_bar;
 	float radian;
-
+	bool ways;//ŽžŒv‰ñ‚è‚È‚çtrue
 	const int damageValue = 50;
 
 	const int r_1 =  64 * vectorRate;

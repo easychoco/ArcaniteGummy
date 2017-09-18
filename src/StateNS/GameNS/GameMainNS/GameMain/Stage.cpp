@@ -63,7 +63,7 @@ void Stage::initialize()
 
 	// for Debug
 	//mDynamicGimmicks.push_back(new MovingFloor(300, 1400, 360, 1200, 3.0));
-	mDynamicGimmicks.push_back(new FireBar(304, 1488));
+	mDynamicGimmicks.push_back(new FireBar(304, 1488,true));
 	mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));
 	mDynamicGimmicks.push_back(new Block(688, 1488, 1.0, false));
 	mSwitchWithBlocks.push_back(new SwitchWithBlock(208, 1488));
@@ -71,8 +71,6 @@ void Stage::initialize()
 	mSwitchWithBlocks[0]->push_block(new Block(208, 1296, 1.0));
 	mSwitchWithBlocks[0]->push_block(new Block(256, 1312, 2.0));
 
-	//loadGimmick()
-	//とかいう関数で外部のテキストデータから読み込み
 }
 
 void Stage::update(PlayerChild* _player)
@@ -390,6 +388,7 @@ void Stage::loadMap(int _stageID, int _mapID)
 		}
 	}
 
+	//ギミックや敵配置の後ろは背景とする。
 	for (unsigned y = 0; y < mapData.size(); y++)
 	{
 		for (unsigned x = 0; x < mapData[0].size(); x++)
@@ -438,14 +437,73 @@ void Stage::loadGimmick(int _x, int _y, int _n)
 
 	//Dynamicじゃないものはy座標を+16
 	switch (_n) {
-	//case 112:
-		/*
-	case 56:mDynamicGimmicks.push_back(new Block(_x * 32, _y * 32, 3.0)); break;//はこ
-	case 57:mGimmicks.push_back(new Spring(Vector2(_x*32 + 16, _y*32+16))); break;//ばね
-	case 58:mGimmicks.push_back(new BeltConveyor(2.0, Vector2(_x*32 + 16,_y*32+16))); break;//ベルトコンベア
-	case 59:mDynamicGimmicks.push_back(new Dossunn(_x*32, _y*32, 1.0)); break;//ドッスン
-	*/
-	//case 60:mDynamicGimmicks.push_back(new UFO(_x * 32, _y * 32, 1.0)); break;//ぬえのUFO
+		//ばね
+	case 113:mGimmicks.push_back(new Spring(Vector2(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2))); break;
+		//左ベルトコンベア
+	case 114:mGimmicks.push_back(new BeltConveyor(-2.0, Vector2(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2))); break;
+		//右ベルトコンベア
+	case 115:mGimmicks.push_back(new BeltConveyor(2.0, Vector2(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2))); break;
+		//燃えるブロック？たぶん違う
+	case 116:mDynamicGimmicks.push_back(new Block(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0)); break;
+		//壊れるブロック
+	case 117:mDynamicGimmicks.push_back(new Block(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0)); break;
+		//大きいドッスン
+	case 118:mDynamicGimmicks.push_back(new Dossunn(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 3.0)); break;
+		//小さいドッスン
+	case 119:mDynamicGimmicks.push_back(new Dossunn(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0)); break;
+		//上向きトゲ
+	case 120:break;
+		//下向きトゲ
+	case 121:break;
+		//右向きトゲ
+	case 122:break;
+		//左向きトゲ
+	case 123:break;
+		//反時計回りファイアバー
+	case 124:mDynamicGimmicks.push_back(new FireBar(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, false)); break;
+		//時計回りファイアバー
+	case 125:mDynamicGimmicks.push_back(new FireBar(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, true)); break;
+		//乗ると落ちる床
+	case 126:break;
+		//乗ると上がる床
+	case 127:break;
+		//動く床：上下：小
+	case 128:break;
+		//動く床：上下：大
+	case 129:break;
+		//動く床：左右：小
+	case 130:break;
+		//動く床：左右：大
+	case 131:break;
+		//動く床：右上斜め：小
+	case 132:break;
+		//動く床：右上斜め：大
+	case 133:break;
+		//動く床：右下斜め：小
+	case 134:break;
+		//動く床：右下斜め：大
+	case 135:break;
+		//動く床：円：小
+	case 136:break;
+		//動く床：円：大
+	case 137:break;
+		//動く床：アステロイド：小
+	case 138:break;
+		//動く床：アステロイド：大
+	case 139:break;
+		//動く床：上に凸な放物線：小
+	case 140:break;
+		//動く床：上に凸な放物線：大
+	case 141:break;
+		//動く床：下に凸な放物線：小
+	case 142:break;
+		//動く床：下に凸な放物線：大
+	case 143:break;
+		//松明
+	case 144:break;
+
+	
+
 	}
 
 }

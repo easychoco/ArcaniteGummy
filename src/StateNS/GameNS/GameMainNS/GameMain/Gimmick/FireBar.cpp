@@ -6,7 +6,7 @@ namespace GameNS {
 namespace GameMainNS {
 
 
-FireBar::FireBar(int _x, int _y) :
+FireBar::FireBar(int _x, int _y,bool _ways) :
 DynamicGimmickChild(_x, _y, 1.0)
 {
 	this->width  = 32;
@@ -16,7 +16,7 @@ DynamicGimmickChild(_x, _y, 1.0)
 	y_1 = _y - r_1;
 	y_2 = _y - r_2;
 	y_3 = _y - r_3;
-
+	ways = _ways;
 	initialize();
 }
 
@@ -35,7 +35,7 @@ void FireBar::initialize()
 
 void FireBar::update(const Stage* _stage)
 {
-	radian += pi(1 / 180.0f);
+	radian += ways ? pi(1 / 180.0f) : -pi(1 / 180.0f);
 	radian = fmod(radian, pi(2.0f));
 
 	move();
