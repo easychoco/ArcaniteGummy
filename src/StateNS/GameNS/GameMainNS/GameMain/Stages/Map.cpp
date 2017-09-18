@@ -5,7 +5,6 @@
 #include "..\Gimmick\DynamicGimmickChild.h"
 #include "..\Gimmick\AllGimmicks.h"
 
-#include "..\..\..\..\..\KeyInput.h"
 #include <fstream>
 
 namespace StateNS {
@@ -40,11 +39,13 @@ Map::~Map()
 
 void Map::initialize()
 {
-	//TODO要調整
+	//TODO クリア関係要調整
 
+	/*
 	//mGimmicksの0番目はclearFlag
 	this->clearFlag = new ClearFlag(Vector2(400, 1552));
 	mGimmicks.push_back(clearFlag);
+	//*/
 
 	for (unsigned y = 0; y < gimmickData.size(); y++)
 	{
@@ -64,13 +65,64 @@ void Map::initialize()
 	
 	//mSwitchWithBlocks[0]->push_block(new Block(208, 1296, 1.0));
 	//mSwitchWithBlocks[0]->push_block(new Block(256, 1312, 2.0));
+}
+
+void Map::update(PlayerChild* _player, const StageChild* _stage)
+{
+	for (auto& gimmick : mGimmicks)
+	{
+		if (gimmick->isActive)
+		{
+			gimmick->update();
+
+			if (gimmick->onActiveArea(_player->getVector2()))
+				gimmick->apply(_player);
+		}
+	}
+
+	updateDynamicGimmick(mDynamicGimmicks, _player, _stage);
+	updateDynamicGimmick(mSwitchWithBlocks, _player, _stage);
+
+	//スイッチのブロックをupdate
+	for (auto& s_b : mSwitchWithBlocks)
+	{
+		updateDynamicGimmick(s_b->getBlocks(), _player, _stage);
+	}
+}
+
+void Map::draw(const Vector2* _camera) const
+{
+	drawMap(mapData, _camera);
+
+	//ギミックの描画
+	for (const auto& gimmick : mGimmicks)
+	{
+		if (gimmick->isActive)gimmick->draw(_camera);
+	}
+
+	//ダイナミックギミックの描画
+	for (const auto& d_gimmick : mDynamicGimmicks)
+	{
+		if (d_gimmick->isActive)d_gimmick->draw(_camera);
+	}
+
+	//スイッチ関連の描画
+	for (const auto& s_b : mSwitchWithBlocks)
+	{
+		if (s_b->isActive)s_b->draw(_camera);
+
+		//SwitchによるBlockの描画
+		for (auto& b : s_b->getBlocks())
+		{
+			b->draw(_camera);
+		}
+	}
 
 }
 
 int Map::getTopPosition(const Vector2* _pos, const int& _dy) const
 {
 	//もらった座標に他のObjectがあったら、そのObjectの上のy座標を返す
-
 	int ret = fixToVectorHeight(_pos->pos_y() + _dy);
 
 	//*
@@ -234,15 +286,40 @@ ChipType Map::getChipType(const RawVector2& _other, bool _isPlayer) const
 	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
 }
 
+/*
 bool Map::isClear() const
 {
 	return !clearFlag->isActive;
 }
+*/
 
 //マップチップが変わっても対応可能
 //第一引数にマップチップへのポインタを持ってくるためにtemplateを使用
-//template<typename Arr>
-void Map::drawMap(const Vector2* _camera) const
+
+
+//========================================================================
+// 内部private関数
+//========================================================================
+template<typename D_Gmk>
+void Map::updateDynamicGimmick(D_Gmk d_gmk, PlayerChild* _player, const StageChild* _stage)
+{
+	for (auto& d_gimmick : d_gmk)
+	{
+		if (d_gimmick->isActive)
+		{
+			d_gimmick->update(_stage);
+
+			if (d_gimmick->onActiveArea(_player->getVector2()))
+				d_gimmick->apply(_player);
+
+			if (d_gimmick->rideOnGimmick(_player->getVector2()))
+				_player->moveCharacter(d_gimmick->getDX(), d_gimmick->getDY());
+		}
+	}
+}
+
+template<typename Arr>
+void Map::drawMap(Arr mapData, const Vector2* _camera) const
 {
 	//マップ描画をする際に，カメラの位置依存で描画位置の座標が変わる
 	int draw_x = _camera->x() - MyData::CX;
@@ -259,41 +336,8 @@ void Map::drawMap(const Vector2* _camera) const
 	}
 }
 
-
-//========================================================================
-// 内部private関数
-//========================================================================
-template<typename D_Gmk>
-void Map::updateDynamicGimmick(D_Gmk d_gmk, PlayerChild* _player)
-{
-	for (auto& d_gimmick : d_gmk)
-	{
-		if (d_gimmick->isActive)
-		{
-			d_gimmick->update(this);
-
-			if (d_gimmick->onActiveArea(_player->getVector2()))
-				d_gimmick->apply(_player);
-
-			if (d_gimmick->rideOnGimmick(_player->getVector2()))
-				_player->moveCharacter(d_gimmick->getDX(), d_gimmick->getDY());
-		}
-	}
-}
-
-
-
 void Map::loadMap(int _stageID, int _mapID)
 {
-	//string imgFile = "Data/Image/block";
-	//imgFile += std::to_string(_stageID);
-	//imgFile += ".png";
-	string imgFile = "Data/Image/block0.png";
-
-	//256*480
-	int tmp = LoadDivGraph(imgFile.c_str(), 256, 8, 15, 32, 32, mapChip);
-	assert(tmp != -1 && "マップチップ読み込みエラー");
-
 	string textFile = "Data/Text/stage";
 	textFile += std::to_string(_stageID);
 	textFile += "/stage";

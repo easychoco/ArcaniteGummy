@@ -1,14 +1,12 @@
 #include "StageChild.h"
 #include "Map.h"
 
-#include "..\Player\PlayerChild.h"
-#include "..\Gimmick\GimmickChild.h"
-#include "..\Gimmick\AllGimmicks.h"
-#include "..\Gimmick\DynamicGimmickChild.h"
+//#include "..\Player\PlayerChild.h"
+//#include "..\Gimmick\GimmickChild.h"
+//#include "..\Gimmick\AllGimmicks.h"
+//#include "..\Gimmick\DynamicGimmickChild.h"
 
 #include "..\..\..\..\..\KeyInput.h"
-
-#include <fstream>
 
 namespace StateNS {
 namespace GameNS {
@@ -17,8 +15,6 @@ namespace GameMainNS{
 
 StageChild::StageChild(int _stage_max_x,int _stage_max_y)
 {
-
-	
 	stage_max_x = _stage_max_x;
 	stage_max_y = _stage_max_y;
 
@@ -35,6 +31,10 @@ StageChild::~StageChild()
 	}
 	maps.clear();
 	maps.shrink_to_fit();
+
+	DeleteGraph(mBackImg);
+	for (int i = 0; i < 120; i++)
+		DeleteGraph(mapChip[i]);
 }
 
 void StageChild::initialize()
@@ -54,61 +54,13 @@ void StageChild::initialize()
 
 void StageChild::standardUpdate(PlayerChild* _player)
 {
-
-	for (auto& gimmick : maps[now_stage_num]->getGimmicks())
-	{
-		if (gimmick->isActive)
-		{
-			gimmick->update();
-
-			if (gimmick->onActiveArea(_player->getVector2()))
-				gimmick->apply(_player);
-		}
-	}
-
-	updateDynamicGimmick(maps[now_stage_num]->getDynamicGimmicks(), _player);
-	updateDynamicGimmick(maps[now_stage_num]->getSwitchWithBlocks(), _player);
-
-	//スイッチのブロックをupdate
-	for (auto& s_b : maps[now_stage_num]->getSwitchWithBlocks())
-	{
-		updateDynamicGimmick(s_b->getBlocks(), _player);
-	}
-
+	maps[now_stage_num]->update(_player, this);
 }
 
 void StageChild::standardDraw(const Vector2* _camera) const
 {
 	DrawGraph(0, 0, mBackImg, true);
-
-	maps[now_stage_num]->drawMap(_camera);
-
-
-	//ギミックの描画
-	for (const auto& gimmick : maps[now_stage_num]->getGimmicks())
-	{
-		if (gimmick->isActive)gimmick->draw(_camera);
-	}
-
-	//ダイナミックギミックの描画
-	for (const auto& d_gimmick : maps[now_stage_num]->getDynamicGimmicks())
-	{
-		if (d_gimmick->isActive)d_gimmick->draw(_camera);
-	}
-
-
-	//スイッチ関連の描画
-	for (const auto& s_b : maps[now_stage_num]->getSwitchWithBlocks())
-	{
-		if (s_b->isActive)s_b->draw(_camera);
-
-		//SwitchによるBlockの描画
-		for (auto& b : s_b->getBlocks())
-		{
-			b->draw(_camera);
-		}
-	}
-
+	maps[now_stage_num]->draw(_camera);
 }
 
 StageChild::ChipType StageChild::getChipType(const Vector2& _other, bool isPlayer) const
@@ -122,6 +74,7 @@ StageChild::ChipType StageChild::getChipType(const Vector2& _other) const
 	return getChipType(_other, true);
 }
 
+//ポリモーフィズム
 StageChild::ChipType StageChild::getChipType(const RawVector2& _other, bool _isPlayer) const
 {
 	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
@@ -146,13 +99,6 @@ vector< SwitchWithBlock* > StageChild::getSwitchWithBlocks()
 {
 	return maps[now_stage_num]->getSwitchWithBlocks();
 }
-
-/*
-bool StageChild::isClear() const
-{
-	return !clearFlag->isActive;
-}
-*/
 
 void StageChild::moveStage(HowStageMove _stageMove)
 {
@@ -179,23 +125,8 @@ void StageChild::moveStage(HowStageMove _stageMove)
 //========================================================================
 // 内部private関数
 //========================================================================
-template<typename D_Gmk>
-void StageChild::updateDynamicGimmick(D_Gmk d_gmk, PlayerChild* _player)
-{
-	for (auto& d_gimmick : d_gmk)
-	{
-		if (d_gimmick->isActive)
-		{
-			d_gimmick->update(this);
 
-			if (d_gimmick->onActiveArea(_player->getVector2()))
-				d_gimmick->apply(_player);
 
-			if (d_gimmick->rideOnGimmick(_player->getVector2()))
-				_player->moveCharacter(d_gimmick->getDX(), d_gimmick->getDY());
-		}
-	}
-}
 
 
 }

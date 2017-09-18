@@ -20,8 +20,10 @@ public:
 	StageChild(int stage_max_x, int stage_max_y);
 	virtual ~StageChild();
 	virtual void update(PlayerChild*) = 0;
-	void standardUpdate(PlayerChild*);
 	virtual void draw(const Vector2* camera) const = 0;
+	virtual bool isClear() const = 0;
+
+	void standardUpdate(PlayerChild*);
 	void standardDraw(const Vector2* camera) const;
 
 	enum ChipType
@@ -51,8 +53,6 @@ public:
 	vector< DynamicGimmickChild* > getDynamicGimmicks();
 	vector< SwitchWithBlock* > getSwitchWithBlocks();
 
-
-	//bool isClear() const;
 	enum HowStageMove
 	{
 		MOVE_NONE,
@@ -73,24 +73,9 @@ protected:
 	int stage_max_y;
 	vector<Map*> maps;
 
-	void initialize();
-	template<typename D_Gmk>
-	void updateDynamicGimmick(D_Gmk, PlayerChild*);
-
-
 
 	//mapChipの画像(32x32pixcels)
 	int mapChip[120];
-
-	//map(y:20 x:30 :: 320chips)
-	//mapData[y][x]でアクセスできる
-	//mapData[~19][~29]
-	//std::array< std::array<int, MAP_WIDTH_NUM>, MAP_HEIGHT_NUM> mapData;
-	//std::array< std::array<int, MAP_WIDTH_NUM>, MAP_HEIGHT_NUM> gimmickData;
-
-	//前景描画
-	//template<typename Arr>
-	//void drawMap(Arr, const Vector2*) const;
 
 	class Chip
 	{
@@ -102,6 +87,11 @@ protected:
 	private:
 		ChipType mChipType;
 	};
+
+private:
+	void initialize();
+
+
 };
 
 

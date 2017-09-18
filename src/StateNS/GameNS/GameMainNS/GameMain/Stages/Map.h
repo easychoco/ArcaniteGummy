@@ -1,4 +1,5 @@
 #pragma once
+
 #include "..\..\..\..\..\Data.h"
 #include "StageChild.h"
 
@@ -37,17 +38,20 @@ enum MapPos
 	POS_DOWN		= 0b010000000,//7
 	POS_RIGHT_DOWN	= 0b100000000,//8
 
-	POS_NONE,		//なんかわからん
+	POS_NONE,		//なんかわからんやつ
 };
 
 using ChipType = StageChild::ChipType;
+
+
 
 class Map
 {
 public:
 	Map(int stageID, int mapID, MapPos);
 	~Map();
-	void initialize();
+	void update(PlayerChild*, const StageChild*);
+	void draw(const Vector2* camera) const;
 
 	bool isRigid_down(ChipType _ct) const { return (_ct & 0b101100110) != 0; }//下にすり抜けられないブロック，床になる
 	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b000011010) != 0; }//上にすり抜けられないブロック，天井になる
@@ -66,14 +70,14 @@ public:
 	vector< SwitchWithBlock* > getSwitchWithBlocks() { return mSwitchWithBlocks; }
 
 
-	bool isClear() const;
+	//bool isClear() const;
 	void addGimmick(int x, int y, int ID) { loadGimmick(x, y, ID); }
 	
-	//前景描画
-	//template<typename Arr>
-	void drawMap(const Vector2*) const;
+	std::array< std::array<int, MAP_WIDTH_NUM>, MAP_HEIGHT_NUM> getMapData() { return mapData; }
 
 private:
+	void initialize();
+
 	MapPos mapPos;
 
 	//ギミックの配列
@@ -81,10 +85,7 @@ private:
 	std::vector< DynamicGimmickChild* > mDynamicGimmicks;
 	std::vector< SwitchWithBlock* > mSwitchWithBlocks;
 
-	GimmickChild* clearFlag;
-
-	template<typename D_Gmk>
-	void updateDynamicGimmick(D_Gmk, PlayerChild*);
+	//GimmickChild* clearFlag;
 	
 	bool isLeft(MapPos _mp)		const { return _mp & 0b001001001; }
 	bool isRight(MapPos _mp)	const { return _mp & 0b100100100; }
@@ -96,7 +97,6 @@ private:
 	//以下マップ関連
 
 	//mapChipの画像(32x32pixcels)
-	int mapChip[120];
 
 	//map(y:20 x:30 :: 320chips)
 	//mapData[y][x]でアクセスできる
@@ -108,6 +108,13 @@ private:
 
 	void loadMap(int stageID, int mapID);
 	void loadGimmick(int x,int y,int ID);
+
+	template<typename D_Gmk>
+	void updateDynamicGimmick(D_Gmk, PlayerChild*, const StageChild*);
+
+	//前景描画
+	template<typename Arr>
+	void drawMap(Arr, const Vector2*) const;
 
 	class Chip
 	{
@@ -144,7 +151,6 @@ private:
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
 	};
-
 
 };
 

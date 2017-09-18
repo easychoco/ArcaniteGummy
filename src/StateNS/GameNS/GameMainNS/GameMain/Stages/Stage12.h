@@ -19,7 +19,8 @@ public:
 	~Stage12();
 	void update(PlayerChild*);
 	void draw(const Vector2* player) const;
-
+	bool isClear() const;
+	
 private:
 	void initialize();
 
