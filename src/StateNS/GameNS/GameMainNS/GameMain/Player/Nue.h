@@ -38,13 +38,13 @@ private:
 		Spear(const PlayerChild*, int x, int y, bool direction);
 		~Spear();
 		void update();
+
 		void setStatus(Vector2, int dx);
 		void hittedAction();
 
 	private:
 		int mTime;
 		const Vector2* parent_p;
-
 
 	};
 

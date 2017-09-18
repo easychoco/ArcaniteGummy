@@ -32,6 +32,7 @@ private:
 		Fire(const PlayerChild*, int x, int y, bool *direction);
 		~Fire();
 		void update();
+
 		void setStatus(Vector2, int dx);
 		void hittedAction();
 

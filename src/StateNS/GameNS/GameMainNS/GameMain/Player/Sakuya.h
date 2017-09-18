@@ -41,6 +41,7 @@ private:
 		Knife(const PlayerChild*, const Stage*, int x, int y, int dx);
 		~Knife();
 		void update();
+
 		void setStatus(Vector2, int dx);
 		void hittedAction();
 

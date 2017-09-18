@@ -166,12 +166,13 @@ void GameMain::processCollision(Stage* _stage)
 		{
 			mPlayer->hpController.damage(5);
 		}
+
 		//“G‚ÌUŒ‚‚ÆƒvƒŒƒCƒ„[‚ÌÕ“Ë
 		for (auto& eAttack : enemy->getAttacks())
 		{
-			if (mPlayer->isHit(eAttack)) 
+			if (eAttack->isActive && mPlayer->isHit(eAttack)) 
 			{
-				mPlayer->hpController.damage(5);
+				mPlayer->hpController.damage(eAttack->getDamageValue());
 			}
 		}
 

@@ -43,14 +43,15 @@ private:
 	class Thunder : public Attack
 	{
 	public:
-		Thunder(const EnemyChild*, const Stage*, int x, int y, int dx);
+		Thunder(const Character*, const Stage*, int x, int y, int speed);
 		~Thunder();
 		void update();
-		void setStatus(Vector2, int dx);
+		void setStatus(Vector2, int speed);
 		void hittedAction();
 
 	private:
 		int dx;
+		int dy;
 		const Stage* stage;
 	};
 

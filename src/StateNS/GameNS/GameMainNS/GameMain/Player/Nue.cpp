@@ -1,6 +1,5 @@
 #include "Nue.h"
 
-#include "..\..\..\..\..\Data.h"
 #include "..\..\..\..\..\KeyInput.h"
 #include "Mokou.h"
 #include "..\Collision.h"

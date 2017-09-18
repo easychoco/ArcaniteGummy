@@ -129,22 +129,6 @@ Mokou::Fire::~Fire()
 	DeleteGraph(mImage);
 }
 
-/*
-void Mokou::Fire::update()
-{
-	mTime++;
-	isActive = false;
-}
-
-void Mokou::Fire::setStatus(Vector2 _pos, int direction)
-{
-	*(this->p) = _pos;
-	this->mDirection = direction;
-
-	isActive = true;
-}
-*/
-
 void Mokou::Fire::update()
 {
 	mTime++;
