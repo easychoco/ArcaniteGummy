@@ -4,6 +4,7 @@
 #include "Usagi.h"
 #include "Balloon.h"
 #include "Yachamo.h"
+#include "Pikachi.h"
 
 #include "..\Player\PlayerChild.h"
 
@@ -17,9 +18,10 @@ namespace GameMainNS{
 
 EnemyController::EnemyController()
 {
-	enemies.push_back(new Balloon(300, 1450));
-	enemies.push_back(new Usagi(200, 1450));
+//	enemies.push_back(new Balloon(300, 1450));
+//	enemies.push_back(new Usagi(200, 1450));
 	enemies.push_back(new Yachamo(1000, 1482));
+	enemies.push_back(new Pikachi(300, 1482));
 	//enemies.push_back(new Usagi(320, 240));
 }
 
