@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DXLib.h"
+#include "Sound.h"
 
 #include <cassert>
 #include <array>
@@ -36,7 +37,6 @@ constexpr float Pi = 3.14159265358979f;
 
 //========================================
 //円周率の計算(コンパイル時計算)
-//zero divisionは回避していないから注意
 //========================================
 constexpr float pi(float num)
 {
