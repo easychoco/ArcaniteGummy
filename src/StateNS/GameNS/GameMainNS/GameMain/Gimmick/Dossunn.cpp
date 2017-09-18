@@ -29,7 +29,7 @@ void Dossunn::initialize()
 	isMove = false;
 }
 
-void Dossunn::update(const Stage* _stage)
+void Dossunn::update(const StageChild* _stage)
 {
 	move();
 	standardMove(_stage);

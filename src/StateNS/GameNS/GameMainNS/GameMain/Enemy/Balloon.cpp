@@ -26,7 +26,7 @@ void Balloon::initialize()
 	this->mDirection = false;
 }
 
-void Balloon::update(const Stage* _stage, const Vector2* _camera)
+void Balloon::update(const StageChild* _stage, const Vector2* _camera)
 {
 	mTime++;
 	mTime %= 180;
@@ -36,7 +36,7 @@ void Balloon::update(const Stage* _stage, const Vector2* _camera)
 	standardAction(_stage);
 }
 
-void Balloon::move(const Stage* _stage, int& _dx, int& _dy)
+void Balloon::move(const StageChild* _stage, int& _dx, int& _dy)
 {
 	_dy = (int)(2 * vectorRate * sinf(pi(mTime / 90.0f)));
 }

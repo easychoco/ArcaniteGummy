@@ -46,7 +46,7 @@ void MovingFloor::initialize()
 	loadImage();
 }
 
-void MovingFloor::update(const Stage* _stage)
+void MovingFloor::update(const StageChild* _stage)
 {
 	mTime++;
 	mTime %= interval;

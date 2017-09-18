@@ -27,7 +27,7 @@ void Usagi::initialize()
 	this->moveSpeed = 3000;
 }
 
-void Usagi::update(const Stage* _stage,const Vector2* _camera)
+void Usagi::update(const StageChild* _stage,const Vector2* _camera)
 {
 	mTime++;
 
@@ -35,7 +35,7 @@ void Usagi::update(const Stage* _stage,const Vector2* _camera)
 	
 }
 
-void Usagi::move(const Stage* _stage, int& _dx, int& _dy)
+void Usagi::move(const StageChild* _stage, int& _dx, int& _dy)
 {
 	_dy = getBottomDiffer(_stage, 4000, _dx < 0);
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\DynamicGimmickChild.h"
+#include "DynamicGimmickChild.h"
 
 
 namespace StateNS {
@@ -8,13 +8,12 @@ namespace GameNS {
 namespace GameMainNS{
 
 class Child;
-class Block;
 
-class SwitchWithBlock : public DynamicGimmickChild
+class Torch : public DynamicGimmickChild
 {
 public:
-	SwitchWithBlock(int x, int y);
-	~SwitchWithBlock();
+	Torch(int x, int y);
+	~Torch();
 	void initialize();
 	void update(const StageChild*);
 	void draw(const Vector2*) const;
@@ -28,15 +27,8 @@ public:
 	void checkOnActiveArea(const Vector2* player) { this->onActiveArea(player); }
 	StageChild::ChipType getChipType() const;
 
-	vector<Block*> blocks;
-	vector<Block*> tmp;
-	void push_block(Block* b) { blocks.push_back(b); }
-	vector<Block*> getBlocks() { return ((isPushed) ? tmp : blocks); }
-
 private:
-	bool isPushed;
-	bool preOnActiveArea;
-	mutable bool tmpOnActiveArea;
+	bool isBurned;
 	int mTime;
 
 	void loadImage();

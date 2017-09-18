@@ -1,6 +1,5 @@
 #pragma once
 
-#include "..\GameMain.h"
 #include "..\..\..\..\Data.h"
 
 
@@ -14,12 +13,11 @@ class Child;
 class System
 {
 public:
-	System(int stagenum,int stageX,int stageY);
+	System();
 	~System();
 	void initialize();
-	void update(GameMain::HowStageMove);
+	void update();
 	void draw(const Vector2* player) const;
-	int getNowStage() const { return nowStage; }
 
 	enum FilterType
 	{
@@ -33,11 +31,6 @@ public:
 
 
 private:
-	int nowStage;
-	int stage_x;
-	int stage_y;
-	int stage_num;
-
 	int img_DarkRing;
 
 	FilterType f_type;

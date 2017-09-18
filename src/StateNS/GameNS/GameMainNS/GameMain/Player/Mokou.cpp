@@ -33,7 +33,7 @@ void Mokou::initialize()
 	attacks.push_back(new Fire(this, 0, 0, &direction));
 }
 
-PlayerChild* Mokou::update(const Stage* _stage)
+PlayerChild* Mokou::update(const StageChild* _stage)
 {
 	PlayerChild* next = this;
 

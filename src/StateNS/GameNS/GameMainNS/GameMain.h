@@ -2,10 +2,6 @@
 
 #include "GameMainChild.h"
 
-//#include <string>
-//#include <vector>
-
-
 
 namespace StateNS {
 namespace GameNS {
@@ -15,12 +11,12 @@ using GameParent = Play;
 
 namespace GameMainNS{
 
-class Stage;
+class StageChild;
 class PlayerChild;
 class System;
 class EnemyController;
 
-enum StopType { TYPE_SAKUYA, TYPE_CHENGE, TYPE_NONE };
+enum StopType { TYPE_SAKUYA, TYPE_CHANGE, TYPE_NONE };
 
 class GameMain : public Child
 {
@@ -31,20 +27,8 @@ public:
 	Child* update(GameParent*);
 	void draw() const;
 
-	enum HowStageMove
-	{
-		MOVE_NONE,
-
-		MOVE_UP,
-		MOVE_RIGHT,
-		MOVE_LEFT,
-		MOVE_DOWN,
-	};
-
-
-
 private:
-	std::vector<Stage*> mStages;
+	StageChild* mStage;
 	PlayerChild* mPlayer;
 	System* mSystem;
 	EnemyController* mEController;
@@ -56,8 +40,8 @@ private:
 	//éûé~ÇﬂÇ‚ÉLÉÉÉâïœçXÇÃéûÇ…ÅAìÆÇ¢ÇƒÇ¢ÇÈÇ‡ÇÃÇé~ÇﬂÇÈ
 	StopType stopDynamicObject;
 
-	void updateDynamics(Stage* stage);
-	void processCollision(Stage* stage);
+	void updateDynamics(StageChild* stage);
+	void processCollision(StageChild* stage);
 };
 
 

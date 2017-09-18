@@ -1,48 +1,39 @@
-#include "SwitchWithBlock.h"
+#include "Torch.h"
 
-#include "..\..\Character.h"
-#include "..\Block.h"
+#include "..\Character.h"
 
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
 
-SwitchWithBlock::SwitchWithBlock(int _x, int _y) : 
+Torch::Torch(int _x, int _y) : 
 DynamicGimmickChild(_x, _y, 1.0)
 {
 	initialize();
 }
 
-SwitchWithBlock::~SwitchWithBlock()
+Torch::~Torch()
 {
-	for (auto& block : blocks)
-	{
-		SAFE_DELETE(block);
-	}
-	blocks.clear();
-	blocks.shrink_to_fit();
 	DeleteGraph(mImage);
 }
 
-void SwitchWithBlock::initialize()
+void Torch::initialize()
 {
 	loadImage();
 
 	isActive = true;
-	this->isPushed = false;
-	this->preOnActiveArea = false;
+	this->isBurned = false;
 	this->mTime = 0;
 }
 
-void SwitchWithBlock::update(const StageChild* _stage)
+void Torch::update(const StageChild* _stage)
 {
 	++mTime;
-	preOnActiveArea = tmpOnActiveArea;
-	tmpOnActiveArea = false;
+	if (mTime > 600)isBurned = false;
 }
 
-void SwitchWithBlock::draw(const Vector2* _camera) const
+void Torch::draw(const Vector2* _camera) const
 {
 	//画面内にいなければreturn
 	if (abs(p->pos_x() - _camera->pos_x()) > 350000 || abs(p->pos_y() - _camera->pos_y()) > 270000)return;
@@ -51,27 +42,27 @@ void SwitchWithBlock::draw(const Vector2* _camera) const
 	int draw_y = 240 + (p->pos_y() - _camera->pos_y()) / MyData::vectorRate;
 
 	//描画
-	if(!isPushed)DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
-	else DrawCircle(draw_x, draw_y, 5, GREEN);
+	//if(!isPushed)DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
+	//else DrawCircle(draw_x, draw_y, 5, GREEN);
 }
 
-void SwitchWithBlock::apply(Character* _character)
+void Torch::apply(Character* _character)
 {
-	if(!preOnActiveArea)isPushed = !isPushed;
+	
 }
 
-void SwitchWithBlock::hittedAction()
+void Torch::hittedAction()
 {
-	if (!preOnActiveArea && mTime > 5)isPushed = !isPushed;
+
+}
+
+void Torch::burnedAction()
+{
+	this->isBurned = true;
 	mTime = 0;
 }
 
-void SwitchWithBlock::burnedAction()
-{
-
-}
-
-bool SwitchWithBlock::isOverlap(const Vector2* _player) const
+bool Torch::isOverlap(const Vector2* _player) const
 {
 	return standardOverLap(_player);
 
@@ -95,18 +86,12 @@ bool SwitchWithBlock::isOverlap(const Vector2* _player) const
 	*/
 }
 
-bool SwitchWithBlock::onActiveArea(const Vector2* _player) const
+bool Torch::onActiveArea(const Vector2* _player) const
 {
-	bool gomi = 
-		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH  / 2 &&
-		abs(this->p->y() - _player->y()) <= MyData::CHIP_HEIGHT / 2;
-
-	this->tmpOnActiveArea |= gomi;
-
-	return gomi;
+	return false;
 }
 
-StageChild::ChipType SwitchWithBlock::getChipType() const
+StageChild::ChipType Torch::getChipType() const
 {
 	return StageChild::ChipType::TYPE_BACK;
 }
@@ -114,7 +99,7 @@ StageChild::ChipType SwitchWithBlock::getChipType() const
 //==============================================
 //内部プライベート関数
 //==============================================
-void SwitchWithBlock::loadImage()
+void Torch::loadImage()
 {
 	//TODO 画像差し替え
 	mImage = LoadGraph("Data/Image/switch.png");

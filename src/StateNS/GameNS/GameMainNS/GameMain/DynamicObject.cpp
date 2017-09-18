@@ -2,7 +2,7 @@
 
 
 #include "Collision.h"
-#include "Stage.h"
+#include "Stages\StageChild.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -114,7 +114,7 @@ int DynamicObject::gravity()
 	return 7 * MyData::vectorRate;
 }
 
-int DynamicObject::getTopDiffer(const Stage* _stage, const int _dy, bool _moveLeft, bool _isPlayer) const
+int DynamicObject::getTopDiffer(const StageChild* _stage, const int _dy, bool _moveLeft, bool _isPlayer) const
 {
 	//widthが32じゃなかったら，その分ずらして計算する必要がある
 	int extraDiffer = (width - CHIP_WIDTH) / 2;
@@ -124,7 +124,7 @@ int DynamicObject::getTopDiffer(const Stage* _stage, const int _dy, bool _moveLe
 
 	//チップの上端
 	RawVector2 pos = RawVector2(p->x() + extraDiffer, p->y() - height / 2);
-	Stage::ChipType chipType = _stage->getChipType(pos, _isPlayer);
+	StageChild::ChipType chipType = _stage->getChipType(pos, _isPlayer);
 
 	if (chipType == _stage->TYPE_UP_SLANT_LEFT)
 	{
@@ -212,7 +212,7 @@ int DynamicObject::getTopDiffer(const Stage* _stage, const int _dy, bool _moveLe
 //========================================================================
 // 内部protected関数
 //========================================================================
-int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _moveLeft, bool _isPlayer) const
+int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool _moveLeft, bool _isPlayer) const
 {
 	//widthが32じゃなかったら，その分ずらして計算する必要がある
 	int extraDiffer = vectorRate * (width - CHIP_WIDTH) / 2;
@@ -221,8 +221,8 @@ int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _mov
 	//下方向
 	//チップの最下端より少し上
 	RawVector2 pos = RawVector2(p->pos_x() + extraDiffer, p->pos_y() + (height * vectorRate) / 2 - 1);
-	Stage::ChipType	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
-	if (this->onRigidBlock())chipType = Stage::ChipType::TYPE_RIGID;
+	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
+	if (this->onRigidBlock())chipType = StageChild::ChipType::TYPE_RIGID;
 
 	//斜めブロックなら
 	if (chipType == _stage->TYPE_DOWN_SLANT_LEFT)
@@ -291,7 +291,7 @@ int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _mov
 	//移動した先のチップタイプを取得
 	pos = RawVector2(p->pos_x() + extraDiffer, p->pos_y() + (height * vectorRate) / 2 + _dy);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
-	if (this->onRigidBlock())chipType = Stage::ChipType::TYPE_RIGID;
+	if (this->onRigidBlock())chipType = StageChild::ChipType::TYPE_RIGID;
 
 	//移動先が通れないブロックなら
 	if (_stage->isRigid_down(chipType))
@@ -309,13 +309,13 @@ int DynamicObject::getBottomDiffer(const Stage* _stage, const int _dy, bool _mov
 	return _dy;
 }
 
-int DynamicObject::getHorizontalDiffer(const Stage* _stage, const int _dx, bool _moveUp, bool _isPlayer) const
+int DynamicObject::getHorizontalDiffer(const StageChild* _stage, const int _dx, bool _moveUp, bool _isPlayer) const
 {
 	//斜めブロックの場合はそのまま返す
 
 	//チップの上半分の真ん中
 	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() - (height * MyData::vectorRate) / 4);
-	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
+	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (_stage->isSlant(chipType))return _dx;
 
 

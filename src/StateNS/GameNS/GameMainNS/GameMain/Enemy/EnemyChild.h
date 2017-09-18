@@ -13,12 +13,13 @@ class EnemyChild : public Character
 public:
 	EnemyChild(int hp, int x, int y, int w, int h, float jump, int jumpCount);
 	virtual ~EnemyChild();
-	virtual void update(const Stage*,const Vector2*) = 0;
+	virtual void update(const StageChild*,const Vector2*) = 0;
 	void draw(const Vector2* camera) const;
 	virtual void draw_other(const Vector2* camera)const {}
 	bool isAlive() const { return mIsAlive; }
 	void setPlayer(const Vector2* _player) { this->player = _player; }
 	vector<Attack*> getAttacks() const { return attacks; }
+
 protected:
 	int mTime;
 	int mImage;
@@ -26,10 +27,10 @@ protected:
 	const Vector2* player;
 
 	//dx ‚Æ dy ‚ÉˆÚ“®—Ê‚ğ“ü‚ê‚é
-	virtual void move(const Stage*, int& dx, int& dy) = 0;
+	virtual void move(const StageChild*, int& dx, int& dy) = 0;
 	virtual void loadImage() = 0;
 
-	void standardAction(const Stage* _stage);
+	void standardAction(const StageChild* _stage);
 	//UŒ‚‚Ìvector
 	vector<Attack*> attacks;
 private:
@@ -37,8 +38,8 @@ private:
 
 
 	void initialize();
-	void standardMove(const Stage* stage);
-	void checkIsAlive(const Stage* stage);
+	void standardMove(const StageChild* stage);
+	void checkIsAlive(const StageChild* stage);
 	void processDamage();
 
 

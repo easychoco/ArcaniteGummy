@@ -27,7 +27,7 @@ void Yachamo::initialize()
 	this->moveSpeed = 0;
 }
 
-void Yachamo::update(const Stage* _stage,const Vector2* _camera)
+void Yachamo::update(const StageChild* _stage,const Vector2* _camera)
 {
 	mTime++;
 
@@ -56,7 +56,7 @@ void Yachamo::update(const Stage* _stage,const Vector2* _camera)
 
 }
 
-void Yachamo::move(const Stage* _stage, int& _dx, int& _dy)
+void Yachamo::move(const StageChild* _stage, int& _dx, int& _dy)
 {
 	
 
@@ -72,7 +72,7 @@ void Yachamo::hittedAction()
 
 }
 
-void Yachamo::attack(const Stage* _stage)
+void Yachamo::attack(const StageChild* _stage)
 {
 	int dx = mDirection ? 5 : -5;
 
@@ -105,7 +105,7 @@ void Yachamo::draw_other(const Vector2* _camera) const
 //==============================================
 //FireƒNƒ‰ƒX
 //==============================================
-Yachamo::Fire::Fire(const EnemyChild* _parent, const Stage* _stage, int _x, int _y, int _dx) :
+Yachamo::Fire::Fire(const EnemyChild* _parent, const StageChild* _stage, int _x, int _y, int _dx) :
 	Attack(_parent, _x, _y, 32, 32, ObjectID::ID_NONE),
 	stage(_stage)
 {

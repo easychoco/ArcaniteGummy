@@ -28,7 +28,7 @@ void Pikachi::initialize()
 	this->mTime = 0;
 }
 
-void Pikachi::update(const Stage* _stage,const Vector2* _camera)
+void Pikachi::update(const StageChild* _stage,const Vector2* _camera)
 {
 	mTime++;
 	mTime %= 211;
@@ -47,7 +47,7 @@ void Pikachi::update(const Stage* _stage,const Vector2* _camera)
 
 }
 
-void Pikachi::move(const Stage* _stage, int& _dx, int& _dy)
+void Pikachi::move(const StageChild* _stage, int& _dx, int& _dy)
 {
 
 	if (150 <= mTime ) 
@@ -74,7 +74,7 @@ void Pikachi::hittedAction()
 
 }
 
-void Pikachi::attack(const Stage* _stage)
+void Pikachi::attack(const StageChild* _stage)
 {
 	int dx = mDirection ? 5 : -5;
 
@@ -103,7 +103,7 @@ void Pikachi::draw_other(const Vector2* _camera) const
 //==============================================
 //ThunderƒNƒ‰ƒX
 //==============================================
-Pikachi::Thunder::Thunder(const Character* _parent, const Stage* _stage, int _x, int _y, int _speed) :
+Pikachi::Thunder::Thunder(const Character* _parent, const StageChild* _stage, int _x, int _y, int _speed) :
 Attack(_parent, _parent->getVector2()->raw_x, _parent->getVector2()->raw_y, 32, 32, ObjectID::ID_NONE),
 stage(_stage)
 {

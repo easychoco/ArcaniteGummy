@@ -14,7 +14,7 @@ public:
 	Sakuya(int, int);
 	Sakuya(int, int, int);
 	~Sakuya();
-	PlayerChild* update(const Stage*);
+	PlayerChild* update(const StageChild*);
 
 private:
 	int attackTime;
@@ -26,9 +26,9 @@ private:
 
 	void initialize();
 	virtual void attack() override {}//‰¼‘z
-	void attack(const Stage*);
+	void attack(const StageChild*);
 	int getAttackDx() const;
-	void processAttack(const Stage*);
+	void processAttack(const StageChild*);
 	void processStopDynamics();
 
 	void draw_other() const;
@@ -38,7 +38,7 @@ private:
 	class Knife : public Attack
 	{
 	public:
-		Knife(const PlayerChild*, const Stage*, int x, int y, int dx);
+		Knife(const PlayerChild*, const StageChild*, int x, int y, int dx);
 		~Knife();
 		void update();
 
@@ -47,7 +47,7 @@ private:
 
 	private:
 		int dx;
-		const Stage* stage;
+		const StageChild* stage;
 	};
 };
 

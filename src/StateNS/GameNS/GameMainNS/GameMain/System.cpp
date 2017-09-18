@@ -7,11 +7,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-System::System(int _stage,int _stage_x,int _stage_y){
-	nowStage = _stage;
-	stage_x = _stage_x;
-	stage_y = _stage_y;
-	stage_num = _stage_x * _stage_y;
+System::System(){
 
 	initialize();
 }
@@ -29,31 +25,11 @@ void System::initialize()
 	assert(img_DarkRing != -1 && "DarkRingì«Ç›çûÇ›ÉGÉâÅ[");
 }
 
-void System::update(GameMain::HowStageMove _nextStage)
+void System::update()
 {
-	switch (_nextStage)
-	{
-	case GameMain::HowStageMove::MOVE_RIGHT:
-		//if (nowStage % stage_x < stage_x - 1)
-		nowStage++;
-		break;
-	case GameMain::HowStageMove::MOVE_LEFT:
-		//if (nowStage % stage_x > 0)
-		nowStage--;
-		break;
-	case GameMain::HowStageMove::MOVE_UP:
-		//if (nowStage / stage_y > 0)
-		nowStage -= stage_y;
-		break;
-	case GameMain::HowStageMove::MOVE_DOWN:
-		//if (nowStage + stage_y < stage_num)
-		nowStage += stage_y;
-		break;
-	}
-
 	//for Debug
-	if (Input_S())filter = TYPE_NONE;
-	if (Input_D())filter = TYPE_DARK;
+	//if (Input_S())filter = TYPE_NONE;
+	//if (Input_D())filter = TYPE_DARK;
 }
 
 void System::draw(const Vector2* _player) const

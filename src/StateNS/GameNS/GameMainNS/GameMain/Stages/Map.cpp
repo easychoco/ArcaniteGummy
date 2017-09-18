@@ -1,11 +1,11 @@
-#include "Stage.h"
-#include "Player\PlayerChild.h"
-#include "Gimmick\GimmickChild.h"
-#include "Gimmick\DynamicGimmickChild.h"
-#include "Gimmick\AllGimmicks.h"
+#include "Map.h"
 
-#include "..\..\..\..\KeyInput.h"
+#include "..\Player\PlayerChild.h"
+#include "..\Gimmick\GimmickChild.h"
+#include "..\Gimmick\DynamicGimmickChild.h"
+#include "..\Gimmick\AllGimmicks.h"
 
+#include "..\..\..\..\..\KeyInput.h"
 #include <fstream>
 
 namespace StateNS {
@@ -13,20 +13,15 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-Stage::Stage(int _stageID, int _stage_num,int _stage_max_x,int _stage_max_y)
+Map::Map(int _stageID, int _mapID, MapPos _mapPos)
 {
-	loadMap(_stageID, _stage_num);
-	this->stage_num = _stage_num;
-
-	stage_max_x = _stage_max_x;
-	stage_max_y = _stage_max_y;
+	loadMap(_stageID, _mapID);
+	this->mapPos = _mapPos;
 
 	initialize();
-	mBackImg = LoadGraph("Data/Image/back.jpg");
-	assert(mBackImg != -1 && "背景画像読み込みエラー");
 }
 
-Stage::~Stage()
+Map::~Map()
 {
 	for (auto& gimmick : mGimmicks)
 	{
@@ -43,10 +38,9 @@ Stage::~Stage()
 	mDynamicGimmicks.shrink_to_fit();
 }
 
-void Stage::initialize()
+void Map::initialize()
 {
-	stage_num_x = stage_num % (stage_max_x + 1);
-	stage_num_y = stage_num / (stage_max_x + 1);
+	//TODO要調整
 
 	//mGimmicksの0番目はclearFlag
 	this->clearFlag = new ClearFlag(Vector2(400, 1552));
@@ -73,92 +67,7 @@ void Stage::initialize()
 
 }
 
-void Stage::update(PlayerChild* _player)
-{
-	for (auto& gimmick : mGimmicks)
-	{
-		if (gimmick->isActive)
-		{
-			gimmick->update();
-
-			if (gimmick->onActiveArea(_player->getVector2()))
-				gimmick->apply(_player);
-		}
-	}
-
-	updateDynamicGimmick(mDynamicGimmicks, _player);
-	updateDynamicGimmick(mSwitchWithBlocks, _player);
-
-	//スイッチのブロックをupdate
-	for (auto& s_b : mSwitchWithBlocks)
-	{
-		updateDynamicGimmick(s_b->getBlocks(), _player);
-	}
-
-
-	/*
-	for (auto& d_gimmick : mDynamicGimmicks)
-	{
-		if (d_gimmick->isActive)
-		{
-			d_gimmick->update(this);
-
-			if (d_gimmick->onActiveArea(_player->getVector2()))
-				d_gimmick->apply(_player);
-
-			if (d_gimmick->rideOnGimmick(_player->getVector2()))
-				_player->moveCharacter(d_gimmick->getDX(), d_gimmick->getDY());
-		}
-	}
-
-	for (auto& s_b : mSwitchWithBlocks)
-	{
-		if (s_b->isActive)s_b->update(this);
-
-		if (s_b->onActiveArea(_player->getVector2()))
-			s_b->apply(_player);
-
-		if (s_b->rideOnGimmick(_player->getVector2()))
-			_player->moveCharacter(s_b->getDX(), s_b->getDY());
-	}
-	*/
-}
-
-void Stage::draw(const Vector2* _camera) const
-{
-	DrawGraph(0, 0, mBackImg, true);
-	drawMap(mapData, _camera);
-
-	//スイッチ関連の描画
-	for (const auto& s_b : mSwitchWithBlocks)
-	{
-		if (s_b->isActive)s_b->draw(_camera);
-	}
-
-	//ギミックの描画
-	for (const auto& gimmick : mGimmicks)
-	{
-		if(gimmick->isActive)gimmick->draw(_camera);
-	}
-
-	//ダイナミックギミックの描画
-	for (const auto& d_gimmick : mDynamicGimmicks)
-	{
-		if(d_gimmick->isActive)d_gimmick->draw(_camera);
-	}
-
-	//スイッチのブロックをupdate
-	for (auto& s_b : mSwitchWithBlocks)
-	{
-		for (auto& b : s_b->getBlocks())
-		{
-			b->draw(_camera);
-		}
-	}
-
-}
-
-int Stage::getTopPosition(const Vector2* _pos, const int& _dy) const
+int Map::getTopPosition(const Vector2* _pos, const int& _dy) const
 {
 	//もらった座標に他のObjectがあったら、そのObjectの上のy座標を返す
 
@@ -188,7 +97,7 @@ int Stage::getTopPosition(const Vector2* _pos, const int& _dy) const
 	return ret;
 }
 
-int Stage::getBottomPosition(const Vector2* _pos, const int& _dy) const
+int Map::getBottomPosition(const Vector2* _pos, const int& _dy) const
 {
 	//もらった座標に他のObjectがあったら、そのObjectの底のy座標を返す
 
@@ -219,7 +128,7 @@ int Stage::getBottomPosition(const Vector2* _pos, const int& _dy) const
 }
 
 
-Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
+ChipType Map::getChipType(const Vector2& _other, bool isPlayer) const
 {
 	int sub_x = _other.raw_x / CHIP_WIDTH_RATE();
 	if (_other.raw_x < 0)--sub_x;
@@ -227,39 +136,39 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 	int sub_y = _other.raw_y / CHIP_HEIGHT_RATE();
 	if (_other.raw_y < 0)--sub_y;
 
-	//Stageの範囲外(右の端)なら
+	//Mapの範囲外(右の端)なら
 	if (MyData::MAP_WIDTH_NUM <= sub_x)
 	{
-		if (stage_num_x == stage_max_x)
+		if (isRight(mapPos))
 			return ChipType::TYPE_RIGID;
 
 		//else
 		return ChipType::TYPE_BACK;
 	}
 
-	//Stageの範囲外(左の端)なら
+	//Mapの範囲外(左の端)なら
 	if (sub_x < 0)
 	{
-		if (stage_num_x == 0)
+		if (isLeft(mapPos))
 			return ChipType::TYPE_RIGID;
 
 		//else
 		return ChipType::TYPE_BACK;
 	}
 
-	//Stageの範囲外(上の端)なら
+	//Mapの範囲外(上の端)なら
 	if (sub_y < 0)
 	{
-		if (stage_num_y == 0)
+		if (isUp(mapPos))
 			return ChipType::TYPE_RIGID;
 
 		//else
 		return ChipType::TYPE_BACK;
 	}
-	//Stageの範囲外(下の端)なら
+	//Mapの範囲外(下の端)なら
 	if (MyData::MAP_HEIGHT_NUM <= sub_y)
 	{
-		if (stage_num_y == stage_max_y)
+		if (isDown(mapPos))
 			return ChipType::TYPE_RIGID;
 
 		//else
@@ -315,26 +224,47 @@ Stage::ChipType Stage::getChipType(const Vector2& _other, bool isPlayer) const
 }
 
 //ポリモーフィズム
-Stage::ChipType Stage::getChipType(const Vector2& _other) const
+ChipType Map::getChipType(const Vector2& _other) const
 {
 	return getChipType(_other, true);
 }
 
-Stage::ChipType Stage::getChipType(const RawVector2& _other, bool _isPlayer) const
+ChipType Map::getChipType(const RawVector2& _other, bool _isPlayer) const
 {
 	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
 }
 
-bool Stage::isClear() const
+bool Map::isClear() const
 {
 	return !clearFlag->isActive;
 }
+
+//マップチップが変わっても対応可能
+//第一引数にマップチップへのポインタを持ってくるためにtemplateを使用
+//template<typename Arr>
+void Map::drawMap(const Vector2* _camera) const
+{
+	//マップ描画をする際に，カメラの位置依存で描画位置の座標が変わる
+	int draw_x = _camera->x() - MyData::CX;
+	int draw_y = _camera->y() - MyData::CY;
+
+
+	//マップ描画
+	for (unsigned y = 0; y < mapData.size(); y++)
+	{
+		for (unsigned x = 0; x < mapData[0].size(); x++)
+		{
+			DrawGraph(x * 32 - draw_x, y * 32 - draw_y, mapChip[mapData[y][x]], true);
+		}
+	}
+}
+
 
 //========================================================================
 // 内部private関数
 //========================================================================
 template<typename D_Gmk>
-void Stage::updateDynamicGimmick(D_Gmk d_gmk, PlayerChild* _player)
+void Map::updateDynamicGimmick(D_Gmk d_gmk, PlayerChild* _player)
 {
 	for (auto& d_gimmick : d_gmk)
 	{
@@ -353,7 +283,7 @@ void Stage::updateDynamicGimmick(D_Gmk d_gmk, PlayerChild* _player)
 
 
 
-void Stage::loadMap(int _stageID, int _mapID)
+void Map::loadMap(int _stageID, int _mapID)
 {
 	//string imgFile = "Data/Image/block";
 	//imgFile += std::to_string(_stageID);
@@ -408,30 +338,7 @@ void Stage::loadMap(int _stageID, int _mapID)
 
 }
 
-
-
-//マップチップが変わっても対応可能
-//第一引数にマップチップへのポインタを持ってくるためにtemplateを使用
-template<typename Arr>
-void Stage::drawMap(Arr _mapData, const Vector2* _camera) const
-{
-	//マップ描画をする際に，カメラの位置依存で描画位置の座標が変わる
-	int draw_x = _camera->x() - MyData::CX;
-	int draw_y = _camera->y() - MyData::CY;
-
-
-	//マップ描画
-	for (unsigned y = 0; y < mapData.size(); y++)
-	{
-		for (unsigned x = 0; x < mapData[0].size(); x++)
-		{
-			DrawGraph(x * 32 - draw_x, y * 32 - draw_y, mapChip[_mapData[y][x]], true);
-		}
-	}
-}
-
-
-void Stage::loadGimmick(int _x, int _y, int _n)
+void Map::loadGimmick(int _x, int _y, int _n)
 {
 	//TODO 変更途中
 

@@ -14,7 +14,7 @@ public:
 	Mokou(int x, int y, int hp);
 	Mokou(int, int);
 	~Mokou();
-	PlayerChild* update(const Stage*);
+	PlayerChild* update(const StageChild*);
 
 private:
 	int attackTime;

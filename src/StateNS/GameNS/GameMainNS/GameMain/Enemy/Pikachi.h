@@ -15,14 +15,14 @@ public:
 	Pikachi(int x, int y);
 	~Pikachi();
 
-	void update(const Stage* _stage,const Vector2* _camera);
+	void update(const StageChild* _stage,const Vector2* _camera);
 
 private:
 	//Character‚ÌŠÖ”
 	void hittedAction();
 
 	//Enemychild‚ÌŠÖ”
-	void move(const Stage*, int& dx, int& dy);
+	void move(const StageChild*, int& dx, int& dy);
 	
 	void loadImage() { images = LoadGraph("Data/Image/Pikachi.png"); mImage = images; imgLoad = true; }
 
@@ -36,14 +36,14 @@ private:
 
 	int moveSpeed;
 	bool preOnGround;
-	void attack(const Stage*);
+	void attack(const StageChild*);
 	void draw_other(const Vector2*)const override;
 
 	//UŒ‚•û–@‚Ì“à•”ƒNƒ‰ƒX
 	class Thunder : public Attack
 	{
 	public:
-		Thunder(const Character*, const Stage*, int x, int y, int speed);
+		Thunder(const Character*, const StageChild*, int x, int y, int speed);
 		~Thunder();
 		void update();
 		virtual void draw(const Vector2*) const override;
@@ -54,7 +54,7 @@ private:
 		int mTime;
 		int dx;
 		int dy;
-		const Stage* stage;
+		const StageChild* stage;
 	};
 
 };

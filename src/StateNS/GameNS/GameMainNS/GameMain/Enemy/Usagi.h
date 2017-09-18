@@ -14,7 +14,7 @@ public:
 	Usagi(int x, int y);
 	~Usagi();
 
-	void update(const Stage* _stage, const Vector2* _camera);
+	void update(const StageChild* _stage, const Vector2* _camera);
 
 
 private:
@@ -22,7 +22,7 @@ private:
 	void hittedAction();
 
 	//Enemychild‚ÌŠÖ”
-	void move(const Stage*, int& dx, int& dy);
+	void move(const StageChild*, int& dx, int& dy);
 	void loadImage() { images = LoadGraph("Data/Image/usagi.png"); mImage = images; imgLoad = true; }
 
 

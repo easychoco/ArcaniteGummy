@@ -34,7 +34,7 @@ void Block::initialize()
 	dy = 0;
 }
 
-void Block::update(const Stage* _stage)
+void Block::update(const StageChild* _stage)
 {
 	standardMove(_stage);
 	//this->dy = getBottomDiffer(_stage, 4000);

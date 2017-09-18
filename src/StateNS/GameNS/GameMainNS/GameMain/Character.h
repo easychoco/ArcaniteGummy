@@ -4,7 +4,7 @@
 
 #include "DynamicObject.h"
 #include "HPController.h"
-#include "Stage.h"
+#include "Stages\StageChild.h"
 
 
 namespace StateNS {
@@ -33,9 +33,9 @@ protected:
 	int width;
 	int height;
 
-	int getTopDiffer(const Stage*, const int dy, bool moveLeft) const;
-	int getBottomDiffer(const Stage*, const int dy, bool moveLeft) const;
-	int getHorizontalDiffer(const Stage*, const int dx, bool moveUp) const;
+	int getTopDiffer(const StageChild*, const int dy, bool moveLeft) const;
+	int getBottomDiffer(const StageChild*, const int dy, bool moveLeft) const;
+	int getHorizontalDiffer(const StageChild*, const int dx, bool moveUp) const;
 };
 
 

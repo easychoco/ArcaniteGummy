@@ -75,9 +75,9 @@ bool Spring::onActiveArea(const Vector2* _player) const
 
 }
 
-Stage::ChipType Spring::getChipType() const
+StageChild::ChipType Spring::getChipType() const
 {
-	return Stage::ChipType::TYPE_RIGID;
+	return StageChild::ChipType::TYPE_RIGID;
 }
 
 //==============================================

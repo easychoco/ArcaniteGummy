@@ -33,7 +33,7 @@ void Sakuya::initialize()
 	loadImage();
 }
 
-PlayerChild* Sakuya::update(const Stage* _stage)
+PlayerChild* Sakuya::update(const StageChild* _stage)
 {
 	PlayerChild* next = this;
 
@@ -69,7 +69,7 @@ int Sakuya::specialAction()
 //==============================================
 //内部プライベート関数
 //==============================================
-void Sakuya::attack(const Stage* _stage)
+void Sakuya::attack(const StageChild* _stage)
 {
 	int dx = getAttackDx();
 
@@ -97,7 +97,7 @@ int Sakuya::getAttackDx() const
 	return ret;
 }
 
-void Sakuya::processAttack(const Stage* _stage)
+void Sakuya::processAttack(const StageChild* _stage)
 {
 	attackTime++;
 	if (Input_ATTACK() && attackTime > attackInterval)
@@ -159,7 +159,7 @@ void Sakuya::loadImage()
 //==============================================
 //Knifeクラス
 //==============================================
-Sakuya::Knife::Knife(const PlayerChild* _parent, const Stage* _stage, int _x, int _y, int _dx) :
+Sakuya::Knife::Knife(const PlayerChild* _parent, const StageChild* _stage, int _x, int _y, int _dx) :
 Attack(_parent, _x, _y, 32, 32, ObjectID::A_KNIFE),
 stage(_stage)
 {
