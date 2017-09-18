@@ -16,6 +16,7 @@ class SwitchWithBlock;
 
 
 //マップでの位置
+//下の図中の番号はMapPosのコメントにある数字と対応
 /*
 +---+---+---+
 | 0 | 1 | 2 |
@@ -111,10 +112,10 @@ private:
 
 	template<typename D_Gmk>
 	void updateDynamicGimmick(D_Gmk, PlayerChild*, const StageChild*);
-
+	
 	//前景描画
-	template<typename Arr>
-	void drawMap(Arr, const Vector2*) const;
+	//template<typename Arr>
+	void drawMap(const Vector2*) const;
 
 	class Chip
 	{

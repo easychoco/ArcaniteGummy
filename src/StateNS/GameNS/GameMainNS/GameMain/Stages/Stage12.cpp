@@ -8,7 +8,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 Stage12::Stage12() :
-StageChild(2, 2)
+StageChild(2, 2) //エリアの数: よこ，たて
 {
 	initialize();
 }
@@ -36,10 +36,8 @@ bool Stage12::isClear() const
 
 void Stage12::initialize()
 {
-	//256*480
-	int tmp = LoadDivGraph("Data/Image/block0.png", 256, 8, 15, 32, 32, mapChip);
-	assert(tmp != -1 && "マップチップ読み込みエラー");
-
+	//左上から右にpushしていく
+	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(12, 0, MapPos::POS_LEFT_UP));
 	this->maps.push_back(new Map(12, 1, MapPos::POS_RIGHT_UP));
 	this->maps.push_back(new Map(12, 2, MapPos::POS_LEFT_DOWN));

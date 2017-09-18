@@ -16,7 +16,7 @@ Map::Map(int _stageID, int _mapID, MapPos _mapPos)
 {
 	loadMap(_stageID, _mapID);
 	this->mapPos = _mapPos;
-
+	
 	initialize();
 }
 
@@ -92,7 +92,7 @@ void Map::update(PlayerChild* _player, const StageChild* _stage)
 
 void Map::draw(const Vector2* _camera) const
 {
-	drawMap(mapData, _camera);
+	drawMap(_camera);
 
 	//ギミックの描画
 	for (const auto& gimmick : mGimmicks)
@@ -318,8 +318,8 @@ void Map::updateDynamicGimmick(D_Gmk d_gmk, PlayerChild* _player, const StageChi
 	}
 }
 
-template<typename Arr>
-void Map::drawMap(Arr mapData, const Vector2* _camera) const
+//template<typename Arr>
+void Map::drawMap(const Vector2* _camera) const
 {
 	//マップ描画をする際に，カメラの位置依存で描画位置の座標が変わる
 	int draw_x = _camera->x() - MyData::CX;
@@ -331,9 +331,13 @@ void Map::drawMap(Arr mapData, const Vector2* _camera) const
 	{
 		for (unsigned x = 0; x < mapData[0].size(); x++)
 		{
-			DrawGraph(x * 32 - draw_x, y * 32 - draw_y, mapChip[mapData[y][x]], true);
+			int gomi = DrawGraph(x * 32 - draw_x, y * 32 - draw_y, MyData::MapChip[mapData[y][x]], true);
+			assert(gomi != -1);
 		}
 	}
+
+	//for Debug
+	int gomi = 0;
 }
 
 void Map::loadMap(int _stageID, int _mapID)

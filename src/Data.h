@@ -5,17 +5,11 @@
 
 #include <cassert>
 #include <array>
-//#include <queue>
 #include <vector>
 #include <algorithm>
-//#include <utility>
-//#include <memory>
-
 
 using std::array;
-//using std::queue;
 using std::vector;
-//using std::pair;
 
 //円周率
 constexpr float Pi = 3.14159265358979f;
@@ -46,6 +40,10 @@ constexpr float pi(float num)
 //Data.cpp/hで使用する名前空間
 //========================================
 namespace MyData{
+
+//マップチップ
+//全体で同じものを使う
+extern int MapChip[256];
 
 //プレイヤーのチップサイズ
 constexpr int PLAYER_CHIP_HEIGHT = 64;

@@ -26,6 +26,7 @@ float distance(const Vector2* self, const Vector2* other)
 	return distance(self->raw_x, self->raw_y, other->raw_x, other->raw_y);
 }
 
+int MapChip[256] = {};
 
 const Vector2 Vector2::ZERO(0, 0);
 const Vector2 Vector2::LEFT(-1, 0);
