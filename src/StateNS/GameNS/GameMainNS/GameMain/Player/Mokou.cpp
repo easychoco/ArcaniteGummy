@@ -33,7 +33,7 @@ void Mokou::initialize()
 	attacks.push_back(new Fire(this, 0, 0, &direction));
 }
 
-PlayerChild* Mokou::update(const Stage* _stage)
+PlayerChild* Mokou::update(const StageChild* _stage)
 {
 	PlayerChild* next = this;
 
@@ -128,22 +128,6 @@ Mokou::Fire::~Fire()
 {
 	DeleteGraph(mImage);
 }
-
-/*
-void Mokou::Fire::update()
-{
-	mTime++;
-	isActive = false;
-}
-
-void Mokou::Fire::setStatus(Vector2 _pos, int direction)
-{
-	*(this->p) = _pos;
-	this->mDirection = direction;
-
-	isActive = true;
-}
-*/
 
 void Mokou::Fire::update()
 {

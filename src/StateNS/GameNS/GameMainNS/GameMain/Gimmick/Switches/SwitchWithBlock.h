@@ -16,7 +16,7 @@ public:
 	SwitchWithBlock(int x, int y);
 	~SwitchWithBlock();
 	void initialize();
-	void update(const Stage*);
+	void update(const StageChild*);
 	void draw(const Vector2*) const;
 	void apply(Character*);
 
@@ -26,7 +26,7 @@ public:
 
 	bool onActiveArea(const Vector2*) const;
 	void checkOnActiveArea(const Vector2* player) { this->onActiveArea(player); }
-	Stage::ChipType getChipType() const;
+	StageChild::ChipType getChipType() const;
 
 	vector<Block*> blocks;
 	vector<Block*> tmp;

@@ -35,7 +35,7 @@ EnemyController::~EnemyController()
 	enemies.shrink_to_fit();
 }
 
-void EnemyController::update(const Stage* _stage,const Vector2* _camera)
+void EnemyController::update(const StageChild* _stage, const Vector2* _camera)
 {
 	for (auto& enemy : enemies)
 	{

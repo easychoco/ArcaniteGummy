@@ -22,7 +22,7 @@ DynamicGimmickChild::~DynamicGimmickChild()
 //==============================================
 //ì‡ïîprotectedä÷êî
 //==============================================
-void DynamicGimmickChild::standardMove(const Stage* _stage)
+void DynamicGimmickChild::standardMove(const StageChild* _stage)
 {
 	dx = getHorizontalDiffer(_stage, dx, dy < 0);
 	dy = ((dy < 0) ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0));
@@ -53,9 +53,9 @@ bool DynamicGimmickChild::standardOverLap(const Vector2* _player) const
 
 
 
-int DynamicGimmickChild::getTopDiffer(const Stage* _stage, const int _dy, bool _moveLeft) const { return DynamicObject::getTopDiffer(_stage, _dy, _moveLeft, false); }
-int DynamicGimmickChild::getBottomDiffer(const Stage* _stage, const int _dy, bool _moveLeft) const { return DynamicObject::getBottomDiffer(_stage, _dy, _moveLeft, false); }
-int DynamicGimmickChild::getHorizontalDiffer(const Stage* _stage, const int _dx, bool _moveUp) const { return DynamicObject::getHorizontalDiffer(_stage, _dx, _moveUp, false); }
+int DynamicGimmickChild::getTopDiffer(const StageChild* _stage, const int _dy, bool _moveLeft) const { return DynamicObject::getTopDiffer(_stage, _dy, _moveLeft, false); }
+int DynamicGimmickChild::getBottomDiffer(const StageChild* _stage, const int _dy, bool _moveLeft) const { return DynamicObject::getBottomDiffer(_stage, _dy, _moveLeft, false); }
+int DynamicGimmickChild::getHorizontalDiffer(const StageChild* _stage, const int _dx, bool _moveUp) const { return DynamicObject::getHorizontalDiffer(_stage, _dx, _moveUp, false); }
 
 
 

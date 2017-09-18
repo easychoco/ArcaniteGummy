@@ -65,9 +65,9 @@ bool BeltConveyor::onActiveArea(const Vector2* _player) const
 		(this->pos.y() - _player->y()) / MyData::CHIP_HEIGHT == 1;
 }
 
-Stage::ChipType BeltConveyor::getChipType() const
+StageChild::ChipType BeltConveyor::getChipType() const
 {
-	return Stage::ChipType::TYPE_RIGID;
+	return StageChild::ChipType::TYPE_RIGID;
 }
 
 //==============================================

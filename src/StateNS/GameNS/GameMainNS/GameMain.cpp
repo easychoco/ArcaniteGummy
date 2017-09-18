@@ -2,7 +2,8 @@
 
 #include "Converse.h"
 
-#include "GameMain\Stage.h"
+#include "GameMain\Stages\StageChild.h"
+#include "GameMain\Stages\AllStages.h"
 #include "GameMain\System.h"
 #include "GameMain\Player\Mokou.h"
 #include "GameMain\Player\Sakuya.h"
@@ -18,6 +19,7 @@
 #include "..\..\..\Data.h"
 #include "..\..\..\KeyInput.h"
 
+
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
@@ -31,13 +33,7 @@ GameMain::GameMain(int _n,int _x,int _y){
 
 GameMain::~GameMain()
 {
-	for (auto& stage : mStages)
-	{
-		SAFE_DELETE(stage);
-	}
-	mStages.clear();
-	mStages.shrink_to_fit();
-
+	SAFE_DELETE(mStage);
 	SAFE_DELETE(mPlayer);
 	SAFE_DELETE(mSystem);
 	SAFE_DELETE(mEController);
@@ -45,10 +41,7 @@ GameMain::~GameMain()
 
 void GameMain::initialize()
 {
-	for (int i = 0; i < xNum * yNum; i++)
-	{
-		mStages.push_back(new Stage(stageID, i, xNum - 1, yNum - 1));
-	}
+	mStage = new Stage12();
 
 	//ステージの全体的な縦と横の数を設定
 
@@ -58,7 +51,7 @@ void GameMain::initialize()
 	nowStageNum = 0;
 
 	mPlayer = new Nue(96, 1500, 100);
-	mSystem = new System(nowStageNum, xNum, yNum);
+	mSystem = new System();
 
 	mEController = new EnemyController();
 	mEController->setPlayerPos(mPlayer->getVector2());
@@ -70,18 +63,14 @@ Child* GameMain::update(GameParent* _parent)
 {
 	Child* next = this;
 
-	//今のstageを設定
-	nowStageNum = mSystem->getNowStage();
-	Stage* stage = mStages[nowStageNum];
-
 	//時が止まっているか更新
 	stopDynamicObject = mPlayer->getStopDynamicObject();
 
 	//DynamicObjectを更新
-	if(stopDynamicObject == StopType::TYPE_NONE)updateDynamics(stage);
+	if(stopDynamicObject == StopType::TYPE_NONE)updateDynamics(mStage);
 
 	//Playerのupdate
-	PlayerChild* nextPlayer = mPlayer->update(stage);
+	PlayerChild* nextPlayer = mPlayer->update(mStage);
 
 	//Player交代
 	if (nextPlayer != mPlayer)
@@ -92,23 +81,25 @@ Child* GameMain::update(GameParent* _parent)
 	}
 
 	//衝突判定
-	processCollision(stage);
+	processCollision(mStage);
 
 	//for Debug
 	mPlayer->hpController.recover(1);
 
 	//Systemのupdate
-	mSystem->update(mPlayer->getStageMove());
+	mSystem->update();
 
 	//for Debug
 	if(CheckHitKey(KEY_INPUT_1))
 		next = new Converse(this, 1,1);
 	
+	/*
 	//クリア
-	if (stage->isClear())
+	if (mStage->isClear())
 	{
 		_parent->moveTo(_parent->NextSequence::SEQ_CLEAR);
 	}
+	*/
 
 	return next;
 }
@@ -120,7 +111,7 @@ void GameMain::draw() const
 		DrawBox(0, 0, 640, 480, WHITE, true);
 		SetDrawBlendMode(DX_BLENDMODE_SUB, 200);
 	}
-	mStages[nowStageNum]->draw(mPlayer->getCamera());
+	mStage->draw(mPlayer->getCamera());
 	mEController->draw(mPlayer->getCamera());
 
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 200);
@@ -134,16 +125,17 @@ void GameMain::draw() const
 //==============================================
 //内部プライベート関数
 //==============================================
-void GameMain::updateDynamics(Stage* stage)
+void GameMain::updateDynamics(StageChild* stage)
 {
 	//Stageのupdate
 	stage->update(mPlayer);
+	stage->moveStage(mPlayer->getStageMove());
 
 	//enemyのupdate
-	mEController->update(stage,mPlayer->getCamera());
+	mEController->update(stage, mPlayer->getCamera());
 }
 
-void GameMain::processCollision(Stage* _stage)
+void GameMain::processCollision(StageChild* _stage)
 {
 	//TODO -> 高速化したい
 	//違うステージのものは処理しないとか
@@ -166,12 +158,13 @@ void GameMain::processCollision(Stage* _stage)
 		{
 			mPlayer->hpController.damage(5);
 		}
+
 		//敵の攻撃とプレイヤーの衝突
 		for (auto& eAttack : enemy->getAttacks())
 		{
-			if (mPlayer->isHit(eAttack)) 
+			if (eAttack->isActive && mPlayer->isHit(eAttack)) 
 			{
-				mPlayer->hpController.damage(5);
+				mPlayer->hpController.damage(eAttack->getDamageValue());
 			}
 		}
 

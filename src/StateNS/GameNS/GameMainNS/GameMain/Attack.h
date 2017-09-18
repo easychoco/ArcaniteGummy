@@ -20,7 +20,7 @@ public:
 	virtual ~Attack();
 	virtual void setStatus(Vector2, int status) = 0;
 	virtual void update() = 0;
-	void draw(const Vector2*) const;
+	virtual void draw(const Vector2*) const;
 	void burnedAction(){ /*do nothing*/ }
 	void checkActive(const Vector2* camera);
 	int getDamageValue() { return damageValue; }

@@ -33,7 +33,7 @@ void FireBar::initialize()
 	loadImage();
 }
 
-void FireBar::update(const Stage* _stage)
+void FireBar::update(const StageChild* _stage)
 {
 	radian += ways ? pi(1 / 180.0f) : -pi(1 / 180.0f);
 	radian = fmod(radian, pi(2.0f));

@@ -23,7 +23,7 @@ public:
 	void apply(Character*);
 	bool isOverlap(int, int) const;
 	bool onActiveArea(const Vector2*) const;
-	Stage::ChipType getChipType() const;
+	StageChild::ChipType getChipType() const;
 
 //	void setMovingSpeed(float _dx) { dx = _dx; }
 

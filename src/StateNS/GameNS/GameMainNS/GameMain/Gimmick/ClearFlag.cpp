@@ -51,9 +51,9 @@ bool ClearFlag::onActiveArea(const Vector2* _player) const
 		abs(this->pos.x() - _player->x()) <= CHIP_WIDTH / 2 &&
 		abs(this->pos.y() - _player->y()) <= MyData::CHIP_HEIGHT;}
 
-Stage::ChipType ClearFlag::getChipType() const
+StageChild::ChipType ClearFlag::getChipType() const
 {
-	return Stage::ChipType::TYPE_BACK;
+	return StageChild::ChipType::TYPE_BACK;
 }
 
 //==============================================

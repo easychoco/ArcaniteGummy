@@ -15,7 +15,7 @@ public:
 	Nue(int x, int y, int hp);
 	Nue(int, int);
 	~Nue();
-	PlayerChild* update(const Stage*);
+	PlayerChild* update(const StageChild*);
 
 private:
 	int attackTime;
@@ -27,7 +27,7 @@ private:
 	virtual void loadImage() override;
 
 	virtual int specialAction()override;
-	void updateUFO(const Stage*);
+	void updateUFO(const StageChild*);
 
 	virtual bool onRigidBlock() const override { return isUFO && ufo->onActiveArea(p); }
 
@@ -38,13 +38,13 @@ private:
 		Spear(const PlayerChild*, int x, int y, bool direction);
 		~Spear();
 		void update();
+
 		void setStatus(Vector2, int dx);
 		void hittedAction();
 
 	private:
 		int mTime;
 		const Vector2* parent_p;
-
 
 	};
 
@@ -55,9 +55,9 @@ private:
 
 		~UFO();
 		void initialize();
-		void update(const Stage*);
+		void update(const StageChild*);
 		void draw(const Vector2* camera) const;
-		Stage::ChipType getChipType() const { return Stage::ChipType::TYPE_RIGID; };
+		StageChild::ChipType getChipType() const { return StageChild::ChipType::TYPE_RIGID; };
 
 		void apply(Character*);
 		void hittedAction() override;

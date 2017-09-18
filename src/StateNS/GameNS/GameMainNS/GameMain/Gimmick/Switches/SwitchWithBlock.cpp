@@ -35,7 +35,7 @@ void SwitchWithBlock::initialize()
 	this->mTime = 0;
 }
 
-void SwitchWithBlock::update(const Stage* _stage)
+void SwitchWithBlock::update(const StageChild* _stage)
 {
 	++mTime;
 	preOnActiveArea = tmpOnActiveArea;
@@ -106,9 +106,9 @@ bool SwitchWithBlock::onActiveArea(const Vector2* _player) const
 	return gomi;
 }
 
-Stage::ChipType SwitchWithBlock::getChipType() const
+StageChild::ChipType SwitchWithBlock::getChipType() const
 {
-	return Stage::ChipType::TYPE_BACK;
+	return StageChild::ChipType::TYPE_BACK;
 }
 
 //==============================================

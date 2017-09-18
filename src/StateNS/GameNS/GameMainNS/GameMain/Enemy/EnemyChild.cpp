@@ -31,7 +31,7 @@ void EnemyChild::draw(const Vector2* _camera) const
 	draw_other(_camera);
 }
 
-void EnemyChild::standardAction(const Stage* _stage)
+void EnemyChild::standardAction(const StageChild* _stage)
 {
 	++mTime;
 	checkIsAlive(_stage);
@@ -42,7 +42,7 @@ void EnemyChild::standardAction(const Stage* _stage)
 }
 
 
-void EnemyChild::standardMove(const Stage* _stage)
+void EnemyChild::standardMove(const StageChild* _stage)
 {
 	//‚â‚ç‚ê‚Ä‚¢‚é‚È‚çreturn
 	if (!mIsAlive)return;
@@ -62,7 +62,7 @@ void EnemyChild::standardMove(const Stage* _stage)
 }
 
 
-void EnemyChild::checkIsAlive(const Stage* _stage)
+void EnemyChild::checkIsAlive(const StageChild* _stage)
 {
 	//HP‚ª0‚È‚çfalse
 	mIsAlive &= (this->hpController.getHP() > 0);

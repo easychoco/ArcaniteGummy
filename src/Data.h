@@ -1,22 +1,21 @@
 #pragma once
 
 #include "DXLib.h"
+#include "Sound.h"
 
 #include <cassert>
 #include <array>
-#include <string>
-#include <queue>
+//#include <queue>
 #include <vector>
 #include <algorithm>
-#include <utility>
-#include <memory>
+//#include <utility>
+//#include <memory>
 
 
 using std::array;
-using std::string;
-using std::queue;
+//using std::queue;
 using std::vector;
-using std::pair;
+//using std::pair;
 
 //‰~ü—¦
 constexpr float Pi = 3.14159265358979f;
@@ -36,7 +35,6 @@ constexpr float Pi = 3.14159265358979f;
 
 //========================================
 //‰~ü—¦‚ÌŒvZ(ƒRƒ“ƒpƒCƒ‹ŒvZ)
-//zero division‚Í‰ñ”ğ‚µ‚Ä‚¢‚È‚¢‚©‚ç’ˆÓ
 //========================================
 constexpr float pi(float num)
 {

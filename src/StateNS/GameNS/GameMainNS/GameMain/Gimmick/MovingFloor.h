@@ -18,9 +18,9 @@ public:
 	MovingFloor(int start_x, int start_y, int term_x, int term_y, float movingSpeed);
 	~MovingFloor();
 	void initialize();
-	void update(const Stage*);
+	void update(const StageChild*);
 	void draw(const Vector2* camera) const;
-	Stage::ChipType getChipType() const { return Stage::ChipType::TYPE_RIGID; };
+	StageChild::ChipType getChipType() const { return StageChild::ChipType::TYPE_RIGID; };
 
 	void apply(Character*);
 	void hittedAction() override;

@@ -6,13 +6,14 @@
 #include "..\..\..\..\..\Data.h"
 #include "..\..\..\..\..\KeyInput.h"
 #include "..\..\GameMain.h"
+#include "..\Stages\StageChild.h"
 
 
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-class Stage;
+class StageChild;
 class Attack;
 
 class PlayerChild : public Character
@@ -20,11 +21,11 @@ class PlayerChild : public Character
 public:
 	PlayerChild(int x, int y, float maxMoveSpeed ,float jump,int jumpCount, int maxHP);
 	virtual ~PlayerChild();
-	virtual PlayerChild* update(const Stage*) = 0;
+	virtual PlayerChild* update(const StageChild*) = 0;
 	void draw() const;
 	const Vector2* getCamera() const { return camera; }
 	vector<Attack*> getAttacks() const { return attacks; }
-	GameMain::HowStageMove getStageMove() const { return nextStageMove; };
+	StageChild::HowStageMove getStageMove() const { return nextStageMove; };
 
 	virtual int specialAction() = 0;
 
@@ -62,7 +63,7 @@ protected:
 	virtual void loadImage() = 0;
 	virtual bool onRigidBlock() const override { return false; }
 
-	void standardAction(const Stage*);
+	void standardAction(const StageChild*);
 	int animation();
 
 	void actCheck();
@@ -89,7 +90,7 @@ private:
 
 	//他の変数
 	bool prePush;
-	GameMain::HowStageMove nextStageMove;
+	StageChild::HowStageMove nextStageMove;
 
 	//前フレームでの自機の位置
 	int post_x;
@@ -108,10 +109,10 @@ private:
 	void initialize();
 	void processDamage();
 	void hittedAction() override;
-	void move(const Stage*);
+	void move(const StageChild*);
 	void updateCamera();
-	bool isOnGround(const Stage*);
-	bool isOnLadder(const Stage*) const;
+	bool isOnGround(const StageChild*);
+	bool isOnLadder(const StageChild*) const;
 
 
 

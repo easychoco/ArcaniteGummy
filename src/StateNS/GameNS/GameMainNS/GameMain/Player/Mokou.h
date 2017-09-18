@@ -14,7 +14,7 @@ public:
 	Mokou(int x, int y, int hp);
 	Mokou(int, int);
 	~Mokou();
-	PlayerChild* update(const Stage*);
+	PlayerChild* update(const StageChild*);
 
 private:
 	int attackTime;
@@ -32,6 +32,7 @@ private:
 		Fire(const PlayerChild*, int x, int y, bool *direction);
 		~Fire();
 		void update();
+
 		void setStatus(Vector2, int dx);
 		void hittedAction();
 

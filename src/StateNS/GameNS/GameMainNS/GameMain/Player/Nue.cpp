@@ -1,6 +1,5 @@
 #include "Nue.h"
 
-#include "..\..\..\..\..\Data.h"
 #include "..\..\..\..\..\KeyInput.h"
 #include "Mokou.h"
 #include "..\Collision.h"
@@ -41,7 +40,7 @@ void Nue::initialize()
 	
 }
 
-PlayerChild* Nue::update(const Stage* _stage)
+PlayerChild* Nue::update(const StageChild* _stage)
 {
 	PlayerChild* next = this;
 
@@ -101,7 +100,7 @@ int Nue::specialAction() {
 //内部プライベート関数
 //==============================================
 
-void Nue::updateUFO(const Stage* _stage)
+void Nue::updateUFO(const StageChild* _stage)
 {
 	ufo->update(_stage);
 
@@ -240,7 +239,7 @@ void Nue::UFO::initialize()
 	isMove = false;
 }
 
-void Nue::UFO::update(const Stage* _stage)
+void Nue::UFO::update(const StageChild* _stage)
 {
 	mTime++;
 	move();

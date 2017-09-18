@@ -1,6 +1,6 @@
 #include "PlayerChild.h"
 
-#include "..\Stage.h"
+#include "..\Stages\StageChild.h"
 
 //for Debug
 #include "..\Collision.h"
@@ -79,7 +79,7 @@ void PlayerChild::draw() const
 //================================================
 //内部protected関数
 //================================================
-void PlayerChild::standardAction(const Stage* _stage)
+void PlayerChild::standardAction(const StageChild* _stage)
 {
 	onGround = isOnGround(_stage);
 	onLadder = isOnLadder(_stage);
@@ -129,7 +129,7 @@ void PlayerChild::changeCharacter(/*Charaのenum next*/)
 	if (Input_CHANGE())
 	{
 		animationTime = max(animationTime, 1);
-		stopDynamics = StopType::TYPE_CHENGE;
+		stopDynamics = StopType::TYPE_CHANGE;
 		canMove = false;
 	}
 	if (animationTime == 0)return;
@@ -165,7 +165,7 @@ void PlayerChild::hittedAction()
 }
 
 //移動
-void PlayerChild::move(const Stage* _stage)
+void PlayerChild::move(const StageChild* _stage)
 {
 	//キャラ交代中ならreturn
 	if (animationTime > 0)return;
@@ -252,27 +252,27 @@ void PlayerChild::move(const Stage* _stage)
 	int dx_onScreen = p->x() - post_x;
 	int dy_onScreen = p->y() - post_y;
 
-	nextStageMove = GameMain::MOVE_NONE;
+	nextStageMove = StageChild::MOVE_NONE;
 	if (abs(dx_onScreen) > MyData::MAP_WIDTH / 2)
 	{
 		if (dx_onScreen < 0)
 		{
-			nextStageMove = GameMain::MOVE_RIGHT;
+			nextStageMove = StageChild::MOVE_RIGHT;
 		}
 		else
 		{
-			nextStageMove = GameMain::MOVE_LEFT;
+			nextStageMove = StageChild::MOVE_LEFT;
 		}
 	}
 	if (abs(dy_onScreen) > MyData::MAP_HEIGHT / 2)
 	{
 		if (dy_onScreen > 0)
 		{
-			nextStageMove = GameMain::MOVE_UP;
+			nextStageMove = StageChild::MOVE_UP;
 		}
 		else
 		{
-			nextStageMove = GameMain::MOVE_DOWN;
+			nextStageMove = StageChild::MOVE_DOWN;
 		}
 	}
 
@@ -299,37 +299,37 @@ void PlayerChild::updateCamera()
 	*camera = Vector2(tmp_x, tmp_y);
 }
 
-bool PlayerChild::isOnGround(const Stage* _stage)
+bool PlayerChild::isOnGround(const StageChild* _stage)
 {
 	//posはキャラの最下端よりひとつ下
 	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 + 1000);
-	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
+	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 
 
 	//右上に向けた斜めブロックなら
-	if (chipType == Stage::ChipType::TYPE_DOWN_SLANT_RIGHT)
+	if (chipType == StageChild::ChipType::TYPE_DOWN_SLANT_RIGHT)
 	{
 		pos.pos_y -= (MyData::CHIP_WIDTH_RATE() - p->pos_x() % MyData::CHIP_WIDTH_RATE());
 		chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 	}
 
 	//左上に向けた斜めブロックなら
-	else if (chipType == Stage::ChipType::TYPE_DOWN_SLANT_LEFT)
+	else if (chipType == StageChild::ChipType::TYPE_DOWN_SLANT_LEFT)
 	{
 		pos.pos_y -= p->pos_x() % MyData::CHIP_WIDTH_RATE();
 		chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 	}
 
-	return !(chipType & (Stage::ChipType::TYPE_BACK | Stage::ChipType::TYPE_LADDER));
+	return !(chipType & (StageChild::ChipType::TYPE_BACK | StageChild::ChipType::TYPE_LADDER));
 }
 
-bool PlayerChild::isOnLadder(const Stage* _stage) const
+bool PlayerChild::isOnLadder(const StageChild* _stage) const
 {
 
 	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1);
-	Stage::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
+	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 
-	return chipType == Stage::ChipType::TYPE_LADDER || chipType == Stage::ChipType::TYPE_LADDER_TOP;
+	return chipType == StageChild::ChipType::TYPE_LADDER || chipType == StageChild::ChipType::TYPE_LADDER_TOP;
 }
 
 int PlayerChild::animation() 

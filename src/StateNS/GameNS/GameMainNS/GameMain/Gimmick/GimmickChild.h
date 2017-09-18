@@ -1,7 +1,7 @@
 #pragma once
 
 #include "..\..\..\..\..\Data.h"
-#include "..\Stage.h"
+#include "..\Stages\StageChild.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -27,7 +27,7 @@ public:
 	//引数はマップ換算の値
 	virtual bool onActiveArea(const Vector2*) const = 0;
 
-	virtual Stage::ChipType getChipType() const = 0;
+	virtual StageChild::ChipType getChipType() const = 0;
 
 	//画面状に表示して、更新するかどうかのpublic変数
 	bool isActive;
