@@ -18,7 +18,7 @@ Pikachi::Pikachi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32,1,1)
 
 Pikachi::~Pikachi()
 {
-
+	DeleteGraph(mImage);
 }
 
 void Pikachi::initialize()
@@ -84,7 +84,6 @@ void Pikachi::attack(const Stage* _stage)
 		if (!a->isActive)
 		{
 			a->setStatus(*player, 5000);
-			a->isActive = true;
 			return;
 		}
 	}
@@ -99,9 +98,6 @@ void Pikachi::draw_other(const Vector2* _camera) const
 	{
 		if (a->isActive)a->draw(_camera);
 	}
-
-	//for Debug
-	DrawFormatString(0, 130, BLACK, "%d", attacks.size());
 }
 
 //==============================================
@@ -111,16 +107,7 @@ Pikachi::Thunder::Thunder(const Character* _parent, const Stage* _stage, int _x,
 Attack(_parent, _parent->getVector2()->raw_x, _parent->getVector2()->raw_y, 32, 32, ObjectID::ID_NONE),
 stage(_stage)
 {
-	*(this->p) = *(parent->getVector2());
-
-	float differ_x = (float)(this->p->raw_x - _x);
-	float differ_y = (float)(this->p->raw_y - _y);
-
-	float angle = atan2f(differ_y, differ_x) + Pi;
-	this->dx = (int)(_speed * cosf(angle));
-	this->dy = (int)(_speed * sinf(angle));
-
-	this->mDirection = this->dx < 0;
+	this->setStatus(Vector2(_x, _y, true), _speed);
 
 	//for Debug
 	this->damageValue = 20;
@@ -136,6 +123,7 @@ Pikachi::Thunder::~Thunder()
 
 void Pikachi::Thunder::update()
 {
+	mTime++;
 	int dx_tmp = getHorizontalDiffer(stage, dx, false, false);
 	int dy_tmp = getHorizontalDiffer(stage, dy, false, false);
 
@@ -145,8 +133,24 @@ void Pikachi::Thunder::update()
 	if (dx_tmp == 0 || dy_tmp == 0)this->isActive = false;
 }
 
+void Pikachi::Thunder::draw(const Vector2* _camera) const
+{
+	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
+	if (abs(p->pos_x() - _camera->pos_x()) > 480000 || abs(p->pos_y() - _camera->pos_y()) > 320000)return;
+
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	//•`‰æ
+	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), mImage, true, mDirection);
+}
+
 void Pikachi::Thunder::setStatus(Vector2 _player, int _speed)
 {
+	mTime = 0;
+	this->isActive = true;
+	this->mDirection = this->dx < 0;
+
 	*(this->p) = *(parent->getVector2());
 
 	float differ_x = (float)(this->p->raw_x - _player.raw_x);
@@ -155,8 +159,6 @@ void Pikachi::Thunder::setStatus(Vector2 _player, int _speed)
 	float angle = atan2f(differ_y, differ_x) + Pi;
 	this->dx = (int)(_speed * cosf(angle));
 	this->dy = (int)(_speed * sinf(angle));
-
-	this->mDirection = this->dx < 0;
 }
 
 void Pikachi::Thunder::hittedAction()

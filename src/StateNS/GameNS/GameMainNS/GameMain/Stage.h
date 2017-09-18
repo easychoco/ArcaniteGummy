@@ -123,8 +123,6 @@ private:
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
-
-
 	};
 
 

@@ -46,10 +46,12 @@ private:
 		Thunder(const Character*, const Stage*, int x, int y, int speed);
 		~Thunder();
 		void update();
+		virtual void draw(const Vector2*) const override;
 		void setStatus(Vector2, int speed);
 		void hittedAction();
 
 	private:
+		int mTime;
 		int dx;
 		int dy;
 		const Stage* stage;
