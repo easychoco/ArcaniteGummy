@@ -4,6 +4,7 @@
 #include "..\Gimmick\GimmickChild.h"
 #include "..\Gimmick\DynamicGimmickChild.h"
 #include "..\Gimmick\AllGimmicks.h"
+#include "..\Enemy\EnemyController.h"
 
 #include <fstream>
 
@@ -47,11 +48,13 @@ void Map::initialize()
 	mGimmicks.push_back(clearFlag);
 	//*/
 
+	this->mEController = new EnemyController();
+
 	for (unsigned y = 0; y < gimmickData.size(); y++)
 	{
 		for (unsigned x = 0; x < gimmickData[0].size(); x++)
 		{
-			loadGimmick(x, y,gimmickData[y][x]);
+			loadGimmick(x, y, gimmickData[y][x]);
 			//DrawGraph(x * 32 - draw_x, y * 32 - draw_y, mapChip[_mapData[y][x]], true);
 		}
 	}
@@ -290,6 +293,11 @@ ChipType Map::getChipType(const Vector2& _other) const
 ChipType Map::getChipType(const RawVector2& _other, bool _isPlayer) const
 {
 	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
+}
+
+void Map::addEnemy(AllEnemies _enemy)
+{
+	this->mEController->addEnemy(_enemy, 100, 1400);
 }
 
 /*

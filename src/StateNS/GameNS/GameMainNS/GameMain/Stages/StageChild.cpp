@@ -100,6 +100,11 @@ vector< SwitchWithBlock* > StageChild::getSwitchWithBlocks()
 	return maps[now_stage_num]->getSwitchWithBlocks();
 }
 
+EnemyController* StageChild::getEController()
+{
+	return maps[now_stage_num]->getEController();
+}
+
 void StageChild::moveStage(HowStageMove _stageMove)
 {
 	switch (_stageMove)

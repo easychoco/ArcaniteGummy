@@ -11,6 +11,7 @@ class PlayerChild;
 class GimmickChild;
 class DynamicGimmickChild;
 class SwitchWithBlock;
+class EnemyController;
 
 
 //Stage‚ÌŠî’êƒNƒ‰ƒX
@@ -52,6 +53,7 @@ public:
 
 	vector< DynamicGimmickChild* > getDynamicGimmicks();
 	vector< SwitchWithBlock* > getSwitchWithBlocks();
+	EnemyController* getEController();
 
 	enum HowStageMove
 	{
@@ -68,7 +70,7 @@ public:
 protected:
 	int mBackImg;
 
-	int now_stage_num;
+	unsigned now_stage_num;
 	int stage_max_x;
 	int stage_max_y;
 	vector<Map*> maps;

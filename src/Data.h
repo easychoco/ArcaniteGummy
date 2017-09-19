@@ -98,6 +98,16 @@ const unsigned RED = GetColor(255, 0, 0);
 const unsigned GREEN = GetColor(0, 255, 0);
 const unsigned BLUE = GetColor(0, 0, 255);
 
+//すべての敵
+enum AllEnemies
+{
+	ENE_USA,
+	ENE_BALL,
+	ENE_YACH,
+	ENE_PIKA,
+
+	ENE_NONE,
+};
 
 //ゲーム内に存在する全オブジェクト
 //粒度は具体クラス単位

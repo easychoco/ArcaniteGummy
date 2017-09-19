@@ -13,6 +13,7 @@ class PlayerChild;
 class GimmickChild;
 class DynamicGimmickChild;
 class SwitchWithBlock;
+class EnemyController;
 
 
 //マップでの位置
@@ -69,10 +70,11 @@ public:
 	vector< GimmickChild* > getGimmicks() { return mGimmicks; }
 	vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
 	vector< SwitchWithBlock* > getSwitchWithBlocks() { return mSwitchWithBlocks; }
-
+	EnemyController* getEController() { return this->mEController; }
 
 	//bool isClear() const;
 	void addGimmick(int x, int y, int ID) { loadGimmick(x, y, ID); }
+	void addEnemy(AllEnemies);
 	
 	std::array< std::array<int, MAP_WIDTH_NUM>, MAP_HEIGHT_NUM> getMapData() { return mapData; }
 
@@ -85,6 +87,9 @@ private:
 	std::vector< GimmickChild* > mGimmicks;
 	std::vector< DynamicGimmickChild* > mDynamicGimmicks;
 	std::vector< SwitchWithBlock* > mSwitchWithBlocks;
+
+	//敵
+	EnemyController* mEController;
 
 	//GimmickChild* clearFlag;
 	

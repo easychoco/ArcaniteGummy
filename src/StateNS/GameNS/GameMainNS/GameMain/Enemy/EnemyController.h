@@ -25,7 +25,7 @@ public:
 	//©‹@‚Æ“G‚ÌUŒ‚‚Æ‚Ì“–‚½‚è”»’è
 	void processCollision(PlayerChild*);
 
-	void createEnemy();
+	void addEnemy(AllEnemies, int x, int y);
 	void deleteEnemy(int ID);
 	void setPlayerPos(const Vector2* player);
 

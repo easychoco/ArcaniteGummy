@@ -27,7 +27,7 @@ void Yachamo::initialize()
 	this->moveSpeed = 0;
 }
 
-void Yachamo::update(const StageChild* _stage,const Vector2* _camera)
+void Yachamo::update(const StageChild* _stage, const Vector2* _camera)
 {
 	mTime++;
 
