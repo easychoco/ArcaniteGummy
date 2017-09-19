@@ -75,7 +75,7 @@ protected:
 
 
 	//mapChip�̉摜(32x32pixcels)
-	int mapChip[120];
+	int mapChip[256];
 
 	class Chip
 	{

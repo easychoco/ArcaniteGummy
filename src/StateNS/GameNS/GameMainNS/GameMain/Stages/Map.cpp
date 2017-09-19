@@ -346,11 +346,7 @@ void Map::loadMap(int _stageID, int _mapID)
 	textFile += std::to_string(_stageID);
 	textFile += "/stage";
 	textFile += std::to_string(_mapID);
-
-	string textFile2 = textFile + "a";
 	textFile += ".txt";
-	textFile2 += ".txt";
-
 
 	std::ifstream fin(textFile);
 	std::ifstream fin2(textFile);

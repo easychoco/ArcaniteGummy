@@ -33,7 +33,7 @@ StageChild::~StageChild()
 	maps.shrink_to_fit();
 
 	DeleteGraph(mBackImg);
-	for (int i = 0; i < 120; i++)
+	for (int i = 0; i < 256; i++)
 		DeleteGraph(mapChip[i]);
 }
 
