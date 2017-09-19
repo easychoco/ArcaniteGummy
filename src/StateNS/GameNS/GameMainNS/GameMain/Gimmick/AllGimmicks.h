@@ -9,4 +9,5 @@
 #include "ClearFlag.h"
 #include "MovingFloor.h"
 #include "FireBar.h"
+#include "OrderEmergeFloor.h"
 #include "Switches\SwitchWithBlock.h"

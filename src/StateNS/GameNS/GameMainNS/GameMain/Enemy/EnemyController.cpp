@@ -22,7 +22,7 @@ EnemyController::EnemyController()
 //	enemies.push_back(new Usagi(200, 1450));
 	enemies.push_back(new Yachamo(1000, 1482));
 	enemies.push_back(new Pikachi(300, 1482));
-	//enemies.push_back(new Usagi(320, 240));
+	enemies.push_back(new Usagi(220, 1000));
 }
 
 EnemyController::~EnemyController()

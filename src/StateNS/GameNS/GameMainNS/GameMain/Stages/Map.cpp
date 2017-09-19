@@ -57,7 +57,13 @@ void Map::initialize()
 	}
 
 	// for Debug
-	//mDynamicGimmicks.push_back(new MovingFloor(300, 1400, 360, 1200, 3.0));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(208, 1424, 1.0f, 1));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(240, 1424, 1.0f, 2));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(272, 1424, 1.0f, 3));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(304, 1424, 1.0f, 4));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(336, 1424, 1.0f, 5));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(368, 1424, 1.0f, 6));
+
 	//mDynamicGimmicks.push_back(new FireBar(304, 1488,true));
 	//mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));
 	//mDynamicGimmicks.push_back(new Block(688, 1488, 1.0, false));
