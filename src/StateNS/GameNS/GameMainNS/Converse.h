@@ -12,7 +12,7 @@ class GameMain;
 class Converse : public Child
 {
 public:
-	Converse(GameMain*, int stageNum1,int stageNum2);
+	Converse(GameMain*, int stageNum);
 	~Converse();
 	void initialize();
 	Child* update(GameParent*);

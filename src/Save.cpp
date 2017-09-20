@@ -31,9 +31,9 @@ Data SaveData::loadData()
 
 void SaveData::saveData()
 {
-	char save_hp = (char)(hp * 2);
-	char save_left = (char)(hp * 2);
-	char save_clearStage = (char)(hp * 2);
+	int save_hp = hp * 2;
+	int save_left = hp * 2;
+	int save_clearStage = hp * 2;
 
 	//fout << save_hp << " " << save_left << " " << save_clearStage << endl;
 }

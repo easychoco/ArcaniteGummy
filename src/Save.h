@@ -25,8 +25,8 @@ struct Data
 class SaveData
 {
 public:
-	SaveData() {};
-	~SaveData() {};
+	SaveData();
+	~SaveData();
 	Data loadData();
 	void saveData();
 	void setSaveData(Data);

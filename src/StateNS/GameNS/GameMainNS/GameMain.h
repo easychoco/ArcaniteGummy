@@ -27,6 +27,8 @@ public:
 	Child* update(GameParent*);
 	void draw() const;
 
+	void startConverse(int _convNum) { this->converseNum = _convNum; };
+
 private:
 	StageChild* mStage;
 	PlayerChild* mPlayer;
@@ -35,7 +37,7 @@ private:
 	int stageID;
 	int xNum, yNum;
 
-	int nowStageNum;
+	int converseNum;
 
 	//~‚ß‚âƒLƒƒƒ‰•ÏX‚Ì‚ÉA“®‚¢‚Ä‚¢‚é‚à‚Ì‚ğ~‚ß‚é
 	StopType stopDynamicObject;

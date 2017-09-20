@@ -17,7 +17,7 @@ class Stage12 : public StageChild
 public:
 	Stage12();
 	~Stage12();
-	void update(PlayerChild*);
+	void update(GameMain*, PlayerChild*);
 	void draw(const Vector2* player) const;
 	bool isClear() const;
 	

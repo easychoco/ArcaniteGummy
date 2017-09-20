@@ -43,18 +43,13 @@ void GameMain::initialize()
 {
 	mStage = new Stage12();
 
-	//ステージの全体的な縦と横の数を設定
-
-	//TODO 数値をファイルより取得
-	int stage_x = 2;
-	int stage_y = 1;
-	nowStageNum = 0;
-
 	mPlayer = new Nue(96, 1500, 100);
 	mSystem = new System();
 
 	mEController = new EnemyController();
 	mEController->setPlayerPos(mPlayer->getVector2());
+
+	converseNum = 0;
 
 	stopDynamicObject = StopType::TYPE_NONE;
 }
@@ -89,9 +84,10 @@ Child* GameMain::update(GameParent* _parent)
 	//Systemのupdate
 	mSystem->update();
 
-	//for Debug
-	if(CheckHitKey(KEY_INPUT_1))
-		next = new Converse(this, 1,1);
+	//会話パート
+	if(converseNum != 0)
+		next = new Converse(this, converseNum);
+	converseNum = 0;
 	
 	/*
 	//クリア
@@ -128,7 +124,7 @@ void GameMain::draw() const
 void GameMain::updateDynamics(StageChild* stage)
 {
 	//Stageのupdate
-	stage->update(mPlayer);
+	stage->update(this, mPlayer);
 	stage->moveStage(mPlayer->getStageMove());
 
 	//enemyのupdate

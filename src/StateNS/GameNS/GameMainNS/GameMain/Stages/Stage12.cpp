@@ -1,5 +1,6 @@
 #include "Stage12.h"
 #include "Map.h"
+#include "..\..\GameMain.h"
 
 #include <fstream>
 
@@ -18,9 +19,13 @@ Stage12::~Stage12()
 
 }
 
-void Stage12::update(PlayerChild* _player)
+void Stage12::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
+
+	//for Debug
+	if(CheckHitKey(KEY_INPUT_1))
+		gameMain->startConverse(12);
 }
 
 void Stage12::draw(const Vector2* _camera) const

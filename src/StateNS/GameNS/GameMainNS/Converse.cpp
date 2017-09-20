@@ -12,10 +12,10 @@ namespace GameMainNS {
 /////////ステージごとにテキストで分割。
 
 
-Converse::Converse(GameMain* _main, int _stageNum1,int _stageNum2)
+Converse::Converse(GameMain* _main, int _stageNum)
 {
 	main = _main;
-	stageNum = _stageNum1 * 10 + _stageNum2;
+	stageNum = _stageNum;
 	initialize();
 }
 

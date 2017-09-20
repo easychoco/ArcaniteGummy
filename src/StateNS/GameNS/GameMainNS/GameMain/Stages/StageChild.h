@@ -11,6 +11,7 @@ class PlayerChild;
 class GimmickChild;
 class DynamicGimmickChild;
 class SwitchWithBlock;
+class GameMain;
 
 
 //Stage‚ÌŠî’êƒNƒ‰ƒX
@@ -19,7 +20,7 @@ class StageChild
 public:
 	StageChild(int stage_max_x, int stage_max_y);
 	virtual ~StageChild();
-	virtual void update(PlayerChild*) = 0;
+	virtual void update(GameMain*, PlayerChild*) = 0;
 	virtual void draw(const Vector2* camera) const = 0;
 	virtual bool isClear() const = 0;
 
@@ -72,10 +73,6 @@ protected:
 	int stage_max_x;
 	int stage_max_y;
 	vector<Map*> maps;
-
-
-	//mapChip‚Ì‰æ‘œ(32x32pixcels)
-	int mapChip[120];
 
 	class Chip
 	{

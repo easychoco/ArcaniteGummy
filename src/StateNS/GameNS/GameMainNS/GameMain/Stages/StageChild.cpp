@@ -1,10 +1,7 @@
 #include "StageChild.h"
 #include "Map.h"
 
-//#include "..\Player\PlayerChild.h"
-//#include "..\Gimmick\GimmickChild.h"
-//#include "..\Gimmick\AllGimmicks.h"
-//#include "..\Gimmick\DynamicGimmickChild.h"
+#include "..\..\GameMain.h"
 
 #include "..\..\..\..\..\KeyInput.h"
 
@@ -32,9 +29,6 @@ StageChild::~StageChild()
 	maps.clear();
 	maps.shrink_to_fit();
 
-	DeleteGraph(mBackImg);
-	for (int i = 0; i < 120; i++)
-		DeleteGraph(mapChip[i]);
 }
 
 void StageChild::initialize()
@@ -120,6 +114,10 @@ void StageChild::moveStage(HowStageMove _stageMove)
 	assert(now_stage_num < maps.size() && "StageChild: map index out of range!");
 
 }
+//========================================================================
+// “à•”protectedŠÖ”
+//========================================================================
+
 
 
 //========================================================================
