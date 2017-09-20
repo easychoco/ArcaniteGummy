@@ -16,7 +16,7 @@ DynamicObject(_x, _y, (int)(32 * _scale), (int)(32 * _scale), 0, 0)
 
 DynamicGimmickChild::~DynamicGimmickChild()
 {
-
+	DeleteGraph(mImage);
 }
 
 //==============================================

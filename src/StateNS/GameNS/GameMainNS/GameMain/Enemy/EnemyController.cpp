@@ -22,7 +22,7 @@ EnemyController::EnemyController()
 //	enemies.push_back(new Usagi(200, 1450));
 	enemies.push_back(new Yachamo(1000, 1482));
 	enemies.push_back(new Pikachi(300, 1482));
-	//enemies.push_back(new Usagi(320, 240));
+	enemies.push_back(new Usagi(220, 1000));
 }
 
 EnemyController::~EnemyController()
@@ -67,9 +67,16 @@ void EnemyController::processCollision(PlayerChild* _player)
 	}
 }
 
-void EnemyController::createEnemy(/*—ñ‹“Œ^‚Å“GŽw’è*/)
+void EnemyController::addEnemy(AllEnemies _enemy, int _x, int _y)
 {
-
+	switch (_enemy)
+	{
+	case ENE_USA: enemies.push_back(new Usagi(_x, _y)); break;
+	case ENE_BALL: enemies.push_back(new Balloon(_x, _y)); break;
+	case ENE_YACH: enemies.push_back(new Yachamo(_x, _y)); break;
+	case ENE_PIKA: enemies.push_back(new Pikachi(_x, _y)); break;
+	default: assert(!"•s–¾‚È“G‚Å‚·.");
+	}
 }
 
 void EnemyController::deleteEnemy(int _ID)

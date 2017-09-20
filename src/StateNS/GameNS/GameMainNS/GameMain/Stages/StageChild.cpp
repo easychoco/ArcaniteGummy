@@ -1,8 +1,6 @@
 #include "StageChild.h"
 #include "Map.h"
 
-#include "..\..\GameMain.h"
-
 #include "..\..\..\..\..\KeyInput.h"
 
 namespace StateNS {
@@ -28,7 +26,6 @@ StageChild::~StageChild()
 	}
 	maps.clear();
 	maps.shrink_to_fit();
-
 }
 
 void StageChild::initialize()
@@ -92,6 +89,11 @@ vector< DynamicGimmickChild* > StageChild::getDynamicGimmicks()
 vector< SwitchWithBlock* > StageChild::getSwitchWithBlocks()
 {
 	return maps[now_stage_num]->getSwitchWithBlocks();
+}
+
+EnemyController* StageChild::getEController()
+{
+	return maps[now_stage_num]->getEController();
 }
 
 void StageChild::moveStage(HowStageMove _stageMove)

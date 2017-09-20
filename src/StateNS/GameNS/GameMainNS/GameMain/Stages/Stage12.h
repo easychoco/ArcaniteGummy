@@ -7,11 +7,6 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-class PlayerChild;
-class GimmickChild;
-class DynamicGimmickChild;
-class SwitchWithBlock;
-
 class Stage12 : public StageChild
 {
 public:

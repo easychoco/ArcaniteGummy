@@ -4,6 +4,7 @@
 #include "..\Gimmick\GimmickChild.h"
 #include "..\Gimmick\DynamicGimmickChild.h"
 #include "..\Gimmick\AllGimmicks.h"
+#include "..\Enemy\EnemyController.h"
 
 #include <fstream>
 
@@ -47,17 +48,25 @@ void Map::initialize()
 	mGimmicks.push_back(clearFlag);
 	//*/
 
+	this->mEController = new EnemyController();
+
 	for (unsigned y = 0; y < gimmickData.size(); y++)
 	{
 		for (unsigned x = 0; x < gimmickData[0].size(); x++)
 		{
-			loadGimmick(x, y,gimmickData[y][x]);
+			loadGimmick(x, y, gimmickData[y][x]);
 			//DrawGraph(x * 32 - draw_x, y * 32 - draw_y, mapChip[_mapData[y][x]], true);
 		}
 	}
 
 	// for Debug
-	//mDynamicGimmicks.push_back(new MovingFloor(300, 1400, 360, 1200, 3.0));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(208, 1424, 1.0f, 1));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(240, 1424, 1.0f, 2));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(272, 1424, 1.0f, 3));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(304, 1424, 1.0f, 4));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(336, 1424, 1.0f, 5));
+	mDynamicGimmicks.push_back(new OrderEmergeFloor(368, 1424, 1.0f, 6));
+
 	//mDynamicGimmicks.push_back(new FireBar(304, 1488,true));
 	//mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));
 	//mDynamicGimmicks.push_back(new Block(688, 1488, 1.0, false));
@@ -286,6 +295,11 @@ ChipType Map::getChipType(const RawVector2& _other, bool _isPlayer) const
 	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
 }
 
+void Map::addEnemy(AllEnemies _enemy)
+{
+	this->mEController->addEnemy(_enemy, 100, 1400);
+}
+
 /*
 bool Map::isClear() const
 {
@@ -346,11 +360,7 @@ void Map::loadMap(int _stageID, int _mapID)
 	textFile += std::to_string(_stageID);
 	textFile += "/stage";
 	textFile += std::to_string(_mapID);
-
-	string textFile2 = textFile + "a";
 	textFile += ".txt";
-	textFile2 += ".txt";
-
 
 	std::ifstream fin(textFile);
 	std::ifstream fin2(textFile);

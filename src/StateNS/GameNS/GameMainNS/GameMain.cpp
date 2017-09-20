@@ -36,7 +36,6 @@ GameMain::~GameMain()
 	SAFE_DELETE(mStage);
 	SAFE_DELETE(mPlayer);
 	SAFE_DELETE(mSystem);
-	SAFE_DELETE(mEController);
 }
 
 void GameMain::initialize()
@@ -46,7 +45,7 @@ void GameMain::initialize()
 	mPlayer = new Nue(96, 1500, 100);
 	mSystem = new System();
 
-	mEController = new EnemyController();
+	mEController = mStage->getEController();
 	mEController->setPlayerPos(mPlayer->getVector2());
 
 	converseNum = 0;
@@ -57,6 +56,16 @@ void GameMain::initialize()
 Child* GameMain::update(GameParent* _parent)
 {
 	Child* next = this;
+	
+	//マップ移動していたら
+	StageChild::HowStageMove nextMove = mPlayer->getStageMove();
+	if (nextMove != StageChild::HowStageMove::MOVE_NONE)
+	{
+		mStage->moveStage(mPlayer->getStageMove());
+		this->mEController = mStage->getEController();
+		mEController->setPlayerPos(mPlayer->getVector2());
+	}
+	
 
 	//時が止まっているか更新
 	stopDynamicObject = mPlayer->getStopDynamicObject();
@@ -72,6 +81,7 @@ Child* GameMain::update(GameParent* _parent)
 	{
 		SAFE_DELETE(mPlayer);
 		mPlayer = nextPlayer;
+		this->mEController = mStage->getEController();
 		mEController->setPlayerPos(mPlayer->getVector2());
 	}
 
@@ -123,12 +133,11 @@ void GameMain::draw() const
 //==============================================
 void GameMain::updateDynamics(StageChild* stage)
 {
-	//Stageのupdate
-	stage->update(this, mPlayer);
-	stage->moveStage(mPlayer->getStageMove());
-
 	//enemyのupdate
 	mEController->update(stage, mPlayer->getCamera());
+
+	//Stageのupdate
+	stage->update(this, mPlayer);
 }
 
 void GameMain::processCollision(StageChild* _stage)
