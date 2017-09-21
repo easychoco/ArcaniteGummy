@@ -9,7 +9,7 @@ class Parent {
 public:
 
 	Parent();
-	~Parent();
+	virtual ~Parent();
 	void update();
 	void draw() const;
 	void initialize();

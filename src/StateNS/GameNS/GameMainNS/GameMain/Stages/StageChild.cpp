@@ -54,6 +54,11 @@ void StageChild::standardDraw(const Vector2* _camera) const
 	maps[now_stage_num]->draw(_camera);
 }
 
+void StageChild::draw_front(const Vector2* _camera) const
+{
+	maps[now_stage_num]->draw_front(_camera);
+}
+
 StageChild::ChipType StageChild::getChipType(const Vector2& _other, bool isPlayer) const
 {
 	return maps[now_stage_num]->getChipType(_other, isPlayer);

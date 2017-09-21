@@ -45,6 +45,9 @@ namespace MyData{
 //全体で同じものを使う
 extern int MapChip[256];
 
+//サウンド
+extern Sound* sound;
+
 //プレイヤーのチップサイズ
 constexpr int PLAYER_CHIP_HEIGHT = 64;
 constexpr int PLAYER_CHIP_WIDTH = 32;

@@ -18,11 +18,12 @@ public:
 
 private:
 	int mBackImg;
+	int movie;
+
 	int count = 0;
 	bool pushZ, pushUP, pushDOWN;
 	int step;
 	int select;
-	int movie;
 	int fontHandle1, fontHandle2;
 	void plusStep(int);
 	void pressZ_draw()const;

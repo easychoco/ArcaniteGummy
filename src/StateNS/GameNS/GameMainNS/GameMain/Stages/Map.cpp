@@ -67,6 +67,8 @@ void Map::initialize()
 	mDynamicGimmicks.push_back(new OrderEmergeFloor(336, 1424, 1.0f, 5));
 	mDynamicGimmicks.push_back(new OrderEmergeFloor(368, 1424, 1.0f, 6));
 
+	mGimmicks.push_back(new Door(new Vector2(224, 1472), new Vector2(320, 1472)));
+
 	//mDynamicGimmicks.push_back(new FireBar(304, 1488,true));
 	//mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));
 	//mDynamicGimmicks.push_back(new Block(688, 1488, 1.0, false));
@@ -126,7 +128,33 @@ void Map::draw(const Vector2* _camera) const
 			b->draw(_camera);
 		}
 	}
+}
 
+void Map::draw_front(const Vector2* _camera) const
+{
+	//ギミックの描画
+	for (const auto& gimmick : mGimmicks)
+	{
+		if (gimmick->isActive)gimmick->draw_front(_camera);
+	}
+
+	//ダイナミックギミックの描画
+	for (const auto& d_gimmick : mDynamicGimmicks)
+	{
+		if (d_gimmick->isActive)d_gimmick->draw_front(_camera);
+	}
+
+	//スイッチ関連の描画
+	for (const auto& s_b : mSwitchWithBlocks)
+	{
+		if (s_b->isActive)s_b->draw_front(_camera);
+
+		//SwitchによるBlockの描画
+		for (auto& b : s_b->getBlocks())
+		{
+			b->draw(_camera);
+		}
+	}
 }
 
 int Map::getTopPosition(const Vector2* _pos, const int& _dy) const

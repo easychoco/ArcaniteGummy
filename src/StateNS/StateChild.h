@@ -8,7 +8,7 @@ namespace StateNS{
 
 class Child {
 public:
-	~Child() {};
+	virtual ~Child() {};
 	//返り値は次のシーケンス
 	virtual Child* update(const GrandParent*) = 0;
 	virtual void draw() const = 0;

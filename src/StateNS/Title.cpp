@@ -25,7 +25,8 @@ Title::Title(int _step,int _select)
 
 Title::~Title()
 {
-
+	DeleteGraph(mBackImg);
+	DeleteGraph(movie);
 }
 
 void Title::initialize()
@@ -79,7 +80,6 @@ Child* Title::update(const GrandParent* parent)
 
 void Title::draw() const
 {
-	DrawFormatString(0, 0, WHITE, "Titleeeeee");
 	DrawGraph(0, 0, movie, FALSE);
 
 	switch (step) {

@@ -16,6 +16,8 @@ public:
 
 private:
 	int mBackImg;
+	float volume;
+	
 
 };
 

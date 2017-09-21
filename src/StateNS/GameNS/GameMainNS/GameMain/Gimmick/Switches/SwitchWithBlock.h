@@ -18,6 +18,7 @@ public:
 	void initialize();
 	void update(const StageChild*);
 	void draw(const Vector2*) const;
+	virtual void draw_front(const Vector2*) const {}
 	void apply(Character*);
 
 	void hittedAction() override;

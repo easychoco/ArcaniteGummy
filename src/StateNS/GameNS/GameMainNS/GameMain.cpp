@@ -123,6 +123,9 @@ void GameMain::draw() const
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 200);
 
 	mPlayer->draw();
+
+	mStage->draw_front(mPlayer->getCamera());
+
 	mSystem->draw(mPlayer->getVector2());
 }
 

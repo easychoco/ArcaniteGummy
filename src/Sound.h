@@ -33,6 +33,8 @@ private:
 	bool exists(string name) { return soundMap.find(name) != soundMap.end(); }
 
 public:
+	float allVolume = 1.0f;
+
 	//インスタンスのgetter
 	static Sound* getInstance()
 	{
@@ -50,8 +52,6 @@ public:
 	void setVolume(string name, float ratio);
 	void setAllVolume(float ratio);
 };
-
-static Sound* sound;
 
 }
 

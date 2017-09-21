@@ -27,6 +27,7 @@ public:
 
 	void standardUpdate(PlayerChild*);
 	void standardDraw(const Vector2* camera) const;
+	virtual void draw_front(const Vector2* camera) const;
 
 	enum ChipType
 	{

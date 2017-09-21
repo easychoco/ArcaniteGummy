@@ -18,6 +18,7 @@ public:
 	virtual ~DynamicGimmickChild();
 	virtual void update(const StageChild*) = 0;
 	virtual void draw(const Vector2* camera) const = 0;
+	virtual void draw_front(const Vector2* camera) const {}
 	virtual void apply(Character*) = 0;
 	virtual void hittedAction() override = 0;
 	virtual void burnedAction() = 0;

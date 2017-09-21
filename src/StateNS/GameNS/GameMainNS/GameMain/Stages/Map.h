@@ -54,6 +54,7 @@ public:
 	~Map();
 	void update(PlayerChild*, const StageChild*);
 	void draw(const Vector2* camera) const;
+	void draw_front(const Vector2* camera) const;
 
 	bool isRigid_down(ChipType _ct) const { return (_ct & 0b101100110) != 0; }//下にすり抜けられないブロック，床になる
 	bool isRigid_up(ChipType _ct)   const { return (_ct & 0b000011010) != 0; }//上にすり抜けられないブロック，天井になる

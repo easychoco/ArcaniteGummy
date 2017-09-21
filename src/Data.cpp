@@ -27,6 +27,7 @@ float distance(const Vector2* self, const Vector2* other)
 }
 
 int MapChip[256] = {};
+extern Sound* sound = Sound::getInstance();
 
 const Vector2 Vector2::ZERO(0, 0);
 const Vector2 Vector2::LEFT(-1, 0);

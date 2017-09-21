@@ -35,10 +35,10 @@ void Character::moveCharacter(float _dx, float _dy)
 }
 
 //ƒLƒƒƒ‰‚ðx, y‚ÌˆÊ’u‚ÉˆÚ“®‚³‚¹‚é
-void Character::warpCharacter(float _x, float _y)
+void Character::warpCharacter(int _x, int _y)
 {
-	p->raw_x = (int)(_x * vectorRate);
-	p->raw_y = (int)(_y * vectorRate);
+	p->raw_x = _x;
+	p->raw_y = _y;
 }
 
 int Character::getTopDiffer(const StageChild* _stage, const int dy, bool _moveLeft) const { return DynamicObject::getTopDiffer(_stage, dy, _moveLeft, true); }

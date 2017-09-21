@@ -19,6 +19,18 @@ Stage12::~Stage12()
 
 }
 
+void Stage12::initialize()
+{
+	//左上から右にpushしていく
+	//StageID, 0から昇順, エリアの形
+	this->maps.push_back(new Map(12, 0, MapPos::POS_LEFT_UP));
+	this->maps.push_back(new Map(12, 1, MapPos::POS_RIGHT_UP));
+	this->maps.push_back(new Map(12, 2, MapPos::POS_LEFT_DOWN));
+	this->maps.push_back(new Map(12, 3, MapPos::POS_RIGHT_DOWN));
+
+}
+
+
 void Stage12::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
@@ -38,16 +50,6 @@ bool Stage12::isClear() const
 	return false;
 }
 
-
-void Stage12::initialize()
-{
-	//左上から右にpushしていく
-	//StageID, 0から昇順, エリアの形
-	this->maps.push_back(new Map(12, 0, MapPos::POS_LEFT_UP));
-	this->maps.push_back(new Map(12, 1, MapPos::POS_RIGHT_UP));
-	this->maps.push_back(new Map(12, 2, MapPos::POS_LEFT_DOWN));
-	this->maps.push_back(new Map(12, 3, MapPos::POS_RIGHT_DOWN));
-}
 
 }
 }

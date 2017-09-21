@@ -17,6 +17,7 @@ public:
 	virtual ~GimmickChild() {};
 	virtual void update() = 0;
 	virtual void draw(const Vector2*) const = 0;
+	virtual void draw_front(const Vector2*) const {}
 	virtual void apply(Character*) = 0;
 
 	//‰æ–Êã‚Åd‚È‚Á‚Ä‚¢‚é‚©C“–‚½‚è”»’è—p
