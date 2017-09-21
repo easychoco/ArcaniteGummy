@@ -60,15 +60,13 @@ void Map::initialize()
 	}
 
 	// for Debug
-	mDynamicGimmicks.push_back(new OrderEmergeFloor(208, 1424, 1.0f, 1));
-	mDynamicGimmicks.push_back(new OrderEmergeFloor(240, 1424, 1.0f, 2));
-	mDynamicGimmicks.push_back(new OrderEmergeFloor(272, 1424, 1.0f, 3));
-	mDynamicGimmicks.push_back(new OrderEmergeFloor(304, 1424, 1.0f, 4));
-	mDynamicGimmicks.push_back(new OrderEmergeFloor(336, 1424, 1.0f, 5));
-	mDynamicGimmicks.push_back(new OrderEmergeFloor(368, 1424, 1.0f, 6));
+
 
 	mGimmicks.push_back(new Door(new Vector2(224, 1472), new Vector2(320, 1472)));
-
+	mDynamicGimmicks.push_back(new Burner(176, 1488, 0.0f, false));
+	mDynamicGimmicks.push_back(new Burner(176, 1456, Pi, true));
+	mDynamicGimmicks.push_back(new Burner(176, 1424, -Pi/2, true));
+	mDynamicGimmicks.push_back(new Burner(368, 1392, Pi/2, false));
 	//mDynamicGimmicks.push_back(new FireBar(304, 1488,true));
 	//mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));
 	//mDynamicGimmicks.push_back(new Block(688, 1488, 1.0, false));
@@ -494,6 +492,36 @@ void Map::loadGimmick(int _x, int _y, int _n)
 	case 143:break;
 		//松明
 	case 144:break;
+		//上向きバーナー１
+	case 145:break;
+		//上向きバーナー２
+	case 146:break;
+		//下向きバーナー１
+	case 147:break;
+		//下向きバーナー２
+	case 148:break;
+		//右向きバーナー１
+	case 149:break;
+		//右向きバーナー２
+	case 150:break;
+		//左向きバーナー１
+	case 151:break;
+		//左向きバーナー２
+	case 152:break;
+		//時間差で現れる足場１
+	case 153:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 1));break;
+		//時間差で現れる足場２
+	case 154:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 2)); break;
+		//時間差で現れる足場３
+	case 155:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 3)); break;
+		//時間差で現れる足場４
+	case 156:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 4)); break;
+		//時間差で現れる足場５
+	case 157:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 5)); break;
+		//時間差で現れる足場６
+	case 158:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 6)); break;
+		//時間差で現れる足場７
+	case 159:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 7)); break;
 
 	
 

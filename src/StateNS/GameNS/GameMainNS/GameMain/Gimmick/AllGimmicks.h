@@ -12,3 +12,4 @@
 #include "OrderEmergeFloor.h"
 #include "Switches\SwitchWithBlock.h"
 #include "Door.h"
+#include "Burner.h"
