@@ -15,7 +15,7 @@ class Child;
 class Burner : public DynamicGimmickChild
 {
 public:
-	Burner(int x, int y,float angle,bool order);
+	Burner(int x, int y, float angle, bool order);
 	~Burner();
 	void initialize();
 	void update(const StageChild*);
@@ -38,13 +38,14 @@ private:
 	const int damageValue = 50;
 	bool isEmerge;
 
-	const int r_1 =  64 * vectorRate;
-	const int r_2 =  96 * vectorRate;
-	const int r_3 = 128 * vectorRate;
+	//ブロック部分の長さ(ピクセル)
+	const int l_block =  32;
+	//バーナー部分の長さ(ピクセル)
+	const int l_burn =  112;
 
-	int x_1, y_1;
-	int x_2, y_2;
-	int x_3, y_3;
+	//右、左、上、下の座標
+	int r, l, u, d;
+
 
 	void loadImage();
 	void move();

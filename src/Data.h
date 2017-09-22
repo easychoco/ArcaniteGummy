@@ -265,7 +265,7 @@ public:
 
 };
 
-//2“_ŠÔ‚Ì‹——£‚ğ“¾‚é
+//2“_ŠÔ‚Ì‹——£‚ğ“¾‚é, d‚¢‚©‚ç”ñ„§
 float distance(int x1, int y1, int x2, int y2);
 float distance(int x, int y, const Vector2*);
 float distance(const Vector2*, const Vector2*);
