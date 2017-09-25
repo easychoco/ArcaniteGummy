@@ -109,6 +109,7 @@ enum AllEnemies
 	ENE_YACH,
 	ENE_PIKA,
 	ENE_POPPY,
+	ENE_RARA,
 	ENE_NONE,
 };
 

@@ -6,7 +6,7 @@
 #include "Yachamo.h"
 #include "Pikachi.h"
 #include "Poppy.h"
-
+#include "Rarashi.h"
 #include "..\Player\PlayerChild.h"
 
 
@@ -20,7 +20,7 @@ namespace GameMainNS{
 EnemyController::EnemyController()
 {
 	enemies.push_back(new Poppy(500, 1450));
-//	enemies.push_back(new Usagi(200, 1450));
+	enemies.push_back(new Rarashi(600, 1386));
 	//enemies.push_back(new Yachamo(1000, 1482));
 	//enemies.push_back(new Pikachi(300, 1482));
 	//enemies.push_back(new Usagi(220, 1000));
@@ -77,6 +77,7 @@ void EnemyController::addEnemy(AllEnemies _enemy, int _x, int _y)
 	case ENE_YACH: enemies.push_back(new Yachamo(_x, _y)); break;
 	case ENE_PIKA: enemies.push_back(new Pikachi(_x, _y)); break;
 	case ENE_POPPY: enemies.push_back(new Poppy(_x, _y)); break;
+	case ENE_RARA: enemies.push_back(new Rarashi(_x, _y)); break;
 	default: assert(!"•s–¾‚È“G‚Å‚·.");
 	}
 }
