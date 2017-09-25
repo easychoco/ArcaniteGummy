@@ -1,5 +1,6 @@
 #include "Play.h"
 #include "Clear.h"
+#include "Over.h"
 #include "GameMainNS\GameMain.h"
 #include "GameMainNS\GameMainChild.h"
 
@@ -13,8 +14,10 @@
 namespace StateNS {
 namespace GameNS {
 
-Play::Play()
+Play::Play(int _stageNum)
 {
+	this->stageNum = _stageNum;
+
 	initialize();
 }
 
@@ -27,7 +30,6 @@ void Play::initialize()
 {
 	std::ifstream fin("Data/Text/stagelist.txt");
 	int a, b, x, y;
-//	for (int i = 0; i < 15; i++) {
 	for (int i = 0; i < 2; i++) {
 		fin >> a >> b >> x >> y;
 		stageMapID[i] = a * 10 + b;
@@ -35,8 +37,8 @@ void Play::initialize()
 		stageMapYNum[i] = y;
 	}
 
-
-	gameMain = new GameMainNS::GameMain(stageMapID[1],stageMapXNum[1],stageMapYNum[1]);
+	int stage_index = (stageNum / 10 - 1) * 3 + stageNum % 10 - 1;
+	gameMain = new GameMainNS::GameMain(stageMapID[stage_index], stageMapXNum[stage_index], stageMapYNum[stage_index]);
 
 	mNextSeq = NextSequence::SEQ_NONE;
 }
@@ -61,6 +63,7 @@ Child* Play::update(Parent* _parent)
 		{
 		case SEQ_TITLE: _parent->moveTo(_parent->NextSequence::SEQ_TITLE); break;
 		case SEQ_CLEAR: next = new Clear(); break;
+		case SEQ_OVER: next = new Over(); break;
 			/*
 			TODO ‘¼‚Ì‘JˆÚ‚à‘‚­
 			*/

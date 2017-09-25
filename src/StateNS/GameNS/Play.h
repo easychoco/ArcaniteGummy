@@ -29,7 +29,7 @@ public:
 	};
 
 
-	Play();
+	Play(int stageNum);
 	~Play();
 	void initialize();
 	Child* update(Parent*);
@@ -42,6 +42,8 @@ private:
 	int stageMapID[15];
 	int stageMapXNum[15];
 	int stageMapYNum[15];
+
+	int stageNum;
 
 };
 

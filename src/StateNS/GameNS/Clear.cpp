@@ -36,7 +36,7 @@ Child* Clear::update(StateNS::Parent* _parent)
 	}
 	if (Input_Z())
 	{
-		next = new Play();
+		next = new Play(++_parent->stageNum);
 	}
 
 	return next;

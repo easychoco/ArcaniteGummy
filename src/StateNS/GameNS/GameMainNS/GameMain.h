@@ -44,6 +44,7 @@ private:
 
 	void updateDynamics(StageChild* stage);
 	void processCollision(StageChild* stage);
+	StageChild* getNextStage(int);
 };
 
 

@@ -26,9 +26,12 @@ public:
 	void draw() const;
 	void moveTo(NextSequence);
 
+	int stageNum;
+
 private:
 	GameNS::Child* mChild;
 	NextSequence mNextSeq;
+
 };
 
 

@@ -40,7 +40,7 @@ GameMain::~GameMain()
 
 void GameMain::initialize()
 {
-	mStage = new Stage12();
+	mStage = getNextStage(stageID);
 
 	mPlayer = new Nue(96, 1500, 100);
 	mSystem = new System();
@@ -88,8 +88,6 @@ Child* GameMain::update(GameParent* _parent)
 	//衝突判定
 	processCollision(mStage);
 
-	//for Debug
-	mPlayer->hpController.recover(1);
 
 	//Systemのupdate
 	mSystem->update();
@@ -98,7 +96,13 @@ Child* GameMain::update(GameParent* _parent)
 	if(converseNum != 0)
 		next = new Converse(this, converseNum);
 	converseNum = 0;
-	
+
+
+	//for Debug
+	mPlayer->hpController.recover(1);
+	if (Input_D())_parent->moveTo(_parent->SEQ_OVER);
+	if (Input_S())_parent->moveTo(_parent->SEQ_CLEAR);
+
 	/*
 	//クリア
 	if (mStage->isClear())
@@ -235,6 +239,19 @@ void GameMain::processCollision(StageChild* _stage)
 			}
 		}
 	}
+}
+
+StageChild* GameMain::getNextStage(int stageID)
+{
+	if (stageID == 11)return new Stage11();
+	if (stageID == 12)return new Stage12();
+	/*
+	以下，同様の処理を書く
+	*/
+
+	//ここにはこない
+	assert(!"不正なStageID");
+	return NULL;
 }
 
 

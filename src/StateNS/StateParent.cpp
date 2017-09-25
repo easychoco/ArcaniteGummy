@@ -19,8 +19,16 @@ Parent::~Parent(){
 
 void Parent::initialize()
 {
-	this->mChild = new GameNS::Play();
+	//セーブデータ読み込み
+	//stageNum更新
+
+	//for Debug
+	stageNum = 11;
+
+	this->mChild = new GameNS::Play(stageNum);
 	mNextSeq = NextSequence::SEQ_NONE;
+
+
 }
 
 Child* Parent::update(const GrandParent* parent)
