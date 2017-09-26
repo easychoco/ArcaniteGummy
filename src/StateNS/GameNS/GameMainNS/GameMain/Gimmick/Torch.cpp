@@ -106,7 +106,7 @@ void Torch::loadImage()
 {
 	//TODO 画像差し替え
 	int tmp = LoadDivGraph("Data/Image/Torch.png", 2, 2, 1, 32, 32, images);
-	assert(tmp != -1 && "スイッチ画像読み込みエラー！");
+	assert(tmp != -1 && "たいまつ画像読み込みエラー！");
 }
 
 
