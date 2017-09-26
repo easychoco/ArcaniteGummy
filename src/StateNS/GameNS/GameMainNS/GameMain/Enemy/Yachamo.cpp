@@ -106,8 +106,8 @@ void Yachamo::draw_other(const Vector2* _camera) const
 //FireƒNƒ‰ƒX
 //==============================================
 Yachamo::Fire::Fire(const EnemyChild* _parent, const StageChild* _stage, int _x, int _y, int _dx) :
-	Attack(_parent, _x, _y, 32, 32, ObjectID::ID_NONE),
-	stage(_stage)
+Attack(_parent, _x, _y, 32, 32, ObjectID::ID_NONE),
+stage(_stage)
 {
 	this->dx = _dx * MyData::vectorRate;
 	mDirection = _dx < 0;
