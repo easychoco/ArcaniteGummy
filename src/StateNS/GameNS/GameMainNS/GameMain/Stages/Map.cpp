@@ -440,13 +440,13 @@ void Map::loadGimmick(int _x, int _y, int _n)
 		//右ベルトコンベア
 	case 115:mGimmicks.push_back(new BeltConveyor(2.0, Vector2(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2))); break;
 		//燃えるブロック？たぶん違う
-	case 116:mDynamicGimmicks.push_back(new Block(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0)); break;
+	case 116:mDynamicGimmicks.push_back(new Block(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0)); break;
 		//壊れるブロック
-	case 117:mDynamicGimmicks.push_back(new Block(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0)); break;
+	case 117:mDynamicGimmicks.push_back(new Block(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0)); break;
 		//大きいドッスン
-	case 118:mDynamicGimmicks.push_back(new Dossunn(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 3.0)); break;
+	case 118:mDynamicGimmicks.push_back(new Dossunn(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 3.0)); break;
 		//小さいドッスン
-	case 119:mDynamicGimmicks.push_back(new Dossunn(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0)); break;
+	case 119:mDynamicGimmicks.push_back(new Dossunn(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0)); break;
 		//上向きトゲ
 	case 120:break;
 		//下向きトゲ
@@ -456,9 +456,9 @@ void Map::loadGimmick(int _x, int _y, int _n)
 		//左向きトゲ
 	case 123:break;
 		//反時計回りファイアバー
-	case 124:mDynamicGimmicks.push_back(new FireBar(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, false)); break;
+	case 124:mDynamicGimmicks.push_back(new FireBar(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, false)); break;
 		//時計回りファイアバー
-	case 125:mDynamicGimmicks.push_back(new FireBar(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, true)); break;
+	case 125:mDynamicGimmicks.push_back(new FireBar(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, true)); break;
 		//乗ると落ちる床
 	case 126:break;
 		//乗ると上がる床
@@ -514,19 +514,19 @@ void Map::loadGimmick(int _x, int _y, int _n)
 		//左向きバーナー２
 	case 152:break;
 		//時間差で現れる足場１
-	case 153:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 1));break;
+	case 153:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 1));break;
 		//時間差で現れる足場２
-	case 154:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 2)); break;
+	case 154:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 2)); break;
 		//時間差で現れる足場３
-	case 155:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 3)); break;
+	case 155:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 3)); break;
 		//時間差で現れる足場４
-	case 156:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 4)); break;
+	case 156:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 4)); break;
 		//時間差で現れる足場５
-	case 157:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 5)); break;
+	case 157:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 5)); break;
 		//時間差で現れる足場６
-	case 158:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 6)); break;
+	case 158:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 6)); break;
 		//時間差で現れる足場７
-	case 159:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH, _y * CHIP_HEIGHT, 1.0f, 7)); break;
+	case 159:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 7)); break;
 
 	
 
