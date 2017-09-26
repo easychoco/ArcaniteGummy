@@ -23,7 +23,7 @@ void Parent::initialize()
 	//stageNumXV
 
 	//for Debug
-	stageNum = 11;
+	stageNum = 13;
 
 	this->mChild = new GameNS::Play(stageNum);
 	mNextSeq = NextSequence::SEQ_NONE;

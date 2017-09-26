@@ -1,7 +1,7 @@
 #pragma once
 
 #include "..\..\..\..\Data.h"
-
+#include "..\GameMain.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -18,14 +18,6 @@ public:
 	void initialize();
 	void update();
 	void draw(const Vector2* player) const;
-
-	enum FilterType
-	{
-		TYPE_DARK,
-		TYPE_NONE,
-	};
-
-	FilterType filter;
 
 	void setFilter(FilterType _f) { this->f_type = _f; }
 

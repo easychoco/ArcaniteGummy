@@ -18,6 +18,8 @@ class EnemyController;
 
 enum StopType { TYPE_SAKUYA, TYPE_CHANGE, TYPE_NONE };
 
+enum FilterType{ FILTER_DARK, FILTER_NONE, };
+
 class GameMain : public Child
 {
 public:
@@ -27,7 +29,8 @@ public:
 	Child* update(GameParent*);
 	void draw() const;
 
-	void startConverse(int _convNum) { this->converseNum = _convNum; };
+	void startConverse(int _convNum) { this->converseNum = _convNum; }
+	void setFilter(FilterType _f);
 
 private:
 	StageChild* mStage;

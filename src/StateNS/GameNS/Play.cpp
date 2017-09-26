@@ -30,7 +30,7 @@ void Play::initialize()
 {
 	std::ifstream fin("Data/Text/stagelist.txt");
 	int a, b, x, y;
-	for (int i = 0; i < 2; i++) {
+	for (int i = 0; i < 3; i++) {
 		fin >> a >> b >> x >> y;
 		stageMapID[i] = a * 10 + b;
 		stageMapXNum[i] = x;

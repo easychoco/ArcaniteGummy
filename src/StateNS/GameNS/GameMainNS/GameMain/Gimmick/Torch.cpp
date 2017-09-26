@@ -26,7 +26,7 @@ void Torch::initialize()
 	loadImage();
 
 	isActive = true;
-	this->isBurned = false;
+	this->mIsBurned = false;
 	this->mTime = 900;
 
 	mImage = images[0];
@@ -37,7 +37,7 @@ void Torch::update(const StageChild* _stage)
 	//‰Î‚ªÁ‚¦‚½‚ç
 	if (++mTime > 600)
 	{
-		isBurned = false;
+		mIsBurned = false;
 		mImage = images[0];
 	}
 	else mImage = images[1];
@@ -60,7 +60,7 @@ void Torch::hittedAction()
 
 void Torch::burnedAction()
 {
-	this->isBurned = true;
+	this->mIsBurned = true;
 	mTime = 0;
 }
 
@@ -91,7 +91,7 @@ bool Torch::isOverlap(const Vector2* _player) const
 bool Torch::onActiveArea(const Vector2* _player) const
 {
 	//”R‚¦‚Ä‚¢‚½‚çreturn true
-	return isBurned;
+	return mIsBurned;
 }
 
 StageChild::ChipType Torch::getChipType() const

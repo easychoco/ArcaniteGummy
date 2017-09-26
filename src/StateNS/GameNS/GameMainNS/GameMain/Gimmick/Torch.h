@@ -27,8 +27,10 @@ public:
 	void checkOnActiveArea(const Vector2* player) { this->onActiveArea(player); }
 	StageChild::ChipType getChipType() const;
 
+	bool isBurned() const { return mIsBurned; }
+
 private:
-	bool isBurned;
+	bool mIsBurned;
 	int mTime;
 	int images[2];
 

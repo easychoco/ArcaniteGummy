@@ -19,7 +19,7 @@ System::~System()
 
 void System::initialize()
 {
-	this->f_type = FilterType::TYPE_NONE;
+	this->f_type = FilterType::FILTER_NONE;
 
 	img_DarkRing = LoadGraph("Data/Image/darkring.png");
 	assert(img_DarkRing != -1 && "DarkRingì«Ç›çûÇ›ÉGÉâÅ[");
@@ -34,7 +34,7 @@ void System::update()
 
 void System::draw(const Vector2* _player) const
 {
-	if(filter == TYPE_DARK)drawDarkFilter(_player, 100);
+	if(f_type == FILTER_DARK)drawDarkFilter(_player, 100);
 }
 
 

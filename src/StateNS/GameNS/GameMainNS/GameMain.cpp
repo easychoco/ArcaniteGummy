@@ -133,7 +133,7 @@ void GameMain::draw() const
 	mSystem->draw(mPlayer->getVector2());
 }
 
-
+void GameMain::setFilter(FilterType _f) { mSystem->setFilter(_f); }
 
 //==============================================
 //内部プライベート関数
@@ -245,6 +245,7 @@ StageChild* GameMain::getNextStage(int stageID)
 {
 	if (stageID == 11)return new Stage11();
 	if (stageID == 12)return new Stage12();
+	if (stageID == 13)return new Stage13();
 	/*
 	以下，同様の処理を書く
 	*/

@@ -111,7 +111,7 @@ void Mokou::loadImage()
 //FireƒNƒ‰ƒX
 //==============================================
 Mokou::Fire::Fire(const PlayerChild* _parent, int _x, int _y, bool *_direction) :
-Attack(_parent, _x, _y, 96, 10, ObjectID::A_FIRE),
+Attack(_parent, _x, _y, 96, 48, ObjectID::A_FIRE),
 direction(_direction)
 {
 	this->mTime = 0;

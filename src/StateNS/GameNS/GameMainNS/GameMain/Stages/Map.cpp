@@ -70,7 +70,7 @@ void Map::initialize()
 	mDynamicGimmicks.push_back(new Block(336, 1456, 1.0, false));
 	*/
 
-	mDynamicGimmicks.push_back(new Torch(304, 1520));
+	//mDynamicGimmicks.push_back(new Torch(304, 1520));
 
 	//mDynamicGimmicks.push_back(new FireBar(304, 1488,true));
 	//mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));
