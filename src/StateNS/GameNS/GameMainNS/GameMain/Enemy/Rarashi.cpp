@@ -18,7 +18,7 @@ Rarashi::Rarashi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32,1,1)
 
 Rarashi::~Rarashi()
 {
-
+	DeleteGraph(images);
 }
 
 void Rarashi::initialize()
@@ -33,8 +33,7 @@ void Rarashi::update(const StageChild* _stage,const Vector2* _camera)
 	//–³“G@‚à‚Á‚Æ‚¢‚¢‘‚«•û‚È‚¢H
 	damaged = true;
 	damagedTime = 4;
-	standardAction(_stage);
-	
+	standardAction(_stage);	
 }
 
 void Rarashi::move(const StageChild* _stage, int& _dx, int& _dy)
@@ -92,8 +91,10 @@ void Rarashi::move(const StageChild* _stage, int& _dx, int& _dy)
 
 void Rarashi::hittedAction()
 {
-
+	DrawCircle(100, 200, 5, GREEN);
 }
+
+
 
 }
 }

@@ -19,8 +19,8 @@ namespace GameMainNS{
 
 EnemyController::EnemyController()
 {
-	enemies.push_back(new Poppy(500, 1450));
-	enemies.push_back(new Rarashi(600, 1386));
+	enemies.push_back(new Poppy(60, 1450));
+	//enemies.push_back(new Rarashi(600, 1386));
 	//enemies.push_back(new Yachamo(1000, 1482));
 	//enemies.push_back(new Pikachi(300, 1482));
 	//enemies.push_back(new Usagi(220, 1000));

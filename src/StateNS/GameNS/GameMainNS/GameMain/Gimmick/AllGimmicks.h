@@ -13,3 +13,4 @@
 #include "Switches\SwitchWithBlock.h"
 #include "Door.h"
 #include "Burner.h"
+#include "Torch.h"

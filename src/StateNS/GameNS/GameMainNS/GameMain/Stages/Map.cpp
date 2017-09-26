@@ -61,13 +61,16 @@ void Map::initialize()
 
 	// for Debug
 
-
+	/*
 	mGimmicks.push_back(new Door(new Vector2(224, 1472), new Vector2(320, 1472)));
 	mDynamicGimmicks.push_back(new Burner(368, 1456, 0.0f, true));
 	mDynamicGimmicks.push_back(new Burner(336, 1488, pi(0.5f), true));
 	mDynamicGimmicks.push_back(new Burner(304, 1456, Pi, false));
 	mDynamicGimmicks.push_back(new Burner(336, 1424, pi(1.5f), false));
 	mDynamicGimmicks.push_back(new Block(336, 1456, 1.0, false));
+	*/
+
+	mDynamicGimmicks.push_back(new Torch(304, 1520));
 
 	//mDynamicGimmicks.push_back(new FireBar(304, 1488,true));
 	//mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));

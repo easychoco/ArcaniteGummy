@@ -30,6 +30,7 @@ public:
 private:
 	bool isBurned;
 	int mTime;
+	int images[2];
 
 	void loadImage();
 };

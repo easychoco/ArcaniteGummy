@@ -7,6 +7,9 @@ namespace GameNS {
 namespace GameMainNS{
 
 
+//このクラスの関数はMap.cppではなくStage00で呼ぶ
+//ことにすると, 画面を明るくする処理なども個別の関数を呼べるので楽
+//if(torches->isDark()){ this->chengeToDark(); }	的なね.
 Torch::Torch(int _x, int _y) : 
 DynamicGimmickChild(_x, _y, 1.0)
 {
@@ -24,31 +27,30 @@ void Torch::initialize()
 
 	isActive = true;
 	this->isBurned = false;
-	this->mTime = 0;
+	this->mTime = 900;
+
+	mImage = images[0];
 }
 
 void Torch::update(const StageChild* _stage)
 {
-	++mTime;
-	if (mTime > 600)isBurned = false;
+	//火が消えたら
+	if (++mTime > 600)
+	{
+		isBurned = false;
+		mImage = images[0];
+	}
+	else mImage = images[1];
 }
 
 void Torch::draw(const Vector2* _camera) const
 {
-	//画面内にいなければreturn
-	if (abs(p->pos_x() - _camera->pos_x()) > 350000 || abs(p->pos_y() - _camera->pos_y()) > 270000)return;
-
-	int draw_x = 320 + (p->pos_x() - _camera->pos_x()) / MyData::vectorRate;
-	int draw_y = 240 + (p->pos_y() - _camera->pos_y()) / MyData::vectorRate;
-
-	//描画
-	//if(!isPushed)DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
-	//else DrawCircle(draw_x, draw_y, 5, GREEN);
+	standardDraw(_camera, p, mImage, true);
 }
 
 void Torch::apply(Character* _character)
 {
-	
+	//_character->視界を広くする()
 }
 
 void Torch::hittedAction()
@@ -88,7 +90,8 @@ bool Torch::isOverlap(const Vector2* _player) const
 
 bool Torch::onActiveArea(const Vector2* _player) const
 {
-	return false;
+	//燃えていたらreturn true
+	return isBurned;
 }
 
 StageChild::ChipType Torch::getChipType() const
@@ -102,8 +105,8 @@ StageChild::ChipType Torch::getChipType() const
 void Torch::loadImage()
 {
 	//TODO 画像差し替え
-	mImage = LoadGraph("Data/Image/switch.png");
-	assert(mImage != -1 && "スイッチ画像読み込みエラー！");
+	int tmp = LoadDivGraph("Data/Image/Torch.png", 2, 2, 1, 32, 32, images);
+	assert(tmp != -1 && "スイッチ画像読み込みエラー！");
 }
 
 

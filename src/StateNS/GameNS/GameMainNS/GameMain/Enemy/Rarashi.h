@@ -18,6 +18,14 @@ public:
 
 
 private:
+	int images;
+	bool imgLoad = false;
+	
+	int mTime;
+
+	int moveSpeed;
+	bool preOnGround;
+
 	//Character‚ÌŠÖ”
 	void hittedAction();
 
@@ -27,14 +35,6 @@ private:
 
 
 	void initialize();
-
-	int images;
-	bool imgLoad = false;
-	
-	int mTime;
-
-	int moveSpeed;
-	bool preOnGround;
 };
 
 

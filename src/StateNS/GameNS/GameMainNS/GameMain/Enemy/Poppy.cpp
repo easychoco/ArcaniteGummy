@@ -1,13 +1,11 @@
 #include "Poppy.h"
 
 
-
-
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Poppy::Poppy(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32,1,1)
+Poppy::Poppy(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32, 1, 1)
 {
 	if(!imgLoad)loadImage();
 	assert(mImage != -1 && "Poppy‰æ‘œ“Ç‚Ýž‚ÝƒGƒ‰[!");
@@ -15,19 +13,21 @@ Poppy::Poppy(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32,1,1)
 	initialize();
 };
 
-
 Poppy::~Poppy()
 {
-	this->mDirection = player->raw_x > this->p->raw_x;
+	DeleteGraph(images);
 }
 
 void Poppy::initialize()
 {
-
+	mTime = 0;
+	this->mDirection = false;
 }
 
 void Poppy::update(const StageChild* _stage, const Vector2* _camera)
 {
+	if(mTime == 0)this->mDirection = player->raw_x > this->p->raw_x;
+
 	//‰¡‚É’¼i‚·‚é‚¾‚¯
 	mTime++;
 
@@ -36,8 +36,9 @@ void Poppy::update(const StageChild* _stage, const Vector2* _camera)
 
 void Poppy::move(const StageChild* _stage, int& _dx, int& _dy)
 {
-	int x = this->mDirection ? 1 : -1;
-	_dx = getHorizontalDiffer(_stage, x * vectorRate, _dy < 0);
+	int x = this->mDirection ? vectorRate : -vectorRate;
+	
+	_dx = getHorizontalDiffer(_stage, x, _dy < 0);
 }
 
 
