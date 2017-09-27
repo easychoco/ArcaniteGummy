@@ -95,8 +95,6 @@ void Mokou::draw_other() const
 		if (a->isActive)a->draw(camera);
 	}
 
-	//for Debug
-	DrawFormatString(0, 30, MyData::BLACK, "Mokou");
 }
 
 

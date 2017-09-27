@@ -91,7 +91,7 @@ public:
 
 	void addGimmick(DynamicGimmickChild* _d_gmk) { mDynamicGimmicks.push_back(_d_gmk); }
 	void addGimmick(int x, int y, int ID) { loadGimmick(x, y, ID); }
-	void addEnemy(AllEnemies);
+	void addEnemy(AllEnemies, int x, int y);
 	
 	std::array< std::array<int, MAP_WIDTH_NUM>, MAP_HEIGHT_NUM> getMapData() { return mapData; }
 

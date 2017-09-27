@@ -17,7 +17,6 @@ EnemyChild::~EnemyChild()
 
 void EnemyChild::initialize()
 {
-	this->mTime = 0;
 	this->mIsAlive = true;
 	this->mDirection = false;
 }
@@ -27,13 +26,12 @@ void EnemyChild::draw(const Vector2* _camera) const
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
 	if (!mIsAlive)return;
 	
-	standardDraw(_camera, p, mImage, mDirection);
+	standardDraw(_camera, mImage, mDirection);
 	draw_other(_camera);
 }
 
 void EnemyChild::standardAction(const StageChild* _stage)
 {
-	++mTime;
 	checkIsAlive(_stage);
 	if (!this->mIsAlive)return;
 

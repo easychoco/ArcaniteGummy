@@ -63,16 +63,9 @@ void PlayerChild::draw() const
 	draw_other();
 	draw_changingAnimation(draw_x, draw_y);
 
-	//hpController.draw();
 	//for Debug
 	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
-
-	//for Debug
-	DrawCircle(draw_x, draw_y, 5, MyData::GREEN, true);
-	//DrawBox(draw_x, draw_y, draw_x + 32, draw_y + 64, BLACK, false);
-	DrawFormatString(2, 50, BLACK, "Praw: %d %d", p->raw_x, p->raw_y);
-	DrawFormatString(2, 350, BLACK, "P: %d %d", p->x(), p->y());
-
+	//hpController.draw();
 }
 
 

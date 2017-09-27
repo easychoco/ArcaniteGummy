@@ -19,12 +19,15 @@ StageChild(2, 2) //エリアの数: よこ，たて
 
 Stage13::~Stage13()
 {
+	//torchesはMapのDynamickGimmicksと一緒にdeleteされるから，ここではdeleteしない
+	/*
 	for (auto& t : torches)
 	{
 			SAFE_DELETE(t);
 	}
 	torches.clear();
 	torches.shrink_to_fit();
+	*/
 }
 
 void Stage13::initialize()
@@ -37,8 +40,8 @@ void Stage13::initialize()
 	this->maps.push_back(new Map(13, 3, MapPos::POS_RIGHT_DOWN));
 
 	this->torches.push_back(new Torch(304, 1488));
-
 	this->maps[0]->addGimmick(torches[0]);
+
 
 }
 

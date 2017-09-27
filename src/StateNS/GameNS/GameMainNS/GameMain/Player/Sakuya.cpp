@@ -144,9 +144,6 @@ void Sakuya::draw_other() const
 	{
 		if(a->isActive)a->draw(camera);
 	}
-
-	//for Debug
-	DrawFormatString(0, 130, BLACK, "%d", attacks.size());
 }
 
 void Sakuya::loadImage()

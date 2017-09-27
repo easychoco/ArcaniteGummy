@@ -43,19 +43,7 @@ void Block::update(const StageChild* _stage)
 
 void Block::draw(const Vector2* _camera) const
 {
-	standardDraw(_camera, p, scale, mImage, mDirection);
-
-	//for Debug
-	//DrawFormatString(0, 50, BLACK, "%d %d", width, height);
-	//DrawFormatString(300, 100, BLACK, "%lf", scale);
-	DrawFormatString(300, 120, BLACK, "b: %d %d", collision->p->raw_x, collision->p->raw_y);
-
-
-	int draw_x = 320 + p->x() - _camera->x();
-	int draw_y = 240 + p->y() - _camera->y();
-
-	DrawCircle(draw_x, draw_y, 5, GREEN);
-	//DrawBox(draw_x, draw_y, draw_x + width, draw_y + height, BLACK, false);
+	standardDraw(_camera, scale, mImage, mDirection);
 }
 
 void Block::apply(Character* _character)

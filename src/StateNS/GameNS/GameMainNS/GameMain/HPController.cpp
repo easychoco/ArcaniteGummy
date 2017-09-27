@@ -14,6 +14,13 @@ HPController::HPController(Character* _parent, int _hp) : maxHP(_hp)
 	this->isMuteki = false;
 }
 
+HPController::HPController(Character* _parent, int _maxHP, int _nowHP) : maxHP(_maxHP)
+{
+	this->HP = _nowHP;
+	this->parent = _parent;
+	this->isMuteki = false;
+}
+
 HPController::~HPController()
 {
 	this->parent = 0;

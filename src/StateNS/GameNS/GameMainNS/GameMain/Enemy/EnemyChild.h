@@ -21,7 +21,6 @@ public:
 	vector<Attack*> getAttacks() const { return attacks; }
 
 protected:
-	int mTime;
 	int mImage;
 	bool mDirection;
 	const Vector2* player;

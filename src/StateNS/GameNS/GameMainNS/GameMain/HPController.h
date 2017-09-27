@@ -12,7 +12,8 @@ class Character;
 class HPController
 {
 public:
-	HPController(Character* parent, int hp);
+	HPController(Character* parent, int maxHP);
+	HPController(Character* parent, int maxHP, int nowHP);
 	~HPController();
 	void damage(int val);
 	void damage(int val, bool action);

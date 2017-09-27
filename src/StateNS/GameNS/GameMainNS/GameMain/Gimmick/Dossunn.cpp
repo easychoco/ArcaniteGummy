@@ -37,7 +37,7 @@ void Dossunn::update(const StageChild* _stage)
 
 void Dossunn::draw(const Vector2* _camera) const
 {
-	standardDraw(_camera, p, scale, mImage, mDirection);
+	standardDraw(_camera, scale, mImage, mDirection);
 
 }
 

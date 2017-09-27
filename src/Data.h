@@ -100,6 +100,7 @@ const unsigned WHITE = GetColor(255, 255, 255);
 const unsigned RED = GetColor(255, 0, 0);
 const unsigned GREEN = GetColor(0, 255, 0);
 const unsigned BLUE = GetColor(0, 0, 255);
+const unsigned PURPLE = GetColor(255, 0, 255);
 
 //‚·‚×‚Ä‚Ì“G
 enum AllEnemies
@@ -110,6 +111,9 @@ enum AllEnemies
 	ENE_PIKA,
 	ENE_POPPY,
 	ENE_RARA,
+
+	BOSS_REISEN,
+
 	ENE_NONE,
 };
 

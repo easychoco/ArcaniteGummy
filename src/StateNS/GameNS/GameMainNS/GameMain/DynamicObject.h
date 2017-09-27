@@ -49,9 +49,9 @@ protected:
 	virtual bool onRigidBlock() const { return false; }
 
 	//camera‚ğ’†S‚Æ‚µ‚½•`‰æ
-	void standardDraw(const Vector2* camera, const Vector2* pos, const int& image, const bool& direction) const;
+	void standardDraw(const Vector2* camera, const int& image, const bool& direction) const;
 	//Šg‘å—¦w’è”Å
-	void standardDraw(const Vector2* camera, const Vector2* pos, const double& scale, const int& image, const bool& direction) const;
+	void standardDraw(const Vector2* camera, const double& scale, const int& image, const bool& direction) const;
 };
 
 

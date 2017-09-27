@@ -30,12 +30,7 @@ Attack::~Attack()
 
 void Attack::draw(const Vector2* _camera) const
 {
-	standardDraw(_camera, p, mImage, mDirection);
-
-	//for Debug
-	int draw_x = 320 + (p->x() - _camera->x());
-	int draw_y = 240 + (p->y() - _camera->y());
-	DrawFormatString(0, 110, MyData::BLACK, "attack : %d %d", draw_x, draw_y);
+	standardDraw(_camera, mImage, mDirection);
 }
 
 void Attack::checkActive(const Vector2* _camera)

@@ -150,8 +150,6 @@ void Nue::draw_other() const
 
 	if(isUFO)ufo->draw(camera);
 
-	//for Debug
-	DrawFormatString(0, 30, MyData::BLACK, "Nue");
 }
 
 void Nue::loadImage()
@@ -254,10 +252,8 @@ void Nue::UFO::draw(const Vector2* _camera) const
 {
 	if (mTime > 150 && mTime/10 % 2)return;
 
-	standardDraw(_camera, p, mImage, mDirection);
+	standardDraw(_camera, mImage, mDirection);
 
-	//for Debug
-	DrawFormatString(0, 70, BLACK, "UFO: %d, %d", p->x(), p->y());
 
 }
 

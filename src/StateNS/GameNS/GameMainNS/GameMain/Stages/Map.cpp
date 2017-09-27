@@ -32,7 +32,7 @@ Map::~Map()
 
 	for (auto& gimmick : mDynamicGimmicks)
 	{
-		SAFE_DELETE(gimmick);
+		if(gimmick != nullptr)SAFE_DELETE(gimmick);
 	}
 	mDynamicGimmicks.clear();
 	mDynamicGimmicks.shrink_to_fit();
@@ -326,9 +326,9 @@ ChipType Map::getChipType(const RawVector2& _other, bool _isPlayer) const
 	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
 }
 
-void Map::addEnemy(AllEnemies _enemy)
+void Map::addEnemy(AllEnemies _enemy, int _x, int _y)
 {
-	this->mEController->addEnemy(_enemy, 100, 1400);
+	this->mEController->addEnemy(_enemy, _x, _y);
 }
 
 /*
@@ -381,8 +381,6 @@ void Map::drawMap(const Vector2* _camera) const
 		}
 	}
 
-	//for Debug
-	int gomi = 0;
 }
 
 void Map::loadMap(int _stageID, int _mapID)

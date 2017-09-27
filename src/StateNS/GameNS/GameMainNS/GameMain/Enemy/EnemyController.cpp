@@ -7,6 +7,7 @@
 #include "Pikachi.h"
 #include "Poppy.h"
 #include "Rarashi.h"
+#include "Reisen.h"
 #include "..\Player\PlayerChild.h"
 
 
@@ -20,7 +21,7 @@ namespace GameMainNS{
 EnemyController::EnemyController()
 {
 	//enemies.push_back(new Poppy(60, 1450));
-	enemies.push_back(new Rarashi(600, 1386));
+	//enemies.push_back(new Rarashi(600, 1386));
 	//enemies.push_back(new Yachamo(1000, 1482));
 	//enemies.push_back(new Pikachi(300, 1482));
 	//enemies.push_back(new Usagi(220, 1000));
@@ -78,6 +79,7 @@ void EnemyController::addEnemy(AllEnemies _enemy, int _x, int _y)
 	case ENE_PIKA: enemies.push_back(new Pikachi(_x, _y)); break;
 	case ENE_POPPY: enemies.push_back(new Poppy(_x, _y)); break;
 	case ENE_RARA: enemies.push_back(new Rarashi(_x, _y)); break;
+	case BOSS_REISEN: enemies.push_back(new Reisen(_x, _y)); break;
 	default: assert(!"•s–¾‚È“G‚Å‚·.");
 	}
 }

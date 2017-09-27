@@ -45,7 +45,7 @@ void Torch::update(const StageChild* _stage)
 
 void Torch::draw(const Vector2* _camera) const
 {
-	standardDraw(_camera, p, mImage, true);
+	standardDraw(_camera, mImage, true);
 }
 
 void Torch::apply(Character* _character)
