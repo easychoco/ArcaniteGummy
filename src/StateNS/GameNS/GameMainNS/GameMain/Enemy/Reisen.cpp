@@ -39,22 +39,23 @@ void Reisen::update(const StageChild* _stage, const Vector2* _camera)
 	if (mTime % 90 == 0 && !nowMoving)attack(_stage);
 	//if (!nowMoving && abs(player->raw_x - this->p->raw_x) < 64000)
 
-	if (mTime % 60 == 0)
+	if (mTime % jump_interval == 0)
 	{
 		nowMoving = false;
 	}
-	//5•b‚ÅˆÚ“®
-	//360 ‚Í120‚Ì”{”
+
+	//ˆÚ“®
+	//360 ‚Íjump_interval‚Ì‹ô””{
 	if(mTime == 360)
 	{
 		nowMoving = true;
 	}
 	//5•b‚ÅŒ³‚É–ß‚é
-	//660 ‚Í120‚Ì”{” + 60
+	//660 ‚Íjump_interval‚ÌŠï””{
 	if (mTime == 660)
 	{
 		nowMoving = true;
-		mTime = 60;
+		mTime = jump_interval;
 	}
 
 
@@ -68,7 +69,6 @@ void Reisen::update(const StageChild* _stage, const Vector2* _camera)
 	}
 
 	standardAction(_stage);
-
 }
 
 void Reisen::move(const StageChild* _stage, int& _dx, int& _dy)
@@ -78,7 +78,7 @@ void Reisen::move(const StageChild* _stage, int& _dx, int& _dy)
 	if (!nowMoving)return;
 
 	//ˆÚ“®’†
-	float theta = pi(1 / 60.0f) * (mTime % 120);
+	float theta = pi(1 / (float)jump_interval) * (mTime % (jump_interval * 2));
 
 	float sin1 = sinf(theta);
 	float sin2 = sinf(theta * 2.0f);

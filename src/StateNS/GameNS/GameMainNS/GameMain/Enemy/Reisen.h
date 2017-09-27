@@ -8,6 +8,12 @@ namespace GameNS {
 namespace GameMainNS{
 
 
+//ジャンプ移動の間隔(フレーム)
+//大きくすると移動にかかる時間が長くなる
+//大きくすると移動の距離も大きくなる
+constexpr int jump_interval = 60;
+static_assert(jump_interval > 5, "A variable \'jump_interval\' is Too small");
+
 class Reisen : public EnemyChild
 {
 public:
@@ -23,10 +29,6 @@ private:
 	int mTime;
 
 	bool nowMoving;
-
-	//ジャンプ移動の移動量
-	const int move_x = 320;
-	const int move_y = 200;
 
 	//Characterの関数
 	void hittedAction();
