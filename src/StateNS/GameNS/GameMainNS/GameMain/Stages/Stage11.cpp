@@ -23,9 +23,8 @@ void Stage11::initialize()
 {
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
-	this->maps.push_back(new Map(11, 0, MapPos::POS_LEFT_DOWN));
-	this->maps.push_back(new Map(11, 1, MapPos::POS_RIGHT_DOWN));
-
+	this->maps.push_back(new Map(11, 0, MapPos::POS_RIGHT_FREE));
+	this->maps.push_back(new Map(11, 1, MapPos::POS_LEFT_FREE));
 }
 
 

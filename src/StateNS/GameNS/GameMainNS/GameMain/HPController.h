@@ -19,6 +19,7 @@ public:
 	void recover(int val);
 	int getHP() const { return HP; }
 	bool isAlive() const { return HP > 0; }
+	bool isMuteki;
 
 private:
 	Character* parent;

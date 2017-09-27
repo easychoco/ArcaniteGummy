@@ -11,6 +11,7 @@ HPController::HPController(Character* _parent, int _hp) : maxHP(_hp)
 {
 	this->HP = this->maxHP;
 	this->parent = _parent;
+	this->isMuteki = false;
 }
 
 HPController::~HPController()
@@ -20,11 +21,13 @@ HPController::~HPController()
 
 void HPController::damage(int _val)
 {
+	if (isMuteki)return;
 	this->damage(_val, true);
 }
 
 void HPController::damage(int _val, bool action)
 {
+	if (isMuteki)return;
 	if (parent->damaged)return;
 	this->HP = max(this->HP - _val, 0);
 	parent->damaged = action;

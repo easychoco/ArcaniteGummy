@@ -25,22 +25,36 @@ class EnemyController;
 | 3 | 4 | 5 |
 +---+---+---+
 | 6 | 7 | 8 |
-+-----------+
++---+---+---+
+
++---+ +---+ +   + +---+
+  9 | | 10  | 11| | 12|
++---+ +---+ +---+ +   +
++---+ +   + +---+
+  13  | 14| | 15|
++---+ +   + +---+
 */
 enum MapPos
 {
 	//番号は上の図での位置
-	POS_LEFT_UP		= 0b000000001,//0
-	POS_UP			= 0b000000010,//1
-	POS_RIGHT_UP	= 0b000000100,//2
-	POS_LEFT		= 0b000001000,//3
-	POS_CENTER		= 0b000010000,//4
-	POS_RIGHT		= 0b000100000,//5
-	POS_LEFT_DOWN	= 0b001000000,//6
-	POS_DOWN		= 0b010000000,//7
-	POS_RIGHT_DOWN	= 0b100000000,//8
+	POS_LEFT_UP		= 0x0001,//0
+	POS_UP			= 0x0002,//1
+	POS_RIGHT_UP	= 0x0004,//2
+	POS_LEFT		= 0x0008,//3
+	POS_CENTER		= 0x0010,//4
+	POS_RIGHT		= 0x0020,//5
+	POS_LEFT_DOWN	= 0x0040,//6
+	POS_DOWN		= 0x0080,//7
+	POS_RIGHT_DOWN	= 0x0100,//8
+	POS_LEFT_FREE	= 0x0200,//9
+	POS_RIGHT_FREE	= 0x0400,//10
+	POS_UP_FREE		= 0x0800,//11
+	POS_DOWN_FREE	= 0x1000,//12
+	POS_UP_DOWN		= 0x2000,//13
+	POS_RIGHT_LEFT	= 0x4000,//14
+	POS_SINGLE		= 0x8000,//15
 
-	POS_NONE,		//なんかわからんやつ
+	POS_NONE		= 0, //なんかわからんやつ
 };
 
 using ChipType = StageChild::ChipType;
@@ -99,12 +113,12 @@ private:
 
 	//GimmickChild* clearFlag;
 	
-	bool isLeft(MapPos _mp)		const { return _mp & 0b001001001; }
-	bool isRight(MapPos _mp)	const { return _mp & 0b100100100; }
-	bool isUp(MapPos _mp)		const { return _mp & 0b000000111; }
-	bool isDown(MapPos _mp)		const { return _mp & 0b111000000; }
-	bool isCenter(MapPos _mp)	const { return _mp & 0b000010000; }
-	
+	bool isLeft(MapPos _mp)		const { return _mp & 0xDC49; }
+	bool isRight(MapPos _mp)	const { return _mp & 0xDB24; }
+	bool isUp(MapPos _mp)		const { return _mp & 0xB607; }
+	bool isDown(MapPos _mp)		const { return _mp & 0xAFC0; }
+	bool isCenter(MapPos _mp)	const { return _mp & 0x0010; }
+
 
 	//以下マップ関連
 

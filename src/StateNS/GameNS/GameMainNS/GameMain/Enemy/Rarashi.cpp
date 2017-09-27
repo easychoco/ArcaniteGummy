@@ -25,14 +25,14 @@ void Rarashi::initialize()
 {
 	this->mDirection = false;
 	this->moveSpeed = 3000;
+
+	//–³“G
+	hpController.isMuteki = true;
 }
 
 void Rarashi::update(const StageChild* _stage,const Vector2* _camera)
 {
 	mTime++;
-	//–³“G@‚à‚Á‚Æ‚¢‚¢‘‚«•û‚È‚¢H
-	damaged = true;
-	damagedTime = 4;
 	standardAction(_stage);	
 }
 
