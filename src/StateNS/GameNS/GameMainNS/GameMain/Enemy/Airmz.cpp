@@ -53,6 +53,7 @@ void Airmz::move(const StageChild* _stage, int& _dx, int& _dy)
 	int x = this->mDirection ? vectorRate : -vectorRate;
 	
 	_dx = getHorizontalDiffer(_stage, x, _dy < 0);
+	
 }
 
 
@@ -118,13 +119,14 @@ void Airmz::Bomb::update()
 	mTime++;
 	mTime %= 90;
 
-	this->p->raw_x += -dx;
+	this->p->raw_x += -getHorizontalDiffer(stage, dx, dy < 0, false);
 
 	//0.886 ~= sin(Pi/3)
-	float tmp = -0.866f * mTime + mTime * mTime / 10.0f;
-	this->p->raw_y = tmp * vectorRate + sy;
+	int dy_tmp = -1 + 2 * mTime / 10.0f;
+	dy_tmp = getBottomDiffer(stage, dy_tmp*vectorRate, dx < 0, false);
+	this->p->raw_y += dy_tmp;
 
-	//if (dx_tmp == 0 || dy_tmp == 0)this->isActive = false;
+	if (dy_tmp == 0 && mTime > 30)this->isActive = false;
 }
 
 void Airmz::Bomb::draw(const Vector2* _camera) const
