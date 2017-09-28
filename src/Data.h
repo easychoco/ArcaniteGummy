@@ -112,7 +112,7 @@ enum AllEnemies
 	ENE_POPPY,
 	ENE_RARA,
 	ENE_BROTH,
-
+	ENE_KARON,
 	BOSS_REISEN,
 
 	ENE_NONE,
