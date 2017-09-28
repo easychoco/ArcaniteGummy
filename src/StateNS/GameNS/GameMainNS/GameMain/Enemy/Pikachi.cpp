@@ -125,7 +125,8 @@ void Pikachi::Thunder::update()
 {
 	mTime++;
 	int dx_tmp = getHorizontalDiffer(stage, dx, false, false);
-	int dy_tmp = getHorizontalDiffer(stage, dy, false, false);
+	int dy_tmp = dy < 0 ? getTopDiffer(stage, dy, dx < 0, false) : getBottomDiffer(stage, dy, dx < 0, false);
+
 
 	this->p->raw_x += dx_tmp;
 	this->p->raw_y += dy_tmp;

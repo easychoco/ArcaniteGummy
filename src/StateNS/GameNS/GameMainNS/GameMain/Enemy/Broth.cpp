@@ -52,7 +52,7 @@ void Broth::move(const StageChild* _stage, int& _dx, int& _dy)
 
 	if (mTime >= 450)return;
 
-	if (mTime % 60 < 30) 
+	if (mTime % 60 <= 30) 
 	{
 		int tmp_dy = mTime % 60 < 15 ? getTopDiffer(_stage, -vectorRate, true) : getBottomDiffer(_stage, vectorRate, true);
 		_dy = tmp_dy;
@@ -138,8 +138,6 @@ void Broth::Hammer::update()
 	float tmp = -8.0f * 0.866f * mTime + mTime * mTime/10.0f;
 	this->p->raw_y = (int)(tmp * vectorRate) + sy;
 
-
-	//if (dx_tmp == 0 || dy_tmp == 0)this->isActive = false;
 }
 
 void Broth::Hammer::draw(const Vector2* _camera) const
