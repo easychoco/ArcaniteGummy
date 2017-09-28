@@ -111,6 +111,7 @@ enum AllEnemies
 	ENE_PIKA,
 	ENE_POPPY,
 	ENE_RARA,
+	ENE_BROTH,
 
 	BOSS_REISEN,
 
