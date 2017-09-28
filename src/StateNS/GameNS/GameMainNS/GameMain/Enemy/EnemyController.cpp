@@ -10,6 +10,7 @@
 #include "Reisen.h"
 #include "Broth.h"
 #include "Karon.h"
+#include "Airmz.h"
 #include "..\Player\PlayerChild.h"
 
 
@@ -83,6 +84,7 @@ void EnemyController::addEnemy(AllEnemies _enemy, int _x, int _y)
 	case ENE_RARA: enemies.push_back(new Rarashi(_x, _y)); break;
 	case ENE_BROTH: enemies.push_back(new Broth(_x, _y)); break;
 	case ENE_KARON: enemies.push_back(new Karon(_x, _y)); break;
+	case ENE_AIRMZ: enemies.push_back(new Airmz(_x, _y)); break;
 	case BOSS_REISEN: enemies.push_back(new Reisen(_x, _y)); break;
 	default: assert(!"•s–¾‚È“G‚Å‚·.");
 	}

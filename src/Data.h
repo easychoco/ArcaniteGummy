@@ -113,6 +113,7 @@ enum AllEnemies
 	ENE_RARA,
 	ENE_BROTH,
 	ENE_KARON,
+	ENE_AIRMZ,
 	BOSS_REISEN,
 
 	ENE_NONE,

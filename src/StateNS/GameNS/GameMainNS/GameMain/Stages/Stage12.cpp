@@ -28,7 +28,9 @@ void Stage12::initialize()
 	this->maps.push_back(new Map(12, 2, MapPos::POS_LEFT_DOWN));
 	this->maps.push_back(new Map(12, 3, MapPos::POS_RIGHT_DOWN));
 
-	maps[0]->addEnemy(AllEnemies::ENE_KARON, 360, 1488);
+	maps[0]->addEnemy(AllEnemies::ENE_AIRMZ, 540, 1392);
+	maps[0]->addEnemy(AllEnemies::ENE_BROTH, 540, 1488);
+
 }
 
 
