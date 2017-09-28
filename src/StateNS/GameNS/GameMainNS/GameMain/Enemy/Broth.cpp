@@ -52,7 +52,7 @@ void Broth::move(const StageChild* _stage, int& _dx, int& _dy)
 
 	if (mTime >= 450)return;
 
-	if (mTime % 60 < 30) 
+	if (mTime % 60 <= 30) 
 	{
 		int tmp_dy = mTime % 60 < 15 ? getTopDiffer(_stage, -1 * vectorRate, true) : getBottomDiffer(_stage, 1 * vectorRate, true);
 		_dy = tmp_dy;
@@ -132,12 +132,18 @@ void Broth::Hammer::update()
 //	this->p->raw_x += dx_tmp;
 //	this->p->raw_y += dy_tmp;
 
-	this->p->raw_x += -dx*vectorRate;
-	float tmp =-8.0f*sinf(Pi/3)*mTime+mTime*mTime/10.0f;
-	this->p->raw_y = tmp*vectorRate+sy;
+	int dx_tmp = mDirection ? -vectorRate : vectorRate;
+	dx_tmp=getHorizontalDiffer(stage, dx_tmp, false, false);
+	this->p->raw_x += dx_tmp;
+	int dy_tmp= -8.0f*sinf(Pi / 3) + 2*mTime / 10.0f;
+	dy_tmp=dy_tmp<0? getTopDiffer(stage, dy_tmp*vectorRate, dx < 0, false) : getBottomDiffer(stage, dy_tmp*vectorRate, dx < 0, false);
+//	float tmp = -8.0f*sinf(Pi / 3)*mTime + mTime*mTime / 10.0f;
+	//this->p->raw_y = tmp*vectorRate + sy;
 
+	this->p->raw_y += dy_tmp;
 
-	//if (dx_tmp == 0 || dy_tmp == 0)this->isActive = false;
+	if (dy_tmp == 0 && mTime>60)this->isActive = false;
+
 }
 
 void Broth::Hammer::draw(const Vector2* _camera) const
