@@ -550,7 +550,7 @@ void Map::loadEnemy(int _x, int _y, int _n)
 	case 249:eneID = ENE_TERESA; break;
 
 	}
-	if (eneID != ENE_NONE)addEnemy(eneID, _x*CHIP_WIDTH, _y*CHIP_HEIGHT);
+	if (eneID != ENE_NONE)addEnemy(eneID, _x*CHIP_WIDTH + CHIP_WIDTH / 2, _y*CHIP_HEIGHT + CHIP_HEIGHT / 2);
 
 }
 
