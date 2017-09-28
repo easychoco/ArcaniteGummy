@@ -61,7 +61,7 @@ private:
 		const Vector2* player;
 
 		const int fast_speed = 10 * vectorRate;
-		const int slow_speed =  3 * vectorRate;
+		const int slow_speed =  2 * vectorRate;
 
 		void initialize();
 	};

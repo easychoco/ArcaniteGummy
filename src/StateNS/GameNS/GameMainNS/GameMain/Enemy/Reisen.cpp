@@ -50,7 +50,7 @@ void Reisen::update(const StageChild* _stage, const Vector2* _camera)
 	{
 		nowMoving = true;
 	}
-	//5•b‚ÅŒ³‚É–ß‚é
+	//Œ³‚É–ß‚é
 	//660 ‚Íjump_interval‚ÌŠï””{
 	if (mTime == 660)
 	{
@@ -83,8 +83,8 @@ void Reisen::move(const StageChild* _stage, int& _dx, int& _dy)
 	float sin1 = sinf(theta);
 	float sin2 = sinf(theta * 2.0f);
 
-	_dx = getHorizontalDiffer(_stage, -16000 * sin1, sin2 < 0.0f);
-	_dy = sin2 < 0 ? getTopDiffer(_stage, -20000 * sin2, _dx < 0) : getBottomDiffer(_stage, -20000 * sin2, _dx < 0);
+	_dx = getHorizontalDiffer(_stage, (int)(-16000 * sin1), sin2 < 0.0f);
+	_dy = sin2 < 0 ? getTopDiffer(_stage, (int)(-20000 * sin2), _dx < 0) : getBottomDiffer(_stage, -20000 * sin2, _dx < 0);
 }
 
 void Reisen::draw_other(const Vector2* _camera) const
@@ -188,12 +188,10 @@ void Reisen::Shot::update()
 		nowFast = false;
 	}
 
+	this->p->raw_x += dx;
 
-	int dx_tmp = getHorizontalDiffer(stage, dx, false, false);
-	this->p->raw_x += dx_tmp;
-
-	//•Ç‚É“–‚½‚é‚ÆÁ–Å
-	if (dx_tmp == 0)this->isActive = false;
+	//©‹@‚©‚ç—£‚ê‚é‚ÆÁ–Å
+	if (abs(this->p->raw_x - player->raw_x) > 640000)this->isActive = false;
 }
 
 void Reisen::Shot::draw(const Vector2* _camera) const
@@ -212,7 +210,6 @@ void Reisen::Shot::draw(const Vector2* _camera) const
 	{
 		DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
 	}
-	
 }
 
 void Reisen::Shot::setStatus(Vector2 _pos, int direction)
@@ -223,7 +220,7 @@ void Reisen::Shot::setStatus(Vector2 _pos, int direction)
 
 void Reisen::Shot::hittedAction()
 {
-	this->isActive = false;
+
 }
 
 

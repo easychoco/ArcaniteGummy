@@ -74,7 +74,7 @@ void Airmz::attack(const StageChild* _stage)
 	{
 		if (!a->isActive)
 		{
-			a->setStatus(*player, 5000);
+			a->setStatus(*player, mDirection);
 			return;
 		}
 	}
@@ -95,8 +95,8 @@ void Airmz::draw_other(const Vector2* _camera) const
 //BombƒNƒ‰ƒX
 //==============================================
 Airmz::Bomb::Bomb(const Character* _parent, const StageChild* _stage, int _x, int _y, int _speed) :
-	Attack(_parent, _parent->getVector2()->raw_x, _parent->getVector2()->raw_y, 32, 32, ObjectID::ID_NONE),
-	stage(_stage)
+Attack(_parent, _parent->getVector2()->raw_x, _parent->getVector2()->raw_y, 32, 32, ObjectID::ID_NONE),
+stage(_stage)
 {
 	this->setStatus(Vector2(_x, _y, true), _speed);
 
@@ -118,9 +118,11 @@ void Airmz::Bomb::update()
 	mTime++;
 	mTime %= 90;
 
-	this->p->raw_x += -dx*vectorRate;
-	float tmp = -sinf(Pi / 3)*mTime + mTime*mTime / 10.0f;
-	this->p->raw_y = tmp*vectorRate + sy;
+	this->p->raw_x += -dx;
+
+	//0.886 ~= sin(Pi/3)
+	float tmp = -0.866f * mTime + mTime * mTime / 10.0f;
+	this->p->raw_y = tmp * vectorRate + sy;
 
 	//if (dx_tmp == 0 || dy_tmp == 0)this->isActive = false;
 }
@@ -137,11 +139,11 @@ void Airmz::Bomb::draw(const Vector2* _camera) const
 	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), mImage, true, mDirection);
 }
 
-void Airmz::Bomb::setStatus(Vector2 _player, int _speed)
+void Airmz::Bomb::setStatus(Vector2 _player, int _direction)
 {
 	mTime = 0;
 	this->isActive = true;
-	this->mDirection = this->dx < 0;
+	this->mDirection = _direction;
 
 	*(this->p) = *(parent->getVector2());
 
@@ -151,7 +153,7 @@ void Airmz::Bomb::setStatus(Vector2 _player, int _speed)
 	sy = this->p->raw_y;
 
 	float angle = atan2f(differ_y, differ_x) + Pi;
-	this->dx = 2;
+	this->dx = ((_direction) ? -2000 : 2000);
 	//	this->dy = (int)(_speed * sinf(angle));
 }
 

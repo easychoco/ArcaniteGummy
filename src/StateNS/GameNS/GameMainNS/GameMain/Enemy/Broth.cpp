@@ -54,7 +54,7 @@ void Broth::move(const StageChild* _stage, int& _dx, int& _dy)
 
 	if (mTime % 60 < 30) 
 	{
-		int tmp_dy = mTime % 60 < 15 ? getTopDiffer(_stage, -1 * vectorRate, true) : getBottomDiffer(_stage, 1 * vectorRate, true);
+		int tmp_dy = mTime % 60 < 15 ? getTopDiffer(_stage, -vectorRate, true) : getBottomDiffer(_stage, vectorRate, true);
 		_dy = tmp_dy;
 	}
 	
@@ -85,13 +85,13 @@ void Broth::attack(const StageChild* _stage)
 	{
 		if (!a->isActive)
 		{
-			a->setStatus(*player, 5000);
+			a->setStatus(*player, mDirection);
 			return;
 		}
 	}
 
 	//‚·‚×‚ÄŽg‚Á‚Ä‚¢‚½‚çnew‚·‚é
-	attacks.push_back(new Hammer(this, _stage, player->raw_x, player->raw_y, 5000));
+	attacks.push_back(new Hammer(this, _stage, player->raw_x, player->raw_y, mDirection));
 }
 
 void Broth::draw_other(const Vector2* _camera) const
@@ -105,11 +105,11 @@ void Broth::draw_other(const Vector2* _camera) const
 //==============================================
 //HammerƒNƒ‰ƒX
 //==============================================
-Broth::Hammer::Hammer(const Character* _parent, const StageChild* _stage, int _x, int _y, int _speed) :
+Broth::Hammer::Hammer(const Character* _parent, const StageChild* _stage, int _x, int _y, int _direction) :
 Attack(_parent, _parent->getVector2()->raw_x, _parent->getVector2()->raw_y, 32, 32, ObjectID::ID_NONE),
 stage(_stage)
 {
-	this->setStatus(Vector2(_x, _y, true), _speed);
+	this->setStatus(Vector2(_x, _y, true), _direction);
 
 	//for Debug
 	this->damageValue = 20;
@@ -132,9 +132,11 @@ void Broth::Hammer::update()
 //	this->p->raw_x += dx_tmp;
 //	this->p->raw_y += dy_tmp;
 
-	this->p->raw_x += -dx*vectorRate;
-	float tmp =-8.0f*sinf(Pi/3)*mTime+mTime*mTime/10.0f;
-	this->p->raw_y = tmp*vectorRate+sy;
+	this->p->raw_x += -dx;
+
+	//0.866 ~= sin(Pi/3)
+	float tmp = -8.0f * 0.866f * mTime + mTime * mTime/10.0f;
+	this->p->raw_y = (int)(tmp * vectorRate) + sy;
 
 
 	//if (dx_tmp == 0 || dy_tmp == 0)this->isActive = false;
@@ -152,27 +154,24 @@ void Broth::Hammer::draw(const Vector2* _camera) const
 	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), mImage, true, mDirection);
 }
 
-void Broth::Hammer::setStatus(Vector2 _player, int _speed)
+void Broth::Hammer::setStatus(Vector2 _player, int _direction)
 {
 	mTime = 0;
 	this->isActive = true;
-	this->mDirection = this->dx < 0;
+	this->mDirection = _direction;
 
 	*(this->p) = *(parent->getVector2());
 
-	float differ_x = (float)(this->p->raw_x - _player.raw_x);
-	float differ_y = (float)(this->p->raw_y - _player.raw_y);
-
 	sy = this->p->raw_y;
 
-	float angle = atan2f(differ_y, differ_x) + Pi;
-	this->dx = (int)GetRand(3)+1;
-//	this->dy = (int)(_speed * sinf(angle));
+	this->dx = (int)GetRand(3) + 1;
+	this->dx *= vectorRate;
+	this->dx *= ((_direction) ? -1 : 1);
 }
 
 void Broth::Hammer::hittedAction()
 {
-	this->isActive = false;
+
 }
 
 
