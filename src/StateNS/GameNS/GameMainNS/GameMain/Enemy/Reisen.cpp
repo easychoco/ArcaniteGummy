@@ -136,7 +136,7 @@ void Reisen::move(const StageChild* _stage, int& _dx, int& _dy)
 	float sin2 = sinf(theta * 2.0f);
 
 	_dx = getHorizontalDiffer(_stage, (int)(-16000 * sin1), sin2 < 0.0f);
-	_dy = sin2 < 0 ? getTopDiffer(_stage, (int)(-20000 * sin2), _dx < 0) : getBottomDiffer(_stage, -20000 * sin2, _dx < 0);
+	_dy = ((sin2 < 0) ? getTopDiffer(_stage, (int)(-20000 * sin2), _dx < 0) : getBottomDiffer(_stage, (int)(-20000 * sin2), _dx < 0));
 }
 
 void Reisen::draw_other(const Vector2* _camera) const

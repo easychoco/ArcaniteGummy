@@ -121,9 +121,9 @@ void Airmz::Bomb::update()
 
 	this->p->raw_x += -getHorizontalDiffer(stage, dx, dy < 0, false);
 
-	//0.886 ~= sin(Pi/3)
-	int dy_tmp = -1 + 2 * mTime / 10.0f;
-	dy_tmp = getBottomDiffer(stage, dy_tmp*vectorRate, dx < 0, false);
+	int dy_tmp = (2 * mTime / 10 - 1) * vectorRate;
+	dy_tmp = getBottomDiffer(stage, dy_tmp, dx < 0, false);
+
 	this->p->raw_y += dy_tmp;
 
 	if (dy_tmp == 0 && mTime > 30)this->isActive = false;
