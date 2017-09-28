@@ -16,7 +16,7 @@ namespace GameMainNS{
 	{
 	public:
 		Character(int hp, int x, int y, int w, int h, float jump, int jumpCount);
-		Character(int hp, int x, int y, int w, int h, bool isPlayer, float jump, int jumpCount);
+		Character(int hp, int x, int y, int w, int h, bool isPlayer, float jump, int jumpCount, bool hasChild);
 		virtual ~Character();
 		virtual void hittedAction() = 0;
 		void moveCharacter(float _dx, float _dy);

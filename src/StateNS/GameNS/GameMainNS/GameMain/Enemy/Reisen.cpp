@@ -7,7 +7,15 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Reisen::Reisen(int _x, int _y) : EnemyChild(1000, _x, _y, 32, 32,1,1)
+	
+	
+Reisen::Reisen(int x, int y) :
+Reisen(x, y, true)
+{ }
+
+Reisen::Reisen(int _x, int _y, bool _isOriginal) : 
+EnemyChild(_isOriginal ? 1000 : 1, _x, _y, 32, 32, _isOriginal),
+isOriginal(_isOriginal)
 {
 	if(!imgLoad)loadImage();
 	assert(mImage != -1 && "Reisen画像読み込みエラー!");
@@ -29,6 +37,16 @@ void Reisen::initialize()
 {
 	this->mTime = 0;
 	this->nowMoving = false;
+	this->makeReplica = false;
+
+	if (isOriginal)
+	{
+		replica = new Reisen(p->raw_x / vectorRate, p->raw_y / vectorRate, false);
+	}
+	else
+	{
+		replica = 0;
+	}
 }
 
 void Reisen::update(const StageChild* _stage, const Vector2* _camera)
@@ -67,8 +85,42 @@ void Reisen::update(const StageChild* _stage, const Vector2* _camera)
 			a->checkActive(_camera);
 		}
 	}
-
 	standardAction(_stage);
+
+
+	//以下，分身関連の処理
+	if (!isOriginal)return;
+
+	//分身を作る
+	//すでに作っていてやられていたら replica->isAlive() は false になる
+	if (CheckHitKey(KEY_INPUT_Q))
+	{
+		makeReplica = replica->isAlive();
+	}
+
+	//分身をupdate
+	if (makeReplica)
+	{
+		replica->update(_stage, _camera);
+		makeReplica = replica->isAlive();
+	}
+	
+
+}
+
+vector<Attack*> Reisen::getAttacks() const
+{
+	//分身ならそのまま返す
+	if (!isOriginal)return attacks;
+
+	//本体なら分身の弾と一緒に返す
+	vector<Attack*> ret = attacks;
+	for (auto& a : replica->getAttacks())
+	{
+		ret.push_back(a);
+	}
+
+	return ret;
 }
 
 void Reisen::move(const StageChild* _stage, int& _dx, int& _dy)
@@ -89,6 +141,13 @@ void Reisen::move(const StageChild* _stage, int& _dx, int& _dy)
 
 void Reisen::draw_other(const Vector2* _camera) const
 {
+	//分身をdraw
+	if (makeReplica && isOriginal)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_PMA_ADD, 100);
+		replica->draw(_camera);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 20);
+	}
 
 	for (const auto& a : attacks)
 	{

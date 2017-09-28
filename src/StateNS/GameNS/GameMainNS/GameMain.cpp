@@ -172,6 +172,7 @@ void GameMain::processCollision(StageChild* _stage)
 		}
 
 		//“G‚ÌUŒ‚‚ÆƒvƒŒƒCƒ„[‚ÌÕ“Ë
+		//“G‚¢Child‚ª‚ ‚éê‡‚ÍEnemyChild‚Ì•û‚Å‘Î‰žÏ‚Ý
 		for (auto& eAttack : enemy->getAttacks())
 		{
 			if (eAttack->isActive && mPlayer->isHit(eAttack)) 
@@ -188,7 +189,21 @@ void GameMain::processCollision(StageChild* _stage)
 				if (attack->isHit(enemy))
 				{
 					enemy->hpController.damage(attack->getDamageValue());
+					enemy->hittedAction();
 					attack->hittedAction();
+				}
+				//“G‚ªComposite“™‚Å–{‘ÌˆÈŠO‚É‚àŽÀ‘Ô‚ðŽ‚Á‚Ä‚¢‚½‚ç
+				if (enemy->hasChild)
+				{
+					for (auto& eChild : enemy->getChilds())
+					{
+						if (attack->isHit(eChild))
+						{
+							eChild->hpController.damage(attack->getDamageValue());
+							eChild->hittedAction();
+							attack->hittedAction();
+						}
+					}
 				}
 			}
 		}
@@ -210,7 +225,6 @@ void GameMain::processCollision(StageChild* _stage)
 		}
 
 		//ƒvƒŒƒCƒ„[‚ÌUŒ‚‚ÆDynamicGimmick‚ÌÕ“Ë
-		//ƒvƒŒƒCƒ„[‚ÌUŒ‚‚Æ“G‚ÌÕ“Ë
 		for (auto& attack : p_attacks)
 		{
 			if (attack->isActive && attack->isHit(gimmick))

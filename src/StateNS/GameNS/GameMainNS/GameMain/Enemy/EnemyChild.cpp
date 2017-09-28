@@ -4,8 +4,12 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-EnemyChild::EnemyChild(int _hp, int _x, int _y, int _w, int _h, float _jump, int _jumpCount) : 
-Character(_hp, _x, _y, _w, _h, _jump, _jumpCount)
+EnemyChild::EnemyChild(int hp, int x, int y, int w, int h) :
+EnemyChild(hp, x, y, w, h, false)
+{ }
+
+EnemyChild::EnemyChild(int _hp, int _x, int _y, int _w, int _h, bool _hasChild) : 
+Character(_hp, _x, _y, _w, _h, false, 0, 0, _hasChild)
 {
 	initialize();
 }

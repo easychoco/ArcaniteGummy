@@ -11,14 +11,16 @@ namespace GameMainNS{
 class EnemyChild : public Character
 {
 public:
-	EnemyChild(int hp, int x, int y, int w, int h, float jump, int jumpCount);
+	EnemyChild(int hp, int x, int y, int w, int h);
+	EnemyChild(int hp, int x, int y, int w, int h, bool hasChild);
 	virtual ~EnemyChild();
 	virtual void update(const StageChild*,const Vector2*) = 0;
 	void draw(const Vector2* camera) const;
 	virtual void draw_other(const Vector2* camera)const {}
 	bool isAlive() const { return mIsAlive; }
-	void setPlayer(const Vector2* _player) { this->player = _player; }
-	vector<Attack*> getAttacks() const { return attacks; }
+	virtual void setPlayer(const Vector2* _player) { this->player = _player; }
+	virtual vector<Attack*> getAttacks() const { return attacks; }
+	virtual vector<EnemyChild*> getChilds() { vector<EnemyChild*> gomi{ this }; return gomi; };
 
 protected:
 	int mImage;

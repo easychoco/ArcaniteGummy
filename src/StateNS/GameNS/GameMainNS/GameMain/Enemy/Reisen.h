@@ -12,16 +12,19 @@ namespace GameMainNS{
 //‘å‚«‚­‚·‚é‚ÆˆÚ“®‚É‚©‚©‚éŠÔ‚ª’·‚­‚È‚é
 //‘å‚«‚­‚·‚é‚ÆˆÚ“®‚Ì‹——£‚à‘å‚«‚­‚È‚é
 constexpr int jump_interval = 60;
-static_assert(jump_interval > 5, "A variable \'jump_interval\' is Too small");
+static_assert(jump_interval > 5, "A constance \'jump_interval\' is Too small");
 
 class Reisen : public EnemyChild
 {
 public:
 	Reisen(int x, int y);
+	Reisen(int x, int y, bool isOriginal);
 	~Reisen();
 
 	void update(const StageChild* _stage, const Vector2* _camera);
-
+	virtual void setPlayer(const Vector2* _player) override { this->player = _player; if (isOriginal)replica->setPlayer(_player); }
+	virtual vector<Attack*> getAttacks() const override;
+	virtual vector<EnemyChild*> getChilds() override { vector<EnemyChild*> ret{ replica }; return ret; }
 
 private:
 	int images;
@@ -29,6 +32,9 @@ private:
 	int mTime;
 
 	bool nowMoving;
+	const bool isOriginal;
+	bool makeReplica;
+	Reisen* replica;
 
 	//Character‚ÌŠÖ”
 	void hittedAction();

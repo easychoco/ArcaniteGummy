@@ -10,7 +10,7 @@ namespace GameNS {
 namespace GameMainNS {
 
 PlayerChild::PlayerChild(int _x, int _y, float _move, float _jump, int _jumpCount, int _hp) :
-Character(_hp, _x, _y, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT, true, _jump, _jumpCount),
+Character(_hp, _x, _y, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT, true, _jump, _jumpCount, false),
 maxMoveSpeed(_move)
 {
 	post_x = _x % MAP_WIDTH;

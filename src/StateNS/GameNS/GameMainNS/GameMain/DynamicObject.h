@@ -15,6 +15,7 @@ class DynamicObject
 {
 public:
 	DynamicObject(int x, int y, int w, int h, float jump, int jumpCount);
+	DynamicObject(int x, int y, int w, int h, float jump, int jumpCount, bool hasChild);
 	virtual ~DynamicObject();
 	virtual void hittedAction() = 0;
 	const Vector2* getVector2() const { return p; }
@@ -27,6 +28,8 @@ public:
 	//for Debug
 	int getColliX() const;
 	int getColliY() const;
+
+	const bool hasChild;
 
 protected:
 	Vector2* p;

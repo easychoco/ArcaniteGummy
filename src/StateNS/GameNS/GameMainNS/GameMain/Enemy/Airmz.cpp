@@ -5,7 +5,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Airmz::Airmz(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32, 1, 1)
+Airmz::Airmz(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
 	assert(mImage != -1 && "Airmz‰æ‘œ“Ç‚İ‚İƒGƒ‰[!");

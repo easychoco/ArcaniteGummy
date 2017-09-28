@@ -7,7 +7,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Usagi::Usagi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32,1,1)
+Usagi::Usagi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
 	assert(mImage != -1 && "Usagi‰æ‘œ“Ç‚İ‚İƒGƒ‰[!");

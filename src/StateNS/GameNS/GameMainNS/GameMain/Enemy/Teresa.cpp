@@ -7,7 +7,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Teresa::Teresa(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32,1,1)
+Teresa::Teresa(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
 	assert(mImage != -1 && "Teresa‰æ‘œ“Ç‚İ‚İƒGƒ‰[!");

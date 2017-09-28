@@ -7,7 +7,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-Karon::Karon(int _x, int _y) : EnemyChild(1, _x, _y, 32, 32,1,1)
+Karon::Karon(int _x, int _y) : EnemyChild(1, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
 	assert(mImage != -1 && "Karon‰æ‘œ“Ç‚İ‚İƒGƒ‰[!");

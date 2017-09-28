@@ -8,10 +8,14 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+DynamicObject::DynamicObject(int x, int y, int w, int h, float jump, int jumpCount) :
+DynamicObject(x, y, w, h, jump, jumpCount, false)
+{ }
 
-DynamicObject::DynamicObject(int _x, int _y, int _w, int _h, float _jump,int _jumpCount):
+DynamicObject::DynamicObject(int _x, int _y, int _w, int _h, float _jump,int _jumpCount, bool _hasChild):
 maxJumpPower(_jump),
-maxJumpCount(_jumpCount)
+maxJumpCount(_jumpCount),
+hasChild(_hasChild)
 {
 	p = new Vector2(_x, _y);
 	collision = new Collision(this, _w, _h);
