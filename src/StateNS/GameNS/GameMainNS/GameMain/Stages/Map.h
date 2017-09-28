@@ -134,6 +134,7 @@ private:
 
 	void loadMap(int stageID, int mapID);
 	void loadGimmick(int x,int y,int ID);
+	void loadEnemy(int x, int y, int ID);
 
 	
 	//‘OŒi•`‰æ

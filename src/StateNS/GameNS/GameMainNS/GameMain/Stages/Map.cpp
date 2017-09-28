@@ -52,9 +52,10 @@ void Map::initialize()
 
 	for (unsigned y = 0; y < gimmickData.size(); y++)
 	{
-		for (unsigned x = 0; x < gimmickData[0].size(); x++)
+		for (unsigned x = 0; x < gimmickData[y].size(); x++)
 		{
 			loadGimmick(x, y, gimmickData[y][x]);
+			loadEnemy(x, y, gimmickData[y][x]);
 			//DrawGraph(x * 32 - draw_x, y * 32 - draw_y, mapChip[_mapData[y][x]], true);
 		}
 	}
@@ -525,12 +526,34 @@ void Map::loadGimmick(int _x, int _y, int _n)
 	case 158:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 6)); break;
 		//ŽžŠÔ·‚ÅŒ»‚ê‚é‘«ê‚V
 	case 159:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 7)); break;
-
 	
 
 	}
+	
 
 }
+
+void Map::loadEnemy(int _x, int _y, int _n)
+{
+	//TODO •ÏX“r’†
+	AllEnemies eneID = ENE_NONE;
+	switch (_n) {
+	case 240:eneID = ENE_USA; break;
+	case 241:eneID = ENE_BALL; break;
+	case 242:eneID = ENE_POPPY; break;
+	case 243:eneID = ENE_RARA; break;
+	case 244:eneID = ENE_PIKA; break;
+	case 245:eneID = ENE_BROTH; break;
+	case 246:eneID = ENE_YACH; break;
+	case 247:eneID = ENE_KARON; break;
+	case 248:eneID = ENE_AIRMZ; break;
+	case 249:eneID = ENE_TERESA; break;
+
+	}
+	if (eneID != ENE_NONE)addEnemy(eneID, _x*CHIP_WIDTH, _y*CHIP_HEIGHT);
+
+}
+
 
 
 
