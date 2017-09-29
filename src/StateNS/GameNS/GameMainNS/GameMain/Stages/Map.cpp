@@ -447,21 +447,21 @@ void Map::loadGimmick(int _x, int _y, int _n)
 		//小さいドッスン
 	case 119:mDynamicGimmicks.push_back(new Dossunn(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0)); break;
 		//上向きトゲ
-	case 120:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 0.0f)); break;
+//	case 120:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 0.0f)); break;
 		//下向きトゲ
-	case 121:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi)); break;
+//	case 121:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi)); break;
 		//右向きトゲ
-	case 122:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi/2)); break;
+//	case 122:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi/2)); break;
 		//左向きトゲ
-	case 123:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, -Pi/2)); break;
+//	case 123:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, -Pi/2)); break;
 		//反時計回りファイアバー
 	case 124:mDynamicGimmicks.push_back(new FireBar(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, false)); break;
 		//時計回りファイアバー
 	case 125:mDynamicGimmicks.push_back(new FireBar(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, true)); break;
 		//乗ると落ちる床
-	case 126:break;
+	case 126:mDynamicGimmicks.push_back(new FallFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, true)); break;
 		//乗ると上がる床
-	case 127:break;
+	case 127:mDynamicGimmicks.push_back(new FallFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, false)); break;
 		//動く床：上下：小
 	case 128:break;
 		//動く床：上下：大
