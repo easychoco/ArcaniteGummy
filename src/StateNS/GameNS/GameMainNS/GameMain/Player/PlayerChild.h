@@ -113,7 +113,7 @@ private:
 	void updateCamera();
 	bool isOnGround(const StageChild*);
 	bool isOnLadder(const StageChild*) const;
-
+	bool isOnLesal(const StageChild*);
 
 
 };

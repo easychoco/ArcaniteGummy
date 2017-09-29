@@ -31,15 +31,16 @@ public:
 
 	enum ChipType
 	{
-		TYPE_BACK				= 0b000000001, //すり抜けられる
-		TYPE_RIGID				= 0b000000010, //すり抜けられない
-		TYPE_RIDE				= 0b000000100, //下からはすり抜け、上からはすり抜けられない
-		TYPE_DOWN_SLANT_RIGHT	= 0b000001000, //右上へ向けた斜めブロック, 上がブロックなし
-		TYPE_DOWN_SLANT_LEFT	= 0b000010000, //左上へ向けた斜めブロック, 上がブロックなし
-		TYPE_UP_SLANT_RIGHT		= 0b000100000, //右上へ向けた斜めブロック, 下がブロックなし
-		TYPE_UP_SLANT_LEFT		= 0b001000000, //左上へ向けた斜めブロック, 下がブロックなし
-		TYPE_LADDER				= 0b010000000, //はしご
-		TYPE_LADDER_TOP			= 0b100000000, //はしごの上
+		TYPE_BACK				= 0b0000000001, //すり抜けられる
+		TYPE_RIGID				= 0b0000000010, //すり抜けられない
+		TYPE_RIDE				= 0b0000000100, //下からはすり抜け、上からはすり抜けられない
+		TYPE_DOWN_SLANT_RIGHT	= 0b0000001000, //右上へ向けた斜めブロック, 上がブロックなし
+		TYPE_DOWN_SLANT_LEFT	= 0b0000010000, //左上へ向けた斜めブロック, 上がブロックなし
+		TYPE_UP_SLANT_RIGHT		= 0b0000100000, //右上へ向けた斜めブロック, 下がブロックなし
+		TYPE_UP_SLANT_LEFT		= 0b0001000000, //左上へ向けた斜めブロック, 下がブロックなし
+		TYPE_LADDER				= 0b0010000000, //はしご
+		TYPE_LADDER_TOP			= 0b0100000000, //はしごの上
+		TYPE_LESAL				= 0b1000000000, //あたったらしぬ。
 	};
 
 	virtual bool isRigid_down(ChipType _ct) const { return (_ct & 0b101100110) != 0; }//下にすり抜けられないブロック，床になる
