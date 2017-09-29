@@ -184,6 +184,8 @@ void PlayerChild::move(const StageChild* _stage)
 		}
 	}
 
+	if(isOnLesal(_stage))hpController.damage(9999999);
+
 	//’nã‚É‚¢‚é‚È‚ç
 	if (jumpPower == 0 && onGround)
 	{
@@ -325,6 +327,16 @@ bool PlayerChild::isOnLadder(const StageChild* _stage) const
 
 	return chipType == StageChild::ChipType::TYPE_LADDER || chipType == StageChild::ChipType::TYPE_LADDER_TOP;
 }
+
+bool PlayerChild::isOnLesal(const StageChild* _stage)
+{
+
+	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y());
+	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
+
+	return chipType == StageChild::ChipType::TYPE_LESAL;
+}
+
 
 int PlayerChild::animation() 
 {

@@ -12,7 +12,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-MovingFloor::MovingFloor(int _x, int _y, int _term_x, int _term_y, float _movingSpeed) : 
+MovingFloor::MovingFloor(int _x, int _y, int _term_x, int _term_y, float _movingSpeed,int _moveType) :
 DynamicGimmickChild(_x, _y, 1.0)
 {
 	this->width  = 64;
@@ -30,8 +30,7 @@ DynamicGimmickChild(_x, _y, 1.0)
 
 	this->motion_dx = _movingSpeed * cosf(angle);
 	this->motion_dy = _movingSpeed * sinf(angle);
-
-
+	this->moveType = _moveType;
 	initialize();
 }
 
@@ -51,19 +50,20 @@ void MovingFloor::update(const StageChild* _stage)
 	mTime++;
 	mTime %= interval;
 
-	float tmp_dx = ((mTime - interval / 2 < 0) ? motion_dx : -motion_dx);
-	float tmp_dy = ((mTime - interval / 2 < 0) ? motion_dy : -motion_dy);
 
-	dx = (int)(tmp_dx * vectorRate);
-	dy = (int)(tmp_dy * vectorRate);
 
+
+	move();
 	standardMove(_stage);
 
 }
 
 void MovingFloor::draw(const Vector2* _camera) const
 {
+	
 	standardDraw(_camera, scale, mImage, mDirection);
+	DrawFormatString(0, 100, BLACK, "interval:%d", interval);
+	DrawFormatString(0, 128, BLACK, "mTime:%d", mTime);
 }
 
 void MovingFloor::apply(Character* _character)
@@ -119,6 +119,30 @@ void MovingFloor::loadImage()
 {
 	this->mImage = LoadGraph("Data/Image/movingfloor.png");
 	assert(mImage != -1 && "MovingFloor画像読み込みエラー!");
+
+}
+
+void MovingFloor::move()
+{
+	float tmp_dx=0.0f, tmp_dy=0.0f;
+
+	switch (moveType) 
+	{
+	case 0://線形移動
+		tmp_dx = ((mTime - interval / 2 < 0) ? motion_dx : -motion_dx);
+		tmp_dy = ((mTime - interval / 2 < 0) ? motion_dy : -motion_dy);
+		break;
+	case 1://上に凸な放物線移動
+		tmp_dx = ((mTime - interval / 2 < 0) ? motion_dx : -motion_dx);
+		tmp_dy = (mTime - interval / 2 < 0) ? (mTime - interval / 4) / 10.0f :-(interval-mTime-interval/4) / 10.0f;
+		break;
+	case 2://円運動
+		break;
+	case 3://アステロイド
+		break;
+	}
+	dx = (int)(tmp_dx * vectorRate);
+	dy = (int)(tmp_dy * vectorRate);
 
 }
 
