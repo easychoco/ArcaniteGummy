@@ -66,10 +66,12 @@ void Shot::setStatus_2args(Vector2 pos, int _angle, int _speed)
 	if (pos != Vector2::ZERO)*p = pos;
 	this->angle = pi(1 / 180.0f) * _angle;
 
-	this->dx = (int)(_speed * cos(angle));
-	this->dy = (int)(_speed * sin(angle));
+	this->dx = (int)(_speed * cosf(angle));
+	this->dy = (int)(_speed * sinf(angle));
 }
 
+float sinf_degree(int degree) { return sinf(pi(degree / 180.0f)); }
+float cosf_degree(int degree) { return cosf(pi(degree / 180.0f)); }
 
 
 }

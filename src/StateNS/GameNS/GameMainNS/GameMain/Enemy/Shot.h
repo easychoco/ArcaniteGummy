@@ -22,7 +22,7 @@ public:
 	void setStatus(Vector2, int status) { assert(!"Shot::setStatus <- この関数は呼ばれないはずだー"); };
 
 	//第1引数にVector2::ZEROが来ると位置は更新されない angleは度数法
-	void setStatus_2args(Vector2, int speed, int angle) override;
+	void setStatus_2args(Vector2, int angle, int speed) override;
 	void hittedAction() override {}
 
 protected:
@@ -35,7 +35,8 @@ protected:
 	void loadImage() { this->mImage = LoadGraph("Data/Image/Junko_attack1.png"); }
 };
 
-
+float sinf_degree(int degree);
+float cosf_degree(int degree);
 
 
 }

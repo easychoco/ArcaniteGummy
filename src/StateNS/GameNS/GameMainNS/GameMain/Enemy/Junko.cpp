@@ -27,12 +27,23 @@ void Junko::initialize()
 {
 	this->mTime = 0;
 
+	this->attack_around = false;
+
+	//for Debug
 	attacks.push_back(new Shot(this, 400000, 1480000, 180, 4000, 30));
 }
 
 void Junko::update(const StageChild* _stage, const Vector2* _camera)
 {
 	this->mDirection = player->raw_x > this->p->raw_x;
+
+	//for Debug
+	if (CheckHitKey(KEY_INPUT_Q))
+	{
+		if(!attack_around)s_a = new Shot_around(player, this);
+		else s_a->setStatus(player);
+		attack_around = true;
+	}
 
 	++mTime;
 
@@ -45,6 +56,8 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 		}
 	}
 	standardAction(_stage);
+
+	if(attack_around)s_a->update();
 }
 
 void Junko::move(const StageChild* _stage, int& _dx, int& _dy)
@@ -61,6 +74,8 @@ void Junko::draw_other(const Vector2* _camera) const
 			a->draw(_camera);
 		}
 	}
+
+	if (attack_around)s_a->draw(_camera);
 
 	//for Debug
 	int draw_x = 320 + p->x() - _camera->x();
@@ -102,7 +117,7 @@ void Junko::attack(const StageChild* _stage)
 //==============================================
 //Shot_aroundクラス
 //==============================================
-Junko::Shot_around::Shot_around(Vector2* _pos, EnemyChild* _parent)
+Junko::Shot_around::Shot_around(const Vector2* _pos, EnemyChild* _parent)
 {
 	parent = _parent;
 	initialize(_pos);
@@ -119,25 +134,41 @@ Junko::Shot_around::~Shot_around()
 	SAFE_DELETE(shot6);
 }
 
-void Junko::Shot_around::initialize(Vector2* _pos)
+void Junko::Shot_around::initialize(const Vector2* _pos)
 {
+	time = 0;
+
 	//ステータスは現時点で適当
-	shot1 = new Shot(parent, _pos->raw_x, _pos->raw_y, 30, 4000, 50);
-	shot2 = new Shot(parent, _pos->raw_x, _pos->raw_y, 30, 4000, 50);
-	shot3 = new Shot(parent, _pos->raw_x, _pos->raw_y, 30, 4000, 50);
-	shot4 = new Shot(parent, _pos->raw_x, _pos->raw_y, 30, 4000, 50);
-	shot5 = new Shot(parent, _pos->raw_x, _pos->raw_y, 30, 4000, 50);
-	shot6 = new Shot(parent, _pos->raw_x, _pos->raw_y, 30, 4000, 50);
+	shot1 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree( 30)), _pos->raw_y + (int)(radius * sinf_degree( 30)),  30, -2500, 50);
+	shot2 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree( 90)), _pos->raw_y + (int)(radius * sinf_degree( 90)),  90, -2500, 50);
+	shot3 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree(150)), _pos->raw_y + (int)(radius * sinf_degree(150)), 150, -2500, 50);
+	shot4 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree(210)), _pos->raw_y + (int)(radius * sinf_degree(210)), 210, -2500, 50);
+	shot5 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree(270)), _pos->raw_y + (int)(radius * sinf_degree(270)), 270, -2500, 50);
+	shot6 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree(330)), _pos->raw_y + (int)(radius * sinf_degree(330)), 330, -2500, 50);
 }
 
 void Junko::Shot_around::update()
 {
-
+	time++;
+	if (time > 120)
+	{
+		shot1->update();
+		shot2->update();
+		shot3->update();
+		shot4->update();
+		shot5->update();
+		shot6->update();
+	}
 }
 
-void Junko::Shot_around::draw(Vector2* _camera) const
+void Junko::Shot_around::draw(const Vector2* _camera) const
 {
-
+	shot1->draw(_camera);
+	shot2->draw(_camera);
+	shot3->draw(_camera);
+	shot4->draw(_camera);
+	shot5->draw(_camera);
+	shot6->draw(_camera);
 }
 
 void Junko::Shot_around::addAttacks(vector<Attack*>&_attacks)
@@ -145,9 +176,24 @@ void Junko::Shot_around::addAttacks(vector<Attack*>&_attacks)
 
 }
 
-void Junko::Shot_around::setStatus(Vector2* _pos)
+void Junko::Shot_around::setStatus(const Vector2* _pos)
 {
+	time = 0;
+	shot1->setStatus_2args(Vector2(_pos->raw_x + (int)(radius * cosf_degree( 30)), _pos->raw_y + (int)(radius * sinf_degree( 30)), true), 30, -2500);
+	shot2->setStatus_2args(Vector2(_pos->raw_x + (int)(radius * cosf_degree( 90)), _pos->raw_y + (int)(radius * sinf_degree( 90)), true), 90, -2500);
+	shot3->setStatus_2args(Vector2(_pos->raw_x + (int)(radius * cosf_degree(150)), _pos->raw_y + (int)(radius * sinf_degree(150)), true),150, -2500);
+	shot4->setStatus_2args(Vector2(_pos->raw_x + (int)(radius * cosf_degree(210)), _pos->raw_y + (int)(radius * sinf_degree(210)), true),210, -2500);
+	shot5->setStatus_2args(Vector2(_pos->raw_x + (int)(radius * cosf_degree(270)), _pos->raw_y + (int)(radius * sinf_degree(270)), true),270, -2500);
+	shot6->setStatus_2args(Vector2(_pos->raw_x + (int)(radius * cosf_degree(330)), _pos->raw_y + (int)(radius * sinf_degree(330)), true),330, -2500);
 
+	/*
+	shot1 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree( 30)), _pos->raw_y + (int)(radius * sinf_degree( 30)),  30, -2500, 50);
+	shot2 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree( 90)), _pos->raw_y + (int)(radius * sinf_degree( 90)),  90, -2500, 50);
+	shot3 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree(150)), _pos->raw_y + (int)(radius * sinf_degree(150)), 150, -2500, 50);
+	shot4 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree(210)), _pos->raw_y + (int)(radius * sinf_degree(210)), 210, -2500, 50);
+	shot5 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree(270)), _pos->raw_y + (int)(radius * sinf_degree(270)), 270, -2500, 50);
+	shot6 = new Shot(parent, _pos->raw_x + (int)(radius * cosf_degree(330)), _pos->raw_y + (int)(radius * sinf_degree(330)), 330, -2500, 50);
+	*/
 }
 
 

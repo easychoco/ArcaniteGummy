@@ -24,6 +24,9 @@ private:
 	bool imgLoad = false;
 	int mTime;
 
+	bool attack_around;
+
+
 
 	//CharacterÇÃä÷êî
 	void hittedAction();
@@ -41,16 +44,19 @@ private:
 	class Shot_around
 	{
 	public:
-		Shot_around(Vector2* pos, EnemyChild*);
+		Shot_around(const Vector2* pos, EnemyChild*);
 		~Shot_around();
 		void update();
-		void draw(Vector2* pos) const;
+		void draw(const Vector2* pos) const;
 		void addAttacks(vector<Attack*>&);
 
-		void setStatus(Vector2* pos);
+		void setStatus(const Vector2* pos);
 		bool isActive;
 		int time;
+
 	private:
+		const int radius = PLAYER_CHIP_HEIGHT_RATE() * 2;
+
 		Character* parent;
 		Vector2* p;
 
@@ -61,8 +67,10 @@ private:
 		Shot* shot5;
 		Shot* shot6;
 
-		void initialize(Vector2* pos);
+		void initialize(const Vector2* pos);
 	};
+
+	Shot_around* s_a;
 };
 
 
