@@ -34,7 +34,7 @@ void Stage12::initialize()
 	maps[0]->addEnemy(AllEnemies::ENE_AIRMZ, 540, 1392);
 	maps[0]->addEnemy(AllEnemies::ENE_BROTH, 540, 1488);
 	*/
-	maps[0]->addEnemy(AllEnemies::ENE_TERESA, 540, 1360);
+//	maps[0]->addEnemy(AllEnemies::ENE_TERESA, 540, 1360);
 }
 
 

@@ -14,3 +14,4 @@
 #include "Door.h"
 #include "Burner.h"
 #include "Torch.h"
+#include "Needle.h"
