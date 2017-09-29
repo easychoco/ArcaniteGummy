@@ -15,7 +15,7 @@ class Child;
 class MovingFloor : public DynamicGimmickChild
 {
 public:
-	MovingFloor(int start_x, int start_y, int term_x, int term_y, float movingSpeed);
+	MovingFloor(int start_x, int start_y, int term_x, int term_y, float movingSpeed,int moveType);
 	~MovingFloor();
 	void initialize();
 	void update(const StageChild*);
@@ -37,7 +37,8 @@ private:
 	
 	float motion_dx;
 	float motion_dy;
-
+	int moveType;
+	void move();
 	void loadImage();
 };
 
