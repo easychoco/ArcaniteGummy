@@ -34,7 +34,7 @@ private:
 
 	//‚ ‚Á‚¿‚És‚Á‚ÄŒ³‚ÌêŠ‚É–ß‚é‚Ü‚Å‚ÌƒtƒŒ[ƒ€”
 	int interval;
-	
+	int r;
 	float motion_dx;
 	float motion_dy;
 	int moveType;
