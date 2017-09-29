@@ -19,15 +19,15 @@ public:
 	Attack(const Character*, int x, int y, int w, int h, ObjectID);
 	virtual ~Attack();
 	virtual void setStatus(Vector2, int status) = 0;
+	virtual void setStatus_2args(Vector2, int status1, int status2) {};
 	virtual void update() = 0;
-	virtual void draw(const Vector2*) const;
+	virtual void draw(const Vector2* camera) const;
 	void burnedAction(){ /*do nothing*/ }
 	void checkActive(const Vector2* camera);
 	int getDamageValue() { return damageValue; }
 
 	bool isActive;
 	const Character* parent;
-
 	const ObjectID id;
 
 protected:

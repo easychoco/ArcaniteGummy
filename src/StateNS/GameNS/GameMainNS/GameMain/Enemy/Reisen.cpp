@@ -25,12 +25,7 @@ isOriginal(_isOriginal)
 
 Reisen::~Reisen()
 {
-	for (auto& s : shots)
-	{
-		SAFE_DELETE(s);
-	}
-	shots.clear();
-	shots.shrink_to_fit();
+
 }
 
 void Reisen::initialize()
@@ -54,7 +49,7 @@ void Reisen::update(const StageChild* _stage, const Vector2* _camera)
 	this->mDirection = player->raw_x > this->p->raw_x;
 
 	++mTime;
-	if (mTime % 90 == 0 && !nowMoving)attack(_stage);
+	if (mTime % 90 == 0 && !nowMoving)attack();
 	//if (!nowMoving && abs(player->raw_x - this->p->raw_x) < 64000)
 
 	if (mTime % jump_interval == 0)
@@ -174,7 +169,7 @@ void Reisen::hittedAction()
 
 }
 
-void Reisen::attack(const StageChild* _stage)
+void Reisen::attack()
 {
 	//使っていないオブジェクトを再利用
 	for (auto& a : attacks)
@@ -188,15 +183,14 @@ void Reisen::attack(const StageChild* _stage)
 	}
 
 	//すべて使っていたらnewする
-	attacks.push_back(new Shot(this, _stage, player, this->p->raw_x, this->p->raw_y));
+	attacks.push_back(new Shot(this, player, this->p->raw_x, this->p->raw_y));
 }
 
 //==============================================
 //Shotクラス
 //==============================================
-Reisen::Shot::Shot(const EnemyChild* _parent, const StageChild* _stage, const Vector2* _player, int _x, int _y) :
+Reisen::Shot::Shot(const EnemyChild* _parent, const Vector2* _player, int _x, int _y) :
 Attack(_parent, _x, _y, 32, 32, ObjectID::ID_NONE),
-stage(_stage),
 player(_player)
 {
 	//for Debug
@@ -220,12 +214,6 @@ void Reisen::Shot::initialize()
 	p->raw_x += ((mDirection) ? 16000 : -16000);
 	time = 0;
 	nowFast = true;
-
-	//for Debug
-	if (CheckHitKey(KEY_INPUT_Q))
-	{
-		int gomi = 0;
-	}
 }
 
 void Reisen::Shot::update()

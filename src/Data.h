@@ -116,6 +116,7 @@ enum AllEnemies
 	ENE_AIRMZ,
 	ENE_TERESA,
 	BOSS_REISEN,
+	BOSS_JUNKO,
 
 	ENE_NONE,
 };

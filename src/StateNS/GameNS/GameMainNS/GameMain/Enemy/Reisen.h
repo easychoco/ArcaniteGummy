@@ -45,14 +45,14 @@ private:
 
 	//TODO âÊëúç∑Çµë÷Ç¶
 	void loadImage() { images = LoadGraph("Data/Image/balloon.png"); mImage = images; imgLoad = true; }
-	void attack(const StageChild*);
+	void attack();
 
 	void initialize();
 
 	class Shot : public Attack
 	{
 	public:
-		Shot(const EnemyChild*, const StageChild*, const Vector2* player, int x, int y);
+		Shot(const EnemyChild*, const Vector2* player, int x, int y);
 		~Shot();
 		void update();
 		virtual void draw(const Vector2*) const override;
@@ -63,7 +63,6 @@ private:
 		int time;
 		int dx;
 		bool nowFast;
-		const StageChild* stage;
 		const Vector2* player;
 
 		const int fast_speed = 10 * vectorRate;
@@ -72,7 +71,6 @@ private:
 		void initialize();
 	};
 
-	vector<Shot*> shots;
 
 };
 
