@@ -23,7 +23,7 @@ enum FilterType{ FILTER_DARK, FILTER_NONE, };
 class GameMain : public Child
 {
 public:
-	GameMain(int stageID,int width,int height);
+	GameMain(int stageID);
 	~GameMain();
 	void initialize();
 	Child* update(GameParent*);
@@ -38,7 +38,6 @@ private:
 	System* mSystem;
 	EnemyController* mEController;
 	int stageID;
-	int xNum, yNum;
 
 	int converseNum;
 

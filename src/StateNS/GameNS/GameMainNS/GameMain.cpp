@@ -25,8 +25,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-GameMain::GameMain(int _n,int _x,int _y){
-	xNum = _x, yNum = _y;
+GameMain::GameMain(int _n){
 	stageID = _n;
 	initialize();
 }
