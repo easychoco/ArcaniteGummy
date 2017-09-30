@@ -23,8 +23,8 @@ Usagi::~Usagi()
 
 void Usagi::initialize()
 {
-	this->mDirection = false;
-	this->moveSpeed = 3000;
+	this->mDirection = true;
+	this->moveSpeed = 1000;
 }
 
 void Usagi::update(const StageChild* _stage,const Vector2* _camera)
@@ -69,8 +69,8 @@ void Usagi::move(const StageChild* _stage, int& _dx, int& _dy)
 		}
 
 	}
-
-	_dx = getHorizontalDiffer(_stage, moveSpeed, _dy < 0);
+	
+	_dx = getHorizontalDiffer(_stage, -moveSpeed, _dy < 0);
 	this->mDirection = _dx > 0;
 
 	//_dx‚ª0‚Å•Ç‚É‚Ô‚Â‚©‚é

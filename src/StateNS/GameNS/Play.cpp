@@ -37,7 +37,8 @@ void Play::initialize()
 		stageMapYNum[i] = y;
 	}
 
-	int stage_index = (stageNum / 10 - 1) * 3 + stageNum % 10 - 1;
+//	int stage_index = (stageNum / 10 - 1) * 3 + stageNum % 10 - 1;
+	int stage_index = 0;
 	gameMain = new GameMainNS::GameMain(stageMapID[stage_index], stageMapXNum[stage_index], stageMapYNum[stage_index]);
 
 	mNextSeq = NextSequence::SEQ_NONE;

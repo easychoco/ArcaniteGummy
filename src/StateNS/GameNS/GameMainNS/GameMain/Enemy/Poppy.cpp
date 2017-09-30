@@ -39,6 +39,8 @@ void Poppy::move(const StageChild* _stage, int& _dx, int& _dy)
 	int x = this->mDirection ? vectorRate : -vectorRate;
 	
 	_dx = getHorizontalDiffer(_stage, x, _dy < 0);
+	if (_dx == 0)mDirection = !mDirection;
+	
 }
 
 
