@@ -16,12 +16,20 @@ DynamicGimmickChild(_x, _y, 1.0)
 
 SwitchWithBlock::~SwitchWithBlock()
 {
-	for (auto& block : blocks)
+	for (auto& block : blocks_on)
 	{
 		SAFE_DELETE(block);
 	}
-	blocks.clear();
-	blocks.shrink_to_fit();
+	blocks_on.clear();
+	blocks_on.shrink_to_fit();
+
+	for (auto& block : blocks_off)
+	{
+		SAFE_DELETE(block);
+	}
+	blocks_off.clear();
+	blocks_off.shrink_to_fit();
+
 	DeleteGraph(mImage);
 }
 

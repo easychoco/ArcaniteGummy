@@ -80,6 +80,13 @@ void Map::initialize()
 	
 	//mSwitchWithBlocks[0]->push_block(new Block(208, 1296, 1.0));
 	//mSwitchWithBlocks[0]->push_block(new Block(256, 1312, 2.0));
+
+	SwitchWithBlock* s = new SwitchWithBlock(208, 1488);
+	s->push_block(new Block(208, 1296, 1.0), true);
+	s->push_block(new Block(256, 1312, 2.0), false);
+
+	mDynamicGimmicks.push_back(s);
+	mSwitchWithBlocks.push_back(s);
 }
 
 void Map::update(PlayerChild* _player, const StageChild* _stage)
