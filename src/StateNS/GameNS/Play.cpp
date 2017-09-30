@@ -30,16 +30,19 @@ void Play::initialize()
 {
 	std::ifstream fin("Data/Text/stagelist.txt");
 	int a, b, x, y;
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < 12; i++) {
 		fin >> a >> b >> x >> y;
 		stageMapID[i] = a * 10 + b;
 		stageMapXNum[i] = x;
 		stageMapYNum[i] = y;
 	}
 
+
 //	int stage_index = (stageNum / 10 - 1) * 3 + stageNum % 10 - 1;
-	int stage_index = 0;
+	int stage_index = 7;
 	gameMain = new GameMainNS::GameMain(stageMapID[stage_index], stageMapXNum[stage_index], stageMapYNum[stage_index]);
+
+
 
 	mNextSeq = NextSequence::SEQ_NONE;
 }
