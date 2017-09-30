@@ -379,55 +379,6 @@ void Junko::Shot_cycle::checkActive(const Vector2* _camera)
 }
 
 
-//==============================================
-//Shot_reflectƒNƒ‰ƒX
-//==============================================
-Junko::Shot_reflect::Shot_reflect(const Vector2* _pos, EnemyChild* _parent)
-{
-
-}
-
-Junko::Shot_reflect::~Shot_reflect()
-{
-
-}
-
-void Junko::Shot_reflect::initialize(const Vector2* _pos)
-{
-
-}
-
-void Junko::Shot_reflect::update()
-{
-
-}
-
-void Junko::Shot_reflect::draw(const Vector2* _camera) const
-{
-
-}
-
-void Junko::Shot_reflect::addAttacks(vector<Attack*>& _attacks)
-{
-
-}
-
-void Junko::Shot_reflect::setStatus(const Vector2* _pos)
-{
-
-}
-
-void Junko::Shot_reflect::setActive(bool _isActive)
-{
-
-}
-
-void Junko::Shot_reflect::checkActive(const Vector2* _camera)
-{
-
-}
-
-
 
 }
 }
