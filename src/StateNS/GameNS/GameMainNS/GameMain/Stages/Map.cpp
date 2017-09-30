@@ -478,40 +478,40 @@ void Map::loadGimmick(int _x, int _y, int _n)
 	case 134:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 9 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT * 9 / 2, 1.0f, 0)); break;
 		//動く床：右下斜め：大
 	case 135:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 17 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT * 17 / 2, 1.0f, 0)); break;
-		//動く床：円：小
-	case 136:break;
-		//動く床：円：大
-	case 137:break;
-		//動く床：アステロイド：小
-	case 138:break;
-		//動く床：アステロイド：大
-	case 139:break;
+		//動く床：円：小：時計回り
+	case 136:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 5 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 3)); break;
+		//動く床：円：大：時計回り
+	case 137:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 7 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 3)); break;
+		//動く床：円：小：反時計回り
+	case 138:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 5 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 4)); break;
+		//動く床：円：大：反時計回り
+	case 139:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 7 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 4)); break;
 		//動く床：上に凸な放物線：小
 	case 140:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 5 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 1)); break;
 		//動く床：上に凸な放物線：大
-	case 141:break;
+	case 141:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 15 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 3.0f, 1)); break;
 		//動く床：下に凸な放物線：小
-	case 142:break;
+	case 142:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 5 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 2)); break;
 		//動く床：下に凸な放物線：大
-	case 143:break;
+	case 143:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 15 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 3.0f, 2)); break;
 		//松明
 	case 144:break;
 		//上向きバーナー１
-	case 145:break;
+	case 145:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, -Pi / 2, 0)); break;
 		//上向きバーナー２
-	case 146:break;
+	case 146:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, -Pi / 2, 1)); break;
 		//下向きバーナー１
-	case 147:break;
+	case 147:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi / 2, 0)); break;
 		//下向きバーナー２
-	case 148:break;
+	case 148:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi / 2, 1)); break;
 		//右向きバーナー１
-	case 149:break;
+	case 149:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 0.0f, 0)); break;
 		//右向きバーナー２
-	case 150:break;
+	case 150:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 0.0f, 1)); break;
 		//左向きバーナー１
-	case 151:break;
+	case 151:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi, 0)); break;
 		//左向きバーナー２
-	case 152:break;
+	case 152:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi, 1)); break;
 		//時間差で現れる足場１
 	case 153:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 1));break;
 		//時間差で現れる足場２
