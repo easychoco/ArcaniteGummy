@@ -12,7 +12,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 Stage13::Stage13() :
-StageChild(2, 2) //エリアの数: よこ，たて
+StageChild(4, 1) //エリアの数: よこ，たて
 {
 	initialize();
 }
@@ -34,13 +34,13 @@ void Stage13::initialize()
 {
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
-	this->maps.push_back(new Map(13, 0, MapPos::POS_LEFT_UP));
-	this->maps.push_back(new Map(13, 1, MapPos::POS_RIGHT_UP));
-	this->maps.push_back(new Map(13, 2, MapPos::POS_LEFT_DOWN));
-	this->maps.push_back(new Map(13, 3, MapPos::POS_RIGHT_DOWN));
+	this->maps.push_back(new Map(13, 0, MapPos::POS_RIGHT_FREE));
+	this->maps.push_back(new Map(13, 1, MapPos::POS_UP_DOWN));
+	this->maps.push_back(new Map(13, 2, MapPos::POS_UP_DOWN));
+	this->maps.push_back(new Map(13, 3, MapPos::POS_LEFT_FREE));
 
-	this->torches.push_back(new Torch(304, 1488));
-	this->maps[0]->addGimmick(torches[0]);
+//	this->torches.push_back(new Torch(304, 1488));
+//	this->maps[0]->addGimmick(torches[0]);
 
 
 }
@@ -50,8 +50,8 @@ void Stage13::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
 
-	gameMain->setFilter(FilterType::FILTER_DARK);
-	if (torches[0]->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+//	gameMain->setFilter(FilterType::FILTER_DARK);
+//	if (torches[0]->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
 }
 
 void Stage13::draw(const Vector2* _camera) const
