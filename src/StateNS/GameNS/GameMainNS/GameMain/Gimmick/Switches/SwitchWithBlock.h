@@ -29,10 +29,13 @@ public:
 	void checkOnActiveArea(const Vector2* player) { this->onActiveArea(player); }
 	StageChild::ChipType getChipType() const;
 
-	vector<Block*> blocks;
-	vector<Block*> tmp;
-	void push_block(Block* b) { blocks.push_back(b); }
-	vector<Block*> getBlocks() { return ((isPushed) ? tmp : blocks); }
+	//スイッチがonの時に現れるBlock
+	vector<Block*> blocks_on;
+
+	//スイッチがoffの時に現れるBlock
+	vector<Block*> blocks_off;
+	void push_block(Block* b, bool switch_on) { switch_on ? blocks_on.push_back(b) : blocks_off.push_back(b); }
+	vector<Block*> getBlocks() { return ((isPushed) ? blocks_on : blocks_off); }
 
 private:
 	bool isPushed;

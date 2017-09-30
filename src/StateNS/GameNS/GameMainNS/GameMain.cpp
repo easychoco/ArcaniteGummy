@@ -236,22 +236,6 @@ void GameMain::processCollision(StageChild* _stage)
 					gimmick->burnedAction();
 			}
 		}
-
-		auto s_b = _stage->getSwitchWithBlocks();
-
-		//TODO ƒlƒXƒgŒ¸‚ç‚µ‚½‚¢
-		for (auto& s : s_b)
-		{
-			for (auto& attack : p_attacks)
-			{
-				if (attack->isActive && attack->isHit(s))
-				{
-					s->hittedAction();
-					attack->hittedAction();
-					s->checkOnActiveArea(attack->getVector2());
-				}
-			}
-		}
 	}
 }
 
