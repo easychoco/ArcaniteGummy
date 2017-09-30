@@ -91,7 +91,7 @@ void Broth::attack(const StageChild* _stage)
 	}
 
 	//‚·‚×‚ÄŽg‚Á‚Ä‚¢‚½‚çnew‚·‚é
-	attacks.push_back(new Hammer(this, _stage, player->raw_x, player->raw_y, mDirection));
+	attacks.push_back(new Hammer(this, mDirection));
 }
 
 void Broth::draw_other(const Vector2* _camera) const
@@ -105,11 +105,10 @@ void Broth::draw_other(const Vector2* _camera) const
 //==============================================
 //HammerƒNƒ‰ƒX
 //==============================================
-Broth::Hammer::Hammer(const Character* _parent, const StageChild* _stage, int _x, int _y, int _direction) :
-Attack(_parent, _parent->getVector2()->raw_x, _parent->getVector2()->raw_y, 32, 32, ObjectID::ID_NONE),
-stage(_stage)
+Broth::Hammer::Hammer(const Character* _parent, int _direction) :
+Attack(_parent, _parent->getVector2()->raw_x, _parent->getVector2()->raw_y, 32, 32, ObjectID::ID_NONE)
 {
-	this->setStatus(Vector2(_x, _y, true), _direction);
+	this->setStatus(Vector2::ZERO, _direction);
 
 	//for Debug
 	this->damageValue = 20;
@@ -126,11 +125,6 @@ Broth::Hammer::~Hammer()
 void Broth::Hammer::update()
 {
 	mTime++;
-//	int dx_tmp = getHorizontalDiffer(stage, -vectorRate, false, false);
-//	int dy_tmp = getHorizontalDiffer(stage, (2*mTime-100)/30.0f*vectorRate, false, false);
-
-//	this->p->raw_x += dx_tmp;
-//	this->p->raw_y += dy_tmp;
 
 	this->p->raw_x += -dx;
 
@@ -143,7 +137,7 @@ void Broth::Hammer::update()
 void Broth::Hammer::draw(const Vector2* _camera) const
 {
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	if (abs(p->pos_x() - _camera->pos_x()) > 480000 || abs(p->pos_y() - _camera->pos_y()) > 320000)return;
+	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
 
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();

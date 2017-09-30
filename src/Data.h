@@ -184,8 +184,8 @@ public:
 
 	const int x() const { return (this->raw_x / vectorRate) % MAP_WIDTH; }
 	const int y() const { return (this->raw_y / vectorRate) % MAP_HEIGHT; }
-	const int pos_x() const { return this->raw_x % (MAP_WIDTH * vectorRate); }
-	const int pos_y() const { return this->raw_y % (MAP_HEIGHT * vectorRate); }
+	const int pos_x() const { return this->raw_x % MAP_WIDTH_RATE(); }
+	const int pos_y() const { return this->raw_y % MAP_HEIGHT_RATE(); }
 
 
 	bool isZero() const

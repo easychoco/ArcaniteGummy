@@ -36,11 +36,11 @@ void BeltConveyor::update()
 void BeltConveyor::draw(const Vector2* _camera) const
 {
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	if (abs(pos.pos_x() - _camera->pos_x()) > 350000 || abs(pos.pos_y() - _camera->pos_y()) > 270000)return;
+	if (abs(pos.raw_x - _camera->raw_x) > 350000 || abs(pos.raw_y - _camera->raw_y) > 270000)return;
 
 
-	int draw_x = 320 + (pos.pos_x() - _camera->pos_x()) / MyData::vectorRate;
-	int draw_y = 240 + (pos.pos_y() - _camera->pos_y()) / MyData::vectorRate;
+	int draw_x = 320 + (pos.raw_x - _camera->raw_x) / MyData::vectorRate;
+	int draw_y = 240 + (pos.raw_y - _camera->raw_y) / MyData::vectorRate;
 
 	//•`‰æ
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);

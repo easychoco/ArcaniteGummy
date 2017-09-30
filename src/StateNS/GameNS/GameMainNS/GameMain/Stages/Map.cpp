@@ -171,11 +171,11 @@ void Map::draw_front(const Vector2* _camera) const
 int Map::getTopPosition(const Vector2* _pos, const int& _dy) const
 {
 	//もらった座標に他のObjectがあったら、そのObjectの上のy座標を返す
-	int ret = fixToVectorHeight(_pos->pos_y() + _dy);
+	int ret = fixToVectorHeight(_pos->raw_y + _dy);
 
 	//*
 	//メモリリークこわ
-	Vector2* tmp = new Vector2(_pos->pos_x(), _pos->pos_y() + _dy, true);
+	Vector2* tmp = new Vector2(_pos->raw_x, _pos->raw_y + _dy, true);
 
 	for (const auto& d_gimmick : mDynamicGimmicks)
 	{
@@ -201,11 +201,11 @@ int Map::getBottomPosition(const Vector2* _pos, const int& _dy) const
 {
 	//もらった座標に他のObjectがあったら、そのObjectの底のy座標を返す
 
-	int ret = fixToVectorHeight(_pos->pos_y() + _dy) +CHIP_HEIGHT_RATE();
+	int ret = fixToVectorHeight(_pos->raw_y + _dy) +CHIP_HEIGHT_RATE();
 
 	//*
 	//メモリリークこわ
-	Vector2* tmp = new Vector2(_pos->pos_x(), _pos->pos_y() + _dy, true);
+	Vector2* tmp = new Vector2(_pos->raw_x, _pos->raw_y + _dy, true);
 
 	for (const auto& d_gimmick : mDynamicGimmicks)
 	{

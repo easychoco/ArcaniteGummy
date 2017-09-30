@@ -36,7 +36,7 @@ void Attack::draw(const Vector2* _camera) const
 void Attack::checkActive(const Vector2* _camera)
 {
 	//‰æ–ÊŠO‚ÅisActive‚ðfalse‚É‚·‚é
-	if (abs(p->raw_x - _camera->raw_x) > 320000 || abs(p->raw_y - _camera->raw_y) > 240000)isActive = false;
+	if (abs(p->raw_x - _camera->raw_x) > 320000 || abs(p->raw_y - _camera->raw_y) > 300000)isActive = false;
 }
 
 //==============================================

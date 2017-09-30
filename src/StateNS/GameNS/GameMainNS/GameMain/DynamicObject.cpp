@@ -58,7 +58,7 @@ void DynamicObject::standardDraw(const Vector2* _camera, const int& _image, cons
 {
 
 	//画面内にいなければreturn
-	if (abs(p->pos_x() - _camera->pos_x()) > 480000 || abs(p->pos_y() - _camera->pos_y()) > 320000)return;
+	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
 
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
@@ -72,7 +72,7 @@ void DynamicObject::standardDraw(const Vector2* _camera, const double& scale, co
 {
 
 	//画面内にいなければreturn
-	if (abs(p->pos_x() - _camera->pos_x()) > 480000 || abs(p->pos_y() - _camera->pos_y()) > 320000)return;
+	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
 
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
@@ -125,7 +125,7 @@ int DynamicObject::getTopDiffer(const StageChild* _stage, const int _dy, bool _m
 
 		*/
 
-		int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - height - 1)) * MyData::vectorRate - (width * MyData::vectorRate) + p->pos_x() % (width * MyData::vectorRate);
+		int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - height - 1)) * MyData::vectorRate - (width * MyData::vectorRate) + p->raw_x % (width * MyData::vectorRate);
 		if (pos.pos_y < 0)dy -= (height * MyData::vectorRate) / 2;
 		return dy;
 	}
@@ -140,7 +140,7 @@ int DynamicObject::getTopDiffer(const StageChild* _stage, const int _dy, bool _m
 
 		*/
 
-		int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - height - 1)) * MyData::vectorRate - p->pos_x() % (width * MyData::vectorRate);
+		int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - height - 1)) * MyData::vectorRate - p->raw_x % (width * MyData::vectorRate);
 		if (pos.pos_y < 0)dy -= (height * MyData::vectorRate) / 2;
 		return dy;
 	}
@@ -160,7 +160,7 @@ int DynamicObject::getTopDiffer(const StageChild* _stage, const int _dy, bool _m
 
 		*/
 
-		int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - height - 1)) * MyData::vectorRate - (width * MyData::vectorRate) + p->pos_x() % (width * MyData::vectorRate);
+		int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - height - 1)) * MyData::vectorRate - (width * MyData::vectorRate) + p->raw_x % (width * MyData::vectorRate);
 		if (pos.pos_y < 0)dy -= (height * MyData::vectorRate) / 2;
 		return dy;
 	}
@@ -175,7 +175,7 @@ int DynamicObject::getTopDiffer(const StageChild* _stage, const int _dy, bool _m
 
 		*/
 
-		int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - height - 1)) * MyData::vectorRate - p->pos_x() % (width * MyData::vectorRate);
+		int dy = (MyData::fixToStageHeight(pos.pos_y) - (p->y() - height - 1)) * MyData::vectorRate - p->raw_x % (width * MyData::vectorRate);
 		if (pos.pos_y < 0)dy -= (height * MyData::vectorRate) / 2;
 		return dy;
 	}
@@ -183,14 +183,14 @@ int DynamicObject::getTopDiffer(const StageChild* _stage, const int _dy, bool _m
 	//斜めじゃないチップに対して
 
 	//移動した先のチップタイプを取得
-	pos = RawVector2(p->pos_x() + extraDiffer, p->pos_y() - (height * vectorRate) / 2 + _dy);
+	pos = RawVector2(p->raw_x + extraDiffer, p->raw_y - (height * vectorRate) / 2 + _dy);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 
 	//移動先が通れないブロックなら
 	if (_stage->isRigid_up(chipType))
 	{
 		const int half_height = (height * vectorRate) / 2;
-		return _stage->getBottomPosition(p, -half_height + _dy) - (p->pos_y() - half_height);
+		return _stage->getBottomPosition(p, -half_height + _dy) - (p->raw_y - half_height);
 	}
 
 	return _dy;
@@ -208,7 +208,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 	//下方向
 	//チップの最下端より少し上
-	RawVector2 pos = RawVector2(p->pos_x() + extraDiffer, p->pos_y() + (height * vectorRate) / 2 - 1);
+	RawVector2 pos = RawVector2(p->raw_x + extraDiffer, p->raw_y + (height * vectorRate) / 2 - 1);
 	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (this->onRigidBlock())chipType = StageChild::ChipType::TYPE_RIGID;
 
@@ -223,7 +223,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + (height * vectorRate) / 2) + p->pos_x() % CHIP_WIDTH_RATE();
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->raw_y + (height * vectorRate) / 2) + p->raw_x % CHIP_WIDTH_RATE();
 	}
 
 	if (chipType == _stage->TYPE_DOWN_SLANT_RIGHT)
@@ -236,12 +236,12 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + (height * MyData::vectorRate) / 2) + MyData::CHIP_WIDTH_RATE() - p->pos_x() % MyData::CHIP_WIDTH_RATE();
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->raw_y + (height * MyData::vectorRate) / 2) + MyData::CHIP_WIDTH_RATE() - p->raw_x % MyData::CHIP_WIDTH_RATE();
 	}
 
 
 	//チップの下半分の中心
-	pos = RawVector2(p->pos_x() + extraDiffer, p->pos_y() + (height * MyData::vectorRate) / 4);
+	pos = RawVector2(p->raw_x + extraDiffer, p->raw_y + (height * MyData::vectorRate) / 4);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 
 	//斜めブロックなら
@@ -255,7 +255,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + (height * MyData::vectorRate) / 2) + p->pos_x() % MyData::CHIP_WIDTH_RATE();
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->raw_y + (height * MyData::vectorRate) / 2) + p->raw_x % MyData::CHIP_WIDTH_RATE();
 	}
 
 	if (chipType == _stage->TYPE_DOWN_SLANT_RIGHT)
@@ -268,7 +268,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->pos_y() + (height * MyData::vectorRate) / 2) + MyData::CHIP_WIDTH_RATE() - p->pos_x() % MyData::CHIP_WIDTH_RATE();
+		return MyData::fixToVectorHeight(pos.pos_y) - (p->raw_y + (height * MyData::vectorRate) / 2) + MyData::CHIP_WIDTH_RATE() - p->raw_x % MyData::CHIP_WIDTH_RATE();
 	}
 
 	//斜めじゃないチップに対して
@@ -277,7 +277,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 	//_stage->getTopPositionは高速化できる
 
 	//移動した先のチップタイプを取得
-	pos = RawVector2(p->pos_x() + extraDiffer, p->pos_y() + (height * vectorRate) / 2 + _dy);
+	pos = RawVector2(p->raw_x + extraDiffer, p->raw_y + (height * vectorRate) / 2 + _dy);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (this->onRigidBlock())chipType = StageChild::ChipType::TYPE_RIGID;
 
@@ -285,12 +285,12 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 	if (_stage->isRigid_down(chipType))
 	{
 		const int half_height = (height * vectorRate) / 2;
-		return _stage->getTopPosition(p, half_height + _dy) - (p->pos_y() + half_height);
+		return _stage->getTopPosition(p, half_height + _dy) - (p->raw_y + half_height);
 		/*
 		旧式
-		int differ = _stage->getTopPosition(p, half_height + _dy) - fixToVectorHeight(p->pos_y() + half_height + _dy);
+		int differ = _stage->getTopPosition(p, half_height + _dy) - fixToVectorHeight(p->raw_y + half_height + _dy);
 		differ %= half_height;
-		return fixToVectorHeight(p->pos_y() + half_height + _dy) - (p->pos_y() + half_height) + differ;
+		return fixToVectorHeight(p->raw_y + half_height + _dy) - (p->raw_y + half_height) + differ;
 		*/
 	}
 	
@@ -302,13 +302,13 @@ int DynamicObject::getHorizontalDiffer(const StageChild* _stage, const int _dx, 
 	//斜めブロックの場合はそのまま返す
 
 	//チップの上半分の真ん中
-	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() - (height * MyData::vectorRate) / 4);
+	RawVector2 pos = RawVector2(p->raw_x, p->raw_y - (height * MyData::vectorRate) / 4);
 	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (_stage->isSlant(chipType))return _dx;
 
 
 	//チップの下半分の真ん中
-	pos = RawVector2(p->pos_x(), p->pos_y() + (height * MyData::vectorRate) / 4);
+	pos = RawVector2(p->raw_x, p->raw_y + (height * MyData::vectorRate) / 4);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (_stage->isSlant(chipType))return _dx;
 
@@ -316,19 +316,19 @@ int DynamicObject::getHorizontalDiffer(const StageChild* _stage, const int _dx, 
 	//通れないブロックならreturn 0
 
 	//チップの真ん中
-	pos = RawVector2(p->pos_x() + _dx, p->pos_y());
+	pos = RawVector2(p->raw_x + _dx, p->raw_y);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (chipType == _stage->TYPE_RIGID)return 0;
 
 
 	//チップの上半分の真ん中
-	pos = RawVector2(p->pos_x() + _dx, p->pos_y() - (height * MyData::vectorRate) / 4);//2 + MyData::vectorRate);
+	pos = RawVector2(p->raw_x + _dx, p->raw_y - (height * MyData::vectorRate) / 4);//2 + MyData::vectorRate);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (chipType == _stage->TYPE_RIGID)return 0;
 
 
 	//チップの下半分の真ん中
-	pos = RawVector2(p->pos_x() + _dx, p->pos_y() + (height * MyData::vectorRate) / 4);// 2 - MyData::vectorRate);
+	pos = RawVector2(p->raw_x + _dx, p->raw_y + (height * MyData::vectorRate) / 4);// 2 - MyData::vectorRate);
 	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (chipType == _stage->TYPE_RIGID)return 0;
 

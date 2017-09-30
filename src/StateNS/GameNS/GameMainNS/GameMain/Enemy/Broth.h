@@ -43,11 +43,11 @@ private:
 	class Hammer : public Attack
 	{
 	public:
-		Hammer(const Character*, const StageChild*, int x, int y, int speed);
+		Hammer(const Character*, int direction);
 		~Hammer();
 		void update();
 		virtual void draw(const Vector2*) const override;
-		void setStatus(Vector2, int speed);
+		void setStatus(Vector2, int direction);
 		void hittedAction();
 
 	private:
@@ -56,7 +56,7 @@ private:
 		int dy;
 		int sy;//‰ŠúÀ•W
 
-		const StageChild* stage;
+		//const StageChild* stage;
 	};
 
 };

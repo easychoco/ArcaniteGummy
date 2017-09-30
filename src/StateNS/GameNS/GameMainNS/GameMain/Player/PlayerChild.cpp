@@ -246,6 +246,8 @@ void PlayerChild::move(const StageChild* _stage)
 	p->raw_x += dx;
 	p->raw_y += dy;
 
+	p->raw_x = (p->raw_x + MAP_WIDTH_RATE()) % MAP_WIDTH_RATE();
+	p->raw_y = (p->raw_y + MAP_HEIGHT_RATE()) % MAP_HEIGHT_RATE();
 
 
 	//マップ間移動
@@ -279,6 +281,9 @@ void PlayerChild::move(const StageChild* _stage)
 	post_x = p->x();
 	post_y = p->y();
 
+
+
+
 	prePush = in_jump;
 }
 
@@ -302,21 +307,21 @@ void PlayerChild::updateCamera()
 bool PlayerChild::isOnGround(const StageChild* _stage)
 {
 	//posはキャラの最下端よりひとつ下
-	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 + 1000);
+	RawVector2 pos = RawVector2(p->raw_x, p->raw_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 + 1000);
 	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 
 
 	//右上に向けた斜めブロックなら
 	if (chipType == StageChild::ChipType::TYPE_DOWN_SLANT_RIGHT)
 	{
-		pos.pos_y -= (MyData::CHIP_WIDTH_RATE() - p->pos_x() % MyData::CHIP_WIDTH_RATE());
+		pos.pos_y -= (MyData::CHIP_WIDTH_RATE() - p->raw_x % MyData::CHIP_WIDTH_RATE());
 		chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 	}
 
 	//左上に向けた斜めブロックなら
 	else if (chipType == StageChild::ChipType::TYPE_DOWN_SLANT_LEFT)
 	{
-		pos.pos_y -= p->pos_x() % MyData::CHIP_WIDTH_RATE();
+		pos.pos_y -= p->raw_x % MyData::CHIP_WIDTH_RATE();
 		chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 	}
 
@@ -326,7 +331,7 @@ bool PlayerChild::isOnGround(const StageChild* _stage)
 bool PlayerChild::isOnLadder(const StageChild* _stage) const
 {
 
-	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1);
+	RawVector2 pos = RawVector2(p->raw_x, p->raw_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 - 1);
 	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 
 	return chipType == StageChild::ChipType::TYPE_LADDER || chipType == StageChild::ChipType::TYPE_LADDER_TOP;
@@ -334,7 +339,7 @@ bool PlayerChild::isOnLadder(const StageChild* _stage) const
 
 bool PlayerChild::isOnLesal(const StageChild* _stage)
 {
-	RawVector2 pos = RawVector2(p->pos_x(), p->pos_y() + PLAYER_CHIP_HEIGHT_RATE() / 4);
+	RawVector2 pos = RawVector2(p->raw_x, p->raw_y + PLAYER_CHIP_HEIGHT_RATE() / 4);
 	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 
 	return chipType == StageChild::ChipType::TYPE_LESAL;

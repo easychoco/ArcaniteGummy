@@ -53,10 +53,10 @@ void SwitchWithBlock::update(const StageChild* _stage)
 void SwitchWithBlock::draw(const Vector2* _camera) const
 {
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	if (abs(p->pos_x() - _camera->pos_x()) > 350000 || abs(p->pos_y() - _camera->pos_y()) > 270000)return;
+	if (abs(p->raw_x - _camera->raw_x) > 350000 || abs(p->raw_y - _camera->raw_y) > 270000)return;
 
-	int draw_x = 320 + (p->pos_x() - _camera->pos_x()) / MyData::vectorRate;
-	int draw_y = 240 + (p->pos_y() - _camera->pos_y()) / MyData::vectorRate;
+	int draw_x = 320 + (p->raw_x - _camera->raw_x) / MyData::vectorRate;
+	int draw_y = 240 + (p->raw_y - _camera->raw_y) / MyData::vectorRate;
 
 	//•`‰æ
 	if(!isPushed)DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);

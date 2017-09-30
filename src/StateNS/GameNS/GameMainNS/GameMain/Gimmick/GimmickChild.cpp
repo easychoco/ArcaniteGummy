@@ -17,7 +17,7 @@ void GimmickChild::standardDraw(const Vector2* _camera) const
 	if (!isActive)return;
 
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	if (abs(pos.pos_x() - _camera->pos_x()) > 480000 || abs(pos.pos_y() - _camera->pos_y()) > 320000)return;
+	if (abs(pos.raw_x - _camera->raw_x) > 480000 || abs(pos.raw_y - _camera->raw_y) > 320000)return;
 
 	int draw_x = MyData::CX + pos.x() - _camera->x();
 	int draw_y = MyData::CY + pos.y() - _camera->y();

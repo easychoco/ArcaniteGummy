@@ -39,15 +39,15 @@ void Door::draw(const Vector2* _camera) const
 {
 
 	//Door1
-	int draw_x = 320 + (door1->pos_x() - _camera->pos_x()) / MyData::vectorRate;
-	int draw_y = 240 + (door1->pos_y() - _camera->pos_y()) / MyData::vectorRate;
+	int draw_x = 320 + (door1->raw_x - _camera->raw_x) / MyData::vectorRate;
+	int draw_y = 240 + (door1->raw_y - _camera->raw_y) / MyData::vectorRate;
 
 	//•`‰æ
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
 
 	//Door2
-	draw_x = 320 + (door2->pos_x() - _camera->pos_x()) / MyData::vectorRate;
-	draw_y = 240 + (door2->pos_y() - _camera->pos_y()) / MyData::vectorRate;
+	draw_x = 320 + (door2->raw_x - _camera->raw_x) / MyData::vectorRate;
+	draw_y = 240 + (door2->raw_y - _camera->raw_y) / MyData::vectorRate;
 
 	//•`‰æ
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
