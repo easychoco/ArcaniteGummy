@@ -497,21 +497,21 @@ void Map::loadGimmick(int _x, int _y, int _n)
 		//松明
 	case 144:break;
 		//上向きバーナー１
-	case 145:break;
+	case 145:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, -Pi / 2, 0)); break;
 		//上向きバーナー２
-	case 146:break;
+	case 146:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, -Pi / 2, 1)); break;
 		//下向きバーナー１
-	case 147:break;
+	case 147:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi / 2, 0)); break;
 		//下向きバーナー２
-	case 148:break;
+	case 148:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi / 2, 1)); break;
 		//右向きバーナー１
-	case 149:break;
+	case 149:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 0.0f, 0)); break;
 		//右向きバーナー２
-	case 150:break;
+	case 150:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 0.0f, 1)); break;
 		//左向きバーナー１
-	case 151:break;
+	case 151:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi, 0)); break;
 		//左向きバーナー２
-	case 152:break;
+	case 152:mDynamicGimmicks.push_back(new Burner(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi, 1)); break;
 		//時間差で現れる足場１
 	case 153:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 1));break;
 		//時間差で現れる足場２
