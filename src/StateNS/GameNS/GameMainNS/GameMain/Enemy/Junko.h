@@ -24,8 +24,7 @@ private:
 	bool imgLoad = false;
 	int mTime;
 
-	bool attack_around;
-
+	bool init_attacks;
 
 
 	//CharacterÇÃä÷êî
@@ -41,6 +40,10 @@ private:
 
 	void initialize();
 
+
+	//==========================================
+	//Ç±Ç±Ç©ÇÁì‡ïîÉNÉâÉX
+	//==========================================
 	class Shot_around
 	{
 	public:
@@ -49,16 +52,18 @@ private:
 		void update();
 		void draw(const Vector2* pos) const;
 		void addAttacks(vector<Attack*>&);
-
 		void setStatus(const Vector2* pos);
-		bool isActive;
-		int time;
+		void setActive(bool);
+		bool isActive() const { return this->mIsActive; }
+		void checkActive(const Vector2*);
+
 
 	private:
+		int time;
 		const int radius = PLAYER_CHIP_HEIGHT_RATE() * 2;
+		bool mIsActive;
 
 		Character* parent;
-		Vector2* p;
 
 		Shot* shot1;
 		Shot* shot2;
@@ -70,7 +75,43 @@ private:
 		void initialize(const Vector2* pos);
 	};
 
+	class Shot_cycle
+	{
+	public:
+		Shot_cycle(const Vector2* pos, EnemyChild*);
+		~Shot_cycle();
+		void update();
+		void draw(const Vector2* pos) const;
+		void addAttacks(vector<Attack*>&);
+		void setStatus(const Vector2* pos);
+		void setActive(bool);
+		bool isActive() const { return this->mIsActive; }
+		void checkActive(const Vector2*);
+		
+	private:
+		int time;
+		float angle;
+		int radius;
+		const int first_radius = 2000;
+		bool mIsActive;
+
+		Character* parent;
+		const Vector2* center_pos;
+
+		Shot* shot1;
+		Shot* shot2;
+		Shot* shot3;
+		Shot* shot4;
+		Shot* shot5;
+		Shot* shot6;
+
+		void initialize(const Vector2* pos);
+	};
+
+
 	Shot_around* s_a;
+	Shot_cycle* s_c;
+
 };
 
 

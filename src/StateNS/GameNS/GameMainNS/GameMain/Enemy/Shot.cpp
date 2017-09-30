@@ -14,7 +14,7 @@ static unsigned int black = GetColor(0, 0, 0);
 
 //画像使用バージョン
 Shot::Shot(const Character* parent, int _x, int _y, float _angle, float _speed, int _damage) :
-Attack(parent, _x, _y, 20, 20)
+Attack(parent, _x, _y, 15, 15)
 {
 	this->angle = pi(1 / 180.0f) * _angle;
 	this->dx = (int)(_speed * cos(angle));
@@ -63,11 +63,15 @@ void Shot::draw(const Vector2* _camera) const
 
 void Shot::setStatus_2args(Vector2 pos, int _angle, int _speed)
 {
+	this->isActive = true;
 	if (pos != Vector2::ZERO)*p = pos;
 	this->angle = pi(1 / 180.0f) * _angle;
 
-	this->dx = (int)(_speed * cosf(angle));
-	this->dy = (int)(_speed * sinf(angle));
+	if (_speed != 0)
+	{
+		this->dx = (int)(_speed * cosf(angle));
+		this->dy = (int)(_speed * sinf(angle));
+	}
 }
 
 float sinf_degree(int degree) { return sinf(pi(degree / 180.0f)); }

@@ -18,8 +18,16 @@ public:
 	
 	DynamicObject* parent;
 	const Vector2* p;
+	
+	void setSize(int w, int h);
+
 	int width;
 	int height;
+
+	int half_width;
+	int half_height;
+
+private:
 };
 
 
