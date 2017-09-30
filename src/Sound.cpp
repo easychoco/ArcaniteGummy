@@ -11,6 +11,7 @@ void Sound::setSound(string _path, string _name)
 	assert(tmp_handle != -1 && "サウンド読み込みエラー");
 
 	soundMap.insert(make_pair(_name, tmp_handle));
+	ChangeVolumeSoundMem((int)(255 * allVolume), soundMap.at(_name));
 }
 
 void Sound::deleteSound(string _name)
@@ -85,6 +86,7 @@ void Sound::setAllVolume(float _ratio)
 	{
 		ChangeVolumeSoundMem(param, s.second);
 	}
+	allVolume = _ratio;
 }
 
 

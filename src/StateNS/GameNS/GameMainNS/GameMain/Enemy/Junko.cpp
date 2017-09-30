@@ -12,7 +12,7 @@ namespace GameMainNS{
 Junko::Junko(int _x, int _y) : 
 EnemyChild(1000, _x, _y, 32, 32)
 {
-	if(!imgLoad)loadImage();
+	loadImage();
 	assert(mImage != -1 && "Junko‰æ‘œ“Ç‚Ýž‚ÝƒGƒ‰[!");
 
 	initialize();
@@ -168,6 +168,13 @@ void Junko::Shot_around::initialize(const Vector2* _pos)
 	shot5 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
 	shot6 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
 
+	shot1->loadImage("Data/Image/Junko_attack1.png");
+	shot2->loadImage("Data/Image/Junko_attack1.png");
+	shot3->loadImage("Data/Image/Junko_attack1.png");
+	shot4->loadImage("Data/Image/Junko_attack1.png");
+	shot5->loadImage("Data/Image/Junko_attack1.png");
+	shot6->loadImage("Data/Image/Junko_attack1.png");
+
 	shot1->isActive = false;
 	shot2->isActive = false;
 	shot3->isActive = false;
@@ -284,6 +291,13 @@ void Junko::Shot_cycle::initialize(const Vector2* _pos)
 	shot4 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
 	shot5 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
 	//shot6 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
+
+	shot1->loadImage("Data/Image/Junko_attack2.png");
+	shot2->loadImage("Data/Image/Junko_attack2.png");
+	shot3->loadImage("Data/Image/Junko_attack2.png");
+	shot4->loadImage("Data/Image/Junko_attack2.png");
+	shot5->loadImage("Data/Image/Junko_attack2.png");
+	//shot6->loadImage("Data/Image/Junko_attack2.png");
 
 	shot1->isActive = false;
 	shot2->isActive = false;

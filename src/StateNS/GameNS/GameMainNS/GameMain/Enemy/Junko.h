@@ -21,7 +21,6 @@ public:
 	
 private:
 	int images;
-	bool imgLoad = false;
 	int mTime;
 
 	bool init_attacks;
@@ -35,7 +34,7 @@ private:
 	virtual void draw_other(const Vector2* camera)const override;
 
 	//TODO âÊëúç∑Çµë÷Ç¶
-	void loadImage() { images = LoadGraph("Data/Image/balloon.png"); mImage = images; imgLoad = true; }
+	void loadImage() { images = LoadGraph("Data/Image/balloon.png"); mImage = images; }
 	void attack(const StageChild*);
 
 	void initialize();

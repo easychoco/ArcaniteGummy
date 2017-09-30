@@ -24,6 +24,8 @@ public:
 	//第1引数にVector2::ZEROが来ると位置は更新されない angleは度数法
 	void setStatus_2args(Vector2, int angle, int speed) override;
 	void hittedAction() override {}
+	void loadImage(char* path) { DeleteGraph(mImage); this->mImage = LoadGraph(path); assert(mImage != -1 && "Shot画像読み込みエラー!"); }
+
 
 protected:
 	float angle;
@@ -32,7 +34,7 @@ protected:
 	int time;
 
 	void initialize();
-	void loadImage() { this->mImage = LoadGraph("Data/Image/Junko_attack1.png"); }
+	void loadImage() { this->mImage = LoadGraph("Data/Image/shot.png"); }
 };
 
 float sinf_degree(int degree);
