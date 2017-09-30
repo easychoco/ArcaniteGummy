@@ -89,7 +89,8 @@ public:
 
 	//bool isClear() const;
 
-	void addGimmick(DynamicGimmickChild* _d_gmk) { mDynamicGimmicks.push_back(_d_gmk); }
+	void addGimmick(GimmickChild* _gmk) { mGimmicks.push_back(_gmk); }
+	void addDynamicGimmick(DynamicGimmickChild* _d_gmk) { mDynamicGimmicks.push_back(_d_gmk); }
 	void addGimmick(int x, int y, int ID) { loadGimmick(x, y, ID); }
 	void addEnemy(AllEnemies, int x, int y);
 	

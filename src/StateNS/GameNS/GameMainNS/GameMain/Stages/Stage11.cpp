@@ -1,6 +1,7 @@
 #include "Stage11.h"
 #include "Map.h"
 #include "..\..\GameMain.h"
+#include "..\Gimmick\ClearFlag.h"
 
 #include <fstream>
 
@@ -25,6 +26,9 @@ void Stage11::initialize()
 	//StageID, 0‚©‚ç¸‡, ƒGƒŠƒA‚ÌŒ`
 	this->maps.push_back(new Map(11, 0, MapPos::POS_RIGHT_FREE));
 	this->maps.push_back(new Map(11, 1, MapPos::POS_LEFT_FREE));
+
+	flag = new ClearFlag(Vector2(3056, 1264));
+	maps[1]->addGimmick(flag);
 }
 
 
@@ -34,7 +38,7 @@ void Stage11::update(GameMain* gameMain, PlayerChild* _player)
 
 	//for Debug
 	if(CheckHitKey(KEY_INPUT_1))
-		gameMain->startConverse(12);
+		gameMain->startConverse(11);
 }
 
 void Stage11::draw(const Vector2* _camera) const
@@ -44,7 +48,7 @@ void Stage11::draw(const Vector2* _camera) const
 
 bool Stage11::isClear() const
 {
-	return false;
+	return !flag->isActive;
 }
 
 

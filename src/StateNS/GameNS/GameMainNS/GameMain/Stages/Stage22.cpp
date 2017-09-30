@@ -1,6 +1,7 @@
 #include "Stage22.h"
 #include "Map.h"
 #include "..\..\GameMain.h"
+#include "..\Gimmick\ClearFlag.h"
 
 #include <fstream>
 

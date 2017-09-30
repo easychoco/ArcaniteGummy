@@ -10,6 +10,7 @@ GimmickChild::GimmickChild(Vector2 _pos)
 {
 	pos = _pos;
 	isActive = true;
+	assert(_pos.x() % 32 == 16 && _pos.y() % 32 == 16 && "DynamicGimmickÇÃç¿ïWÇ™ (32 * n + 16) Ç∂Ç·Ç»Ç¢Ç≈Ç∑");
 }
 
 void GimmickChild::standardDraw(const Vector2* _camera) const

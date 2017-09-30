@@ -1,6 +1,7 @@
 #include "Stage13.h"
 #include "Map.h"
 #include "..\..\GameMain.h"
+#include "..\Gimmick\ClearFlag.h"
 
 #include "..\Gimmick\DynamicGimmickChild.h"
 #include "..\Gimmick\Torch.h"

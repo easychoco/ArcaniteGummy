@@ -11,6 +11,7 @@ class PlayerChild;
 class GimmickChild;
 class DynamicGimmickChild;
 class SwitchWithBlock;
+class ClearFlag;
 class GameMain;
 class EnemyController;
 
@@ -77,6 +78,7 @@ protected:
 	int stage_max_x;
 	int stage_max_y;
 	vector<Map*> maps;
+	ClearFlag* flag;
 
 	class Chip
 	{

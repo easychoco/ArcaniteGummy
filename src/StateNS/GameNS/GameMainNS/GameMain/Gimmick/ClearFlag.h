@@ -10,7 +10,6 @@ namespace GameNS {
 
 namespace GameMainNS{
 
-class Child;
 
 class ClearFlag : public GimmickChild
 {

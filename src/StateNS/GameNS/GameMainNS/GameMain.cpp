@@ -99,16 +99,13 @@ Child* GameMain::update(GameParent* _parent)
 
 	//for Debug
 	mPlayer->hpController.recover(1);
-	if (Input_D())_parent->moveTo(_parent->SEQ_OVER);
-	if (Input_S())_parent->moveTo(_parent->SEQ_CLEAR);
+	//if (Input_D())_parent->moveTo(_parent->SEQ_OVER);
 
-	/*
 	//ƒNƒŠƒA
 	if (mStage->isClear())
 	{
 		_parent->moveTo(_parent->NextSequence::SEQ_CLEAR);
 	}
-	*/
 
 	return next;
 }
