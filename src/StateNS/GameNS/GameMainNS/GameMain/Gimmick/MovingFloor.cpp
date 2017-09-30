@@ -23,6 +23,7 @@ DynamicGimmickChild(_x, _y, 1.0)
 
 
 	//往復にかかる時間を計算
+	this->r = (int)hypotf(differ_x, differ_y)/2;
 	this->interval = (int)(2 * hypotf(differ_x, differ_y) / _movingSpeed);
 
 	//2頂点間の角度を計算
@@ -62,8 +63,8 @@ void MovingFloor::draw(const Vector2* _camera) const
 {
 	
 	standardDraw(_camera, scale, mImage, mDirection);
-	DrawFormatString(0, 100, BLACK, "interval:%d", interval);
-	DrawFormatString(0, 128, BLACK, "mTime:%d", mTime);
+//	DrawFormatString(0, 100, BLACK, "interval:%d", interval);
+//	DrawFormatString(0, 128, BLACK, "mTime:%d", mTime);
 }
 
 void MovingFloor::apply(Character* _character)
@@ -124,21 +125,28 @@ void MovingFloor::loadImage()
 
 void MovingFloor::move()
 {
-	float tmp_dx=0.0f, tmp_dy=0.0f;
-
+	float tmp_dy = 0.0f;
+	float tmp_dx = 0.0f;
 	switch (moveType) 
 	{
 	case 0://線形移動
 		tmp_dx = ((mTime - interval / 2 < 0) ? motion_dx : -motion_dx);
-		tmp_dy = ((mTime - interval / 2 < 0) ? motion_dy : -motion_dy);
-		break;
+		tmp_dy = ((mTime - interval / 2 < 0) ? motion_dy : -motion_dy);break;
 	case 1://上に凸な放物線移動
 		tmp_dx = ((mTime - interval / 2 < 0) ? motion_dx : -motion_dx);
-		tmp_dy = (mTime - interval / 2 < 0) ? (mTime - interval / 4) / 10.0f :-(interval-mTime-interval/4) / 10.0f;
+		tmp_dy = (mTime - interval / 2 < 0) ? (mTime - interval / 4) / 10.0f : (-interval + mTime + interval / 4) / 10.0f; 
 		break;
-	case 2://円運動
+	case 2://下に凸な放物線移動
+		tmp_dx = ((mTime - interval / 2 < 0) ? motion_dx : -motion_dx);
+		tmp_dy = (mTime - interval / 2 < 0) ? (-mTime + interval / 4) / 10.0f : (interval - mTime - interval / 4) / 10.0f;
 		break;
-	case 3://アステロイド
+	case 3://時計回り円
+		tmp_dx = r*sinf(2 * Pi*mTime / interval) / 10.0f;
+		tmp_dy = r*cosf(2 * Pi*mTime / interval) / 10.0f;
+		break;
+	case 4://反時計回り円
+		tmp_dx = r*sinf(-2 * Pi*mTime / interval) / 10.0f;
+		tmp_dy = r*cosf(-2 * Pi*mTime / interval) / 10.0f;
 		break;
 	}
 	dx = (int)(tmp_dx * vectorRate);
