@@ -30,6 +30,7 @@ void stage42::initialize()
 	flag = new ClearFlag(Vector2(2384, 1360));
 	maps[1]->addGimmick(flag);
 
+	startX = 144, startY = 1536;
 	//for Debug
 	/*
 	maps[0]->addEnemy(AllEnemies::BOSS_REISEN, 640, 1392);

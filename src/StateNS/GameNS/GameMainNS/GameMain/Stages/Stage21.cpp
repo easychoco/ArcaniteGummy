@@ -31,6 +31,8 @@ void Stage21::initialize()
 
 	flag = new ClearFlag(Vector2(3088, 400));
 	maps[2]->addGimmick(flag);
+
+	startX = 2864, startY = 1536;
 }
 
 

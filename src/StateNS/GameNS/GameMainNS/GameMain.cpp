@@ -39,9 +39,9 @@ GameMain::~GameMain()
 
 void GameMain::initialize()
 {
-	mStage = getNextStage(stageID);
 
-	mPlayer = new Nue(96, 1500, 100);
+	mStage = getNextStage(stageID);
+	mPlayer = new Mokou(mStage->startX, mStage->startY, 100);
 	mSystem = new System();
 
 	mEController = mStage->getEController();

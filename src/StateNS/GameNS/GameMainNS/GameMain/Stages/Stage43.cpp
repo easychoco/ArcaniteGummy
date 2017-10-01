@@ -39,6 +39,8 @@ void stage43::initialize()
 	this->maps.push_back(new Map(13, 1, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(13, 2, MapPos::POS_LEFT_FREE));
 
+	startX = 144, startY = 1536;
+
 	//this->torches.push_back(new Torch(304, 1488));
 	//this->maps[0]->addGimmick(torches[0]);
 
