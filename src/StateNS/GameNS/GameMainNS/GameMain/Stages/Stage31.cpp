@@ -26,6 +26,10 @@ void Stage31::initialize()
 	//StageID, 0‚©‚ç¸‡, ƒGƒŠƒA‚ÌŒ`
 	this->maps.push_back(new Map(31, 0, MapPos::POS_RIGHT_FREE));
 	this->maps.push_back(new Map(31, 1, MapPos::POS_LEFT_FREE));
+
+	flag = new ClearFlag(Vector2(1936, 1552));
+	maps[1]->addGimmick(flag);
+
 }
 
 

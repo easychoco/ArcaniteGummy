@@ -29,6 +29,9 @@ void Stage12::initialize()
 	this->maps.push_back(new Map(12, 2, MapPos::POS_SINGLE));
 	this->maps.push_back(new Map(12, 3, MapPos::POS_UP_FREE));
 
+
+	flag = new ClearFlag(Vector2(80, 1424));
+	maps[3]->addGimmick(flag);
 	//for Debug
 	/*
 	maps[0]->addEnemy(AllEnemies::BOSS_REISEN, 640, 1392);

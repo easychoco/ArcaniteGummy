@@ -71,12 +71,15 @@ public:
 
 	void moveStage(HowStageMove);
 
+	int startX, startY;
+
 protected:
 	int mBackImg;
 
 	unsigned now_stage_num;
 	int stage_max_x;
 	int stage_max_y;
+
 	vector<Map*> maps;
 	ClearFlag* flag;
 

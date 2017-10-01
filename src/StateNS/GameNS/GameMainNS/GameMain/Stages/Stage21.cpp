@@ -28,6 +28,9 @@ void Stage21::initialize()
 	this->maps.push_back(new Map(21, 1, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(21, 2, MapPos::POS_LEFT_FREE));
 
+
+	flag = new ClearFlag(Vector2(3088, 400));
+	maps[2]->addGimmick(flag);
 }
 
 

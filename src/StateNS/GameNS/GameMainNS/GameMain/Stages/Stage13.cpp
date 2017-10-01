@@ -40,6 +40,8 @@ void Stage13::initialize()
 	this->maps.push_back(new Map(13, 2, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(13, 3, MapPos::POS_LEFT_FREE));
 
+
+
 //	this->torches.push_back(new Torch(304, 1488));
 //	this->maps[0]->addGimmick(torches[0]);
 
