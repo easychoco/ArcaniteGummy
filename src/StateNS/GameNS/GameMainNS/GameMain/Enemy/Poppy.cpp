@@ -27,6 +27,7 @@ void Poppy::initialize()
 void Poppy::update(const StageChild* _stage, const Vector2* _camera)
 {
 	aTime++;
+	actState = ENE_ACT_WALK;
 	if(mTime == 0)this->mDirection = player->raw_x > this->p->raw_x;
 
 	//‰¡‚É’¼i‚·‚é‚¾‚¯

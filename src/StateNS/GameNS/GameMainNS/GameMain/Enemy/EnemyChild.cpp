@@ -46,7 +46,7 @@ void EnemyChild::standardDraw(const Vector2* _camera, const bool& _direction) co
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//•`‰æ
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage[actState], true, _direction);
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage[actState * 2 + (aTime / 10) % 2], true, _direction);
 }
 
 void EnemyChild::standardAction(const StageChild* _stage)

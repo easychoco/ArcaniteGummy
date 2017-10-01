@@ -32,6 +32,7 @@ void Rarashi::initialize()
 
 void Rarashi::update(const StageChild* _stage,const Vector2* _camera)
 {
+	actState = ENE_ACT_WALK;
 	aTime++;
 	mTime++;
 	standardAction(_stage);	

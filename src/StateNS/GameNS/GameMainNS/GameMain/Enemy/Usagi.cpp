@@ -29,6 +29,7 @@ void Usagi::initialize()
 
 void Usagi::update(const StageChild* _stage,const Vector2* _camera)
 {
+	actState = ENE_ACT_WALK;
 	aTime++;
 	mTime++;
 

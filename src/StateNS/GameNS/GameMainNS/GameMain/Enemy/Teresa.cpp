@@ -29,6 +29,7 @@ void Teresa::initialize()
 
 void Teresa::update(const StageChild* _stage, const Vector2* _camera)
 {
+	actState = ENE_ACT_WALK;
 	aTime++;
 	mTime++;
 	this->mDirection = player->raw_x > this->p->raw_x;
