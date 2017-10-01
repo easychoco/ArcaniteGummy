@@ -16,7 +16,7 @@ class Junko : public EnemyChild
 public:
 	Junko(int x, int y);
 	~Junko();
-
+	void draw(const Vector2* camera) const;
 	void update(const StageChild* _stage, const Vector2* _camera);
 	
 private:
@@ -34,7 +34,7 @@ private:
 	virtual void draw_other(const Vector2* camera)const override;
 
 	//TODO âÊëúç∑Çµë÷Ç¶
-	void loadImage() { images = LoadGraph("Data/Image/balloon.png"); mImage = images; }
+	void loadImage() { images = LoadGraph("Data/Image/balloon.png"); mImage2 = images; }
 	void attack(const StageChild*);
 
 	void initialize();

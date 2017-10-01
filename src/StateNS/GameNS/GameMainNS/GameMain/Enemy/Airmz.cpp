@@ -8,14 +8,14 @@ namespace GameMainNS{
 Airmz::Airmz(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
-	assert(mImage != -1 && "Airmz画像読み込みエラー!");
+	assert(*mImage != -1 && "Airmz画像読み込みエラー!");
 
 	initialize();
 };
 
 Airmz::~Airmz()
 {
-	DeleteGraph(images);
+	//DeleteGraph(*images);
 }
 
 void Airmz::initialize()
@@ -26,6 +26,8 @@ void Airmz::initialize()
 
 void Airmz::update(const StageChild* _stage, const Vector2* _camera)
 {
+	actState = ENE_ACT_WALK;
+	aTime++;
 	if(mTime == 0)this->mDirection = player->raw_x > this->p->raw_x;
 
 	//横に直進するだけ
@@ -33,8 +35,10 @@ void Airmz::update(const StageChild* _stage, const Vector2* _camera)
 	mTime %= 90;
 	standardAction(_stage);
 
-	if (mTime == 0)attack(_stage);
-	
+	if (mTime == 0) {
+		actState = ENE_ACT_ATTACK;
+		attack(_stage);
+	}
 	//攻撃
 	for (auto& a : attacks)
 	{

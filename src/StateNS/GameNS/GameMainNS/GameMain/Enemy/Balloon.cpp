@@ -10,7 +10,7 @@ namespace GameMainNS{
 Balloon::Balloon(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
-	assert(mImage != -1 && "Balloon画像読み込みエラー!");
+	assert(*mImage != -1 && "Balloon画像読み込みエラー!");
 
 	initialize();
 };
@@ -28,6 +28,8 @@ void Balloon::initialize()
 
 void Balloon::update(const StageChild* _stage, const Vector2* _camera)
 {
+	actState = ENE_ACT_WALK;
+	aTime++;
 	mTime++;
 	mTime %= 180;
 

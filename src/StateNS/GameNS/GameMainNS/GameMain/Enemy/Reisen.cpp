@@ -18,14 +18,14 @@ EnemyChild(_isOriginal ? 1000 : 1, _x, _y, 32, 32, _isOriginal),
 isOriginal(_isOriginal)
 {
 	if(!imgLoad)loadImage();
-	assert(mImage != -1 && "Reisen画像読み込みエラー!");
+	assert(mImage2 != -1 && "Reisen画像読み込みエラー!");
 
 	initialize();
 }
 
 Reisen::~Reisen()
 {
-
+	DeleteGraph(mImage2);
 }
 
 void Reisen::initialize()
@@ -116,6 +116,23 @@ vector<Attack*> Reisen::getAttacks() const
 	}
 
 	return ret;
+}
+
+void Reisen::draw(const Vector2* _camera) const
+{
+	//画面内にいなければreturn
+	//if (!mIsAlive)return;
+
+
+	//画面内にいなければreturn
+	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
+
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	//描画
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage2, true, mDirection);
+	draw_other(_camera);
 }
 
 void Reisen::move(const StageChild* _stage, int& _dx, int& _dy)

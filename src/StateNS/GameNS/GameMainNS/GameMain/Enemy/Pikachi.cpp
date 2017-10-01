@@ -10,7 +10,7 @@ namespace GameMainNS{
 Pikachi::Pikachi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
-	assert(mImage != -1 && "Pikachi画像読み込みエラー!");
+	assert(*mImage != -1 && "Pikachi画像読み込みエラー!");
 
 	initialize();
 };
@@ -18,7 +18,7 @@ Pikachi::Pikachi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 
 Pikachi::~Pikachi()
 {
-	DeleteGraph(mImage);
+	DeleteGraph(*mImage);
 }
 
 void Pikachi::initialize()
@@ -30,6 +30,7 @@ void Pikachi::initialize()
 
 void Pikachi::update(const StageChild* _stage,const Vector2* _camera)
 {
+	aTime++;
 	mTime++;
 	mTime %= 211;
 	standardAction(_stage);

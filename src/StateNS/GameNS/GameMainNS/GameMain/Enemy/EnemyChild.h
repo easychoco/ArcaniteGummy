@@ -21,11 +21,14 @@ public:
 	virtual void setPlayer(const Vector2* _player) { this->player = _player; }
 	virtual vector<Attack*> getAttacks() const { return attacks; }
 	virtual vector<EnemyChild*> getChilds() { vector<EnemyChild*> gomi{ this }; return gomi; };
+	void standardDraw(const Vector2* _camera, const bool& _direction) const;
 
 protected:
-	int mImage;
+	int mImage[8];
+	int mImage2;
 	bool mDirection;
 	const Vector2* player;
+	int aTime;
 
 	//dx ‚Æ dy ‚ÉˆÚ“®—Ê‚ğ“ü‚ê‚é
 	virtual void move(const StageChild*, int& dx, int& dy) = 0;
@@ -34,6 +37,15 @@ protected:
 	void standardAction(const StageChild* _stage);
 	//UŒ‚‚Ìvector
 	vector<Attack*> attacks;
+
+	enum ActState {
+		ENE_ACT_NONE,
+		ENE_ACT_WALK,
+		ENE_ACT_ATTACK,
+		ENE_ACT_DEAD,
+	};
+	ActState actState;
+
 private:
 	bool mIsAlive;
 

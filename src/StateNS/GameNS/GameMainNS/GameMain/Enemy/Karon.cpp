@@ -10,7 +10,7 @@ namespace GameMainNS{
 Karon::Karon(int _x, int _y) : EnemyChild(1, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
-	assert(mImage != -1 && "Karon画像読み込みエラー!");
+	assert(*mImage != -1 && "Karon画像読み込みエラー!");
 
 	initialize();
 };
@@ -31,7 +31,7 @@ void Karon::initialize()
 
 void Karon::update(const StageChild* _stage,const Vector2* _camera)
 {
-
+	aTime++;
 	if (hpController.getHP()==0) 
 	{
 		hpController.damage(-1);

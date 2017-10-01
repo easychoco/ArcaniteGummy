@@ -20,7 +20,7 @@ public:
 	Reisen(int x, int y);
 	Reisen(int x, int y, bool isOriginal);
 	~Reisen();
-
+	void draw(const Vector2* camera) const;
 	void update(const StageChild* _stage, const Vector2* _camera);
 	virtual void setPlayer(const Vector2* _player) override { this->player = _player; if (isOriginal)replica->setPlayer(_player); }
 	virtual vector<Attack*> getAttacks() const override;
@@ -44,7 +44,7 @@ private:
 	virtual void draw_other(const Vector2* camera)const override;
 
 	//TODO âÊëúç∑Çµë÷Ç¶
-	void loadImage() { images = LoadGraph("Data/Image/balloon.png"); mImage = images; imgLoad = true; }
+	void loadImage() { images = LoadGraph("Data/Image/balloon.png"); mImage2 = images; imgLoad = true; }
 	void attack();
 
 	void initialize();

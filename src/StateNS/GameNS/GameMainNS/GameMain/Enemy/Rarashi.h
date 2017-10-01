@@ -18,7 +18,7 @@ public:
 
 
 private:
-	int images;
+
 	bool imgLoad = false;
 	
 	int mTime;
@@ -31,7 +31,13 @@ private:
 
 	//Enemychild‚ÌŠÖ”
 	void move(const StageChild*, int& dx, int& dy);
-	void loadImage() { images = LoadGraph("Data/Image/Rarashi.png"); mImage = images; imgLoad = true; }
+	int images[8];
+	void loadImage()
+	{
+		if (!imgLoad)LoadDivGraph("Data/Image/Rarashi.png", 8, 8, 1, 32, 32, images);
+		for (int i = 0; i < 8; i++)mImage[i] = images[i];
+		imgLoad = true;
+	}
 
 
 	void initialize();

@@ -10,7 +10,7 @@ namespace GameMainNS{
 Yachamo::Yachamo(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
-	assert(mImage != -1 && "Yachamo画像読み込みエラー!");
+	assert(*mImage != -1 && "Yachamo画像読み込みエラー!");
 
 	initialize();
 };
@@ -18,7 +18,7 @@ Yachamo::Yachamo(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 
 Yachamo::~Yachamo()
 {
-	DeleteGraph(mImage);
+	DeleteGraph(*mImage);
 }
 
 void Yachamo::initialize()
@@ -29,6 +29,7 @@ void Yachamo::initialize()
 
 void Yachamo::update(const StageChild* _stage, const Vector2* _camera)
 {
+	aTime++;
 	mTime++;
 
 	standardAction(_stage);

@@ -23,6 +23,8 @@ void EnemyChild::initialize()
 {
 	this->mIsAlive = true;
 	this->mDirection = false;
+	this->actState = ENE_ACT_NONE;
+	this->aTime = 0;
 }
 
 void EnemyChild::draw(const Vector2* _camera) const
@@ -30,8 +32,21 @@ void EnemyChild::draw(const Vector2* _camera) const
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
 	if (!mIsAlive)return;
 	
-	standardDraw(_camera, mImage, mDirection);
+	standardDraw(_camera,mDirection);
 	draw_other(_camera);
+}
+
+void EnemyChild::standardDraw(const Vector2* _camera, const bool& _direction) const
+{
+
+	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
+	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
+
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	//•`‰æ
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage[actState], true, _direction);
 }
 
 void EnemyChild::standardAction(const StageChild* _stage)

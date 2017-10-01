@@ -10,7 +10,7 @@ namespace GameMainNS{
 Rarashi::Rarashi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
-	assert(mImage != -1 && "Rarashi画像読み込みエラー!");
+	assert(*mImage != -1 && "Rarashi画像読み込みエラー!");
 
 	initialize();
 };
@@ -18,7 +18,7 @@ Rarashi::Rarashi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 
 Rarashi::~Rarashi()
 {
-	DeleteGraph(images);
+	DeleteGraph(*mImage);
 }
 
 void Rarashi::initialize()
@@ -32,6 +32,7 @@ void Rarashi::initialize()
 
 void Rarashi::update(const StageChild* _stage,const Vector2* _camera)
 {
+	aTime++;
 	mTime++;
 	standardAction(_stage);	
 }

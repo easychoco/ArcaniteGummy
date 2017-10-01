@@ -10,7 +10,7 @@ namespace GameMainNS{
 Broth::Broth(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
-	assert(mImage != -1 && "Broth画像読み込みエラー!");
+	assert(*mImage != -1 && "Broth画像読み込みエラー!");
 
 	initialize();
 };
@@ -18,7 +18,7 @@ Broth::Broth(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 
 Broth::~Broth()
 {
-	DeleteGraph(mImage);
+	DeleteGraph(*mImage);
 }
 
 void Broth::initialize()
@@ -30,6 +30,7 @@ void Broth::initialize()
 
 void Broth::update(const StageChild* _stage,const Vector2* _camera)
 {
+	aTime++;
 	mTime++;
 	mTime %= 630;
 	standardAction(_stage);

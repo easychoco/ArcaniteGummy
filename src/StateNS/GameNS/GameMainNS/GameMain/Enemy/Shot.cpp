@@ -33,7 +33,7 @@ Shot::~Shot()
 void Shot::initialize()
 {
 	isActive = true;
-	loadImage();
+	//loadImage();
 	assert(mImage != -1 && "Shot‰æ‘œ“Ç‚İ‚İƒGƒ‰[!");
 }
 

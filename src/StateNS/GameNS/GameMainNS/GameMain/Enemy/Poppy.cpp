@@ -8,14 +8,14 @@ namespace GameMainNS{
 Poppy::Poppy(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
-	assert(mImage != -1 && "Poppy画像読み込みエラー!");
+	assert(*mImage != -1 && "Poppy画像読み込みエラー!");
 
 	initialize();
 };
 
 Poppy::~Poppy()
 {
-	DeleteGraph(images);
+	DeleteGraph(*images);
 }
 
 void Poppy::initialize()
@@ -26,6 +26,7 @@ void Poppy::initialize()
 
 void Poppy::update(const StageChild* _stage, const Vector2* _camera)
 {
+	aTime++;
 	if(mTime == 0)this->mDirection = player->raw_x > this->p->raw_x;
 
 	//横に直進するだけ

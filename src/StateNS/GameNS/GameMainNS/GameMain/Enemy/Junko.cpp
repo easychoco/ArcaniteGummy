@@ -13,14 +13,14 @@ Junko::Junko(int _x, int _y) :
 EnemyChild(1000, _x, _y, 32, 32)
 {
 	loadImage();
-	assert(mImage != -1 && "Junko画像読み込みエラー!");
+	assert(mImage2 != -1 && "Junko画像読み込みエラー!");
 
 	initialize();
 }
 
 Junko::~Junko()
 {
-	DeleteGraph(mImage);
+	DeleteGraph(mImage2);
 }
 
 void Junko::initialize()
@@ -87,6 +87,23 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 	}
 
 	standardAction(_stage);
+}
+
+void Junko::draw(const Vector2* _camera) const
+{
+	//画面内にいなければreturn
+	//if (!mIsAlive)return;
+
+
+	//画面内にいなければreturn
+	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
+
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	//描画
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage2, true, mDirection);
+	draw_other(_camera);
 }
 
 void Junko::move(const StageChild* _stage, int& _dx, int& _dy)

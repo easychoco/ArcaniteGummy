@@ -10,7 +10,7 @@ namespace GameMainNS{
 Teresa::Teresa(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
-	assert(mImage != -1 && "Teresa画像読み込みエラー!");
+	assert(*mImage != -1 && "Teresa画像読み込みエラー!");
 
 	initialize();
 };
@@ -29,7 +29,7 @@ void Teresa::initialize()
 
 void Teresa::update(const StageChild* _stage, const Vector2* _camera)
 {
-
+	aTime++;
 	mTime++;
 	this->mDirection = player->raw_x > this->p->raw_x;
 
