@@ -71,6 +71,9 @@ constexpr int CHIP_HEIGHT = 32;
 //1ピクセルをどれだけ拡張するか
 constexpr int vectorRate = 1000;
 
+//ザコ敵のキャラチップの数
+constexpr int ENEMY_CHIP_NUM = 8;
+
 //vectorRateを考慮しプレイヤーチップのサイズ
 constexpr int PLAYER_CHIP_WIDTH_RATE() { return PLAYER_CHIP_WIDTH * vectorRate; }
 constexpr int PLAYER_CHIP_HEIGHT_RATE() { return PLAYER_CHIP_HEIGHT * vectorRate; }

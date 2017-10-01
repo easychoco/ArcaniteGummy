@@ -237,6 +237,7 @@ void GameMain::processCollision(StageChild* _stage)
 
 StageChild* GameMain::getNextStage(int stageID)
 {
+	
 	if (stageID == 11)return new Stage11();
 	if (stageID == 12)return new Stage12();
 	if (stageID == 13)return new Stage13();
@@ -249,10 +250,9 @@ StageChild* GameMain::getNextStage(int stageID)
 	//if (stageID == 41)return new Stage41();
 	//if (stageID == 42)return new Stage42();
 	//if (stageID == 43)return new Stage43();
-
-	/*
-	ˆÈ‰ºC“¯—l‚Ìˆ—‚ğ‘‚­
-	*/
+	
+	//for Debug
+	if (stageID == 0)return new Stage00();
 
 	//‚±‚±‚É‚Í‚±‚È‚¢
 	assert(!"•s³‚ÈStageID");
