@@ -7,11 +7,11 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-class stage42 : public StageChild
+class Stage42 : public StageChild
 {
 public:
-	stage42();
-	~stage42();
+	Stage42();
+	~Stage42();
 	void update(GameMain*, PlayerChild*);
 	void draw(const Vector2* player) const;
 	bool isClear() const;

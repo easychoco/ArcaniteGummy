@@ -24,7 +24,7 @@ void Parent::initialize()
 	//stageNumXV
 
 	//for Debug
-	stageNum = 0;
+	stageNum = 43;
 
 	this->mChild = new GameNS::Play(stageNum);
 	mNextSeq = NextSequence::SEQ_NONE;

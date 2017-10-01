@@ -8,11 +8,11 @@ namespace GameMainNS{
 
 class Torch;
 
-class stage43 : public StageChild
+class Stage43 : public StageChild
 {
 public:
-	stage43();
-	~stage43();
+	Stage43();
+	~Stage43();
 	void update(GameMain*, PlayerChild*);
 	void draw(const Vector2* player) const;
 	bool isClear() const;

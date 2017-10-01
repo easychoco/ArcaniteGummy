@@ -1,4 +1,4 @@
-#include "stage43.h"
+#include "Stage43.h"
 #include "Map.h"
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
@@ -12,13 +12,13 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-stage43::stage43() :
+Stage43::Stage43() :
 StageChild(3, 1) //エリアの数: よこ，たて
 {
 	initialize();
 }
 
-stage43::~stage43()
+Stage43::~Stage43()
 {
 	//torchesはMapのDynamickGimmicksと一緒にdeleteされるから，ここではdeleteしない
 	/*
@@ -31,7 +31,7 @@ stage43::~stage43()
 	*/
 }
 
-void stage43::initialize()
+void Stage43::initialize()
 {
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
@@ -39,7 +39,7 @@ void stage43::initialize()
 	this->maps.push_back(new Map(13, 1, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(13, 2, MapPos::POS_LEFT_FREE));
 
-	startX = 144, startY = 1536;
+	startX = 144, startY = 1200;
 
 	//this->torches.push_back(new Torch(304, 1488));
 	//this->maps[0]->addGimmick(torches[0]);
@@ -48,7 +48,7 @@ void stage43::initialize()
 }
 
 
-void stage43::update(GameMain* gameMain, PlayerChild* _player)
+void Stage43::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
 
@@ -56,12 +56,12 @@ void stage43::update(GameMain* gameMain, PlayerChild* _player)
 	//if (torches[0]->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
 }
 
-void stage43::draw(const Vector2* _camera) const
+void Stage43::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
 }
 
-bool stage43::isClear() const
+bool Stage43::isClear() const
 {
 	return false;
 }

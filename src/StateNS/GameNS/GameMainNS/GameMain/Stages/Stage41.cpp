@@ -1,4 +1,4 @@
-#include "stage41.h"
+#include "Stage41.h"
 #include "Map.h"
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
@@ -9,18 +9,18 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-stage41::stage41() :
+Stage41::Stage41() :
 StageChild(2, 1) //エリアの数: よこ，たて
 {
 	initialize();
 }
 
-stage41::~stage41()
+Stage41::~Stage41()
 {
 
 }
 
-void stage41::initialize()
+void Stage41::initialize()
 {
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
@@ -35,7 +35,7 @@ void stage41::initialize()
 }
 
 
-void stage41::update(GameMain* gameMain, PlayerChild* _player)
+void Stage41::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
 
@@ -44,12 +44,12 @@ void stage41::update(GameMain* gameMain, PlayerChild* _player)
 		gameMain->startConverse(12);
 }
 
-void stage41::draw(const Vector2* _camera) const
+void Stage41::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
 }
 
-bool stage41::isClear() const
+bool Stage41::isClear() const
 {
 	return false;
 }

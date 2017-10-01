@@ -247,12 +247,12 @@ StageChild* GameMain::getNextStage(int stageID)
 	if (stageID == 31)return new Stage31();
 	if (stageID == 32)return new Stage32();
 	if (stageID == 33)return new Stage33();
-	//if (stageID == 41)return new Stage41();
-	//if (stageID == 42)return new Stage42();
-	//if (stageID == 43)return new Stage43();
+	if (stageID == 41)return new Stage41();
+	if (stageID == 42)return new Stage42();
+	if (stageID == 43)return new Stage43();
 	
 	//for Debug
-	if (stageID == 0)return new Stage00();
+	//if (stageID == 0)return new Stage00();
 
 	//Ç±Ç±Ç…ÇÕÇ±Ç»Ç¢
 	assert(!"ïsê≥Ç»StageID");
