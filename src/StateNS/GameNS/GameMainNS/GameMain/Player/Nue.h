@@ -44,6 +44,7 @@ private:
 
 	private:
 		int mTime;
+		int img1, img2;
 		const Vector2* parent_p;
 
 	};
