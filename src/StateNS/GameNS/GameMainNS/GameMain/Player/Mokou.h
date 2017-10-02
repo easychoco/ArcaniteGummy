@@ -37,7 +37,9 @@ private:
 		void hittedAction();
 
 	private:
+		bool up;
 		int images[3];
+		int images2[3];
 		int mTime;
 		const bool *direction;
 	};

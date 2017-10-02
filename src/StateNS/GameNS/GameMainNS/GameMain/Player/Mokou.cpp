@@ -119,7 +119,10 @@ direction(_direction)
 
 	mImage = 0;
 	int tmp = LoadDivGraph("Data/Image/Fire.png", 3, 1, 3, 96, 32, images);
+	int tmp2 = LoadDivGraph("Data/Image/Fire2.png", 3, 3, 1, 32, 96, images2);
 	assert(tmp != -1 && "Fire画像読み込みエラー");
+	assert(tmp2 != -1 && "Fire画像読み込みエラー");
+
 }
 
 Mokou::Fire::~Fire()
@@ -131,23 +134,36 @@ void Mokou::Fire::update()
 {
 	mTime++;
 	mDirection = *direction;
+	int img[3];
 
-	this->height = min(mTime, 32) * vectorRate;
+	if(Input_UP()) {
+		this->height = 96;
+		this->width = min(mTime, 32) * vectorRate;
+		this->p->raw_x = parent->getVector2()->raw_x;
+		this->p->raw_y = parent->getVector2()->raw_y - 64000;
+		for (int i = 0; i < 3; i++)img[i] = images2[i];
+	}
+	else{
+		this->width = 96;
+		this->height = min(mTime, 32) * vectorRate;
+		this->p->raw_x = parent->getVector2()->raw_x + ((*direction) ? -54000 : 54000);
+		this->p->raw_y = parent->getVector2()->raw_y;
+		for (int i = 0; i < 3; i++)img[i] = images[i];
+	}
 
-	this->p->raw_x = parent->getVector2()->raw_x + ((*direction) ?  -54000 : 54000);
-	this->p->raw_y = parent->getVector2()->raw_y;
-	isActive = false;
 
-	if (mTime < 5)mImage = images[0];
-	else if (mTime < 10)mImage = images[1];
+	if (mTime < 5)mImage = img[0];
+	else if (mTime < 10)mImage = img[1];
 	else
 	{
-		mImage = images[2];
+		mImage = img[2];
 
 		float angle = mTime * Pi / 3.0f;
 		this->p->raw_x += (int)(3000 * cosf(angle));
 		this->p->raw_y += (int)(3000 * sinf(angle));
 	}
+
+	isActive = false;
 }
 
 void Mokou::Fire::setStatus(Vector2 _pos, int direction)
