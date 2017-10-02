@@ -160,13 +160,16 @@ Sakuya::Knife::Knife(const PlayerChild* _parent, const StageChild* _stage, int _
 Attack(_parent, _x, _y, 32, 32, ObjectID::A_KNIFE),
 stage(_stage)
 {
-	this->dx = _dx * MyData::vectorRate;
+	this->up = Input_UP();
+	this->dx =  _dx * MyData::vectorRate;
+
 	mDirection = _dx < 0;
 
 	//for Debug
 	this->damageValue = 100;
 
-	mImage = LoadGraph("Data/Image/Knife.png");
+	if(up)this->mImage = LoadGraph("Data/Image/Knife2.png");
+	else this->mImage = LoadGraph("Data/Image/Knife.png");
 	assert(mImage != -1 && "Knife画像読み込みエラー");
 }
 
@@ -177,17 +180,32 @@ Sakuya::Knife::~Knife()
 
 void Sakuya::Knife::update()
 {
-	int dx_tmp = getHorizontalDiffer(stage, dx, false, false);
-	this->p->raw_x += dx_tmp;
+	int tmp = 0;
+	if (up) {
+		//////////////////なんかめっちゃ貫通する///////////////////
+		tmp = getTopDiffer(stage, abs(dx), false, false);
+		this->p->raw_y -= tmp;
+	}
+	else {
+		tmp = getHorizontalDiffer(stage, dx, false, false);
+		this->p->raw_x += tmp;
+	}
 
-	if (dx_tmp == 0)this->isActive = false;
+	if (tmp == 0)this->isActive = false;
 }
 
 void Sakuya::Knife::setStatus(Vector2 _pos, int _dx)
 {
 	*(this->p) = _pos;
+	this->up = Input_UP();
 	this->dx = _dx * MyData::vectorRate;
 	this->mDirection = _dx < 0;
+
+	////////////////////////重そう///////////////////////////
+	if (up)this->mImage = LoadGraph("Data/Image/Knife2.png");
+	else this->mImage = LoadGraph("Data/Image/Knife.png");
+	assert(mImage != -1 && "Knife画像読み込みエラー");
+
 }
 
 void Sakuya::Knife::hittedAction()
