@@ -182,9 +182,9 @@ void Sakuya::Knife::update()
 {
 	int tmp = 0;
 	if (up) {
-		//////////////////‚È‚ñ‚©‚ß‚Á‚¿‚áŠÑ’Ê‚·‚é///////////////////
-		tmp = getTopDiffer(stage, abs(dx), false, false);
-		this->p->raw_y -= tmp;
+
+		tmp = getTopDiffer(stage, -abs(dx), false, false);
+		this->p->raw_y += tmp;
 	}
 	else {
 		tmp = getHorizontalDiffer(stage, dx, false, false);
