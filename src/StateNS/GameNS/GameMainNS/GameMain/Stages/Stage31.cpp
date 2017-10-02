@@ -30,6 +30,21 @@ void Stage31::initialize()
 	flag = new ClearFlag(Vector2(1936, 1552));
 	maps[1]->addGimmick(flag);
 
+
+	torches.push_back(new Torch(22 * 32 + 16, 48 * 32 + 16));
+	torches.push_back(new Torch(4 * 32 + 16, 36 * 32 + 16));
+	torches.push_back(new Torch(58 * 32 + 16, 6 * 32 + 16));
+	torches.push_back(new Torch(62 * 32 + 16, 38 * 32 + 16));
+	for (const auto& t : torches)maps[0]->addDynamicGimmick(t);
+
+	torches2.push_back(new Torch(26 * 32 + 16, 5 * 32 + 16));
+	for (const auto& t : torches2)maps[1]->addDynamicGimmick(t);
+
+	SwitchWithBlock* s = new SwitchWithBlock(78 * 32 + 16, 5 * 32 + 16);
+	for (int i = 0; i < 3; i++)s->push_block(new Block(78 * 32 + 16, (11 + i) * 32 + 16, 1.0), false);
+	maps[1]->addSwitchWithBlock(s);
+
+
 	startX = 144, startY = 1536;
 
 }
@@ -38,6 +53,11 @@ void Stage31::initialize()
 void Stage31::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
+
+	gameMain->setFilter(FilterType::FILTER_DARK);
+	for (const auto& t : torches)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+	for (const auto& t : torches2)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+
 
 	//for Debug
 	if(CheckHitKey(KEY_INPUT_1))
