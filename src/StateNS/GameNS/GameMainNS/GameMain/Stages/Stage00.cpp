@@ -37,8 +37,13 @@ void Stage00::initialize()
 	SwitchWithBlock* s = new SwitchWithBlock(208, 1488);
 	s->push_block(new Block(208, 1296, 1.0), true);
 	s->push_block(new Block(256, 1312, 2.0), false);
-
 	maps[0]->addSwitchWithBlock(s);
+	SwitchWithBlock* s2 = new SwitchWithBlock(272, 1488);
+	s2->push_block(new Block(272, 1296, 1.0), true);
+	s2->push_block(new Block(288, 1312, 2.0), false);
+	maps[0]->addSwitchWithBlock(s2);
+
+
 	startX = 144, startY = 1536;
 }
 

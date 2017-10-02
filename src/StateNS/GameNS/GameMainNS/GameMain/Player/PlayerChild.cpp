@@ -70,6 +70,7 @@ void PlayerChild::draw() const
 
 	//for Debug
 	DrawFormatString(20, 40, BLACK, "%d, %d", p->raw_x, p->raw_y);
+	DrawFormatString(20, 60, BLACK, "%d, %d", p->x(), p->y());
 }
 
 

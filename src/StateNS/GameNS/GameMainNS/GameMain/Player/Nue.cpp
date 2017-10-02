@@ -85,6 +85,7 @@ PlayerChild* Nue::update(const StageChild* _stage)
 int Nue::specialAction() {
 	int x = 0;
 	if (Input_C() && !isUFO) {
+
 		int x = (p->x() / CHIP_WIDTH  + 1) * CHIP_WIDTH - CHIP_WIDTH / 2;
 		int y = (p->y() / CHIP_HEIGHT + 1) * CHIP_HEIGHT - CHIP_HEIGHT / 2;
 		ufo = new UFO(x, y);
@@ -250,8 +251,9 @@ void Nue::UFO::update(const StageChild* _stage)
 
 void Nue::UFO::draw(const Vector2* _camera) const
 {
-	if (mTime > 150 && mTime/10 % 2)return;
+	if (mTime > 150 && mTime / 10 % 2)return;
 
+	DrawFormatString(20, 80, BLACK, "%d, %d", this->p->raw_x, this->p->raw_y);
 	standardDraw(_camera, mImage, mDirection);
 
 
