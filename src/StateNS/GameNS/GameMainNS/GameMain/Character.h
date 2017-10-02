@@ -21,6 +21,7 @@ public:
 	virtual void hittedAction() = 0;
 	void moveCharacter(float _dx, float _dy);
 	void warpCharacter(int raw_x, int raw_y);
+	virtual int getFloorCoordinate() { return 0; }
 
 	HPController hpController;
 	bool isPlayer;

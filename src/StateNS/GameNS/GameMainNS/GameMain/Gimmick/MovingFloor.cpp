@@ -12,7 +12,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-MovingFloor::MovingFloor(int _x, int _y, int _term_x, int _term_y, float _movingSpeed,int _moveType) :
+MovingFloor::MovingFloor(int _x, int _y, int _term_x, int _term_y, float _movingSpeed, int _moveType) :
 DynamicGimmickChild(_x, _y, 1.0)
 {
 	this->width  = 64;
@@ -37,7 +37,7 @@ DynamicGimmickChild(_x, _y, 1.0)
 
 MovingFloor::~MovingFloor()
 {
-
+	DeleteGraph(mImage);
 }
 
 void MovingFloor::initialize()
@@ -127,6 +127,8 @@ void MovingFloor::move()
 {
 	float tmp_dy = 0.0f;
 	float tmp_dx = 0.0f;
+
+	//TODO —ñ‹“Œ^‚É‘‚«Š·‚¦
 	switch (moveType) 
 	{
 	case 0://üŒ`ˆÚ“®

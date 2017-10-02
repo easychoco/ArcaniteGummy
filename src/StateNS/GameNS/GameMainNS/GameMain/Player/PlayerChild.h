@@ -25,7 +25,8 @@ public:
 	void draw() const;
 	const Vector2* getCamera() const { return camera; }
 	vector<Attack*> getAttacks() const { return attacks; }
-	StageChild::HowStageMove getStageMove() const { return nextStageMove; };
+	StageChild::HowStageMove getStageMove() const { return nextStageMove; }
+	int getFloorCoordinate() override;
 
 	virtual int specialAction() = 0;
 

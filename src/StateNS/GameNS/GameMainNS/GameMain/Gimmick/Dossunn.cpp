@@ -44,6 +44,17 @@ void Dossunn::draw(const Vector2* _camera) const
 void Dossunn::apply(Character* _character)
 {
 	this->isMove = true;
+
+	//動作実装未確認
+	if (abs(_character->getVector2()->raw_x - this->p->raw_x) < this->width)
+	{
+		if (this->p->raw_y < _character->getVector2()->raw_y && 
+			(_character->getFloorCoordinate() - this->p->raw_y) < PLAYER_CHIP_HEIGHT_RATE() + this->height / 2)
+		{
+			//つぶされたらダメージ
+			_character->hpController.damage(300);
+		}
+	}
 }
 
 void Dossunn::hittedAction()

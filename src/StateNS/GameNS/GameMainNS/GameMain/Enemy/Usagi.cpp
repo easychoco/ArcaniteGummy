@@ -39,6 +39,10 @@ void Usagi::update(const StageChild* _stage,const Vector2* _camera)
 
 void Usagi::move(const StageChild* _stage, int& _dx, int& _dy)
 {
+	//デバッグメモ：
+	//先にgetHorizontalDifferを呼ぶ
+
+
 	_dy = getBottomDiffer(_stage, 4000, _dx < 0);
 
 	//_dyが0でなかったら空中にいる

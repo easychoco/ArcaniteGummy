@@ -72,6 +72,16 @@ void PlayerChild::draw() const
 	DrawFormatString(20, 40, BLACK, "%d, %d", p->raw_x, p->raw_y);
 }
 
+//é©ã@Ç™è∞ÇÃè„Ç…Ç¢ÇΩÇÁè∞ÇÃyç¿ïWÇï‘Ç∑ Ç¢Ç»Ç©Ç¡ÇΩÇÁ0Çï‘Ç∑
+int PlayerChild::getFloorCoordinate()
+{
+	if (this->onGround)
+	{
+		return this->p->raw_x + PLAYER_CHIP_HEIGHT_RATE() / 2;
+	}
+	return 0;
+}
+
 
 //================================================
 //ì‡ïîprotectedä÷êî

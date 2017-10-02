@@ -12,6 +12,15 @@ namespace GameMainNS{
 
 class Child;
 
+enum MoveType
+{
+	LINEAR,
+	UP_PARABOLA,
+	DOWN_PARADOLA,
+	CLOCKWISE,
+	ANTI_CLOCKWISE
+};
+
 class MovingFloor : public DynamicGimmickChild
 {
 public:
