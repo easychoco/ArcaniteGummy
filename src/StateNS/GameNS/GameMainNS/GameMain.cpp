@@ -145,8 +145,8 @@ void GameMain::updateDynamics(StageChild* stage)
 
 void GameMain::processCollision(StageChild* _stage)
 {
-	//TODO -> ‚‘¬‰»‚µ‚½‚¢
-	//ˆá‚¤ƒXƒe[ƒW‚Ì‚à‚Ì‚Íˆ—‚µ‚È‚¢‚Æ‚©
+	//Ž©‹@‚ÆDynamicGimmick‚ÌÕ“Ë
+	mStage->processDynamcCollision(mPlayer);
 
 	//“G
 	auto enemies = mEController->getEnemies();
@@ -168,7 +168,7 @@ void GameMain::processCollision(StageChild* _stage)
 		}
 
 		//“G‚ÌUŒ‚‚ÆƒvƒŒƒCƒ„[‚ÌÕ“Ë
-		//“G‚¢Child‚ª‚ ‚éê‡‚ÍEnemyChild‚Ì•û‚Å‘Î‰žÏ‚Ý
+		//“G‚ÉChild‚ª‚ ‚éê‡‚ÍEnemyChild‚Ì•û‚Å‘Î‰žÏ‚Ý
 		for (auto& eAttack : enemy->getAttacks())
 		{
 			if (eAttack->isActive && mPlayer->isHit(eAttack)) 

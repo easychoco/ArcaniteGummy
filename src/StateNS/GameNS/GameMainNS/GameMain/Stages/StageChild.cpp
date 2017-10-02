@@ -109,8 +109,13 @@ void StageChild::moveStage(HowStageMove _stageMove)
 		break;
 	}
 	assert(now_stage_num < maps.size() && "StageChild: map index out of range!");
-
 }
+
+void StageChild::processDynamcCollision(PlayerChild* _player)
+{
+	maps[now_stage_num]->processDynamicCollision(_player);
+}
+
 //========================================================================
 // ì‡ïîprotectedä÷êî
 //========================================================================

@@ -51,24 +51,19 @@ void MovingFloor::update(const StageChild* _stage)
 	mTime++;
 	mTime %= interval;
 
-
-
-
 	move();
 	standardMove(_stage);
 
 }
 
 void MovingFloor::draw(const Vector2* _camera) const
-{
-	
+{	
 	standardDraw(_camera, scale, mImage, mDirection);
-//	DrawFormatString(0, 100, BLACK, "interval:%d", interval);
-//	DrawFormatString(0, 128, BLACK, "mTime:%d", mTime);
 }
 
 void MovingFloor::apply(Character* _character)
 {
+
 	//_character->moveCharacter((float)dx / vectorRate, (float)dy / vectorRate);
 }
 

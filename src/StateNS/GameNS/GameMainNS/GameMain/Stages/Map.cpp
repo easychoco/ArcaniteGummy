@@ -339,16 +339,17 @@ void Map::addEnemy(AllEnemies _enemy, int _x, int _y)
 	this->mEController->addEnemy(_enemy, _x, _y);
 }
 
-/*
-bool Map::isClear() const
+void Map::processDynamicCollision(PlayerChild* _player)
 {
-	return !clearFlag->isActive;
+	processDynamicCollision(mDynamicGimmicks, _player);
+	processDynamicCollision(mSwitchWithBlocks, _player);
+
+	//スイッチのブロックをupdate
+	for (auto& s_b : mSwitchWithBlocks)
+	{
+		processDynamicCollision(s_b->getBlocks(), _player);
+	}
 }
-*/
-
-//マップチップが変わっても対応可能
-//第一引数にマップチップへのポインタを持ってくるためにtemplateを使用
-
 
 //========================================================================
 // 内部private関数
@@ -361,7 +362,18 @@ void Map::updateDynamicGimmick(D_Gmk d_gmk, PlayerChild* _player, const StageChi
 		if (d_gimmick->isActive)
 		{
 			d_gimmick->update(_stage);
+		}
+	}
+}
 
+template<typename D_Gmk>
+void Map::processDynamicCollision(D_Gmk d_gmk, PlayerChild* _player)
+{
+	for (auto& d_gimmick : d_gmk)
+	{
+		if (d_gimmick->isActive)
+		{
+			//ここはコリジョン関係だから，別の関数で実装する
 			if (d_gimmick->onActiveArea(_player->getVector2()))
 				d_gimmick->apply(_player);
 

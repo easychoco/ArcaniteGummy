@@ -14,11 +14,11 @@ class Child;
 
 enum MoveType
 {
-	LINEAR,
-	UP_PARABOLA,
-	DOWN_PARADOLA,
-	CLOCKWISE,
-	ANTI_CLOCKWISE
+	LINEAR,			//üŒ`
+	UP_PARABOLA,	//ã‚É“Ê‚È•ú•¨ü
+	DOWN_PARADOLA,	//‰º‚É“Ê‚È•ú•¨ü
+	CLOCKWISE,		//ŽžŒv‰ñ‚è
+	ANTI_CLOCKWISE	//‹tŽžŒv‰ñ‚è
 };
 
 class MovingFloor : public DynamicGimmickChild

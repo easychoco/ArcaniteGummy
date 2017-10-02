@@ -1,7 +1,7 @@
 #include "Stage00.h"
 #include "Map.h"
 #include "..\..\GameMain.h"
-#include "..\Gimmick\ClearFlag.h"
+#include "..\Gimmick\AllGimmicks.h"
 
 #include <fstream>
 /////////////////////////////////////////////デバッグ用ステージ/////////////////////
@@ -43,6 +43,11 @@ void Stage00::initialize()
 	s2->push_block(new Block(288, 1312, 2.0), false);
 	maps[0]->addSwitchWithBlock(s2);
 
+	MovingFloor* mv_tmp = new MovingFloor(304, 1488, 400, 1200, 2, 0);
+	maps[0]->addDynamicGimmick(mv_tmp);
+
+	Dossunn* d_tmp = new Dossunn(272, 1488, 1.0);
+	maps[0]->addDynamicGimmick(d_tmp);
 
 	startX = 144, startY = 1536;
 }

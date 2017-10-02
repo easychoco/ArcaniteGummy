@@ -81,6 +81,7 @@ public:
 	int getTopPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 	int getBottomPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 
+	void processDynamicCollision(PlayerChild*);
 
 	vector< GimmickChild* > getGimmicks() { return mGimmicks; }
 	vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
@@ -100,9 +101,6 @@ public:
 	
 	std::array< std::array<int, MAP_WIDTH_NUM>, MAP_HEIGHT_NUM> getMapData() { return mapData; }
 
-	template<typename D_Gmk>
-	void updateDynamicGimmick(D_Gmk, PlayerChild*, const StageChild*);
-
 private:
 	void initialize();
 
@@ -116,7 +114,12 @@ private:
 	//敵
 	EnemyController* mEController;
 
-	//GimmickChild* clearFlag;
+	//テンプレートたち
+	template<typename D_Gmk>
+	void updateDynamicGimmick(D_Gmk, PlayerChild*, const StageChild*);
+
+	template<typename D_Gmk>
+	void processDynamicCollision(D_Gmk d_gmk, PlayerChild* _player);
 	
 	bool isLeft(MapPos _mp)		const { return _mp & 0xDC49; }
 	bool isRight(MapPos _mp)	const { return _mp & 0xDB24; }

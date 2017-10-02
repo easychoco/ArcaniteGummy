@@ -70,6 +70,7 @@ public:
 	};
 
 	void moveStage(HowStageMove);
+	void processDynamcCollision(PlayerChild*);
 
 	int startX, startY;
 
