@@ -173,7 +173,8 @@ Attack(_parent, _x, _y, 32, 32, ObjectID::A_SPEAR)
 	//for Debug
 	this->damageValue = 100;
 
-	mImage = LoadGraph("Data/Image/Spear.png");
+	img1 = LoadGraph("Data/Image/Spear.png");
+	img2 = LoadGraph("Data/Image/Spear2.png");
 	assert(mImage != -1 && "Spear‰æ‘œ“Ç‚Ýž‚ÝƒGƒ‰[");
 }
 
@@ -184,15 +185,23 @@ Nue::Spear::~Spear()
 
 void Nue::Spear::update()
 {
+
 	mTime++;
 	if (mTime > 40)isActive = false;
+	int d = 60 - 3 * abs(mTime - 20);
 
-	int dx = 60 - 3 * abs(mTime - 20);
-	if (mDirection)dx = -dx;
+	if (Input_UP()) {
+		mImage = img2;
+		this->p->raw_y = parent_p->raw_y - (d + 30) * vectorRate;
+		this->p->raw_x = parent_p->raw_x;
 
-	this->p->raw_y = parent_p->raw_y;
-	this->p->raw_x = parent_p->raw_x + dx * vectorRate;
-
+	}
+	else {
+		mImage = img1;
+		if (mDirection)d = -d;
+		this->p->raw_y = parent_p->raw_y;
+		this->p->raw_x = parent_p->raw_x + d * vectorRate;
+	}
 }
 
 void Nue::Spear::setStatus(Vector2 _pos, int direction)
