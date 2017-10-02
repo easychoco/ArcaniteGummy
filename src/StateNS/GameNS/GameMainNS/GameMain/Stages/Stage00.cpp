@@ -32,7 +32,13 @@ void Stage00::initialize()
 
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[0]->addGimmick(flag);
-	
+
+
+	SwitchWithBlock* s = new SwitchWithBlock(208, 1488);
+	s->push_block(new Block(208, 1296, 1.0), true);
+	s->push_block(new Block(256, 1312, 2.0), false);
+
+	maps[0]->addSwitchWithBlock(s);
 	startX = 144, startY = 1536;
 }
 

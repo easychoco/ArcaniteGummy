@@ -62,7 +62,7 @@ void Burner::update(const StageChild* _stage)
 	//if (0 + order * 180 <= mTime && mTime <= 180 + order * 180)isEmerge = true;
 	//else isEmerge = false;
 
-	isEmerge = (0 + order * 180 <= mTime && mTime <= 180 + order * 180);
+	isEmerge = (0 + order * 180 <= mTime && mTime <= 150 + order * 180);
 
 	move();
 }
