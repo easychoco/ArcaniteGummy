@@ -47,6 +47,7 @@ private:
 
 	private:
 		int dx;
+		bool up;
 		const StageChild* stage;
 	};
 };
