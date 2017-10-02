@@ -30,6 +30,38 @@ void Stage42::initialize()
 	flag = new ClearFlag(Vector2(2384, 1360));
 	maps[1]->addGimmick(flag);
 
+	SwitchWithBlock* s = new SwitchWithBlock(44 * 32 + 16, 36 * 32 + 16);
+	for (int i = 0; i < 10; i+=2)s->push_block(new Block((37 + i) * 32 + 16, 37 * 32 + 16, 1.0), false);
+	for (int i = 0; i < 8; i += 2)s->push_block(new Block((38 + i) * 32 + 16, 37 * 32 + 16, 1.0), true);
+	maps[0]->addSwitchWithBlock(s);
+
+	SwitchWithBlock* s2 = new SwitchWithBlock(97 * 32 + 16, 37 * 32 + 16);
+	for (int i = 0; i < 4; i++)s->push_block(new Block((90 + i) * 32 + 16, 35 * 32 + 16, 1.0), true);
+	maps[0]->addSwitchWithBlock(s2);
+
+	SwitchWithBlock* s3 = new SwitchWithBlock(82 * 32 + 16, 27 * 32 + 16);
+	for (int i = 0; i < 3; i++)s3->push_block(new Block((85 + i) * 32 + 16, 25 * 32 + 16, 1.0), true);
+	maps[0]->addSwitchWithBlock(s3);
+
+	SwitchWithBlock* s4 = new SwitchWithBlock(97 * 32 + 16, 17 * 32 + 16);
+	for (int i = 0; i < 3; i++)s4->push_block(new Block((89 + i) * 32 + 16, 18 * 32 + 16, 1.0), false);
+	for (int i = 0; i < 3; i++)s4->push_block(new Block((92 + i) * 32 + 16, 14 * 32 + 16, 1.0), true);
+	maps[0]->addSwitchWithBlock(s4);
+
+	SwitchWithBlock* s5 = new SwitchWithBlock(78 * 32 + 16, 7 * 32 + 16);
+	for (int i = 0; i < 3; i++)s5->push_block(new Block((92 + i) * 32 + 16, 8 * 32 + 16, 1.0), false);
+	for (int i = 0; i < 3; i++)s5->push_block(new Block((82 + i) * 32 + 16, 8 * 32 + 16, 1.0), true);
+	maps[0]->addSwitchWithBlock(s5);
+
+
+	SwitchWithBlock* s6 = new SwitchWithBlock(98 * 32 + 16, 32 * 32 + 16);
+	for (int i = 0; i < 3; i++)s6->push_block(new Block(92 * 32 + 16, (37 + i) * 32 + 16, 1.0), false);
+	maps[1]->addSwitchWithBlock(s6);
+
+
+	maps[0]->addSwitchWithBlock(s4);
+
+
 	startX = 144, startY = 1536;
 	//for Debug
 	/*

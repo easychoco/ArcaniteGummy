@@ -4,7 +4,6 @@
 #include "..\Gimmick\ClearFlag.h"
 
 #include "..\Gimmick\DynamicGimmickChild.h"
-#include "..\Gimmick\Torch.h"
 
 #include <fstream>
 
@@ -35,15 +34,16 @@ void Stage33::initialize()
 {
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
-	this->maps.push_back(new Map(23, 0, MapPos::POS_LEFT_UP));
-	this->maps.push_back(new Map(23, 1, MapPos::POS_SINGLE));
-	this->maps.push_back(new Map(23, 2, MapPos::POS_RIGHT_UP));
-	this->maps.push_back(new Map(23, 3, MapPos::POS_LEFT));
-	this->maps.push_back(new Map(23, 4, MapPos::POS_UP));
-	this->maps.push_back(new Map(23, 5, MapPos::POS_RIGHT));
-	this->maps.push_back(new Map(23, 6, MapPos::POS_UP_FREE));
-	this->maps.push_back(new Map(23, 7, MapPos::POS_UP_FREE));
-	this->maps.push_back(new Map(23, 8, MapPos::POS_UP_FREE));
+	this->maps.push_back(new Map(33, 0, MapPos::POS_LEFT_UP));
+	this->maps.push_back(new Map(33, 1, MapPos::POS_SINGLE));
+	this->maps.push_back(new Map(33, 2, MapPos::POS_RIGHT_UP));
+	this->maps.push_back(new Map(33, 3, MapPos::POS_LEFT));
+	this->maps.push_back(new Map(33, 4, MapPos::POS_UP));
+	this->maps.push_back(new Map(33, 5, MapPos::POS_RIGHT));
+	this->maps.push_back(new Map(33, 6, MapPos::POS_UP_FREE));
+	this->maps.push_back(new Map(33, 7, MapPos::POS_UP_FREE));
+	this->maps.push_back(new Map(33, 8, MapPos::POS_UP_FREE));
+
 
 	startX = 1616, startY = 704;
 

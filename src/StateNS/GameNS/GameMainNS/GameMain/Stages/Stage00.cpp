@@ -18,6 +18,7 @@ StageChild(2, 1) //ƒGƒŠƒA‚Ì”: ‚æ‚±C‚½‚Ä
 Stage00::~Stage00()
 {
 
+
 }
 
 void Stage00::initialize()
@@ -31,7 +32,18 @@ void Stage00::initialize()
 
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[0]->addGimmick(flag);
-	
+
+
+	SwitchWithBlock* s = new SwitchWithBlock(208, 1488);
+	s->push_block(new Block(208, 1296, 1.0), true);
+	s->push_block(new Block(256, 1312, 2.0), false);
+	maps[0]->addSwitchWithBlock(s);
+	SwitchWithBlock* s2 = new SwitchWithBlock(272, 1488);
+	s2->push_block(new Block(272, 1296, 1.0), true);
+	s2->push_block(new Block(288, 1312, 2.0), false);
+	maps[0]->addSwitchWithBlock(s2);
+
+
 	startX = 144, startY = 1536;
 }
 

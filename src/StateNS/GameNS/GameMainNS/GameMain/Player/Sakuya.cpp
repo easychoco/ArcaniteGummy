@@ -164,7 +164,7 @@ stage(_stage)
 	mDirection = _dx < 0;
 
 	//for Debug
-	this->damageValue = 20;
+	this->damageValue = 100;
 
 	mImage = LoadGraph("Data/Image/Knife.png");
 	assert(mImage != -1 && "Knife‰æ‘œ“Ç‚İ‚İƒGƒ‰[");

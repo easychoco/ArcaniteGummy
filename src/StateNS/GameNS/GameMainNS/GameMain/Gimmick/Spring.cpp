@@ -22,15 +22,20 @@ void Spring::initialize()
 {
 	loadImage();
 
-	isActive = true;
-	dy = 0.0f;
-	mTime = 0;
-	aTime = 0;
+	this->isActive = true;
+	this->dy = 0.0f;
+	this->mTime = 0;
+	this->aTime = 0;
+	this->onPlayer = false;
 }
 
 void Spring::update()
 {
-	mTime++;
+	if(onPlayer)mTime++;
+	if (mTime == 15) {
+		mTime = 0;
+		onPlayer = false;
+	}
 }
 
 void Spring::draw(const Vector2* _camera) const
@@ -43,7 +48,8 @@ void Spring::draw(const Vector2* _camera) const
 	int draw_y = 240 + (pos.raw_y - _camera->raw_y) / MyData::vectorRate;
 
 	//描画
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
+	if(onPlayer)DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, images[1], true);
+	else DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, images[0], true);
 }
 
 void Spring::apply(Character* _character)
@@ -51,6 +57,8 @@ void Spring::apply(Character* _character)
 	//要調整
 	//このままだとどちらかというとトランポリンっぽい。
 	_character->setJumpPower(30);
+	_character->setJumpCount(0);
+	onPlayer = true;
 }
 
 bool Spring::isOverlap(int _sub_x, int _sub_y) const
@@ -85,8 +93,8 @@ StageChild::ChipType Spring::getChipType() const
 //==============================================
 void Spring::loadImage()
 {
-	mImage = LoadGraph("Data/Image/Spring.png");
-	assert(mImage != -1 && "バネ画像読み込みエラー！");
+	LoadDivGraph("Data/Image/Spring.png",2,2,1,32,32,images);
+	assert(*images != -1 && "バネ画像読み込みエラー！");
 }
 
 

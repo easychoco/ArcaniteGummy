@@ -70,6 +70,7 @@ void PlayerChild::draw() const
 
 	//for Debug
 	DrawFormatString(20, 40, BLACK, "%d, %d", p->raw_x, p->raw_y);
+	DrawFormatString(20, 60, BLACK, "%d, %d", p->x(), p->y());
 }
 
 //©‹@‚ª°‚Ìã‚É‚¢‚½‚ç°‚ÌyÀ•W‚ğ•Ô‚· ‚¢‚È‚©‚Á‚½‚ç0‚ğ•Ô‚·
@@ -209,6 +210,10 @@ void PlayerChild::move(const StageChild* _stage)
 	{
 		nowJumpCount = 0;
 	}
+
+	//for Debug
+	if (Input_W())onLadder = true;
+
 
 	//‚Í‚µ‚²‚É‚Ì‚Ú‚é
 	if (onLadder)

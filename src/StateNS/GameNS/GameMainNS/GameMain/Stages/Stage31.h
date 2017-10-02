@@ -1,6 +1,7 @@
 #pragma once
 #include "..\..\..\..\..\Data.h"
 #include "StageChild.h"
+#include "..\Gimmick\Torch.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -18,6 +19,9 @@ public:
 	
 private:
 	void initialize();
+
+	vector<Torch*> torches;
+	vector<Torch*> torches2;
 
 	//マップチップ
 	array<Chip, 20> chip

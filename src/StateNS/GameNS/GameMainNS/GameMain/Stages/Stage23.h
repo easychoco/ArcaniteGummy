@@ -20,7 +20,7 @@ public:
 private:
 	void initialize();
 
-	vector<Torch*> torches;
+
 
 	//マップチップ
 	array<Chip, 20> chip

@@ -4,7 +4,6 @@
 #include "..\Gimmick\ClearFlag.h"
 
 #include "..\Gimmick\DynamicGimmickChild.h"
-#include "..\Gimmick\Torch.h"
 
 #include <fstream>
 
@@ -40,7 +39,12 @@ void Stage13::initialize()
 	this->maps.push_back(new Map(13, 2, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(13, 3, MapPos::POS_LEFT_FREE));
 
-	startX = 208, startY = 1472;
+	SwitchWithBlock* s = new SwitchWithBlock(76 * 32 + 16, 37 * 32 + 16);
+	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0), false);
+	maps[1]->addSwitchWithBlock(s);
+
+
+	startX = 208, startY = 1440;
 
 //	this->torches.push_back(new Torch(304, 1488));
 //	this->maps[0]->addGimmick(torches[0]);

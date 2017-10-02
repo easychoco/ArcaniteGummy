@@ -32,6 +32,22 @@ void Stage21::initialize()
 	flag = new ClearFlag(Vector2(3088, 400));
 	maps[2]->addGimmick(flag);
 
+	SwitchWithBlock* s = new SwitchWithBlock(64 * 32 + 16, 12 * 32 + 16);
+	for (int i = 0; i < 4; i++)s->push_block(new Block(59 * 32 + 16, (18 + i) * 32 + 16, 1.0), false);
+	maps[2]->addSwitchWithBlock(s);
+
+
+	torches.push_back(new Torch(9 * 32 + 16, 48 * 32 + 16));
+	torches.push_back(new Torch(42 * 32 + 16, 24 * 32 + 16));
+	torches.push_back(new Torch(84 * 32 + 16, 7 * 32 + 16));
+
+	for (const auto& t : torches)maps[1]->addDynamicGimmick(t);
+
+	torches2.push_back(new Torch(23 * 32 + 16, 6 * 32 + 16));
+	torches2.push_back(new Torch(63 * 32 + 16, 21 * 32 + 16));
+	for (const auto& t : torches2)maps[2]->addDynamicGimmick(t);
+
+
 	startX = 2864, startY = 1536;
 }
 
@@ -40,6 +56,12 @@ void Stage21::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
 
+	gameMain->setFilter(FilterType::FILTER_DARK);
+	for (const auto& t : torches)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+	for (const auto& t : torches2)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+
+
+	
 	//for Debug
 	if(CheckHitKey(KEY_INPUT_1))
 		gameMain->startConverse(21);
