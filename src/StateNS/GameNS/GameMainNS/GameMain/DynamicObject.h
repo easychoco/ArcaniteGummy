@@ -24,6 +24,7 @@ public:
 	Collision* collision;
 
 	void setJumpPower(float _x) { jumpPower = _x; }
+	void setJumpCount(int _x) { nowJumpCount = _x; }
 
 	//for Debug
 	int getColliX() const;
