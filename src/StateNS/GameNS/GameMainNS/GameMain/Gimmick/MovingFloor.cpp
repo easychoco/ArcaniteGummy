@@ -69,7 +69,7 @@ void MovingFloor::draw(const Vector2* _camera) const
 
 void MovingFloor::apply(Character* _character)
 {
-	_character->moveCharacter((float)dx / vectorRate, (float)dy / vectorRate);
+	//_character->moveCharacter((float)dx / vectorRate, (float)dy / vectorRate);
 }
 
 void MovingFloor::hittedAction()

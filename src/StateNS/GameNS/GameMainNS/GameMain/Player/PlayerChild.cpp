@@ -200,6 +200,10 @@ void PlayerChild::move(const StageChild* _stage)
 		nowJumpCount = 0;
 	}
 
+	//for Debug
+	if (Input_W())onLadder = true;
+
+
 	//‚Í‚µ‚²‚É‚Ì‚Ú‚é
 	if (onLadder)
 	{
