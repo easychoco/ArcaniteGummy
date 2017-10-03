@@ -19,6 +19,7 @@ public:
 	
 private:
 	void initialize();
+	int time;
 
 
 

@@ -32,6 +32,7 @@ Stage23::~Stage23()
 
 void Stage23::initialize()
 {
+	time = 0;
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(23, 0, MapPos::POS_DOWN_FREE));
@@ -46,6 +47,7 @@ void Stage23::initialize()
 
 	startX = 144, startY = 1536;
 
+	maps[0]->addEnemy(ENE_TERESA, 6 * 32, 47 * 32);
 	//this->torches.push_back(new Torch(304, 1488));
 	//this->maps[0]->addGimmick(torches[0]);
 
@@ -56,6 +58,8 @@ void Stage23::initialize()
 void Stage23::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
+	time++;
+	if (time % 90 == 0)maps[0]->addEnemy(ENE_TERESA, 6*32, 47*32);
 
 	//gameMain->setFilter(FilterType::FILTER_DARK);
 	//if (torches[0]->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
@@ -70,6 +74,7 @@ bool Stage23::isClear() const
 {
 	return false;
 }
+
 
 
 }

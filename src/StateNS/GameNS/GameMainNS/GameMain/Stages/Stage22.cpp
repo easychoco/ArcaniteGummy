@@ -33,7 +33,7 @@ void Stage22::initialize()
 	maps[1]->addGimmick(flag);
 
 	//////ŽžŒÀŽ®‚É‚µ‚½‚¢/////
-	SwitchWithBlock* s = new SwitchWithBlock(64 * 32 + 16, 12 * 32 + 16);
+	SwitchWithBlock* s = new SwitchWithBlock(73 * 32 + 16, 32 * 32 + 16);
 	for (int i = 0; i < 6; i++)s->push_block(new Block(95 * 32 + 16, (27 + i) * 32 + 16, 1.0), false);
 	maps[0]->addSwitchWithBlock(s);
 	/////////////////////////
