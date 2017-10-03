@@ -28,7 +28,6 @@ public:
 	StageChild::HowStageMove getStageMove() const { return nextStageMove; }
 	int getFloorCoordinate() override;
 
-	virtual int specialAction() = 0;
 
 	const StopType getStopDynamicObject() const { return stopDynamics; }
 

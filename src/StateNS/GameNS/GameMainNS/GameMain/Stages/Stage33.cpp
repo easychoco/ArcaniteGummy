@@ -44,7 +44,7 @@ void Stage33::initialize()
 	this->maps.push_back(new Map(33, 7, MapPos::POS_UP_FREE));
 	this->maps.push_back(new Map(33, 8, MapPos::POS_UP_FREE));
 
-
+	now_stage_num = 4;
 	startX = 1616, startY = 704;
 
 	//this->torches.push_back(new Torch(304, 1488));

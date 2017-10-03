@@ -60,10 +60,6 @@ PlayerChild* Sakuya::update(const StageChild* _stage)
 	return next;
 }
 
-int Sakuya::specialAction()
-{
-	return 0;
-}
 
  
 //==============================================

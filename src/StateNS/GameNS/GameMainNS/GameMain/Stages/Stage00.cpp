@@ -35,6 +35,27 @@ void Stage00::initialize()
 
 	maps[0]->addEnemy(AllEnemies::ENE_USA, 1540, 1552);
 
+	/*
+	maps[0]->addDynamicGimmick(new OrderEmergeFloor(80, 1520, 1.0f, 1));
+
+	maps[0]->addDynamicGimmick(new FallFloor(176, 1520, false));
+
+	SwitchWithBlock* s = new SwitchWithBlock(208, 1488);
+	s->push_block(new Block(208, 1296, 1.0), true);
+	s->push_block(new Block(256, 1312, 2.0), false);
+	maps[0]->addSwitchWithBlock(s);
+	SwitchWithBlock* s2 = new SwitchWithBlock(272, 1488);
+	s2->push_block(new Block(272, 1296, 1.0), true);
+	s2->push_block(new Block(288, 1312, 2.0), false);
+	maps[0]->addSwitchWithBlock(s2);
+
+	MovingFloor* mv_tmp = new MovingFloor(304, 1488, 400, 1200, 2, 0);
+	maps[0]->addDynamicGimmick(mv_tmp);
+
+	Dossunn* d_tmp = new Dossunn(272, 1488, 1.0);
+	maps[0]->addDynamicGimmick(d_tmp);
+	*/
+
 	startX = 144, startY = 1536;
 }
 
