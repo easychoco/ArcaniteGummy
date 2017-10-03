@@ -462,8 +462,8 @@ void Map::loadGimmick(int _x, int _y, int _n)
 	case 114:mGimmicks.push_back(new BeltConveyor(-2.0, Vector2(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2))); break;
 		//右ベルトコンベア
 	case 115:mGimmicks.push_back(new BeltConveyor(2.0, Vector2(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2))); break;
-		//燃えるブロック？たぶん違う
-	case 116:mDynamicGimmicks.push_back(new Block(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0)); break;
+		//燃えるブロッ
+	case 116:mDynamicGimmicks.push_back(new Block(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0,false)); break;
 		//壊れるブロック
 	case 117:mDynamicGimmicks.push_back(new Block(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0)); break;
 		//大きいドッスン

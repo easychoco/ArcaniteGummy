@@ -57,8 +57,8 @@ void Stage21::update(GameMain* gameMain, PlayerChild* _player)
 	standardUpdate(_player);
 
 	gameMain->setFilter(FilterType::FILTER_DARK);
-	for (const auto& t : torches)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
-	for (const auto& t : torches2)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+	if(now_stage_num==0)for (const auto& t : torches)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+	if(now_stage_num==1)for (const auto& t : torches2)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
 
 
 	
