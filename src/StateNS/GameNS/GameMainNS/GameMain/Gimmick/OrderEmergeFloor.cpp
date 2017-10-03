@@ -12,10 +12,10 @@ namespace GameMainNS{
 
 
 OrderEmergeFloor::OrderEmergeFloor(int _x, int _y, double _scale,int _order) :
-DynamicGimmickChild(_x, _y, _scale)
+DynamicGimmickChild(_x, _y, 1)
 {
-	this->width  = (int)(64 * _scale);
-	this->height = (int)(32 * _scale);
+	this->width  = 64;
+	this->height = 32;
 	this->order = _order;
 	isEmerge = false;
 	initialize();
@@ -30,7 +30,8 @@ void OrderEmergeFloor::initialize()
 {
 	
 	loadImage();
-	dy = 0;
+	this->dy = 0;
+	this->mTime = 0;
 }
 
 void OrderEmergeFloor::update(const StageChild* _stage)
@@ -50,13 +51,16 @@ void OrderEmergeFloor::update(const StageChild* _stage)
 
 void OrderEmergeFloor::draw(const Vector2* _camera) const
 {
+	DrawFormatString(100, 100, BLACK, "%d,%d", this->width, this->height);
 	if (!isEmerge)return;
+
 	standardDraw(_camera, scale, mImage, mDirection);
 }
 
 void OrderEmergeFloor::apply(Character* _character)
 {
-	_character->moveCharacter(0.0f, (float)dy);
+
+	//_character->moveCharacter(0.0f, (float)dy);
 }
 
 void OrderEmergeFloor::hittedAction()
@@ -99,9 +103,7 @@ bool OrderEmergeFloor::isOverlap(const Vector2* _player) const
 
 bool OrderEmergeFloor::onActiveArea(const Vector2* _player) const
 {
-	return
-		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH &&
-		(this->p->y() - _player->y()) / MyData::CHIP_HEIGHT == 1;
+	return false;
 }
 
 

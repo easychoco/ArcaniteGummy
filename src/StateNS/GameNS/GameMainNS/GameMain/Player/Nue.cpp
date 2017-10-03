@@ -4,10 +4,6 @@
 #include "Mokou.h"
 #include "..\Collision.h"
 
-const int d_x[4] = { 0,1,0,-1 };
-const int d_y[4] = { -1,0,1,0 };
-
-
 
 namespace StateNS {
 namespace GameNS {
@@ -56,20 +52,24 @@ PlayerChild* Nue::update(const StageChild* _stage)
 		}
 	}
 
-	if (Input_ATTACK())
-	{
-		attack();
-	}
-	else
-	{
-		attackTime = 0;
+	if (Input_ATTACK())attack();
+	else attackTime = 0;
+	
+
+
+	if (Input_C() && !isUFO) {
+
+		int tmp_x = (p->raw_x / CHIP_WIDTH_RATE() + 1) * CHIP_WIDTH - CHIP_WIDTH / 2;
+		int tmp_y = (p->raw_y / CHIP_HEIGHT_RATE() + 1) * CHIP_HEIGHT - CHIP_HEIGHT / 2;
+		ufo = new UFO(tmp_x, tmp_y);
+
+		isUFO = true;
+		this->next_dy = -32*vectorRate;
 	}
 
-	specialAction();
-	if (isUFO)
-	{
-		updateUFO(_stage);
-	}
+
+	if (isUFO)updateUFO(_stage);
+	
 
 	//for Debug
 	if (canChangeCharacter())
@@ -82,19 +82,6 @@ PlayerChild* Nue::update(const StageChild* _stage)
 	return next;
 }
 
-int Nue::specialAction() {
-	int x = 0;
-	if (Input_C() && !isUFO) {
-
-		int x = (p->x() / CHIP_WIDTH  + 1) * CHIP_WIDTH - CHIP_WIDTH / 2;
-		int y = (p->y() / CHIP_HEIGHT + 1) * CHIP_HEIGHT - CHIP_HEIGHT / 2;
-		ufo = new UFO(x, y);
-		
-		isUFO = true;
-		this->next_dy -= 32000;
-	}
-	return x;
-}
 
 
 //==============================================
@@ -107,8 +94,8 @@ void Nue::updateUFO(const StageChild* _stage)
 
 	//UFO‚Ìã‚Éæ‚éˆ—
 	if (
-		abs(this->p->y() - ufo->getVector2()->y()) < CHIP_HEIGHT * 3 / 2 &&
-		abs(this->p->x() - ufo->getVector2()->x()) < CHIP_WIDTH * 3 / 2
+		abs(this->p->raw_y - ufo->getVector2()->raw_y) <= CHIP_HEIGHT_RATE() * 3 / 2 &&
+		abs(this->p->raw_x - ufo->getVector2()->raw_x) <= CHIP_WIDTH_RATE() * 3 / 2
 		)
 	{
 		//this->warpCharacter(ufo->getVector2()->x(), ufo->getVector2()->y() - 48);
@@ -241,7 +228,7 @@ Nue::UFO::~UFO()
 void Nue::UFO::initialize()
 {
 	loadImage();
-	direction = -1;
+	direction = NONE;
 	mTime = 0;
 	isActive = true;
 	isMove = false;
@@ -270,10 +257,10 @@ void Nue::UFO::draw(const Vector2* _camera) const
 
 void Nue::UFO::apply(Character* _character)
 {
-	if (direction == -1)
+	if (direction == NONE)
 	{
-		if (Input_RIGHT())direction = 1;
-		else if (Input_LEFT())direction = 3;
+		if (Input_RIGHT())direction = RIGHT;
+		else if (Input_LEFT())direction = LEFT;
 		mTime = 0;
 	}
 
@@ -313,10 +300,9 @@ void Nue::UFO::loadImage()
 
 void Nue::UFO::move()
 {
-	if (direction != -1) {
-		dx = d_x[direction] * 3200;
-		dy = d_y[direction] * 3200;
-	}
+	if (direction == LEFT)dx = -3 * vectorRate;
+	else if (direction == RIGHT)dx = 3 * vectorRate;
+	dy = 0;
 }
 
 
