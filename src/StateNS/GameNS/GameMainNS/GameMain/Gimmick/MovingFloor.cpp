@@ -15,7 +15,7 @@ namespace GameMainNS{
 MovingFloor::MovingFloor(int _x, int _y, int _term_x, int _term_y, float _movingSpeed, int _moveType) :
 DynamicGimmickChild(_x, _y, 1.0)
 {
-	this->width  = 64;
+	this->width  = 96;
 	this->height = 32;
 
 	float differ_x = (float)(_term_x - _x);
