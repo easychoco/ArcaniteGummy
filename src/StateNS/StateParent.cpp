@@ -24,7 +24,7 @@ void Parent::initialize()
 	//stageNumXV
 
 	//for Debug
-	stageNum = 33;
+	stageNum = 43;
 
 
 

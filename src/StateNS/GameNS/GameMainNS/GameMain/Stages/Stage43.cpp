@@ -33,6 +33,7 @@ Stage43::~Stage43()
 
 void Stage43::initialize()
 {
+
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(43, 0, MapPos::POS_RIGHT_FREE));
