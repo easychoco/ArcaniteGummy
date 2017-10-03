@@ -34,7 +34,7 @@ void System::update()
 
 void System::draw(const Vector2* _player) const
 {
-	if(f_type == FILTER_DARK)drawDarkFilter(_player, 100);
+	if(f_type == FILTER_DARK)drawDarkFilter(_player, 150);
 }
 
 
