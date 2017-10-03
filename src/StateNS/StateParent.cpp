@@ -24,7 +24,8 @@ void Parent::initialize()
 	//stageNumXV
 
 	//for Debug
-	stageNum = 23;
+	stageNum = 0;
+
 
 
 	this->mChild = new GameNS::Play(stageNum);

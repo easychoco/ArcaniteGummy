@@ -33,6 +33,8 @@ void Stage00::initialize()
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[0]->addGimmick(flag);
 
+	maps[0]->addDynamicGimmick(new OrderEmergeFloor(80, 1488, 1.0f, 1));
+
 
 	SwitchWithBlock* s = new SwitchWithBlock(208, 1488);
 	s->push_block(new Block(208, 1296, 1.0), true);

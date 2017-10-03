@@ -63,6 +63,7 @@ void MovingFloor::draw(const Vector2* _camera) const
 
 void MovingFloor::apply(Character* _character)
 {
+	_character->setJumpCount(0);
 
 	//_character->moveCharacter((float)dx / vectorRate, (float)dy / vectorRate);
 }

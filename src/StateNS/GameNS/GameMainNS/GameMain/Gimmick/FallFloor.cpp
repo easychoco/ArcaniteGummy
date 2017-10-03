@@ -74,6 +74,7 @@ void FallFloor::apply(Character* _character)
 {
 	_character->moveCharacter((float)dx / vectorRate, (float)dy / vectorRate);
 	nowFall = true;
+	_character->setJumpCount(0);
 
 }
 

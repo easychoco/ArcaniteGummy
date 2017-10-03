@@ -14,7 +14,7 @@ namespace GameMainNS{
 OrderEmergeFloor::OrderEmergeFloor(int _x, int _y, double _scale,int _order) :
 DynamicGimmickChild(_x, _y, _scale)
 {
-	this->width  = (int)(32 * _scale);
+	this->width  = (int)(64 * _scale);
 	this->height = (int)(32 * _scale);
 	this->order = _order;
 	isEmerge = false;
@@ -99,8 +99,9 @@ bool OrderEmergeFloor::isOverlap(const Vector2* _player) const
 
 bool OrderEmergeFloor::onActiveArea(const Vector2* _player) const
 {
-	//for Debug
-	return false;
+	return
+		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH &&
+		(this->p->y() - _player->y()) / MyData::CHIP_HEIGHT == 1;
 }
 
 
