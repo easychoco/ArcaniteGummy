@@ -24,8 +24,12 @@ void Parent::initialize()
 	//stageNumçXêV
 
 	//for Debug
+<<<<<<< Updated upstream
 	stageNum = 23;
 
+=======
+	stageNum = 0;
+>>>>>>> Stashed changes
 
 	this->mChild = new GameNS::Play(stageNum);
 	mNextSeq = NextSequence::SEQ_NONE;
