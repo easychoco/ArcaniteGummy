@@ -11,8 +11,8 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-OrderEmergeFloor::OrderEmergeFloor(int _x, int _y, double _scale,int _order) :
-DynamicGimmickChild(_x, _y, 1)
+OrderEmergeFloor::OrderEmergeFloor(int _x, int _y, double _scale, int _order) :
+DynamicGimmickChild(_x, _y, _scale)
 {
 	this->width  = 64;
 	this->height = 32;
@@ -36,7 +36,6 @@ void OrderEmergeFloor::initialize()
 
 void OrderEmergeFloor::update(const StageChild* _stage)
 {
-
 	mTime++;
 	mTime %= 240;
 

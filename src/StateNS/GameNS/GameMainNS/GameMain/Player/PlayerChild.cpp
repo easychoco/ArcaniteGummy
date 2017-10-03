@@ -69,8 +69,13 @@ void PlayerChild::draw() const
 
 
 	//for Debug
-	DrawFormatString(20, 40, BLACK, "%d, %d", p->raw_x, p->raw_y);
-	DrawFormatString(20, 60, BLACK, "%d, %d", p->x(), p->y());
+	DrawPixel(draw_x - 16, draw_y + 33, RED);
+	DrawPixel(draw_x - 16, draw_y + 32, GREEN);
+	DrawPixel(draw_x - 16, draw_y + 31, BLUE);
+
+	DrawPixel(draw_x - 16, draw_y - 33, RED);
+	DrawPixel(draw_x - 16, draw_y - 32, GREEN);
+	DrawPixel(draw_x - 16, draw_y - 31, BLUE);
 }
 
 //自機が床の上にいたら床のy座標を返す いなかったら0を返す
@@ -249,8 +254,17 @@ void PlayerChild::move(const StageChild* _stage)
 
 	dy += gravity_value - jump();
 
-
+	//dxの計算と反映
 	dx = getHorizontalDiffer(_stage, dx, dy < 0);
+
+	//for Debug
+	if (Input_D() && in_right)dx = getHorizontalDiffer(_stage, 10000, dy < 0);
+	if (Input_D() && in_left)dx = getHorizontalDiffer(_stage, -10000, dy < 0);
+
+	p->raw_x += dx;
+
+
+	//dyの計算と反映
 	dy = dy < 0 ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0);
 	if (actionState == ACT_SIT)dy += (int)(CHIP_HEIGHT / 2 * vectorRate);
 
@@ -259,10 +273,8 @@ void PlayerChild::move(const StageChild* _stage)
 
 	//for Debug
 	if (Input_D() && in_up) dy = getTopDiffer(_stage, -10000, dx < 0);
-	if (Input_D() && in_right)dx = getHorizontalDiffer(_stage, 10000, dy < 0);
-	if (Input_D() && in_left)dx = getHorizontalDiffer(_stage, -10000, dy < 0);
+	if (Input_D() && in_down) dy = getTopDiffer(_stage, 10000, dx < 0);
 
-	p->raw_x += dx;
 	p->raw_y += dy;
 
 	p->raw_x = (p->raw_x + MAP_WIDTH_RATE()) % MAP_WIDTH_RATE();
@@ -301,8 +313,6 @@ void PlayerChild::move(const StageChild* _stage)
 	post_y = p->y();
 
 
-
-
 	prePush = in_jump;
 }
 
@@ -326,22 +336,26 @@ void PlayerChild::updateCamera()
 bool PlayerChild::isOnGround(const StageChild* _stage)
 {
 	//posはキャラの最下端よりひとつ下
-	RawVector2 pos = RawVector2(p->raw_x, p->raw_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2 + 1000);
+	RawVector2 pos = RawVector2(p->raw_x, p->raw_y + MyData::PLAYER_CHIP_HEIGHT_RATE() / 2);
 	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 
 
 	//右上に向けた斜めブロックなら
 	if (chipType == StageChild::ChipType::TYPE_DOWN_SLANT_RIGHT)
 	{
-		pos.pos_y -= (MyData::CHIP_WIDTH_RATE() - p->raw_x % MyData::CHIP_WIDTH_RATE());
-		chipType = _stage->getChipType(pos / MyData::vectorRate, true);
+		next_dy += gravity();
+		return true;
+		//pos.pos_y -= (MyData::CHIP_WIDTH_RATE() - pos.pos_x % MyData::CHIP_WIDTH_RATE());
+		//chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 	}
 
 	//左上に向けた斜めブロックなら
 	else if (chipType == StageChild::ChipType::TYPE_DOWN_SLANT_LEFT)
 	{
-		pos.pos_y -= p->raw_x % MyData::CHIP_WIDTH_RATE();
-		chipType = _stage->getChipType(pos / MyData::vectorRate, true);
+		next_dy += gravity();
+		return true;
+		//pos.pos_y -= p->raw_x % MyData::CHIP_WIDTH_RATE();
+		//chipType = _stage->getChipType(pos / MyData::vectorRate, true);
 	}
 
 	return !(chipType & (StageChild::ChipType::TYPE_LESAL | StageChild::ChipType::TYPE_BACK | StageChild::ChipType::TYPE_LADDER));
@@ -367,6 +381,11 @@ bool PlayerChild::isOnLesal(const StageChild* _stage)
 
 int PlayerChild::animation() 
 {
+	if (CheckHitKey(KEY_INPUT_Q))
+	{
+		int gomi = 0;
+	}
+
 	int num = 0 + direction;
 	switch (actionState) 
 	{
@@ -377,7 +396,6 @@ int PlayerChild::animation()
 		num = 12 + (animeCount / 10) % 4 + 8 * direction;
 		break;
 	case ACT_SIT:
-//		num = 24 + (animeCount >= 10);
 		num = 25;
 		break;
 	case ACT_ATTACK:
@@ -423,7 +441,8 @@ void PlayerChild::actCheck()
 		}
 	}
 	else if (Input_ATTACK())actionState = ACT_ATTACK;
-	else if (!onGround) {
+	else if (!onGround)
+	{
 		if (actionState == ACT_RUN || actionState==ACT_RUNJUMP)actionState = ACT_RUNJUMP;
 		else actionState = ACT_AIR;
 	}
