@@ -336,8 +336,14 @@ ChipType Map::getChipType(const RawVector2& _other, bool _isPlayer) const
 
 void Map::addEnemy(AllEnemies _enemy, int _x, int _y)
 {
-	this->mEController->addEnemy(_enemy, _x, _y);
+	this->mEController->addEnemy(_enemy, &Vector2::ZERO, _x, _y);
 }
+
+void Map::addEnemy(AllEnemies _enemy, const Vector2* _player, int _x, int _y)
+{
+	this->mEController->addEnemy(_enemy, _player, _x, _y);
+}
+
 
 void Map::processDynamicCollision(PlayerChild* _player)
 {
@@ -400,7 +406,6 @@ void Map::drawMap(const Vector2* _camera) const
 			assert(gomi != -1);
 		}
 	}
-
 }
 
 void Map::loadMap(int _stageID, int _mapID)
@@ -570,6 +575,7 @@ void Map::loadEnemy(int _x, int _y, int _n)
 	case 249:eneID = ENE_TERESA; break;
 
 	}
+	//TODO FlyweightÉ`ÉbÉNÇ…èëÇ´ä∑Ç¶ÇÈ
 	if (eneID != ENE_NONE)addEnemy(eneID, _x*CHIP_WIDTH + CHIP_WIDTH / 2, _y*CHIP_HEIGHT + CHIP_HEIGHT / 2);
 
 }

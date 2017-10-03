@@ -94,6 +94,7 @@ public:
 	void addDynamicGimmick(DynamicGimmickChild* _d_gmk) { mDynamicGimmicks.push_back(_d_gmk); }
 	void addGimmick(int x, int y, int ID) { loadGimmick(x, y, ID); }
 	void addEnemy(AllEnemies, int x, int y);
+	void addEnemy(AllEnemies, const Vector2*, int x, int y);
 	void addSwitchWithBlock(SwitchWithBlock* s) {
 		mDynamicGimmicks.push_back(s);
 		mSwitchWithBlocks.push_back(s);

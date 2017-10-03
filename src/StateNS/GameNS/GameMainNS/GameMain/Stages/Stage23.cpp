@@ -1,6 +1,7 @@
 #include "Stage23.h"
 #include "Map.h"
 #include "..\..\GameMain.h"
+#include "..\Player\PlayerChild.h"
 #include "..\Gimmick\ClearFlag.h"
 
 #include "..\Gimmick\DynamicGimmickChild.h"
@@ -59,7 +60,7 @@ void Stage23::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
 	time++;
-	if (time % 90 == 0)maps[0]->addEnemy(ENE_TERESA, 6*32, 47*32);
+	if (time % 90 == 0)maps[0]->addEnemy(ENE_TERESA, _player->getVector2(), 6*32, 47*32);
 
 	//gameMain->setFilter(FilterType::FILTER_DARK);
 	//if (torches[0]->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);

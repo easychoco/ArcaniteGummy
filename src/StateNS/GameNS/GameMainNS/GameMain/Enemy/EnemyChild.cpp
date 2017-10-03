@@ -78,7 +78,6 @@ void EnemyChild::standardMove(const StageChild* _stage)
 	p->raw_y += dy;
 }
 
-
 void EnemyChild::checkIsAlive(const StageChild* _stage)
 {
 	//HP‚ª0‚È‚çfalse

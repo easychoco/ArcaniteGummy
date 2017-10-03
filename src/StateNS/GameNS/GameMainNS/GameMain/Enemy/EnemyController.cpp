@@ -76,10 +76,12 @@ void EnemyController::processCollision(PlayerChild* _player)
 	}
 }
 
-void EnemyController::addEnemy(AllEnemies _enemy, int _x, int _y)
+void EnemyController::addEnemy(AllEnemies _enemy, const Vector2* _player, int _x, int _y)
 {
+	EnemyChild* ene_tmp;
 	switch (_enemy)
 	{
+	/*
 	case ENE_USA: enemies.push_back(new Usagi(_x, _y)); break;
 	case ENE_BALL: enemies.push_back(new Balloon(_x, _y)); break;
 	case ENE_YACH: enemies.push_back(new Yachamo(_x, _y)); break;
@@ -93,9 +95,29 @@ void EnemyController::addEnemy(AllEnemies _enemy, int _x, int _y)
 
 	case BOSS_REISEN: enemies.push_back(new Reisen(_x, _y)); break;
 	case BOSS_JUNKO: enemies.push_back(new Junko(_x, _y)); break;
+	default: assert(!"不明な敵です.");
+	*/
+	case ENE_USA: ene_tmp = new Usagi(_x, _y); break;
+	case ENE_BALL: ene_tmp = new Balloon(_x, _y); break;
+	case ENE_YACH: ene_tmp = new Yachamo(_x, _y); break;
+	case ENE_PIKA: ene_tmp = new Pikachi(_x, _y); break;
+	case ENE_POPPY: ene_tmp = new Poppy(_x, _y); break;
+	case ENE_RARA: ene_tmp = new Rarashi(_x, _y); break;
+	case ENE_BROTH: ene_tmp = new Broth(_x, _y); break;
+	case ENE_KARON: ene_tmp = new Karon(_x, _y); break;
+	case ENE_AIRMZ: ene_tmp = new Airmz(_x, _y); break;
+	case ENE_TERESA: ene_tmp = new Teresa(_x, _y); break;
+
+	case BOSS_REISEN: ene_tmp = new Reisen(_x, _y); break;
+	case BOSS_JUNKO: ene_tmp = new Junko(_x, _y); break;
 
 	default: assert(!"不明な敵です.");
 	}
+	
+	if(_player != &Vector2::ZERO)ene_tmp->setPlayer(_player);
+
+	//TODO : Flyweightチックにする?
+	enemies.push_back(ene_tmp);
 }
 
 void EnemyController::deleteEnemy(int _ID)
