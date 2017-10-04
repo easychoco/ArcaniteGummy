@@ -74,10 +74,6 @@ PlayerChild* Mokou::update(const StageChild* _stage)
 	return next;
 }
 
-int Mokou::specialAction() 
-{
-	return 0;
-}
 
 
 //==============================================

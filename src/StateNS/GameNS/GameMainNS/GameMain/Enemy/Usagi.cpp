@@ -1,5 +1,5 @@
 #include "Usagi.h"
-
+#include "..\Stages\StageChild.h"
 
 
 
@@ -39,54 +39,26 @@ void Usagi::update(const StageChild* _stage,const Vector2* _camera)
 
 void Usagi::move(const StageChild* _stage, int& _dx, int& _dy)
 {
-	//デバッグメモ：
-	//先にgetHorizontalDifferを呼ぶ
+	_dx = getHorizontalDiffer(_stage, moveSpeed, _dy < 0);
+	_dy = getBottomDiffer(_stage, 2000, _dx > 0);
 
+	//自分の下のチップのChipTypeをゲット
+	RawVector2 pos = RawVector2(p->x(), p->y() + CHIP_HEIGHT);
+	StageChild::ChipType chipType_under = _stage->getChipType(pos, false);
 
-	_dy = getBottomDiffer(_stage, 4000, _dx < 0);
+	//自分の前のチップのChipTypeをゲット
+	pos = RawVector2(p->x() + CHIP_WIDTH / 4 * ((mDirection) ? 1: -1), p->y() - CHIP_HEIGHT / 2);
+	StageChild::ChipType chipType_front = _stage->getChipType(pos, false);
 
-	//_dyが0でなかったら空中にいる
-	if (_dy != 0)
-	{
-		/*ここをコメントアウトすると，がけで落ちる
-		//右下のチップ
-		RawVector2 pos = RawVector2(p->x() + 1, p->y() + 16);
-		Stage::ChipType chipType_right = _stage->getChipType(pos, false);
-
-		//左下のチップ
-		pos = RawVector2(p->x() - 1, p->y() + 16);
-		Stage::ChipType chipType_left = _stage->getChipType(pos, false);
-		
-		//右下と左下が壁と空中なら，崖なう
-		//方向転換する
-		if (
-			(_stage->isRigid_down(chipType_right) && chipType_left == _stage->TYPE_BACK) ||
-			(_stage->isRigid_down(chipType_left) && chipType_right == _stage->TYPE_BACK)
-			)
-		{
-			_dy = 0;
-			mDirection = !mDirection;
-			moveSpeed = -moveSpeed;
-		}
-		else//*/
-		{
-			_dx = 0;
-			return;
-		}
-
-	}
-	
-	_dx = getHorizontalDiffer(_stage, -moveSpeed, _dy < 0);
-	this->mDirection = _dx > 0;
-
-	//_dxが0で壁にぶつかる
-	if (_dx == 0)
+	//崖か壁で方向転換
+	if( !( _stage->isRigid_down(chipType_under) || _stage->isSlant(chipType_under) ) || 
+		chipType_front == StageChild::ChipType::TYPE_RIGID )
 	{
 		_dy = 0;
 		mDirection = !mDirection;
 		moveSpeed = -moveSpeed;
+		this->p->raw_x += moveSpeed * 5;
 	}
-
 }
 
 

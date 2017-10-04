@@ -67,6 +67,8 @@ void FallFloor::draw(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//•`‰æ
+	DrawFormatString(100, 150, BLACK, "%d,%d", this->width, this->height);
+
 	DrawRotaGraph(draw_x, draw_y, 1.0, Pi*!falldown, mImage, true, mDirection);
 }
 
@@ -74,6 +76,7 @@ void FallFloor::apply(Character* _character)
 {
 	_character->moveCharacter((float)dx / vectorRate, (float)dy / vectorRate);
 	nowFall = true;
+	_character->setJumpCount(0);
 
 }
 

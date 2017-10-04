@@ -26,7 +26,7 @@ private:
 	void draw_other() const;
 	virtual void loadImage() override;
 
-	virtual int specialAction()override;
+
 	void updateUFO(const StageChild*);
 
 	virtual bool onRigidBlock() const override { return isUFO && ufo->onActiveArea(p); }
@@ -70,8 +70,12 @@ private:
 		int mImage;
 		int mTime;
 		bool isMove;
-		int direction;//0è„1âE2â∫3ç∂
-
+		enum Direction {
+			RIGHT,
+			LEFT,
+			NONE
+		};
+		Direction direction;
 		void loadImage();
 		void move();
 	};

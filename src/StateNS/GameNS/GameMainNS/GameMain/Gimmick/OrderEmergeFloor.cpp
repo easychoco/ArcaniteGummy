@@ -11,11 +11,11 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-OrderEmergeFloor::OrderEmergeFloor(int _x, int _y, double _scale,int _order) :
+OrderEmergeFloor::OrderEmergeFloor(int _x, int _y, double _scale, int _order) :
 DynamicGimmickChild(_x, _y, _scale)
 {
-	this->width  = (int)(32 * _scale);
-	this->height = (int)(32 * _scale);
+	this->width  = 64;
+	this->height = 32;
 	this->order = _order;
 	isEmerge = false;
 	initialize();
@@ -30,12 +30,12 @@ void OrderEmergeFloor::initialize()
 {
 	
 	loadImage();
-	dy = 0;
+	this->dy = 0;
+	this->mTime = 0;
 }
 
 void OrderEmergeFloor::update(const StageChild* _stage)
 {
-
 	mTime++;
 	mTime %= 240;
 
@@ -50,13 +50,16 @@ void OrderEmergeFloor::update(const StageChild* _stage)
 
 void OrderEmergeFloor::draw(const Vector2* _camera) const
 {
+	DrawFormatString(100, 100, BLACK, "%d,%d", this->width, this->height);
 	if (!isEmerge)return;
+
 	standardDraw(_camera, scale, mImage, mDirection);
 }
 
 void OrderEmergeFloor::apply(Character* _character)
 {
-	_character->moveCharacter(0.0f, (float)dy);
+
+	//_character->moveCharacter(0.0f, (float)dy);
 }
 
 void OrderEmergeFloor::hittedAction()
@@ -99,7 +102,6 @@ bool OrderEmergeFloor::isOverlap(const Vector2* _player) const
 
 bool OrderEmergeFloor::onActiveArea(const Vector2* _player) const
 {
-	//for Debug
 	return false;
 }
 

@@ -205,10 +205,10 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 	//widthが32じゃなかったら，その分ずらして計算する必要がある
 	int extraDiffer = vectorRate * (width - CHIP_WIDTH) / 2;
 	if(_moveLeft)extraDiffer *= -1;
-
+	
 	//下方向
 	//チップの最下端より少し上
-	RawVector2 pos = RawVector2(p->raw_x + extraDiffer, p->raw_y + (height * vectorRate) / 2 - 1);
+	RawVector2 pos = RawVector2(p->raw_x + extraDiffer, p->raw_y + (height * vectorRate) / 2 - 2000);
 	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (this->onRigidBlock())chipType = StageChild::ChipType::TYPE_RIGID;
 
@@ -223,7 +223,8 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->raw_y + (height * vectorRate) / 2) + p->raw_x % CHIP_WIDTH_RATE();
+		//return MyData::fixToVectorHeight(pos.pos_y) - (p->raw_y + (height * vectorRate) / 2) + p->raw_x % CHIP_WIDTH_RATE();
+		return fixToVectorHeight(pos.pos_y) + pos.pos_x % 32000 - pos.pos_y;
 	}
 
 	if (chipType == _stage->TYPE_DOWN_SLANT_RIGHT)
@@ -236,7 +237,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->raw_y + (height * MyData::vectorRate) / 2) + MyData::CHIP_WIDTH_RATE() - p->raw_x % MyData::CHIP_WIDTH_RATE();
+		return fixToVectorHeight(pos.pos_y) + (32000 - pos.pos_x % 32000) - pos.pos_y;
 	}
 
 

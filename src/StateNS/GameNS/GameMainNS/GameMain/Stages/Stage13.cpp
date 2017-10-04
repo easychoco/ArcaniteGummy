@@ -43,6 +43,7 @@ void Stage13::initialize()
 	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0), false);
 	maps[1]->addSwitchWithBlock(s);
 
+	maps[3]->addEnemy(BOSS_REISEN, 78 * 32, 48 * 32);
 
 	startX = 208, startY = 1440;
 

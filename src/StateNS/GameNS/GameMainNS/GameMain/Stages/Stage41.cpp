@@ -22,6 +22,8 @@ Stage41::~Stage41()
 
 void Stage41::initialize()
 {
+
+
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(41, 0, MapPos::POS_RIGHT_FREE));

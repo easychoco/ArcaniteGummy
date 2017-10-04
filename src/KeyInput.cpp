@@ -87,7 +87,8 @@ bool Input_LSHIFT()
 
 bool Input_JUMP()
 {
-	return toBoolean[CheckHitKey(KEY_INPUT_SPACE)] || toBoolean[CheckHitKey(KEY_INPUT_Z)];
+//	return toBoolean[CheckHitKey(KEY_INPUT_SPACE)] || toBoolean[CheckHitKey(KEY_INPUT_Z)];
+	return toBoolean[CheckHitKey(KEY_INPUT_SPACE)];
 }
 
 bool Input_OK()
@@ -107,5 +108,5 @@ bool Input_CHANGE()
 
 bool Input_ATTACK()
 {
-	return toBoolean[CheckHitKey(KEY_INPUT_A)];
+	return toBoolean[CheckHitKey(KEY_INPUT_Z)];
 }
