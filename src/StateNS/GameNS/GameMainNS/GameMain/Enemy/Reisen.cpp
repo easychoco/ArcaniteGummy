@@ -7,25 +7,28 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-	
+
+bool Reisen::imgLoad = false;
+int Reisen::images[8];
+
+
 	
 Reisen::Reisen(int x, int y) :
 Reisen(x, y, true)
 { }
 
 Reisen::Reisen(int _x, int _y, bool _isOriginal) : 
-EnemyChild(_isOriginal ? 1000 : 1, _x, _y, 32, 32, _isOriginal),
+EnemyChild(_isOriginal ? 1000 : 1, _x, _y, 32, 32, _isOriginal, true),
 isOriginal(_isOriginal)
 {
-	if(!imgLoad)loadImage();
-	assert(mImage2 != -1 && "Reisen画像読み込みエラー!");
-
+	loadImage();
+	
 	initialize();
 }
 
 Reisen::~Reisen()
 {
-	DeleteGraph(mImage2);
+	//DeleteGraph(mImage2);
 }
 
 void Reisen::initialize()
@@ -131,7 +134,7 @@ void Reisen::draw(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//描画
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage2, true, mDirection);
+	//DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage2, true, mDirection);
 	draw_other(_camera);
 }
 
@@ -181,6 +184,16 @@ void Reisen::draw_other(const Vector2* _camera) const
 //==============================================
 //内部プライベート関数
 //==============================================
+void Reisen::loadImage()
+{
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/Reisen.png", 8, 8, 1, 32, 32, images);
+		assert(tmp != -1 && "Reisen画像読み込みエラー");
+	}
+	imgLoad = true;
+}
+
 void Reisen::hittedAction()
 {
 

@@ -7,10 +7,13 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool Pikachi::imgLoad = false;
+int Pikachi::images[8];
+
+
 Pikachi::Pikachi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
-	if(!imgLoad)loadImage();
-	assert(*mImage != -1 && "Pikachi画像読み込みエラー!");
+	loadImage();
 
 	initialize();
 };
@@ -18,7 +21,7 @@ Pikachi::Pikachi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 
 Pikachi::~Pikachi()
 {
-	DeleteGraph(*mImage);
+	//DeleteGraph(*mImage);
 }
 
 void Pikachi::initialize()
@@ -35,6 +38,8 @@ void Pikachi::update(const StageChild* _stage,const Vector2* _camera)
 	mTime %= 211;
 	standardAction(_stage);
 	this->mDirection = player->raw_x > this->p->raw_x;
+
+	mImage = images[actState * 2 + (aTime / 10) % 2];
 
 	//攻撃
 	for (auto& a : attacks)
@@ -69,6 +74,15 @@ void Pikachi::move(const StageChild* _stage, int& _dx, int& _dy)
 //==============================================
 //内部プライベート関数
 //==============================================
+void Pikachi::loadImage()
+{
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/Pikachi.png", 8, 8, 1, 32, 32, images);
+		assert(tmp != -1 && "Pikachi画像読み込みエラー");
+	}
+	imgLoad = true;
+}
 
 void Pikachi::hittedAction()
 {

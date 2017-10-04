@@ -5,17 +5,21 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool Poppy::imgLoad = false;
+int Poppy::images[8];
+
+
 Poppy::Poppy(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	if(!imgLoad)loadImage();
-	assert(*mImage != -1 && "Poppy画像読み込みエラー!");
+	//assert(*mImage != -1 && "Poppy画像読み込みエラー!");
 
 	initialize();
 };
 
 Poppy::~Poppy()
 {
-	DeleteGraph(*images);
+	//DeleteGraph(*images);
 }
 
 void Poppy::initialize()
@@ -34,6 +38,8 @@ void Poppy::update(const StageChild* _stage, const Vector2* _camera)
 	mTime++;
 
 	standardAction(_stage);
+	mImage = images[actState * 2 + (aTime / 10) % 2];
+
 }
 
 void Poppy::move(const StageChild* _stage, int& _dx, int& _dy)
@@ -49,6 +55,16 @@ void Poppy::move(const StageChild* _stage, int& _dx, int& _dy)
 //==============================================
 //内部プライベート関数
 //==============================================
+void Poppy::loadImage()
+{
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/Poppy.png", 8, 8, 1, 32, 32, images);
+		assert(tmp != -1 && "Poppy画像読み込みエラー");
+	}
+	imgLoad = true;
+}
+
 void Poppy::hittedAction()
 {
 

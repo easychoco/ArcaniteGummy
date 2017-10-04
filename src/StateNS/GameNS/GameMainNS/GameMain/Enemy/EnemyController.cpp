@@ -1,5 +1,7 @@
 #include "EnemyController.h"
 
+#include <stack>
+
 #include "EnemyChild.h"
 #include "Usagi.h"
 #include "Balloon.h"
@@ -27,11 +29,10 @@ namespace GameMainNS{
 
 EnemyController::EnemyController()
 {
-	//enemies.push_back(new Poppy(60, 1450));
-	//enemies.push_back(new Rarashi(600, 1386));
-	//enemies.push_back(new Yachamo(1000, 1482));
-	//enemies.push_back(new Pikachi(300, 1482));
-	//enemies.push_back(new Usagi(220, 1000));
+	//速度を上げるため敵20体分のメモリを確保しておく
+	enemies.reserve(20);
+
+	time = 0;
 }
 
 EnemyController::~EnemyController()
@@ -46,9 +47,16 @@ EnemyController::~EnemyController()
 
 void EnemyController::update(const StageChild* _stage, const Vector2* _camera)
 {
-	for (auto& enemy : enemies)
+	time++;
+
+	//15秒毎にvectorのメモリ使用量を最小化する
+	if (time % 300 == 10)minimize_enemies();
+	else
 	{
-		enemy->update(_stage,_camera);
+		for (auto& enemy : enemies)
+		{
+			enemy->update(_stage, _camera);
+		}
 	}
 }
 
@@ -58,6 +66,11 @@ void EnemyController::draw(const Vector2* _camera) const
 	{
 		enemy->draw(_camera);
 	}
+	
+	//for Debug
+	DrawFormatString(20,  60, BLACK, "time : %d", time % 300);
+	DrawFormatString(20,  80, BLACK, "size : %d", enemies.size());
+	DrawFormatString(20, 100, BLACK, "capa : %d", enemies.capacity());
 }
 
 //自機と敵の本体同士の衝突判定
@@ -133,6 +146,34 @@ void EnemyController::setPlayerPos(const Vector2* player)
 	}
 }
 
+
+//=================================
+//内部private関数
+//=================================
+void EnemyController::minimize_enemies()
+{
+	//isAliveがfalseになっている敵のインデックスをstackに記憶
+	std::stack<int> erase_subs;
+	int ene_size = (int)enemies.size();
+	for (int i = 0; i < ene_size; i++)
+	{
+		if (!enemies[i]->isAlive())
+		{
+			erase_subs.push(i);
+		}
+	}
+
+	//削除する敵がいなければreturn
+	if (erase_subs.empty())return;
+
+	//そして削除
+	while (!erase_subs.empty())
+	{
+		if(!enemies[erase_subs.top()]->isBoss)remove(enemies, erase_subs.top());
+		erase_subs.pop();
+	}
+	enemies.shrink_to_fit();
+}
 
 
 }

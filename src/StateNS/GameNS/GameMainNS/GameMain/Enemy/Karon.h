@@ -18,30 +18,26 @@ public:
 
 
 private:
+	int mTime;
+
+	static bool imgLoad;
+	static int images[8];
+	void loadImage();
+
 	//Character‚ÌŠÖ”
 	void hittedAction();
 
 	//Enemychild‚ÌŠÖ”
 	void move(const StageChild*, int& dx, int& dy);
-	int images[8];
-	void loadImage()
-	{
-		if (!imgLoad)LoadDivGraph("Data/Image/Karon.png", 8, 8, 1, 32, 32, images);
-		for (int i = 0; i < 8; i++)mImage[i] = images[i];
-		imgLoad = true;
-	}
+
 
 	void initialize();
 
-
-	bool imgLoad = false;
 	
-	int mTime;
 	bool isAlive;
 	int moveSpeed;
 	bool preOnGround;
 };
-
 
 
 

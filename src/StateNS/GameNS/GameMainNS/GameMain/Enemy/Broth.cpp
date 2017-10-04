@@ -6,19 +6,22 @@
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
+	
+bool Broth::imgLoad = false;
+int Broth::images[8];
+
 
 Broth::Broth(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
-	if(!imgLoad)loadImage();
-	assert(*mImage != -1 && "Broth画像読み込みエラー!");
-
+	loadImage();
+	
 	initialize();
 };
 
 
 Broth::~Broth()
 {
-	DeleteGraph(*mImage);
+
 }
 
 void Broth::initialize()
@@ -45,6 +48,7 @@ void Broth::update(const StageChild* _stage,const Vector2* _camera)
 			a->checkActive(_camera);
 		}
 	}
+	mImage = images[actState * 2 + (aTime / 10) % 2];
 
 }
 
@@ -71,6 +75,15 @@ void Broth::move(const StageChild* _stage, int& _dx, int& _dy)
 //==============================================
 //内部プライベート関数
 //==============================================
+void Broth::loadImage()
+{
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/Broth.png", 8, 8, 1, 32, 32, images);
+		assert(tmp != -1 && "Broth画像読み込みエラー");
+	}
+	imgLoad = true;
+}
 
 void Broth::hittedAction()
 {

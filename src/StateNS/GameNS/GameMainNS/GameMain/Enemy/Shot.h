@@ -28,18 +28,22 @@ public:
 
 
 protected:
+
 	float angle;
 	int dx;
 	int dy;
 	int time;
 
 	void initialize();
-	void loadImage() { this->mImage = LoadGraph("Data/Image/shot.png"); }
+
+private:
+	static bool imgLoad;
+	void loadImage();
+
 };
 
 float sinf_degree(int degree);
 float cosf_degree(int degree);
-
 
 }
 }

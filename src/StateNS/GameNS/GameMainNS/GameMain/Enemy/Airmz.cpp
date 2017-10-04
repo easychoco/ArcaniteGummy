@@ -5,10 +5,12 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool Airmz::imgLoad = false;
+int Airmz::images[8];
+
 Airmz::Airmz(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
-	if(!imgLoad)loadImage();
-	assert(*mImage != -1 && "Airmz画像読み込みエラー!");
+	loadImage();
 
 	initialize();
 };
@@ -39,6 +41,8 @@ void Airmz::update(const StageChild* _stage, const Vector2* _camera)
 		actState = ENE_ACT_ATTACK;
 		attack(_stage);
 	}
+	mImage = images[actState * 2 + (aTime / 10) % 2];
+
 	//攻撃
 	for (auto& a : attacks)
 	{
@@ -64,6 +68,16 @@ void Airmz::move(const StageChild* _stage, int& _dx, int& _dy)
 //==============================================
 //内部プライベート関数
 //==============================================
+void Airmz::loadImage()
+{
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/Airmz.png", 8, 8, 1, 32, 32, images);
+		assert(tmp != -1 && "Airmz画像読み込みエラー");
+	}
+	imgLoad = true;
+}
+
 void Airmz::hittedAction()
 {
 

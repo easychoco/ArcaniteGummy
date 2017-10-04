@@ -20,11 +20,12 @@ public:
 	void update(const StageChild* _stage, const Vector2* _camera);
 	
 private:
-	int images;
 	int mTime;
-
 	bool init_attacks;
 
+	static bool imgLoad;
+	static int images[8];
+	void loadImage();
 
 	//Character‚ÌŠÖ”
 	void hittedAction();
@@ -33,8 +34,6 @@ private:
 	void move(const StageChild*, int& dx, int& dy);
 	virtual void draw_other(const Vector2* camera)const override;
 
-	//TODO ‰æ‘œ·‚µ‘Ö‚¦
-	void loadImage() { images = LoadGraph("Data/Image/balloon.png"); mImage2 = images; }
 	void attack(const StageChild*);
 
 	void initialize();
@@ -112,9 +111,6 @@ private:
 	Shot_cycle* s_c;
 
 };
-
-
-
 
 }
 }

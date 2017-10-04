@@ -7,18 +7,20 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool Yachamo::imgLoad = false;
+int Yachamo::images[8];
+
 Yachamo::Yachamo(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
-	if(!imgLoad)loadImage();
-	assert(*mImage != -1 && "Yachamo画像読み込みエラー!");
-
+	loadImage();
+	
 	initialize();
 };
 
 
 Yachamo::~Yachamo()
 {
-	DeleteGraph(*mImage);
+	//DeleteGraph(*mImage);
 }
 
 void Yachamo::initialize()
@@ -40,6 +42,8 @@ void Yachamo::update(const StageChild* _stage, const Vector2* _camera)
 	{
 		attack(_stage);
 	}
+	mImage = images[actState * 2 + (aTime / 10) % 2];
+
 
 	//攻撃
 	for (auto& a : attacks)
@@ -67,6 +71,15 @@ void Yachamo::move(const StageChild* _stage, int& _dx, int& _dy)
 //==============================================
 //内部プライベート関数
 //==============================================
+void Yachamo::loadImage()
+{
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/Yachamo.png", 8, 8, 1, 32, 32, images);
+		assert(tmp != -1 && "Yachamo画像読み込みエラー");
+	}
+	imgLoad = true;
+}
 
 void Yachamo::hittedAction()
 {

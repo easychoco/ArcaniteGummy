@@ -31,9 +31,16 @@ public:
 	void setPlayerPos(const Vector2* player);
 
 private:
+	int time;
 	vector<EnemyChild*> enemies;
 
+	void minimize_enemies();
 
+	template<typename T>
+	void remove(std::vector<T>& vector, unsigned int index)
+	{
+		vector.erase(vector.begin() + index);
+	}
 };
 
 

@@ -8,19 +8,22 @@ namespace GameNS {
 namespace GameMainNS{
 
 	
+bool Junko::imgLoad = false;
+int Junko::images[8];
+
+
 	
 Junko::Junko(int _x, int _y) : 
-EnemyChild(1000, _x, _y, 32, 32)
+EnemyChild(1000, _x, _y, 32, 32, false, true)
 {
 	loadImage();
-	assert(mImage2 != -1 && "Junko画像読み込みエラー!");
-
+	
 	initialize();
 }
 
 Junko::~Junko()
 {
-	DeleteGraph(mImage2);
+	//DeleteGraph(mImage2);
 }
 
 void Junko::initialize()
@@ -53,7 +56,7 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 		//s_a->setActive(true);
 	}
 
-
+	//for Debug
 	if (CheckHitKey(KEY_INPUT_W))
 	{
 		s_c->setActive(false);
@@ -102,7 +105,7 @@ void Junko::draw(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//描画
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage2, true, mDirection);
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
 	draw_other(_camera);
 }
 
@@ -144,6 +147,18 @@ void Junko::draw_other(const Vector2* _camera) const
 //==============================================
 //内部プライベート関数
 //==============================================
+void Junko::loadImage()
+{
+	if (!imgLoad)
+	{
+		//TODO 書く
+		//int tmp = LoadDivGraph("Data/Image/.png", 8, 8, 1, 32, 32, images);
+		//assert(tmp != -1 && "Junko画像読み込みエラー");
+	}
+	imgLoad = true;
+}
+
+
 void Junko::hittedAction()
 {
 

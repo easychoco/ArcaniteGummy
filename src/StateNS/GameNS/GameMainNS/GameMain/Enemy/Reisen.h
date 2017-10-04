@@ -27,9 +27,11 @@ public:
 	virtual vector<EnemyChild*> getChilds() override { vector<EnemyChild*> ret{ replica }; return ret; }
 
 private:
-	int images;
-	bool imgLoad = false;
 	int mTime;
+
+	static bool imgLoad;
+	static int images[8];
+	void loadImage();
 
 	bool nowMoving;
 	const bool isOriginal;
@@ -43,8 +45,6 @@ private:
 	void move(const StageChild*, int& dx, int& dy);
 	virtual void draw_other(const Vector2* camera)const override;
 
-	//TODO âÊëúç∑Çµë÷Ç¶
-	void loadImage() { images = LoadGraph("Data/Image/balloon.png"); mImage2 = images; imgLoad = true; }
 	void attack();
 
 	void initialize();

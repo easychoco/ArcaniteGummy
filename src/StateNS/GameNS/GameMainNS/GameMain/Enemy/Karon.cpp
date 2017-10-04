@@ -6,12 +6,15 @@
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
+	
+bool Karon::imgLoad = false;
+int Karon::images[8];
+
 
 Karon::Karon(int _x, int _y) : EnemyChild(100000, _x, _y, 32, 32)
 {
-	if(!imgLoad)loadImage();
-	assert(*mImage != -1 && "Karon画像読み込みエラー!");
-
+	loadImage();
+	
 	initialize();
 };
 
@@ -55,6 +58,7 @@ void Karon::update(const StageChild* _stage,const Vector2* _camera)
 	}
 	standardAction(_stage);
 	
+	mImage = images[actState * 2 + (aTime / 10) % 2];
 
 }
 
@@ -111,6 +115,15 @@ void Karon::move(const StageChild* _stage, int& _dx, int& _dy)
 //==============================================
 //内部プライベート関数
 //==============================================
+void Karon::loadImage()
+{
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/Karon.png", 8, 8, 1, 32, 32, images);
+		assert(tmp != -1 && "Karon画像読み込みエラー");
+	}
+	imgLoad = true;
+}
 
 void Karon::hittedAction()
 {

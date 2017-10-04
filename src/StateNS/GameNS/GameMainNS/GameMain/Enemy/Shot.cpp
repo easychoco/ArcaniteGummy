@@ -7,10 +7,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 
-
-//graphは全てのShotで同じだからグローバル変数で
-static int img = NULL;
-static unsigned int black = GetColor(0, 0, 0);
+bool Shot::imgLoad = false;
 
 //画像使用バージョン
 Shot::Shot(const Character* parent, int _x, int _y, float _angle, float _speed, int _damage) :
@@ -74,8 +71,19 @@ void Shot::setStatus_2args(Vector2 pos, int _angle, int _speed)
 	}
 }
 
+void Shot::loadImage() 
+{
+	if (!imgLoad)
+	{
+		this->mImage = LoadGraph("Data/Image/shot.png");
+		assert(mImage != -1 && "画像読み込みエラー");
+	}
+}
+
+
 float sinf_degree(int degree) { return sinf(pi(degree / 180.0f)); }
 float cosf_degree(int degree) { return cosf(pi(degree / 180.0f)); }
+
 
 
 }

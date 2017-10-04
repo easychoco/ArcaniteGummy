@@ -5,18 +5,19 @@ namespace GameNS {
 namespace GameMainNS{
 
 EnemyChild::EnemyChild(int hp, int x, int y, int w, int h) :
-EnemyChild(hp, x, y, w, h, false)
+EnemyChild(hp, x, y, w, h, false, false)
 { }
 
-EnemyChild::EnemyChild(int _hp, int _x, int _y, int _w, int _h, bool _hasChild) : 
-Character(_hp, _x, _y, _w, _h, false, 0, 0, _hasChild)
+EnemyChild::EnemyChild(int _hp, int _x, int _y, int _w, int _h, bool _hasChild, bool _isBoss) : 
+Character(_hp, _x, _y, _w, _h, false, 0, 0, _hasChild),
+isBoss(_isBoss)
 {
 	initialize();
 }
 
 EnemyChild::~EnemyChild()
 {
-
+	DeleteGraph(mImage);
 }
 
 void EnemyChild::initialize()
@@ -46,7 +47,8 @@ void EnemyChild::standardDraw(const Vector2* _camera, const bool& _direction) co
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//•`‰æ
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage[actState * 2 + (aTime / 10) % 2], true, _direction);
+	//DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage[actState * 2 + (aTime / 10) % 2], true, _direction);
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, _direction);
 }
 
 void EnemyChild::standardAction(const StageChild* _stage)

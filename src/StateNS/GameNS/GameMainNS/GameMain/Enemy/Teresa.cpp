@@ -7,11 +7,13 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool Teresa::imgLoad = false;
+int Teresa::images[8];
+
 Teresa::Teresa(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
-	if(!imgLoad)loadImage();
-	assert(*mImage != -1 && "Teresa画像読み込みエラー!");
-
+	loadImage();
+	
 	initialize();
 };
 
@@ -35,6 +37,8 @@ void Teresa::update(const StageChild* _stage, const Vector2* _camera)
 	this->mDirection = player->raw_x > this->p->raw_x;
 
 	standardAction(_stage);
+	mImage = images[actState * 2 + (aTime / 10) % 2];
+
 }
 
 void Teresa::move(const StageChild* _stage, int& _dx, int& _dy)
@@ -53,6 +57,16 @@ void Teresa::move(const StageChild* _stage, int& _dx, int& _dy)
 //==============================================
 //内部プライベート関数
 //==============================================
+void Teresa::loadImage()
+{
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/Teresa.png", 8, 8, 1, 32, 32, images);
+		assert(tmp != -1 && "Teresa画像読み込みエラー");
+	}
+	imgLoad = true;
+
+}
 void Teresa::hittedAction()
 {
 

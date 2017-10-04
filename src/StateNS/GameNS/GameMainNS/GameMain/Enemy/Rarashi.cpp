@@ -7,18 +7,21 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool Rarashi::imgLoad = false;
+int Rarashi::images[8];
+
+
 Rarashi::Rarashi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
-	if(!imgLoad)loadImage();
-	assert(*mImage != -1 && "Rarashi画像読み込みエラー!");
-
+	loadImage();
+	
 	initialize();
 };
 
 
 Rarashi::~Rarashi()
 {
-	DeleteGraph(*mImage);
+	//DeleteGraph(*mImage);
 }
 
 void Rarashi::initialize()
@@ -36,6 +39,8 @@ void Rarashi::update(const StageChild* _stage,const Vector2* _camera)
 	aTime++;
 	mTime++;
 	standardAction(_stage);	
+	mImage = images[actState * 2 + (aTime / 10) % 2];
+
 }
 
 void Rarashi::move(const StageChild* _stage, int& _dx, int& _dy)
@@ -90,6 +95,15 @@ void Rarashi::move(const StageChild* _stage, int& _dx, int& _dy)
 //==============================================
 //内部プライベート関数
 //==============================================
+void Rarashi::loadImage()
+{
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/Rarashi.png", 8, 8, 1, 32, 32, images);
+		assert(tmp != -1 && "Rarashi画像読み込みエラー");
+	}
+	imgLoad = true;
+}
 
 void Rarashi::hittedAction()
 {

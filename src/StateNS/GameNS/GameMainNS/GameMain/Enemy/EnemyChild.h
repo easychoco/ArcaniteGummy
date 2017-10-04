@@ -12,20 +12,28 @@ class EnemyChild : public Character
 {
 public:
 	EnemyChild(int hp, int x, int y, int w, int h);
-	EnemyChild(int hp, int x, int y, int w, int h, bool hasChild);
+	EnemyChild(int hp, int x, int y, int w, int h, bool hasChild, bool isBoss);
+
 	virtual ~EnemyChild();
 	virtual void update(const StageChild*,const Vector2*) = 0;
+
 	void draw(const Vector2* camera) const;
+	void standardDraw(const Vector2* _camera, const bool& _direction) const;
 	virtual void draw_other(const Vector2* camera)const {}
+
 	bool isAlive() const { return mIsAlive; }
+
 	virtual void setPlayer(const Vector2* _player) { this->player = _player; }
+
 	virtual vector<Attack*> getAttacks() const { return attacks; }
 	virtual vector<EnemyChild*> getChilds() { vector<EnemyChild*> gomi{ this }; return gomi; };
-	void standardDraw(const Vector2* _camera, const bool& _direction) const;
+
+	const bool isBoss;
 
 protected:
-	int mImage[8];
-	int mImage2;
+	//int mImage[8];
+	//int mImage2;
+	int mImage;
 	bool mDirection;
 	const Vector2* player;
 	int aTime;

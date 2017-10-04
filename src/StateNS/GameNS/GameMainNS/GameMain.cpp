@@ -255,7 +255,7 @@ StageChild* GameMain::getNextStage(int stageID)
 	if (stageID == 0)return new Stage00();
 
 	//Ç±Ç±Ç…ÇÕÇ±Ç»Ç¢
-	assert(!"ïsê≥Ç»StageID");
+	assert(!"GameMain::getNextStage ïsê≥Ç»StageID");
 	return NULL;
 }
 
