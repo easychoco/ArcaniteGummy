@@ -200,12 +200,12 @@ void Junko::Shot_around::initialize(const Vector2* _pos)
 	shot5 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
 	shot6 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
 
-	shot1->loadImage("Data/Image/Junko_attack1.png");
-	shot2->loadImage("Data/Image/Junko_attack1.png");
-	shot3->loadImage("Data/Image/Junko_attack1.png");
-	shot4->loadImage("Data/Image/Junko_attack1.png");
-	shot5->loadImage("Data/Image/Junko_attack1.png");
-	shot6->loadImage("Data/Image/Junko_attack1.png");
+	shot1->setImage(0);
+	shot2->setImage(0);
+	shot3->setImage(0);
+	shot4->setImage(0);
+	shot5->setImage(0);
+	shot6->setImage(0);
 
 	shot1->isActive = false;
 	shot2->isActive = false;
@@ -300,6 +300,7 @@ Junko::Shot_cycle::Shot_cycle(const Vector2* _pos, EnemyChild* _parent)
 	parent = _parent;
 	initialize(_pos);
 }
+
 Junko::Shot_cycle::~Shot_cycle()
 {
 	SAFE_DELETE(shot1);
@@ -324,11 +325,11 @@ void Junko::Shot_cycle::initialize(const Vector2* _pos)
 	shot5 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
 	//shot6 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
 
-	shot1->loadImage("Data/Image/Junko_attack2.png");
-	shot2->loadImage("Data/Image/Junko_attack2.png");
-	shot3->loadImage("Data/Image/Junko_attack2.png");
-	shot4->loadImage("Data/Image/Junko_attack2.png");
-	shot5->loadImage("Data/Image/Junko_attack2.png");
+	shot1->setImage(1);
+	shot2->setImage(1);
+	shot3->setImage(1);
+	shot4->setImage(1);
+	shot5->setImage(1);
 	//shot6->loadImage("Data/Image/Junko_attack2.png");
 
 	shot1->isActive = false;

@@ -20,7 +20,7 @@ Yachamo::Yachamo(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 
 Yachamo::~Yachamo()
 {
-	//DeleteGraph(*mImage);
+	//DeleteGraph‚Í‚µ‚È‚¢
 }
 
 void Yachamo::initialize()

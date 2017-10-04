@@ -20,6 +20,7 @@ Balloon::Balloon(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 
 Balloon::~Balloon()
 {
+	//DeleteGraph‚Í‚µ‚È‚¢
 
 }
 

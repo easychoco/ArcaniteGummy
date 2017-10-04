@@ -21,7 +21,7 @@ Karon::Karon(int _x, int _y) : EnemyChild(100000, _x, _y, 32, 32)
 
 Karon::~Karon()
 {
-
+	//DeleteGraph‚Í‚µ‚È‚¢
 }
 
 void Karon::initialize()

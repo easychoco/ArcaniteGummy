@@ -226,7 +226,7 @@ player(_player)
 	//for Debug
 	this->damageValue = 20;
 
-	mImage = LoadGraph("Data/Image/Reisen_shot.png");
+	mImage = LoadGraph("Data/Image/shot3.png");
 	assert(mImage != -1 && "—éåShot‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 
 	initialize();

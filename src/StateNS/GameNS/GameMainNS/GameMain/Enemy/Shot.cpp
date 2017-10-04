@@ -8,6 +8,7 @@ namespace GameMainNS{
 
 
 bool Shot::imgLoad = false;
+int Shot::images[3];
 
 //画像使用バージョン
 Shot::Shot(const Character* parent, int _x, int _y, float _angle, float _speed, int _damage) :
@@ -24,7 +25,7 @@ Attack(parent, _x, _y, 15, 15)
 
 Shot::~Shot() 
 {
-	DeleteGraph(mImage);
+	//DeleteGraphはしない
 }
 
 void Shot::initialize()
@@ -75,9 +76,16 @@ void Shot::loadImage()
 {
 	if (!imgLoad)
 	{
-		this->mImage = LoadGraph("Data/Image/shot.png");
-		assert(mImage != -1 && "画像読み込みエラー");
+		images[0] = LoadGraph("Data/Images/Shot1.png");
+		assert(images[0] != -1 && "shot1画像読み込みエラー");
+
+		images[1] = LoadGraph("Data/Images/Shot2.png");
+		assert(images[1] != -1 && "shot2画像読み込みエラー");
+
+		images[2] = LoadGraph("Data/Images/Shot3.png");
+		assert(images[2] != -1 && "shot3画像読み込みエラー");
 	}
+	imgLoad = true;
 }
 
 

@@ -20,7 +20,7 @@ Usagi::Usagi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 
 Usagi::~Usagi()
 {
-
+	//DeleteGraph‚Í‚µ‚È‚¢
 }
 
 void Usagi::initialize()
