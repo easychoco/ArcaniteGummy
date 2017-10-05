@@ -41,14 +41,15 @@ bool DynamicGimmickChild::rideOnGimmick(const Vector2* _player) const
 
 bool DynamicGimmickChild::standardOverLap(const Vector2* _player) const
 {
-	int tmp_w = this->width  * vectorRate / 2;
-	int tmp_h = this->height * vectorRate / 2;
+	int half_w = this->width  * vectorRate / 2;
+	int half_h = this->height * vectorRate / 2;
+
 
 	return
-		this->p->raw_x - tmp_w < _player->raw_x &&
-		this->p->raw_x + tmp_w > _player->raw_x &&
-		this->p->raw_y - tmp_h < _player->raw_y &&
-		this->p->raw_y + tmp_h > _player->raw_y;
+		this->p->raw_x - half_w <= _player->raw_x &&
+		this->p->raw_x + half_w  > _player->raw_x &&
+		this->p->raw_y - half_h <= _player->raw_y &&
+		this->p->raw_y + half_h  > _player->raw_y;
 }
 
 

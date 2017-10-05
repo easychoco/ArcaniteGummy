@@ -66,16 +66,6 @@ void PlayerChild::draw() const
 	//for Debug
 	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
 	//hpController.draw();
-
-
-	//for Debug
-	DrawPixel(draw_x - 16, draw_y + 33, RED);
-	DrawPixel(draw_x - 16, draw_y + 32, GREEN);
-	DrawPixel(draw_x - 16, draw_y + 31, BLUE);
-
-	DrawPixel(draw_x - 16, draw_y - 33, RED);
-	DrawPixel(draw_x - 16, draw_y - 32, GREEN);
-	DrawPixel(draw_x - 16, draw_y - 31, BLUE);
 }
 
 //é©ã@Ç™è∞ÇÃè„Ç…Ç¢ÇΩÇÁè∞ÇÃyç¿ïWÇï‘Ç∑ Ç¢Ç»Ç©Ç¡ÇΩÇÁ0Çï‘Ç∑

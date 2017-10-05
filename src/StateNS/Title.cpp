@@ -152,10 +152,10 @@ Child* Title::nextScene(int n) {
 	Child* scene;
 	///////////‚à‚Á‚Æ‚¤‚Ü‚¢‘‚«•û‚ ‚Á‚½‚ç‹³‚¦‚Ä‚­‚ê/////////////////
 	switch (n) {
-	case 0:scene = new Parent(hoge[select]); break;
+	case 0:scene = new Parent(0); break;
 	case 1:scene = new MusicRoom(); break;
 	case 2:scene = new Config(); break;
-	case 3:scene = new Parent(hoge[select]); break;
+	case 3:scene = new Parent(0); break;
 
 	}
 	return scene;

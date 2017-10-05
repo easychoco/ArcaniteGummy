@@ -227,7 +227,6 @@ int Map::getBottomPosition(const Vector2* _pos, const int& _dy) const
 	return ret;
 }
 
-
 ChipType Map::getChipType(const Vector2& _other, bool isPlayer) const
 {
 	int sub_x = _other.raw_x / CHIP_WIDTH_RATE();

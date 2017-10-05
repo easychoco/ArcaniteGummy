@@ -55,16 +55,11 @@ void Stage00::initialize()
 	maps[0]->addDynamicGimmick(d_tmp);
 	*/
 
-	maps[0]->addEnemy(AllEnemies::ENE_POPPY, 300, 1488);
-	maps[0]->addEnemy(AllEnemies::ENE_POPPY, 300, 1456);
-	maps[0]->addEnemy(AllEnemies::ENE_POPPY, 300, 1424);
-	maps[0]->addEnemy(AllEnemies::ENE_POPPY, 300, 1392);
-	maps[0]->addEnemy(AllEnemies::ENE_POPPY, 300, 1360);
-	maps[0]->addEnemy(AllEnemies::ENE_POPPY, 300, 1328);
-	maps[0]->addEnemy(AllEnemies::ENE_POPPY, 300, 1296);
-	maps[0]->addEnemy(AllEnemies::ENE_POPPY, 300, 1264);
-	maps[0]->addEnemy(AllEnemies::ENE_POPPY, 300, 1232);
-
+	maps[0]->addDynamicGimmick(new Block(240, 1520, 1.0));
+	maps[0]->addDynamicGimmick(new Block(272, 1520, 1.0));
+	maps[0]->addDynamicGimmick(new Block(304, 1520, 1.0));
+	maps[0]->addDynamicGimmick(new Block(336, 1520, 1.0));
+	
 	startX = 144, startY = 1536;
 }
 
