@@ -5,7 +5,11 @@
 #include "Config.h"
 #include "MusicRoom.h"
 
+
+int hoge[12] = { 11,12,13,21,22,23,31,32,33,41,42,43 };
+
 namespace StateNS{
+
 
 
 Title::Title()
@@ -48,24 +52,31 @@ Child* Title::update(const GrandParent* parent)
 	switch (step) {
 	case 0:
 		if (!GetMovieStateToGraph(movie))step++;
-		if (Input_Z())step++;
+		if (Input_OK())step++;
 		break;
 	case 1://push z key
 		//SeekMovieToGraph(movie, 6000);
 		count = (count + 1) % 120;
-		if (Input_Z() && pushZ)step++;
+		if (Input_OK() && pushZ)step++;
 		break;
 	case 2://ゲームスタート、そうさせつめい
 //		SeekMovieToGraph(movie, 6000);
-		if (Input_Z() && pushZ)next = nextScene(select);
+		if (Input_OK() && pushZ) { 
+			if (select == 0) { step++; select = 0; }
+			else next = nextScene(select);
+		}
 
 		if (Input_UP() && pushUP)select = (select + 3) % 4;
 		if (Input_DOWN() && pushDOWN)select = (select + 1) % 4;
 		break;
+	case 3://デバッグ
+		if(Input_OK() && pushZ)next = nextScene(0);
+		if (Input_UP() && pushUP)select = (select + 11) % 12;
+		if (Input_DOWN() && pushDOWN)select = (select + 1) % 12;
 	}
 
 	
-	if (!Input_Z())pushZ = true;
+	if (!Input_OK())pushZ = true;
 	else pushZ = false;
 
 	if (!Input_UP())pushUP = true;
@@ -91,6 +102,14 @@ void Title::draw() const
 		DrawGraph(0, 0, mBackImg, FALSE);
 		command_draw();
 		break;
+	case 3://for Debug
+		DrawGraph(0, 0, mBackImg, FALSE);
+		DrawBox(200, 280, 440, 420, BLACK, TRUE);
+
+		DrawFormatString(250, 300, WHITE, "ステージ%d-%d",hoge[select]/10,hoge[select]%10);
+		DrawFormatString(250, 330, WHITE, "デバッグ用だよ");
+		DrawFormatString(250, 360, WHITE, "上下でステージ選択");
+
 	}
 }
 
@@ -133,10 +152,10 @@ Child* Title::nextScene(int n) {
 	Child* scene;
 	///////////もっとうまい書き方あったら教えてくれ/////////////////
 	switch (n) {
-	case 0:scene = new Parent(); break;
+	case 0:scene = new Parent(hoge[select]); break;
 	case 1:scene = new MusicRoom(); break;
 	case 2:scene = new Config(); break;
-	case 3:scene = new Parent(); break;
+	case 3:scene = new Parent(hoge[select]); break;
 
 	}
 	return scene;

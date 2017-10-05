@@ -27,7 +27,7 @@ void Stage11::initialize()
 	this->maps.push_back(new Map(11, 0, MapPos::POS_RIGHT_FREE));
 	this->maps.push_back(new Map(11, 1, MapPos::POS_LEFT_FREE));
 
-	this->maps[0]->addEnemy(BOSS_JUNKO, 540, 1488);
+	//this->maps[0]->addEnemy(BOSS_JUNKO, 540, 1488);
 
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[1]->addGimmick(flag);

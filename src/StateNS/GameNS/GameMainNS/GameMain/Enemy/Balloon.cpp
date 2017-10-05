@@ -56,7 +56,7 @@ void Balloon::loadImage()
 {
 	if (!imgLoad)
 	{
-		int tmp = LoadDivGraph("Data/Image/balloon.png", 8, 8, 1, 32, 32, images);
+		int tmp = LoadDivGraph("Data/Image/Poppy.png", 8, 8, 1, 32, 32, images);
 		assert(tmp != -1 && "Balloon‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 	}
 	imgLoad = true;
