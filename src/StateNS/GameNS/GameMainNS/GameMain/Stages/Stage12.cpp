@@ -70,7 +70,7 @@ void Stage12::draw(const Vector2* _camera) const
 
 bool Stage12::isClear() const
 {
-	return false;
+	return !flag->isActive;
 }
 
 

@@ -53,7 +53,7 @@ void Stage41::draw(const Vector2* _camera) const
 
 bool Stage41::isClear() const
 {
-	return false;
+	return !flag->isActive;
 }
 
 
