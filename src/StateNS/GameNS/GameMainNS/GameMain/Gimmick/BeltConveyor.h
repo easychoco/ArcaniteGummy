@@ -29,6 +29,8 @@ private:
 	float dx;
 	int mTime;
 
+	static bool imgLoad;
+	static int image;
 	void loadImage();
 };
 

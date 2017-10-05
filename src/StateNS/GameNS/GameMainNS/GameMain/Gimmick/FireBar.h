@@ -6,11 +6,9 @@
 
 namespace StateNS {
 namespace GameNS {
-
-
 namespace GameMainNS {
 
-class Child;
+//class Child;
 
 class FireBar : public DynamicGimmickChild
 {
@@ -30,8 +28,11 @@ public:
 
 
 private:
-	int img_block;
-	int img_bar;
+	static bool imgLoad;
+	static int img_block;
+	static int img_bar;
+	void loadImage();
+
 	float radian;
 	bool ways;//ŽžŒv‰ñ‚è‚È‚çtrue
 	const int damageValue = 50;
@@ -44,8 +45,8 @@ private:
 	int x_2, y_2;
 	int x_3, y_3;
 
-	void loadImage();
 	void move();
+
 };
 
 

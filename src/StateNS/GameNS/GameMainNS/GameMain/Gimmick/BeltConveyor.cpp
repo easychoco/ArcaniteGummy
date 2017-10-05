@@ -5,6 +5,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool BeltConveyor::imgLoad = false;
+int BeltConveyor::image;
 
 BeltConveyor::BeltConveyor(float _dx, Vector2 _pos) : 
 GimmickChild(_pos)
@@ -16,12 +18,13 @@ GimmickChild(_pos)
 
 BeltConveyor::~BeltConveyor()
 {
-
+	//DeleteGraphはしない
 }
 
 void BeltConveyor::initialize()
 {
 	loadImage();
+	mImage = image;
 
 	isActive = true;
 	dx = 0.0f;
@@ -75,8 +78,12 @@ StageChild::ChipType BeltConveyor::getChipType() const
 //==============================================
 void BeltConveyor::loadImage()
 {
-	mImage = LoadGraph("Data/Image/beltconveyor.png");
-	assert(mImage != -1 && "ベルトコンベヤー画像読み込みエラー！");
+	if (!imgLoad)
+	{
+		image = LoadGraph("Data/Image/beltconveyor.png");
+		assert(image != -1 && "ベルトコンベヤー画像読み込みエラー！");
+	}
+	imgLoad = true;
 }
 
 

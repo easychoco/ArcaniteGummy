@@ -32,9 +32,11 @@ public:
 private:
 	bool mIsBurned;
 	int mTime;
-	int images[2];
 
+	static bool imgLoad;
+	static int images[2];
 	void loadImage();
+
 };
 
 

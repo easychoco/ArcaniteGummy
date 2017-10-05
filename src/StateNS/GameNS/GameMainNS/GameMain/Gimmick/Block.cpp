@@ -10,6 +10,9 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool Block::imgLoad = false;
+int Block::image;
+
 Block::Block(int _x, int _y, double _scale) :
 	Block(_x, _y, _scale, true){ }
 
@@ -25,12 +28,13 @@ isBreakable(_isBreakable)
 
 Block::~Block()
 {
-
+	//DeleteGraphはしない
 }
 
 void Block::initialize()
 {
 	loadImage();
+	mImage = image;
 	dy = 0;
 }
 
@@ -99,8 +103,12 @@ bool Block::onActiveArea(const Vector2* _player) const
 //==============================================
 void Block::loadImage()
 {
-	this->mImage = LoadGraph("Data/Image/block.png");
-	assert(mImage != -1 && "Block画像読み込みエラー!");
+	if (!imgLoad)
+	{
+		this->image = LoadGraph("Data/Image/block.png");
+		assert(image != -1 && "Block画像読み込みエラー!");
+	}
+	imgLoad = true;
 }
 
 

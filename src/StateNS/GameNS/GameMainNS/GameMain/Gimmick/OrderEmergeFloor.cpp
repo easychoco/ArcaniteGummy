@@ -10,6 +10,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool OrderEmergeFloor::imgLoad = false;
+int OrderEmergeFloor::image;
 
 OrderEmergeFloor::OrderEmergeFloor(int _x, int _y, double _scale, int _order) :
 DynamicGimmickChild(_x, _y, _scale)
@@ -23,13 +25,15 @@ DynamicGimmickChild(_x, _y, _scale)
 
 OrderEmergeFloor::~OrderEmergeFloor()
 {
-
+	//DeleteGraphはしない
 }
 
 void OrderEmergeFloor::initialize()
 {
-	
 	loadImage();
+
+	mImage = image;
+
 	this->dy = 0;
 	this->mTime = 0;
 }
@@ -111,8 +115,12 @@ bool OrderEmergeFloor::onActiveArea(const Vector2* _player) const
 //==============================================
 void OrderEmergeFloor::loadImage()
 {
-	this->mImage = LoadGraph("Data/Image/OrderEmergeFloor.png");
-	assert(mImage != -1 && "OrderEmergeFloor画像読み込みエラー!");
+	if (!imgLoad)
+	{
+		this->image = LoadGraph("Data/Image/OrderEmergeFloor.png");
+		assert(image != -1 && "OrderEmergeFloor画像読み込みエラー!");
+	}
+	imgLoad = true;
 }
 
 

@@ -6,6 +6,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool Torch::imgLoad = false;
+int Torch::images[2];
 
 //このクラスの関数はMap.cppではなくStage00で呼ぶ
 //ことにすると, 画面を明るくする処理なども個別の関数を呼べるので楽
@@ -18,7 +20,7 @@ DynamicGimmickChild(_x, _y, 1.0)
 
 Torch::~Torch()
 {
-	DeleteGraph(mImage);
+	//DeleteGraphはしない
 }
 
 void Torch::initialize()
@@ -104,9 +106,12 @@ StageChild::ChipType Torch::getChipType() const
 //==============================================
 void Torch::loadImage()
 {
-	//TODO 画像差し替え
-	int tmp = LoadDivGraph("Data/Image/Torch.png", 2, 2, 1, 32, 32, images);
-	assert(tmp != -1 && "たいまつ画像読み込みエラー！");
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/Torch.png", 2, 2, 1, 32, 32, images);
+		assert(tmp != -1 && "Torch画像読み込みエラー");
+	}
+	imgLoad = true;
 }
 
 

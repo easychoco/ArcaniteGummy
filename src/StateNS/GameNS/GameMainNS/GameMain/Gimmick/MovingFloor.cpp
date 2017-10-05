@@ -3,14 +3,12 @@
 #include "..\Character.h"
 
 
-//for Debug
-#include "..\Collision.h"
-#include "..\..\..\..\..\KeyInput.h"
-
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool MovingFloor::imgLoad = false;
+int MovingFloor::image;
 
 MovingFloor::MovingFloor(int _x, int _y, int _term_x, int _term_y, float _movingSpeed, int _moveType) :
 DynamicGimmickChild(_x, _y, 1.0)
@@ -37,13 +35,14 @@ DynamicGimmickChild(_x, _y, 1.0)
 
 MovingFloor::~MovingFloor()
 {
-	DeleteGraph(mImage);
+	//DeleteGraphはしない
 }
 
 void MovingFloor::initialize()
 {
 	mTime = 0;
 	loadImage();
+	mImage = image;
 }
 
 void MovingFloor::update(const StageChild* _stage)
@@ -114,9 +113,12 @@ bool MovingFloor::onActiveArea(const Vector2* _player) const
 //==============================================
 void MovingFloor::loadImage()
 {
-	this->mImage = LoadGraph("Data/Image/movingfloor.png");
-	assert(mImage != -1 && "MovingFloor画像読み込みエラー!");
-
+	if (!imgLoad)
+	{
+		image = LoadGraph("Data/Image/movingfloor.png");
+		assert(image != -1 && "MovingFloor画像読み込みエラー!");
+	}
+	imgLoad = true;
 }
 
 void MovingFloor::move()

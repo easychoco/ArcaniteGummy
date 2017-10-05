@@ -36,6 +36,8 @@ private:
 	int height;
 	const bool isBreakable;
 
+	static bool imgLoad;
+	static int image;
 	void loadImage();
 };
 

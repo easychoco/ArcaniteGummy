@@ -30,8 +30,11 @@ public:
 
 
 private:
-	int img_block;
-	int img_bar;
+	static bool imgLoad;
+	static int img_block;
+	static int img_bar;
+	void loadImage();
+
 	float angle;//radian
 	bool order;//タイミングをずらすため
 	int mTime;
@@ -47,7 +50,7 @@ private:
 	int r, l, u, d;
 
 
-	void loadImage();
+
 	void move();
 };
 

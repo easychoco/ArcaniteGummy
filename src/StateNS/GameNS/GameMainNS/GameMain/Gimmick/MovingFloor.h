@@ -40,6 +40,9 @@ public:
 
 private:
 	int mTime = 0;
+	static bool imgLoad;
+	static int image;
+	void loadImage();
 
 	//‚ ‚Á‚¿‚És‚Á‚ÄŒ³‚ÌêŠ‚É–ß‚é‚Ü‚Å‚ÌƒtƒŒ[ƒ€”
 	int interval;
@@ -48,7 +51,6 @@ private:
 	float motion_dy;
 	int moveType;
 	void move();
-	void loadImage();
 };
 
 

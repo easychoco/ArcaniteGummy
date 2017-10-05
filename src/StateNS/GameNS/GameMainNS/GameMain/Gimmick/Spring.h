@@ -28,12 +28,13 @@ public:
 //	void setMovingSpeed(float _dx) { dx = _dx; }
 
 private:
-	int images[2];
 	float dy;
 	int mTime;
 	int aTime;
 	bool onPlayer;
 
+	static bool imgLoad;
+	static int images[2];
 	void loadImage();
 };
 

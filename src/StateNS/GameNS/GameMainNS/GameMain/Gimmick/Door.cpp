@@ -6,6 +6,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool Door::imgLoad = false;
+int Door::image;
 
 Door::Door(Vector2* _pos1, Vector2* _pos2) : 
 GimmickChild(*_pos1)
@@ -18,6 +20,7 @@ GimmickChild(*_pos1)
 
 Door::~Door()
 {
+	//DeleteGraphはしない
 	SAFE_DELETE(door1);
 	SAFE_DELETE(door2);
 }
@@ -25,7 +28,8 @@ Door::~Door()
 void Door::initialize()
 {
 	loadImage();
-	
+	mImage = image;
+
 	onDoor1 = false;
 	onDoor2 = false;
 }
@@ -98,8 +102,12 @@ bool Door::onActiveArea(const Vector2* _player) const
 //==============================================
 void Door::loadImage()
 {
-	mImage = LoadGraph("Data/Image/Door.png");
-	assert(mImage != -1 && "ドア画像読み込みエラー！");
+	if (!imgLoad)
+	{
+		image = LoadGraph("Data/Image/Door.png");
+		assert(image != -1 && "ドア画像読み込みエラー！");
+	}
+	imgLoad = true;
 }
 
 

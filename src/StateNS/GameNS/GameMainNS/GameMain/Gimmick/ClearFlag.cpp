@@ -5,6 +5,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool ClearFlag::imgLoad = false;
+int ClearFlag::image;
 
 ClearFlag::ClearFlag(Vector2 _pos) : 
 GimmickChild(_pos)
@@ -15,12 +17,13 @@ GimmickChild(_pos)
 
 ClearFlag::~ClearFlag()
 {
-
+	//DeleteGraphはしない
 }
 
 void ClearFlag::initialize()
 {
 	loadImage();
+	mImage = image;
 }
 
 void ClearFlag::update()
@@ -61,8 +64,12 @@ StageChild::ChipType ClearFlag::getChipType() const
 //==============================================
 void ClearFlag::loadImage()
 {
-	mImage = LoadGraph("Data/Image/ClearFlag.png");
-	assert(mImage != -1 && "クリア画像読み込みエラー！");
+	if (!imgLoad)
+	{
+		image = LoadGraph("Data/Image/ClearFlag.png");
+		assert(image != -1 && "クリア画像読み込みエラー！");
+	}
+	imgLoad = true;
 }
 
 

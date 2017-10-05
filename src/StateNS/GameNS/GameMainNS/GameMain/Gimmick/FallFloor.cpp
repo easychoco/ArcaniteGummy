@@ -11,6 +11,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool FallFloor::imgLoad = false;
+int FallFloor::image;
 
 FallFloor::FallFloor(int _x, int _y, bool _falldown) : 
 DynamicGimmickChild(_x, _y, 1.0)
@@ -26,7 +28,7 @@ DynamicGimmickChild(_x, _y, 1.0)
 
 FallFloor::~FallFloor()
 {
-
+	//DeleteGraphはしない
 }
 
 
@@ -35,6 +37,7 @@ void FallFloor::initialize()
 	this->mTime = 0;
 	this->mTime2 = 0;
 	loadImage();
+	mImage = image;
 }
 
 void FallFloor::update(const StageChild* _stage)
@@ -126,15 +129,17 @@ bool FallFloor::onActiveArea(const Vector2* _player) const
 //==============================================
 void FallFloor::loadImage()
 {
-	this->mImage = LoadGraph("Data/Image/FallFloor.png");
-	assert(mImage != -1 && "FallFloor画像読み込みエラー!");
-
+	if (!imgLoad)
+	{
+		image = LoadGraph("Data/Image/FallFloor.png");
+		assert(mImage != -1 && "FallFloor画像読み込みエラー!");
+	}
+	imgLoad = true;
 }
-
 
 void FallFloor::move(const StageChild* _stage)
 {
-	float tmp_dy = falldown ? getBottomDiffer(_stage, mTime*mTime, dx < 0) : getTopDiffer(_stage, -mTime*mTime, dx < 0);
+	int tmp_dy = falldown ? getBottomDiffer(_stage, mTime*mTime, dx < 0) : getTopDiffer(_stage, -mTime*mTime, dx < 0);
 	if (tmp_dy == 0)
 	{
 		mTime = 0;

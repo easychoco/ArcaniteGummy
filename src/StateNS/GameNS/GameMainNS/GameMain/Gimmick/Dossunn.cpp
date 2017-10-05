@@ -5,6 +5,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS {
 
+bool Dossunn::imgLoad = false;
+int Dossunn::image;
 
 Dossunn::Dossunn(int _x, int _y, double _scale) :
 DynamicGimmickChild(_x, _y, _scale)
@@ -17,12 +19,13 @@ DynamicGimmickChild(_x, _y, _scale)
 
 Dossunn::~Dossunn()
 {
-
+	//DeleteGraphはしない
 }
 
 void Dossunn::initialize()
 {
 	loadImage();
+	mImage = image;
 
 	mTime = 0;
 	isActive = true;
@@ -84,8 +87,12 @@ bool Dossunn::onActiveArea(const Vector2* _player) const
 //==============================================
 void Dossunn::loadImage()
 {
-	this->mImage = LoadGraph("Data/Image/dossunn.png");
-	assert(mImage != -1 && "Dossunn画像読み込みエラー!");
+	if (!imgLoad)
+	{
+		this->image = LoadGraph("Data/Image/dossunn.png");
+		assert(image != -1 && "Dossunn画像読み込みエラー!");
+	}
+	imgLoad = true;
 }
 
 void Dossunn::move()

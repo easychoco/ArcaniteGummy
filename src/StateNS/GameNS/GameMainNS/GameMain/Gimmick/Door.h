@@ -31,6 +31,9 @@ private:
 
 	Vector2* door1;
 	Vector2* door2;
+
+	static bool imgLoad;
+	static int image;
 	void loadImage();
 };
 

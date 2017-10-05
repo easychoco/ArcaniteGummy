@@ -5,6 +5,9 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS {
 
+bool Burner::imgLoad;
+int Burner::img_block;
+int Burner::img_bar;
 
 Burner::Burner(int _x, int _y,float _angle, bool _order) :
 DynamicGimmickChild(_x, _y, 1.0)
@@ -25,8 +28,7 @@ DynamicGimmickChild(_x, _y, 1.0)
 
 Burner::~Burner()
 {
-	DeleteGraph(img_block);
-	DeleteGraph(img_bar);
+	//DeleteGraphはしない
 }
 
 void Burner::initialize()
@@ -137,10 +139,14 @@ bool Burner::onActiveArea(const Vector2* _player) const
 //==============================================
 void Burner::loadImage()
 {
-	//TODO バーナー用の画像に差し替え
-	this->img_block = LoadGraph("Data/Image/fireblock.png");
-	this->img_bar   = LoadGraph("Data/Image/firebar.png");
-	assert((img_block != -1 || img_bar != -1)&& "Burner画像読み込みエラー!");
+	if (!imgLoad)
+	{
+		//TODO バーナー用の画像に差し替え
+		this->img_block = LoadGraph("Data/Image/fireblock.png");
+		this->img_bar = LoadGraph("Data/Image/firebar.png");
+		assert((img_block != -1 || img_bar != -1) && "Burner画像読み込みエラー!");
+	}
+	imgLoad = true;
 }
 
 void Burner::move()

@@ -50,7 +50,7 @@ void EnemyController::update(const StageChild* _stage, const Vector2* _camera)
 	time++;
 
 	//15•b–ˆ‚Évector‚Ìƒƒ‚ƒŠg—p—Ê‚ğÅ¬‰»‚·‚é
-	if (time % 300 == 10)minimize_enemies();
+	if (time % 900 == 10)minimize_enemies();
 	else
 	{
 		for (auto& enemy : enemies)
@@ -162,9 +162,6 @@ void EnemyController::minimize_enemies()
 			erase_subs.push(i);
 		}
 	}
-
-	//íœ‚·‚é“G‚ª‚¢‚È‚¯‚ê‚Îreturn
-	if (erase_subs.empty())return;
 
 	//‚»‚µ‚Äíœ
 	while (!erase_subs.empty())

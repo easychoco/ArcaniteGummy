@@ -35,8 +35,11 @@ private:
 	int height;
 	int mTime;
 	int order;//oŒ»‚·‚é‡”Ô
-	void loadImage();
 	bool isEmerge;
+
+	static bool imgLoad;
+	static int image;
+	void loadImage();
 };
 
 

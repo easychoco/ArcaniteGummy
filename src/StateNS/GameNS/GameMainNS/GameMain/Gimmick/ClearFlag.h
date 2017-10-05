@@ -27,6 +27,8 @@ public:
 //	void setMovingSpeed(float _dx) { dx = _dx; }
 
 private:
+	static bool imgLoad;
+	static int image;
 	void loadImage();
 };
 

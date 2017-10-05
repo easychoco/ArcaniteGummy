@@ -5,6 +5,10 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS {
 
+bool FireBar::imgLoad = false;
+int FireBar::img_block;
+int FireBar::img_bar;
+
 
 FireBar::FireBar(int _x, int _y,bool _ways) :
 DynamicGimmickChild(_x, _y, 1.0)
@@ -22,8 +26,7 @@ DynamicGimmickChild(_x, _y, 1.0)
 
 FireBar::~FireBar()
 {
-	DeleteGraph(img_block);
-	DeleteGraph(img_bar);
+	//DeleteGraphはしない
 }
 
 void FireBar::initialize()
@@ -94,9 +97,13 @@ bool FireBar::onActiveArea(const Vector2* _player) const
 //==============================================
 void FireBar::loadImage()
 {
-	this->img_block = LoadGraph("Data/Image/fireblock.png");
-	this->img_bar   = LoadGraph("Data/Image/firebar.png");
-	assert((img_block != -1 || img_bar != -1)&& "FireBar画像読み込みエラー!");
+	if (!imgLoad)
+	{
+		this->img_block = LoadGraph("Data/Image/fireblock.png");
+		this->img_bar = LoadGraph("Data/Image/firebar.png");
+		assert((img_block != -1 || img_bar != -1) && "FireBar画像読み込みエラー!");
+	}
+	imgLoad = true;
 }
 
 void FireBar::move()

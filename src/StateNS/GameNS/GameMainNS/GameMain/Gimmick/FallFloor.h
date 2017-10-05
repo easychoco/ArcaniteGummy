@@ -32,9 +32,13 @@ public:
 private:
 	int mTime;
 	int mTime2;
+
+	static bool imgLoad;
+	static int image;
+	void loadImage();
+
 	bool falldown;//false‚Åã‚Éã‚ª‚é
 	bool nowFall;
-	void loadImage();
 	void move(const StageChild*);
 	int sy;
 };

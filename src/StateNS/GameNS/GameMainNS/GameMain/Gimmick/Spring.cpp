@@ -5,6 +5,8 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool Spring::imgLoad = false;
+int Spring::images[2];
 
 Spring::Spring(Vector2 _pos) :
 GimmickChild(_pos)
@@ -15,12 +17,13 @@ GimmickChild(_pos)
 
 Spring::~Spring()
 {
-
+	//DeleteGraphはしない
 }
 
 void Spring::initialize()
 {
 	loadImage();
+	mImage = images[0];
 
 	this->isActive = true;
 	this->dy = 0.0f;
@@ -93,10 +96,13 @@ StageChild::ChipType Spring::getChipType() const
 //==============================================
 void Spring::loadImage()
 {
-	LoadDivGraph("Data/Image/Spring.png",2,2,1,32,32,images);
-	assert(*images != -1 && "バネ画像読み込みエラー！");
+	if (!imgLoad)
+	{
+		int tmp = LoadDivGraph("Data/Image/spring.png", 2, 2, 1, 32, 32, images);
+		assert(tmp != -1 && "Spring画像読み込みエラー");
+	}
+	imgLoad = true;
 }
-
 
 }
 }

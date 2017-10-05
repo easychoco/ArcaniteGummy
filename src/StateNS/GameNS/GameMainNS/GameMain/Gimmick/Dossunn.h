@@ -30,11 +30,14 @@ public:
 
 
 private:
-	int mImage;
 	int mTime;
+
+	static bool imgLoad;
+	static int image;
+	void loadImage();
+
 	bool isMove;
 
-	void loadImage();
 	void move();
 };
 
