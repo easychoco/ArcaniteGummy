@@ -19,7 +19,7 @@ public:
 		SEQ_NONE,
 	};
 
-	Parent();
+	Parent(int stageNum);
 	~Parent();
 	void initialize();
 	StateNS::Child* update(const GrandParent*);
