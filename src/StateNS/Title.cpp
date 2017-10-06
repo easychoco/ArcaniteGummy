@@ -149,7 +149,7 @@ void Title::command_draw()const
 
 
 Child* Title::nextScene(int n) {
-	Child* scene;
+	Child* scene = 0;
 	///////////‚à‚Á‚Æ‚¤‚Ü‚¢‘‚«•û‚ ‚Á‚½‚ç‹³‚¦‚Ä‚­‚ê/////////////////
 	switch (n) {
 	case 0:scene = new Parent(hoge[select]); break;

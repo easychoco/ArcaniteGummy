@@ -36,12 +36,14 @@ void HPController::damage(int _val, bool action)
 {
 	if (isMuteki)return;
 	if (parent->damaged)return;
+	if (_val < 0)return;
 	this->HP = max(this->HP - _val, 0);
 	parent->damaged = action;
 }
 
 void HPController::recover(int _val)
 {
+	if (_val < 0)return;
 	this->HP = min(this->HP + _val, this->maxHP);
 }
 

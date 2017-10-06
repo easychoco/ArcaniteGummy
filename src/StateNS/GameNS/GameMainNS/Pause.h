@@ -1,24 +1,28 @@
 #pragma once
 
 #include "GameMainChild.h"
+#include "..\..\..\Data.h"
 
 namespace StateNS {
-
-class Parent;
-
 namespace GameNS {
-
 namespace GameMainNS{
 
+class GameMain;
 
 class Pause : public Child
 {
 public:
-	Pause();
+	Pause(GameMain*);
 	~Pause();
 	void initialize();
 	Child* update(GameParent*);
 	void draw() const;
+
+private:
+	GameMain* main;
+	bool prePush;
+	const Vector2* originalCameraPos;
+
 
 };
 

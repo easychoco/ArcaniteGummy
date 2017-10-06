@@ -30,6 +30,7 @@ public:
 
 
 	const StopType getStopDynamicObject() const { return stopDynamics; }
+	void moveCamera(int dx, int dy);
 
 protected:
 	//•Ï”

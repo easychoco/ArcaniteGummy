@@ -78,6 +78,11 @@ int PlayerChild::getFloorCoordinate()
 	return 0;
 }
 
+void PlayerChild::moveCamera(int _dx, int _dy)
+{
+	camera->raw_x = max(0, min(MAP_WIDTH_RATE()  - 1000, camera->raw_x + _dx * vectorRate));
+	camera->raw_y = max(0, min(MAP_HEIGHT_RATE() - 1000, camera->raw_y + _dy * vectorRate));
+}
 
 //================================================
 //“à•”protectedŠÖ”

@@ -91,7 +91,7 @@ void EnemyController::processCollision(PlayerChild* _player)
 
 void EnemyController::addEnemy(AllEnemies _enemy, const Vector2* _player, int _x, int _y)
 {
-	EnemyChild* ene_tmp;
+	EnemyChild* ene_tmp = 0;
 	switch (_enemy)
 	{
 	/*

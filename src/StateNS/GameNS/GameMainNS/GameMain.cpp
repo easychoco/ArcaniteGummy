@@ -1,6 +1,7 @@
 #include "GameMain.h"
 
 #include "Converse.h"
+#include "Pause.h"
 
 #include "GameMain\Stages\StageChild.h"
 #include "GameMain\Stages\AllStages.h"
@@ -16,8 +17,9 @@
 #include "GameMain\Gimmick\Block.h"
 #include "GameMain\Gimmick\Switches\SwitchWithBlock.h"
 
-#include "..\..\..\Data.h"
+//#include "..\..\..\Data.h"
 #include "..\..\..\KeyInput.h"
+
 
 
 namespace StateNS {
@@ -47,6 +49,7 @@ void GameMain::initialize()
 	mEController = mStage->getEController();
 	mEController->setPlayerPos(mPlayer->getVector2());
 
+	mTime = 0;
 	converseNum = 0;
 
 	stopDynamicObject = StopType::TYPE_NONE;
@@ -55,6 +58,7 @@ void GameMain::initialize()
 Child* GameMain::update(GameParent* _parent)
 {
 	Child* next = this;
+	++mTime;
 	
 	//マップ移動していたら
 	StageChild::HowStageMove nextMove = mPlayer->getStageMove();
@@ -95,6 +99,14 @@ Child* GameMain::update(GameParent* _parent)
 	if(converseNum != 0)
 		next = new Converse(this, converseNum);
 	converseNum = 0;
+	
+	//ポーズ
+	if (Input_A() && mTime > 10)
+	{
+		next = new Pause(this);
+		mTime = 0;
+	}
+
 
 
 	//for Debug
@@ -130,6 +142,16 @@ void GameMain::draw() const
 }
 
 void GameMain::setFilter(FilterType _f) { mSystem->setFilter(_f); }
+
+const Vector2* GameMain::getCameraPos() const
+{
+	return mPlayer->getCamera(); 
+}
+
+void GameMain::moveCamera(int _dx, int _dy)
+{
+	mPlayer->moveCamera(_dx, _dy);
+}
 
 //==============================================
 //内部プライベート関数
