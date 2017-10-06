@@ -27,11 +27,13 @@ Balloon::~Balloon()
 void Balloon::initialize()
 {
 	this->mDirection = false;
+	actState = ENE_ACT_WALK;
 }
 
 void Balloon::update(const StageChild* _stage, const Vector2* _camera)
 {
-	actState = ENE_ACT_WALK;
+	if (actState == ENE_ACT_DEAD && aTime >= 60)actState = ENE_ACT_WALK;
+
 	aTime++;
 	mTime++;
 	mTime %= 180;
@@ -64,7 +66,8 @@ void Balloon::loadImage()
 
 void Balloon::hittedAction()
 {
-
+	aTime = 0;
+	actState = ENE_ACT_DEAD;
 }
 
 

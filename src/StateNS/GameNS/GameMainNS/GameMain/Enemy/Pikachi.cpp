@@ -33,13 +33,16 @@ void Pikachi::initialize()
 
 void Pikachi::update(const StageChild* _stage,const Vector2* _camera)
 {
+
+	if (actState == ENE_ACT_ATTACK || actState == ENE_ACT_DEAD) {
+		if (aTime >= 60)actState = ENE_ACT_NONE;
+	}
 	aTime++;
 	mTime++;
 	mTime %= 211;
 	standardAction(_stage);
 	this->mDirection = player->raw_x > this->p->raw_x;
 
-	mImage = images[actState * 2 + (aTime / 10) % 2];
 
 	//UŒ‚
 	for (auto& a : attacks)
@@ -50,20 +53,28 @@ void Pikachi::update(const StageChild* _stage,const Vector2* _camera)
 			a->checkActive(_camera);
 		}
 	}
+	mImage = images[actState * 2 + (aTime / 10) % 2];
 
 }
 
 void Pikachi::move(const StageChild* _stage, int& _dx, int& _dy)
 {
 
+	if (mTime == 150) {
+		aTime = 0;
+		actState = ENE_ACT_WALK;
+	}
 	if (150 <= mTime ) 
 	{
 		int tmp_dy = mTime < 180 ? getTopDiffer(_stage, -2 * vectorRate, true) : getBottomDiffer(_stage, 2 * vectorRate, true);
 		_dy = tmp_dy;
+
 	}
 	
 	if (mTime == 180)
 	{
+		aTime = 0;
+		actState = ENE_ACT_ATTACK;
 		attack(_stage);
 	}
 
@@ -86,7 +97,8 @@ void Pikachi::loadImage()
 
 void Pikachi::hittedAction()
 {
-
+	aTime = 0;
+	actState = ENE_ACT_DEAD;
 }
 
 void Pikachi::attack(const StageChild* _stage)

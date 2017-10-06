@@ -28,7 +28,7 @@ void Rarashi::initialize()
 {
 	this->mDirection = false;
 	this->moveSpeed = 3000;
-
+	actState = ENE_ACT_WALK;
 	//–³“G
 	hpController.isMuteki = true;
 }

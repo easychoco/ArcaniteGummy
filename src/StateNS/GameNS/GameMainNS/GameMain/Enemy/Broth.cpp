@@ -33,6 +33,9 @@ void Broth::initialize()
 
 void Broth::update(const StageChild* _stage,const Vector2* _camera)
 {
+	if (actState == ENE_ACT_ATTACK || actState == ENE_ACT_DEAD) {
+		if (aTime >= 60)actState = ENE_ACT_NONE;
+	}
 	aTime++;
 	mTime++;
 	mTime %= 630;
@@ -59,12 +62,15 @@ void Broth::move(const StageChild* _stage, int& _dx, int& _dy)
 
 	if (mTime % 60 <= 30) 
 	{
+		actState = ENE_ACT_WALK;
 		int tmp_dy = mTime % 60 < 15 ? getTopDiffer(_stage, -vectorRate, true) : getBottomDiffer(_stage, vectorRate, true);
 		_dy = tmp_dy;
 	}
 	
 	if (mTime%60 == 15)
 	{
+		aTime = 0;
+		actState = ENE_ACT_ATTACK;
 		attack(_stage);
 	}
 
@@ -87,7 +93,8 @@ void Broth::loadImage()
 
 void Broth::hittedAction()
 {
-
+	aTime = 0;
+	actState = ENE_ACT_DEAD;
 }
 
 void Broth::attack(const StageChild* _stage)

@@ -31,6 +31,10 @@ void Yachamo::initialize()
 
 void Yachamo::update(const StageChild* _stage, const Vector2* _camera)
 {
+
+	if (actState == ENE_ACT_ATTACK || actState == ENE_ACT_DEAD) {
+		if (aTime >= 60)actState = ENE_ACT_NONE;
+	}
 	aTime++;
 	mTime++;
 
@@ -40,6 +44,8 @@ void Yachamo::update(const StageChild* _stage, const Vector2* _camera)
 
 	if (mTime % 150 == 0)
 	{
+		aTime = 0;
+		actState = ENE_ACT_ATTACK;
 		attack(_stage);
 	}
 	mImage = images[actState * 2 + (aTime / 10) % 2];
@@ -83,7 +89,8 @@ void Yachamo::loadImage()
 
 void Yachamo::hittedAction()
 {
-
+	aTime = 0;
+	actState = ENE_ACT_DEAD;
 }
 
 void Yachamo::attack(const StageChild* _stage)

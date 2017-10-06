@@ -35,17 +35,18 @@ void Karon::initialize()
 void Karon::update(const StageChild* _stage,const Vector2* _camera)
 {
 	aTime++;
-	actState = ENE_ACT_WALK;
+
 	if (damaged && isAlive) 
 	{
 
-		hpController.damage(-500);
+		hpController.recover(500);
 		isAlive = false;
 		hpController.isMuteki = true;
 	}
 
 
 	if (!isAlive) {
+		aTime = 0;
 		actState = ENE_ACT_DEAD;
 		mTime++;
 	}
@@ -53,6 +54,7 @@ void Karon::update(const StageChild* _stage,const Vector2* _camera)
 
 	if (mTime == 300) 
 	{
+		actState = ENE_ACT_WALK;
 		isAlive = true;
 		hpController.isMuteki = false;
 	}
@@ -127,7 +129,8 @@ void Karon::loadImage()
 
 void Karon::hittedAction()
 {
-
+	aTime = 0;
+	actState = ENE_ACT_DEAD;
 }
 
 }

@@ -24,6 +24,7 @@ void Airmz::initialize()
 {
 	mTime = 0;
 	this->mDirection = false;
+	actState = ENE_ACT_WALK;
 }
 
 void Airmz::update(const StageChild* _stage, const Vector2* _camera)
@@ -80,7 +81,8 @@ void Airmz::loadImage()
 
 void Airmz::hittedAction()
 {
-
+	aTime = 0;
+	actState = ENE_ACT_DEAD;
 }
 
 

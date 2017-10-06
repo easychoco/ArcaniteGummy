@@ -27,11 +27,13 @@ void Teresa::initialize()
 {
 	this->mDirection = false;
 	this->mTime = 0;
+	actState = ENE_ACT_WALK;
 }
 
 void Teresa::update(const StageChild* _stage, const Vector2* _camera)
 {
-	actState = ENE_ACT_WALK;
+	if (actState == ENE_ACT_DEAD && aTime >= 60)actState = ENE_ACT_WALK;
+
 	aTime++;
 	mTime++;
 	this->mDirection = player->raw_x > this->p->raw_x;

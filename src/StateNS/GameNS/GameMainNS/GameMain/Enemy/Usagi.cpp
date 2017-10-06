@@ -29,11 +29,12 @@ void Usagi::initialize()
 	this->moveSpeed = 1000;
 
 	this->mTime = 0;
+	actState = ENE_ACT_WALK;
 }
 
 void Usagi::update(const StageChild* _stage,const Vector2* _camera)
 {
-	actState = ENE_ACT_WALK;
+	if (actState == ENE_ACT_DEAD && aTime >= 60)actState = ENE_ACT_WALK;
 	aTime++;
 	mTime++;
 
@@ -81,7 +82,8 @@ void Usagi::loadImage()
 
 void Usagi::hittedAction()
 {
-
+	aTime = 0;
+	actState = ENE_ACT_DEAD;
 }
 
 }

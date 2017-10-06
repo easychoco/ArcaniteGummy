@@ -143,7 +143,7 @@ void Nue::draw_other() const
 void Nue::loadImage()
 {
 	//	mImage = LoadGraph("Data/Image/Nue.png");
-	int tmp = LoadDivGraph("Data/Image/Character/chip_Nue.png", 40, 8, 5, 32, 64, mImage, TRUE);
+	int tmp = LoadDivGraph("Data/Image/Character/chip_Nue.png", 40, 8, 5, 64, 64, mImage, TRUE);
 	assert(tmp != -1 && "©‹@‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 }
 
