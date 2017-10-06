@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameMainChild.h"
+#include "..\..\..\Data.h"
 
 
 namespace StateNS {
@@ -31,6 +32,8 @@ public:
 
 	void startConverse(int _convNum) { this->converseNum = _convNum; }
 	void setFilter(FilterType _f);
+	const Vector2* getCameraPos() const;
+	void moveCamera(int dx, int dy);
 
 private:
 	StageChild* mStage;
@@ -39,6 +42,7 @@ private:
 	EnemyController* mEController;
 	int stageID;
 
+	int mTime;
 	int converseNum;
 
 	//~‚ß‚âƒLƒƒƒ‰•ÏX‚Ì‚ÉA“®‚¢‚Ä‚¢‚é‚à‚Ì‚ğ~‚ß‚é
