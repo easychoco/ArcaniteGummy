@@ -22,6 +22,7 @@ bool Input_OK();
 bool Input_NO();
 bool Input_CHANGE();
 bool Input_ATTACK();
+bool Input_DASH();
 
 void keyConfig();
 

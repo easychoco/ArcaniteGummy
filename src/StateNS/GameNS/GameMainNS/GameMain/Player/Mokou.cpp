@@ -97,7 +97,7 @@ void Mokou::draw_other() const
 void Mokou::loadImage()
 {
 //	mImage = LoadGraph("Data/Image/mokou.png");
-	LoadDivGraph("Data/Image/Character/chip_mokou.png", 40, 8, 5, 32, 64, mImage, TRUE);
+	LoadDivGraph("Data/Image/Character/chip_mokou.png", 32, 8, 4, 32, 64, mImage, TRUE);
 	assert(*mImage != -1 && "©‹@‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 }
 

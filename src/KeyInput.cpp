@@ -109,3 +109,8 @@ bool Input_ATTACK()
 {
 	return toBoolean[CheckHitKey(KEY_INPUT_Z)];
 }
+
+bool Input_DASH()
+{
+	return toBoolean[CheckHitKey(KEY_INPUT_LSHIFT)];
+}
