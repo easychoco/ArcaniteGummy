@@ -14,6 +14,7 @@ class SwitchWithBlock : public DynamicGimmickChild
 {
 public:
 	SwitchWithBlock(int x, int y);
+	SwitchWithBlock(int x, int y, int limitTime);
 	~SwitchWithBlock();
 	void initialize();
 	void update(const StageChild*);
@@ -42,6 +43,7 @@ private:
 	bool preOnActiveArea;
 	mutable bool tmpOnActiveArea;
 	int mTime;
+	const int limitTime;
 
 	void loadImage();
 };

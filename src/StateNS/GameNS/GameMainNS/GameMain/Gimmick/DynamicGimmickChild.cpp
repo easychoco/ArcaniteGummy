@@ -44,7 +44,6 @@ bool DynamicGimmickChild::standardOverLap(const Vector2* _player) const
 	int half_w = this->width  * vectorRate / 2;
 	int half_h = this->height * vectorRate / 2;
 
-
 	return
 		this->p->raw_x - half_w <= _player->raw_x &&
 		this->p->raw_x + half_w  > _player->raw_x &&

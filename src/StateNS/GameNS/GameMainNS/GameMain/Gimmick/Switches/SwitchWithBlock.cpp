@@ -7,9 +7,14 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+SwitchWithBlock::SwitchWithBlock(int x, int y) : SwitchWithBlock(x, y, 1 << 29)
+{
 
-SwitchWithBlock::SwitchWithBlock(int _x, int _y) : 
-DynamicGimmickChild(_x, _y, 1.0)
+}
+
+SwitchWithBlock::SwitchWithBlock(int _x, int _y, int _limitTime) : 
+DynamicGimmickChild(_x, _y, 1.0),
+limitTime(_limitTime)
 {
 	initialize();
 }
@@ -46,6 +51,11 @@ void SwitchWithBlock::initialize()
 void SwitchWithBlock::update(const StageChild* _stage)
 {
 	++mTime;
+	if (mTime > limitTime)
+	{
+		isPushed = false;
+		mTime = 0;
+	}
 	preOnActiveArea = tmpOnActiveArea;
 	tmpOnActiveArea = false;
 }
@@ -105,13 +115,13 @@ bool SwitchWithBlock::isOverlap(const Vector2* _player) const
 
 bool SwitchWithBlock::onActiveArea(const Vector2* _player) const
 {
-	bool gomi = 
+	bool tmp = 
 		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH  / 2 &&
 		abs(this->p->y() - _player->y()) <= MyData::CHIP_HEIGHT / 2;
 
-	this->tmpOnActiveArea |= gomi;
+	this->tmpOnActiveArea |= tmp;
 
-	return gomi;
+	return tmp;
 }
 
 StageChild::ChipType SwitchWithBlock::getChipType() const
