@@ -16,17 +16,20 @@ public:
 	Nue(int, int);
 	~Nue();
 	PlayerChild* update(const StageChild*);
+	virtual void draw() const override;
 
 private:
 	int attackTime;
 	const int attackInterval = 10;//UŒ‚‚ÌŠÔŠu
 
+	int mImageR[32];
+	int mImageL[32];
+
 	void initialize();
 	void attack();
-	void draw_other() const;
+	virtual void draw_other() const override;
 	virtual void loadImage() override;
-
-
+	virtual void animation() override;
 	void updateUFO(const StageChild*);
 
 	virtual bool onRigidBlock() const override { return isUFO && ufo->onActiveArea(p); }

@@ -82,11 +82,78 @@ PlayerChild* Nue::update(const StageChild* _stage)
 	return next;
 }
 
+void Nue::draw() const
+{
+	int draw_x = MyData::CX + (p->x() - camera->x());
+	int draw_y = MyData::CY + (p->y() - camera->y());
 
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, ((direction) ? mImageL[animeNum] : mImageR[animeNum]), true, false);
+
+	draw_other();
+	draw_changingAnimation(draw_x, draw_y);
+
+	//for Debug
+	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
+	//hpController.draw();
+}
 
 //==============================================
 //内部プライベート関数
 //==============================================
+void Nue::attack()
+{
+	if(!attacks[0]->isActive)
+		attacks[0]->setStatus(*p, this->direction);
+	//if (attackTime > 10)attacks[1]->setStatus(Vector2(this->p->raw_x + new_pos * 2, this->p->raw_y, true), this->direction);
+	//if (attackTime > 20)attacks[2]->setStatus(Vector2(this->p->raw_x + new_pos * 3, this->p->raw_y, true), this->direction);
+
+}
+
+void Nue::draw_other() const
+{
+	for (const auto& a : attacks)
+	{
+		if (a->isActive)a->draw(camera);
+	}
+
+	if(isUFO)ufo->draw(camera);
+
+}
+
+void Nue::loadImage()
+{
+	//	mImage = LoadGraph("Data/Image/Nue.png");
+	int tmp = LoadDivGraph("Data/Image/Character/chip_NueR.png", 32, 8, 4, 64, 64, mImageR, TRUE);
+	assert(tmp != -1 && "ぬえR画像読み込みエラー");
+	tmp = LoadDivGraph("Data/Image/Character/chip_NueL.png", 32, 8, 4, 64, 64, mImageL, TRUE);
+	assert(tmp != -1 && "ぬえL画像読み込みエラー");
+}
+
+void Nue::animation()
+{
+	int num = 0;
+	switch (actionState)
+	{
+	case ACT_WALK:num = 8 + (animeCount / 10) % 4; break;
+	case ACT_RUN:num = 12 + (animeCount / 10) % 4; break;
+	case ACT_SIT:num = 5; break;
+	case ACT_ATTACK_UP:num = 4; break;
+	case ACT_AIR:num = 1; break;
+	case ACT_RUNJUMP:num = 1; break;
+	case ACT_ATTACK_SIDE:num = 2; break;
+	case ACT_ATTACK_SIDE_WALK:num = 16 + (animeCount / 10) % 4; break;
+	case ACT_ATTACK_SIDE_RUN:num = 20 + (animeCount / 10) % 4; break;
+	case ACT_ATTACK_UP_WALK:num = 24 + (animeCount / 10) % 4; break;
+	case ACT_ATTACK_UP_RUN:num = 28 + (animeCount / 10) % 4; break;
+	case ACT_LADDER:num = 3; break;
+	default:animeCount = 0; break;
+	}
+
+	animeCount++;
+
+	assert(!(num < 0 || 33 <= num) && "自機画像範囲外");
+	animeNum = num;
+}
 
 void Nue::updateUFO(const StageChild* _stage)
 {
@@ -112,40 +179,13 @@ void Nue::updateUFO(const StageChild* _stage)
 	/////////////////////ここまで///////////////////
 
 
-	if (!ufo->isActive) {
+	if (!ufo->isActive)
+	{
 		isUFO = false;
 		SAFE_DELETE(ufo);
 	}
 }
 
-
-
-void Nue::attack()
-{
-	if(!attacks[0]->isActive)
-		attacks[0]->setStatus(*p, this->direction);
-	//if (attackTime > 10)attacks[1]->setStatus(Vector2(this->p->raw_x + new_pos * 2, this->p->raw_y, true), this->direction);
-	//if (attackTime > 20)attacks[2]->setStatus(Vector2(this->p->raw_x + new_pos * 3, this->p->raw_y, true), this->direction);
-
-}
-
-void Nue::draw_other() const
-{
-	for (const auto& a : attacks)
-	{
-		if (a->isActive)a->draw(camera);
-	}
-
-	if(isUFO)ufo->draw(camera);
-
-}
-
-void Nue::loadImage()
-{
-	//	mImage = LoadGraph("Data/Image/Nue.png");
-	int tmp = LoadDivGraph("Data/Image/Character/chip_NueR.png", 32, 8, 4, 64, 64, mImage, TRUE);
-	assert(tmp != -1 && "自機画像読み込みエラー");
-}
 
 //==============================================
 //Spearクラス

@@ -22,7 +22,7 @@ public:
 	PlayerChild(int x, int y, float maxMoveSpeed ,float jump,int jumpCount, int maxHP);
 	virtual ~PlayerChild();
 	virtual PlayerChild* update(const StageChild*) = 0;
-	void draw() const;
+	virtual void draw() const;
 	const Vector2* getCamera() const { return camera; }
 	vector<Attack*> getAttacks() const { return attacks; }
 	StageChild::HowStageMove getStageMove() const { return nextStageMove; }
@@ -62,17 +62,17 @@ protected:
 	bool canChangeCharacter();
 	virtual void attack() = 0;
 	virtual void draw_other() const = 0; //自機以外を描画する
+	void draw_changingAnimation(int, int) const;
 	virtual void loadImage() = 0;
 	virtual bool onRigidBlock() const override { return false; }
+	virtual void animation();
 
 	void standardAction(const StageChild*);
-	int animation();
-
 	void actCheck();
-
 	bool runCheck() 
 	{
-		return actionState == ACT_ATTACK_SIDE_RUN ||
+		return 
+			actionState == ACT_ATTACK_SIDE_RUN ||
 			actionState == ACT_ATTACK_UP_RUN ||
 			actionState == ACT_RUN ||
 			actionState == ACT_RUNJUMP;
@@ -115,7 +115,6 @@ private:
 	//キャラクター切り換え関連
 	bool isCharaChange;
 	void changeCharacter();
-	void draw_changingAnimation(int, int) const;
 
 	//今いる位置関係
 	bool onGround;

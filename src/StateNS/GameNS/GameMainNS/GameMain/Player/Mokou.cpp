@@ -52,6 +52,11 @@ PlayerChild* Mokou::update(const StageChild* _stage)
 	if (Input_ATTACK())
 	{
 		attack();
+		if (Input_UP())
+		{
+			actionState = ACT_ATTACK_UP;
+			animeNum = 4;
+		}
 		canMove = false;
 	}
 	else
@@ -93,12 +98,37 @@ void Mokou::draw_other() const
 
 }
 
-
 void Mokou::loadImage()
 {
 //	mImage = LoadGraph("Data/Image/mokou.png");
 	LoadDivGraph("Data/Image/Character/chip_mokou.png", 32, 8, 4, 32, 64, mImage, TRUE);
 	assert(*mImage != -1 && "自機画像読み込みエラー");
+}
+
+void Mokou::animation()
+{
+	int num = 0;
+	switch (actionState)
+	{
+	case ACT_WALK:num = 8 + (animeCount / 10) % 4; break;
+	case ACT_RUN:num = 12 + (animeCount / 10) % 4; break;
+	case ACT_SIT:num = 5; break;
+	case ACT_ATTACK_UP:num = 4; break;
+	case ACT_AIR:num = 1; break;
+	case ACT_RUNJUMP:num = 1; break;
+	case ACT_ATTACK_SIDE:num = 2; break;
+	//case ACT_ATTACK_SIDE_WALK:num = 16 + (animeCount / 10) % 4; break;
+	//case ACT_ATTACK_SIDE_RUN:num = 20 + (animeCount / 10) % 4; break;
+	//case ACT_ATTACK_UP_WALK:num = 24 + (animeCount / 10) % 4; break;
+	//case ACT_ATTACK_UP_RUN:num = 28 + (animeCount / 10) % 4; break;
+	case ACT_LADDER:num = 3; break;
+	default:animeCount = 0; break;
+	}
+
+	animeCount++;
+
+	assert(!(num < 0 || 33 <= num) && "自機画像範囲外");
+	animeNum = num;
 }
 
 //==============================================

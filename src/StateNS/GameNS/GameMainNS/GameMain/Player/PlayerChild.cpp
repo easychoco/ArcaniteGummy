@@ -109,7 +109,7 @@ void PlayerChild::standardAction(const StageChild* _stage)
 	}
 
 	actCheck();
-	animeNum = animation();
+	animation();
 
 	move(_stage);
 	updateCamera();
@@ -375,7 +375,7 @@ bool PlayerChild::isOnLesal(const StageChild* _stage)
 }
 
 
-int PlayerChild::animation() 
+void PlayerChild::animation() 
 {
 	//for Debug
 	if (CheckHitKey(KEY_INPUT_Q))
@@ -404,7 +404,7 @@ int PlayerChild::animation()
 	animeCount++;
 
 	assert(!(num < 0 || 33 <= num) && "Ž©‹@‰æ‘œ”ÍˆÍŠO");
-	return num;
+	animeNum = num;
 }
 
 void PlayerChild::actCheck()
