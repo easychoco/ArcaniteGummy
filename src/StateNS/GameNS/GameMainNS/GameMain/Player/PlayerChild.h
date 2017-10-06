@@ -36,7 +36,7 @@ protected:
 	//•Ï”
 	float moveSpeed;
 	Vector2* camera;
-	int mImage[40];
+	int mImage[32];
 	int animationTime;
 	bool direction;
 
@@ -52,7 +52,8 @@ protected:
 	bool in_up;
 	bool in_down;
 	bool in_jump;
-
+	
+	
 
 	//UŒ‚‚Ìvector
 	vector<Attack*> attacks;
@@ -69,6 +70,15 @@ protected:
 
 	void actCheck();
 
+	bool runCheck() 
+	{
+		return actionState == ACT_ATTACK_SIDE_RUN ||
+			actionState == ACT_ATTACK_UP_RUN ||
+			actionState == ACT_RUN ||
+			actionState == ACT_RUNJUMP;
+	}
+
+
 	//Šeó‘Ô
 	enum ActionState
 	{
@@ -77,7 +87,12 @@ protected:
 		ACT_RUN,//‘–‚Á‚Ä‚¢‚é
 		ACT_AIR, //‹ó’†‚É‚¢‚é
 		ACT_RUNJUMP,//‘–‚Á‚ÄƒWƒƒƒ“ƒv‚µ‚Ä‚¢‚é
-		ACT_ATTACK, //UŒ‚
+		ACT_ATTACK_SIDE, //‰¡UŒ‚
+		ACT_ATTACK_UP,//ãUŒ‚
+		ACT_ATTACK_SIDE_WALK, //‰¡•à‚«UŒ‚
+		ACT_ATTACK_UP_WALK,//ã•à‚«UŒ‚
+		ACT_ATTACK_SIDE_RUN, //‰¡‘–‚èUŒ‚
+		ACT_ATTACK_UP_RUN,//ã‘–‚èUŒ‚
 		ACT_SIT, //‚µ‚á‚ª‚İ
 		ACT_LADDER, //‚Í‚µ‚²
 		ACT_LADDER_STOP,//‚Í‚µ‚²‚Å~‚Ü‚Á‚Ä‚¢‚é

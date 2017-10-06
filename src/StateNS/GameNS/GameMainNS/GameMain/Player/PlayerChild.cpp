@@ -57,9 +57,8 @@ void PlayerChild::draw() const
 {
 	int draw_x = MyData::CX + (p->x() - camera->x());
 	int draw_y = MyData::CY + (p->y() - camera->y());
-
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage[animeNum], true);
-
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage[animeNum], true, direction);
+	
 	draw_other();
 	draw_changingAnimation(draw_x, draw_y);
 
@@ -189,12 +188,12 @@ void PlayerChild::move(const StageChild* _stage)
 	{
 		if (in_right)
 		{
-			dx += (int)((moveSpeed + (actionState == ACT_RUN || actionState == ACT_RUNJUMP) * 2.0f) * vectorRate);
+			dx += (int)((moveSpeed + runCheck() * 2.0f) * vectorRate);
 			direction = false;
 		}
 		if (in_left)
 		{
-			dx -= (int)((moveSpeed + (actionState == ACT_RUN || actionState == ACT_RUNJUMP) * 2.0f) * vectorRate);
+			dx -= (int)((moveSpeed + runCheck() * 2.0f) * vectorRate);
 			direction = true;
 		}
 	}
@@ -223,6 +222,7 @@ void PlayerChild::move(const StageChild* _stage)
 			dy -= (int)(moveSpeed * vectorRate);
 			jumpPower = 0.0f;
 			nowJumpCount = 0;
+			direction = !direction;
 		}
 
 		if (in_down)
@@ -230,13 +230,14 @@ void PlayerChild::move(const StageChild* _stage)
 			dy += (int)(moveSpeed * vectorRate);
 			jumpPower = 0.0f;
 			nowJumpCount = 0;
+			direction = !direction;
 		}
 	}
 
 	//ジャンプ
 	if (in_jump && !prePush && nowJumpCount < maxJumpCount)
 	{
-		jumpPower = maxJumpPower + (actionState == ACT_RUN)*3.0f;
+		jumpPower = maxJumpPower + runCheck()*3.0f;
 		nowJumpCount++;
 	}
 
@@ -376,45 +377,41 @@ bool PlayerChild::isOnLesal(const StageChild* _stage)
 
 int PlayerChild::animation() 
 {
+	//for Debug
 	if (CheckHitKey(KEY_INPUT_Q))
 	{
 		int gomi = 0;
 	}
 
-	int num = 0 + direction;
+	int num = 0;
 	switch (actionState) 
 	{
-	case ACT_WALK:
-		num = 8 + (animeCount / 10) % 4 + 8 * direction;
-		break;
-	case ACT_RUN:
-		num = 12 + (animeCount / 10) % 4 + 8 * direction;
-		break;
-	case ACT_SIT:
-		num = 25;
-		break;
-	case ACT_ATTACK:
-		num = 26 + direction;
-		break;
-	case ACT_LADDER:
-		num = 28 + (animeCount / 10) % 2;
-		break;
-	case ACT_LADDER_STOP:
-		num = 28 + direction;//あとで修正するかも
-		break;
-	default:
-		animeCount = 0;
-		break;
+	case ACT_WALK:num = 8 + (animeCount / 10) % 4;break;
+	case ACT_RUN:num = 12 + (animeCount / 10) % 4;break;
+	case ACT_SIT:num = 5;break;
+	case ACT_ATTACK_UP:num = 4;break;
+	case ACT_AIR:num = 1; break;
+	case ACT_RUNJUMP:num = 1; break;
+	case ACT_ATTACK_SIDE:num = 2; break;
+	case ACT_ATTACK_SIDE_WALK:num = 16 + (animeCount / 10) % 4; break;
+	case ACT_ATTACK_SIDE_RUN:num = 20 + (animeCount / 10) % 4; break;
+	case ACT_ATTACK_UP_WALK:num = 24 + (animeCount / 10) % 4; break;
+	case ACT_ATTACK_UP_RUN:num = 28 + (animeCount / 10) % 4; break;
+	case ACT_LADDER:num = 3;break;
+	default:animeCount = 0;break;
 	}
 
 	animeCount++;
 
-	assert(!(num < 0 || 40 <= num) && "自機画像範囲外");
+	assert(!(num < 0 || 33 <= num) && "自機画像範囲外");
 	return num;
 }
 
 void PlayerChild::actCheck()
 {
+
+
+	///////////////////////////////めちゃくちゃネストでごめんね//むむむーん/////////////////
 	ActionState preAction = actionState;
 	if (onLadder)
 	{
@@ -435,17 +432,37 @@ void PlayerChild::actCheck()
 			if (in_down)actionState = ACT_SIT;
 		}
 	}
-	else if (Input_ATTACK())actionState = ACT_ATTACK;
+	else if (Input_ATTACK())
+	{
+		if (in_up) 
+		{
+			actionState = ACT_ATTACK_UP;
+			if (in_left || in_right) 
+			{
+				actionState = ACT_ATTACK_UP_WALK;
+				if(Input_DASH())actionState = ACT_ATTACK_UP_RUN;
+			}
+		}
+		else 
+		{
+			actionState = ACT_ATTACK_SIDE;
+			if (in_left || in_right)
+			{
+				actionState = ACT_ATTACK_SIDE_WALK;
+				if (Input_DASH())actionState = ACT_ATTACK_SIDE_RUN;
+			}
+		}
+	}
 	else if (!onGround)
 	{
-		if (actionState == ACT_RUN || actionState==ACT_RUNJUMP)actionState = ACT_RUNJUMP;
+		if (preAction == ACT_RUN || preAction==ACT_RUNJUMP)actionState = ACT_RUNJUMP;
 		else actionState = ACT_AIR;
 	}
 	else if (in_down)actionState = ACT_SIT;
 	else if (in_left || in_right)
 	{
 		actionState = ACT_WALK;
-		if (Input_LSHIFT())actionState = ACT_RUN;
+		if (Input_DASH())actionState = ACT_RUN;
 	}
 	else actionState = ACT_NORMAL;
 
