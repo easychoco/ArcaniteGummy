@@ -116,7 +116,7 @@ void PlayerChild::standardAction(const StageChild* _stage)
 
 	move(_stage);
 	updateCamera();
-	changeCharacter();
+	changeCharacter(_stage);
 	processDamage();
 }
 
@@ -134,9 +134,9 @@ bool PlayerChild::canChangeCharacter()
 //================================================
 
 //キャラ変更アニメーション
-void PlayerChild::changeCharacter(/*Charaのenum next*/)
+void PlayerChild::changeCharacter(const StageChild* _stage)
 {
-	if (Input_CHANGE())
+	if (Input_CHANGE() && _stage->canChangeCharacter(getThisCharacter()))
 	{
 		animationTime = max(animationTime, 1);
 		stopDynamics = StopType::TYPE_CHANGE;

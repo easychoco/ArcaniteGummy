@@ -30,6 +30,12 @@ private:
 	virtual void draw_other() const override;
 	virtual void loadImage() override;
 	virtual void animation() override;
+	virtual StageChild::ChangeableCharacter getThisCharacter() override
+	{
+		return StageChild::ChangeableCharacter
+			::CHARA_NUE;
+	}
+
 	void updateUFO(const StageChild*);
 
 	virtual bool onRigidBlock() const override { return isUFO && ufo->onActiveArea(p); }

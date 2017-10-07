@@ -13,7 +13,6 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-class StageChild;
 class Attack;
 
 class PlayerChild : public Character
@@ -38,8 +37,10 @@ protected:
 	float moveSpeed;
 	Vector2* camera;
 	int mImage[32];
-	int animationTime;
 	bool direction;
+
+	int animationTime;
+	virtual StageChild::ChangeableCharacter getThisCharacter() { return StageChild::ChangeableCharacter::CHARA_NONE; };
 
 	int animeNum;
 	int animeCount;
@@ -54,10 +55,9 @@ protected:
 	bool in_down;
 	bool in_jump;
 	
-	
-
 	//攻撃のvector
 	vector<Attack*> attacks;
+
 
 	//共通の行動
 	bool canChangeCharacter();
@@ -114,7 +114,7 @@ private:
 
 	//キャラクター切り換え関連
 	bool isCharaChange;
-	void changeCharacter();
+	void changeCharacter(const StageChild*);
 
 	//今いる位置関係
 	bool onGround;

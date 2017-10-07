@@ -1,7 +1,7 @@
 #include "Sakuya.h"
 
-#include "..\..\..\..\..\Data.h"
 #include "..\..\..\..\..\KeyInput.h"
+#include "Mokou.h"
 #include "Nue.h"
 
 namespace StateNS {
@@ -53,8 +53,12 @@ PlayerChild* Sakuya::update(const StageChild* _stage)
 		int x = p->raw_x / MyData::vectorRate;
 		int y = p->raw_y / MyData::vectorRate;
 
-		//for Debug
-		next = new Nue(x, y, hpController.getHP());
+		int nextCharacter = _stage->getChangeableCharacter();
+		
+		if(nextCharacter & StageChild::ChangeableCharacter::CHARA_NUE)
+			next = new Nue(x, y, hpController.getHP());
+		else if (nextCharacter & StageChild::ChangeableCharacter::CHARA_MOKOU)
+			next = new Mokou(x, y, hpController.getHP());
 	}
 
 	return next;

@@ -16,6 +16,7 @@ class GameMain;
 class EnemyController;
 
 
+
 //Stageの基底クラス
 class StageChild
 {
@@ -44,6 +45,14 @@ public:
 		TYPE_LESAL				= 0b1000000000, //あたったらしぬ。
 	};
 
+	enum ChangeableCharacter
+	{
+		CHARA_NONE		= 0b000,
+		CHARA_MOKOU		= 0b001,
+		CHARA_SAKUYA	= 0b010,
+		CHARA_NUE		= 0b100,
+	};
+
 	virtual bool isRigid_down(ChipType _ct) const { return (_ct & 0b0101100110) != 0; }//下にすり抜けられないブロック，床になる
 	virtual bool isRigid_up(ChipType _ct)   const { return (_ct & 0b0000011010) != 0; }//上にすり抜けられないブロック，天井になる
 	virtual bool isSlant(ChipType _ct)		const { return (_ct & 0b0001111000) != 0; }//斜めブロック
@@ -54,6 +63,9 @@ public:
 
 	int getTopPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 	int getBottomPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
+
+	const bool canChangeCharacter(ChangeableCharacter cc) const { return (changeableCharacter & (~cc)); }
+	int getChangeableCharacter() const { return changeableCharacter; }
 
 	vector< DynamicGimmickChild* > getDynamicGimmicks();
 	vector< SwitchWithBlock* > getSwitchWithBlocks();
@@ -80,6 +92,8 @@ protected:
 	unsigned now_stage_num;
 	int stage_max_x;
 	int stage_max_y;
+
+	int changeableCharacter;
 
 	vector<Map*> maps;
 	ClearFlag* flag;

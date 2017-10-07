@@ -27,7 +27,11 @@ void Stage00::initialize()
 	this->maps.push_back(new Map(0, 0, MapPos::POS_RIGHT_FREE));
 	this->maps.push_back(new Map(0, 1, MapPos::POS_LEFT_FREE));
 
-	//this->maps[0]->addEnemy(BOSS_JUNKO, 540, 1488);
+	//変更できるキャラクターを設定
+	this->changeableCharacter |= CHARA_MOKOU;
+	this->changeableCharacter |= CHARA_SAKUYA;
+	this->changeableCharacter |= CHARA_NUE;
+
 
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[1]->addGimmick(flag);

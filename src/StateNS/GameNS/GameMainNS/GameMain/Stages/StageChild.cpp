@@ -31,6 +31,7 @@ StageChild::~StageChild()
 void StageChild::initialize()
 {
 	this->now_stage_num = 0;
+	this->changeableCharacter = ChangeableCharacter::CHARA_NONE;
 }
 
 void StageChild::standardUpdate(PlayerChild* _player)

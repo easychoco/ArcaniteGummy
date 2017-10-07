@@ -1,8 +1,9 @@
 #include "Nue.h"
 
 #include "..\..\..\..\..\KeyInput.h"
+
+#include "Sakuya.h"
 #include "Mokou.h"
-#include "..\Collision.h"
 
 
 namespace StateNS {
@@ -71,13 +72,19 @@ PlayerChild* Nue::update(const StageChild* _stage)
 	if (isUFO)updateUFO(_stage);
 	
 
-	//for Debug
 	if (canChangeCharacter())
 	{
 		animationTime = 0;
 		int x = p->raw_x / MyData::vectorRate;
 		int y = p->raw_y / MyData::vectorRate;
-		next = new Mokou(x, y, hpController.getHP());
+
+
+		int nextCharacter = _stage->getChangeableCharacter();
+
+		if (nextCharacter & StageChild::ChangeableCharacter::CHARA_MOKOU)
+			next = new Mokou(x, y, hpController.getHP());
+		if (nextCharacter & StageChild::ChangeableCharacter::CHARA_SAKUYA)
+			next = new Sakuya(x, y, hpController.getHP());
 	}
 	return next;
 }

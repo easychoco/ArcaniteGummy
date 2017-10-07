@@ -25,6 +25,11 @@ private:
 	void draw_other() const;
 	virtual void loadImage() override;
 	virtual void animation() override;
+	virtual StageChild::ChangeableCharacter getThisCharacter() override
+	{
+		return StageChild::ChangeableCharacter
+			::CHARA_MOKOU;
+	}
 
 	//UŒ‚•û–@‚Ì“à•”ƒNƒ‰ƒX
 	class Fire : public Attack
