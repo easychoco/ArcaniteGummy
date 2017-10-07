@@ -6,7 +6,7 @@
 #include "MusicRoom.h"
 
 
-int hoge[12] = { 11,12,13,21,22,23,31,32,33,41,42,43 };
+int hoge[15] = { 11,12,13,21,22,23,31,32,33,41,42,43,51,52,53 };
 
 namespace StateNS{
 
@@ -71,8 +71,8 @@ Child* Title::update(const GrandParent* parent)
 		break;
 	case 3://デバッグ
 		if(Input_OK() && pushZ)next = nextScene(0);
-		if (Input_UP() && pushUP)select = (select + 11) % 12;
-		if (Input_DOWN() && pushDOWN)select = (select + 1) % 12;
+		if (Input_UP() && pushUP)select = (select + 14) % 15;
+		if (Input_DOWN() && pushDOWN)select = (select + 1) % 15;
 	}
 
 	

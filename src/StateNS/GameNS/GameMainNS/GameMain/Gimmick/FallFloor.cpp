@@ -17,7 +17,7 @@ int FallFloor::image;
 FallFloor::FallFloor(int _x, int _y, bool _falldown) : 
 DynamicGimmickChild(_x, _y, 1.0)
 {
-	this->width  = 64;
+	this->width  = 96;
 	this->height = 32;
 
 	this->falldown = _falldown;

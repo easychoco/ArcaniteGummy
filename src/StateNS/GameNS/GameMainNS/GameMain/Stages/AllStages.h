@@ -13,6 +13,9 @@
 #include "Stage41.h"
 #include "Stage42.h"
 #include "Stage43.h"
+#include "Stage51.h"
+#include "Stage52.h"
+#include "Stage53.h"
 
 //for Debug
 #include "Stage00.h"

@@ -272,7 +272,9 @@ StageChild* GameMain::getNextStage(int stageID)
 	if (stageID == 41)return new Stage41();
 	if (stageID == 42)return new Stage42();
 	if (stageID == 43)return new Stage43();
-	
+	if (stageID == 51)return new Stage51();
+	if (stageID == 52)return new Stage52();
+	if (stageID == 53)return new Stage53();
 	//for Debug
 	if (stageID == 0)return new Stage00();
 
