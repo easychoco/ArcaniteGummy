@@ -34,6 +34,7 @@ public:
 	void setFilter(FilterType _f);
 	const Vector2* getCameraPos() const;
 	void moveCamera(int dx, int dy);
+	void setCamera(const Vector2&);
 
 private:
 	StageChild* mStage;

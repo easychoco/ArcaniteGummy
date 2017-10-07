@@ -37,6 +37,11 @@ Child* Play::update(Parent* _parent)
 {
 	Child* next = this;
 	gameMain = gameMain->update(this);
+	if (gameMain->reset())
+	{
+		SAFE_DELETE(gameMain);
+		gameMain = new GameMainNS::GameMain(this->stageNum);
+	}
 
 	/*
 	//for Debug

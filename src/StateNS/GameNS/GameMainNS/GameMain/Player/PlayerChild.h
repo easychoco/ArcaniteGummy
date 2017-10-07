@@ -31,6 +31,7 @@ public:
 
 	const StopType getStopDynamicObject() const { return stopDynamics; }
 	void moveCamera(int dx, int dy);
+	void setCamera(const Vector2& _camera) { *(this->camera) = _camera; };
 
 protected:
 	//•Ï”

@@ -19,6 +19,7 @@ public:
 	virtual ~Child() {};
 	virtual Child* update(GameParent*) = 0;
 	virtual void draw() const = 0;
+	virtual bool reset() { return false; }
 };
 
 

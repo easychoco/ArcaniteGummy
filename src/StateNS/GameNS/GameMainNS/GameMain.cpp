@@ -153,6 +153,12 @@ void GameMain::moveCamera(int _dx, int _dy)
 	mPlayer->moveCamera(_dx, _dy);
 }
 
+void GameMain::setCamera(const Vector2& _camera)
+{
+	mPlayer->setCamera(_camera);
+}
+
+
 //==============================================
 //内部プライベート関数
 //==============================================
