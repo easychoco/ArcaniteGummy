@@ -4,8 +4,6 @@
 #include "..\Player\PlayerChild.h"
 #include "..\Gimmick\ClearFlag.h"
 
-#include "..\Gimmick\DynamicGimmickChild.h"
-
 #include <fstream>
 
 namespace StateNS {

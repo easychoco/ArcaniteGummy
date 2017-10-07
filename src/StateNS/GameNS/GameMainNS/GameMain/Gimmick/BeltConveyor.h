@@ -19,7 +19,7 @@ public:
 	void update();
 	void draw(const Vector2*) const;
 	void apply(Character*);
-	bool isOverlap(int, int) const;
+	//bool isOverlap(int, int) const;
 	bool onActiveArea(const Vector2*) const;
 	StageChild::ChipType getChipType() const;
 

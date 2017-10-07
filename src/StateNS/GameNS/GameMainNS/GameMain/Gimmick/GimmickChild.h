@@ -22,7 +22,8 @@ public:
 
 	//画面上で重なっているか，当たり判定用
 	//引数はマップ換算の値
-	virtual bool isOverlap(int sub_x, int sub_y) const = 0;
+	//virtual bool isOverlap(int sub_x, int sub_y) const = 0;
+	bool isOverlap(const Vector2*);
 
 	//対象がギミックの効果範囲内にいるか
 	//引数はマップ換算の値

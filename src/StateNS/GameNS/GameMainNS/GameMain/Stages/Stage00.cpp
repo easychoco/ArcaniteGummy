@@ -18,7 +18,6 @@ StageChild(2, 1) //ƒGƒŠƒA‚Ì”: ‚æ‚±C‚½‚Ä
 Stage00::~Stage00()
 {
 
-
 }
 
 void Stage00::initialize()
@@ -53,13 +52,13 @@ void Stage00::initialize()
 	maps[0]->addDynamicGimmick(d_tmp);
 	*/
 
-	maps[0]->addDynamicGimmick(new Block(272, 1520, 1.0));
-	maps[0]->addDynamicGimmick(new Block(304, 1520, 1.0));
-	maps[0]->addDynamicGimmick(new Block(336, 1520, 1.0));
-	maps[0]->addDynamicGimmick(new Block(368, 1520, 1.0));
+	maps[0]->addEnemy(AllEnemies::ENE_USA, 352, 1520);
 
-	maps[0]->addDynamicGimmick(new MovingFloor(208, 1520, 100, 1400, 2.0f, 0));
-	
+	maps[0]->addGimmick(new BeltConveyor(2.3f, Vector2(272, 1552)));
+	maps[0]->addGimmick(new BeltConveyor(2.3f, Vector2(304, 1552)));
+	maps[0]->addGimmick(new BeltConveyor(2.3f, Vector2(336, 1552)));
+	maps[0]->addGimmick(new BeltConveyor(2.3f, Vector2(368, 1552)));
+
 	startX = 144, startY = 1536;
 }
 

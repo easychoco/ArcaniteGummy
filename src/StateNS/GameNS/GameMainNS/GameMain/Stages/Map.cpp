@@ -242,8 +242,6 @@ ChipType Map::getChipType(const Vector2& _other, bool isPlayer) const
 	if(sub_y < MyData::MAP_HEIGHT_NUM && sub_x < MyData::MAP_WIDTH_NUM)
 		ret = chip[mapData[sub_y][sub_x]].getChipType();
 
-	if (!isPlayer)return ret;
-
 	//Player‚È‚çˆÈ‰º‚ð“Ç‚Þ
 
 	//TODO
@@ -276,7 +274,8 @@ ChipType Map::getChipType(const Vector2& _other, bool isPlayer) const
 	{
 		if (gimmick->isActive)
 		{
-			if (gimmick->isOverlap(sub_x, sub_y))
+			//if (gimmick->isOverlap(sub_x, sub_y))
+			if (gimmick->isOverlap(&_other))
 			{
 				ret = gimmick->getChipType();
 			}

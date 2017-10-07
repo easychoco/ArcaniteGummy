@@ -25,11 +25,19 @@ void GimmickChild::standardDraw(const Vector2* _camera) const
 
 	//•`‰æ
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
-
-	//for Debug
-	DrawFormatString(0, 90, BLACK, "C: %d %d", draw_x, draw_y);
 }
 
+bool GimmickChild::isOverlap(const Vector2* _other)
+{
+	int half_w = 17000;
+	int half_h = 17000;
+
+	return
+		this->pos.raw_x - half_w <= _other->raw_x &&
+		this->pos.raw_x + half_w >= _other->raw_x &&
+		this->pos.raw_y - half_h <= _other->raw_y &&
+		this->pos.raw_y + half_h >= _other->raw_y;
+}
 
 
 

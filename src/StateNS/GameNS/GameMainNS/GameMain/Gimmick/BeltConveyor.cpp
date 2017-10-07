@@ -54,12 +54,14 @@ void BeltConveyor::apply(Character* _character)
 	_character->moveCharacter(dx, 0);
 }
 
+/*
 bool BeltConveyor::isOverlap(int _sub_x, int _sub_y) const
 {
 	return
 		this->pos.x() / MyData::CHIP_WIDTH  == _sub_x &&
 		this->pos.y() / MyData::CHIP_HEIGHT == _sub_y;
 }
+*/
 
 bool BeltConveyor::onActiveArea(const Vector2* _player) const
 {
