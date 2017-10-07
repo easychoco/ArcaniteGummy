@@ -51,13 +51,16 @@ PlayerChild* Mokou::update(const StageChild* _stage)
 
 	if (Input_ATTACK())
 	{
-		attack();
-		if (Input_UP())
+		if (actionState != ACT_LADDER)
 		{
-			actionState = ACT_ATTACK_UP;
-			animeNum = 4;
+			attack();
+			if (Input_UP())
+			{
+				actionState = ACT_ATTACK_UP;
+				animeNum = 4;
+			}
+			canMove = false;
 		}
-		canMove = false;
 	}
 	else
 	{

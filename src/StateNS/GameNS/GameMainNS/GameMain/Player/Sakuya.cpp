@@ -96,7 +96,7 @@ int Sakuya::getAttackDx() const
 void Sakuya::processAttack(const StageChild* _stage)
 {
 	attackTime++;
-	if (Input_ATTACK() && attackTime > attackInterval)
+	if (Input_ATTACK() && attackTime > attackInterval && actionState!=ACT_LADDER)
 	{
 		attack(_stage);
 		attackTime = 0;

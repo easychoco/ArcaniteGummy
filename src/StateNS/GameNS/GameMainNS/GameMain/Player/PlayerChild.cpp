@@ -49,6 +49,7 @@ void PlayerChild::initialize()
 	this->canMove = true;
 	this->prePushC = false;
 	this->stopDynamics = StopType::TYPE_NONE;
+	this->ladderTime = 0;
 
 	updateCamera();
 }
@@ -210,19 +211,17 @@ void PlayerChild::move(const StageChild* _stage)
 		nowJumpCount = 0;
 	}
 
-	//for Debug
-	if (Input_W())onLadder = true;
-
 
 	//はしごにのぼる
 	if (onLadder)
 	{
+		ladderTime++;
 		if (in_up)
 		{
 			dy -= (int)(moveSpeed * vectorRate);
 			jumpPower = 0.0f;
 			nowJumpCount = 0;
-			direction = !direction;
+			direction = ladderTime % 10 == 0 ? !direction : direction;
 		}
 
 		if (in_down)
@@ -230,8 +229,10 @@ void PlayerChild::move(const StageChild* _stage)
 			dy += (int)(moveSpeed * vectorRate);
 			jumpPower = 0.0f;
 			nowJumpCount = 0;
-			direction = !direction;
+			direction = ladderTime % 10 == 0 ? !direction : direction;
 		}
+		//if(in_left ||in_right)direction = ladderTime % 10 == 0 ? !direction : direction;
+
 	}
 
 	//ジャンプ
@@ -245,7 +246,7 @@ void PlayerChild::move(const StageChild* _stage)
 
 	//重力の値
 	//はしごにいるか，dyが0でない(moveCharacterが呼ばれている)なら重力の値は0
-	int gravity_value = gravity() * (actionState != ACT_LADDER && actionState != ACT_LADDER_STOP) * (dy == 0) * !onGround;
+	int gravity_value = gravity() * (actionState != ACT_LADDER) * (dy == 0) * !onGround;
 	if (jumpPower > 0.0f && onLadder)gravity_value = gravity();
 
 	dy += gravity_value - jump();
@@ -415,7 +416,6 @@ void PlayerChild::actCheck()
 	ActionState preAction = actionState;
 	if (onLadder)
 	{
-		actionState = ACT_LADDER_STOP;
 		if (in_up || in_down)
 		{
 			actionState = ACT_LADDER;
@@ -423,8 +423,9 @@ void PlayerChild::actCheck()
 
 		if (in_left || in_right)
 		{
-			actionState = ((onGround) ? ACT_WALK : ACT_AIR);
+			actionState = ((onGround) ? ACT_WALK : ACT_LADDER);
 		}
+
 
 		if (onGround && !in_up)
 		{

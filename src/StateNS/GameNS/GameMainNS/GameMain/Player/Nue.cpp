@@ -52,7 +52,7 @@ PlayerChild* Nue::update(const StageChild* _stage)
 		}
 	}
 
-	if (Input_ATTACK())attack();
+	if (Input_ATTACK() && actionState!=ACT_LADDER)attack();
 	else attackTime = 0;
 	
 

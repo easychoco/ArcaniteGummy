@@ -77,7 +77,7 @@ protected:
 			actionState == ACT_RUN ||
 			actionState == ACT_RUNJUMP;
 	}
-
+	int ladderTime;
 
 	//äeèÛë‘
 	enum ActionState
@@ -95,7 +95,6 @@ protected:
 		ACT_ATTACK_UP_RUN,//è„ëñÇËçUåÇ
 		ACT_SIT, //ÇµÇ·Ç™Ç›
 		ACT_LADDER, //ÇÕÇµÇ≤
-		ACT_LADDER_STOP,//ÇÕÇµÇ≤Ç≈é~Ç‹Ç¡ÇƒÇ¢ÇÈ
 	};
 	ActionState actionState;
 
