@@ -86,6 +86,7 @@ void Nue::draw() const
 {
 	int draw_x = MyData::CX + (p->x() - camera->x());
 	int draw_y = MyData::CY + (p->y() - camera->y());
+	if (actionState == ACT_SIT)draw_y += PLAYER_CHIP_HEIGHT / 4;
 
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, ((direction) ? mImageL[animeNum] : mImageR[animeNum]), true, false);
 

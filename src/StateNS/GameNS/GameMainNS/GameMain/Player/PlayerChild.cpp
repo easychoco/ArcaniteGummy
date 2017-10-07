@@ -58,6 +58,8 @@ void PlayerChild::draw() const
 {
 	int draw_x = MyData::CX + (p->x() - camera->x());
 	int draw_y = MyData::CY + (p->y() - camera->y());
+	if (actionState == ACT_SIT)draw_y += PLAYER_CHIP_HEIGHT / 4;
+
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage[animeNum], true, direction);
 	
 	draw_other();
@@ -263,8 +265,7 @@ void PlayerChild::move(const StageChild* _stage)
 
 	//dyの計算と反映
 	dy = dy < 0 ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0);
-	if (actionState == ACT_SIT)dy += (int)(CHIP_HEIGHT / 2 * vectorRate);
-
+	
 	//天井に当たったら
 	if (abs(dy) <= 1000)jumpPower = 0;
 
@@ -278,7 +279,7 @@ void PlayerChild::move(const StageChild* _stage)
 	p->raw_y = (p->raw_y + MAP_HEIGHT_RATE()) % MAP_HEIGHT_RATE();
 
 
-	//マップ間移動
+	//エリア間移動
 	int dx_onScreen = p->x() - post_x;
 	int dy_onScreen = p->y() - post_y;
 
@@ -318,7 +319,6 @@ void PlayerChild::updateCamera()
 	//カメラ位置を更新
 	int tmp_x = p->raw_x / MyData::vectorRate;
 	int tmp_y = p->raw_y / MyData::vectorRate;
-	if (actionState == ACT_SIT)tmp_y -= PLAYER_CHIP_HEIGHT / 4;
 
 	if (tmp_x % MyData::MAP_WIDTH  <                     MyData::CX)tmp_x = MyData::MAP_WIDTH * (tmp_x / MyData::MAP_WIDTH) + MyData::CX;
 	if (tmp_x % MyData::MAP_WIDTH  > MyData::MAP_WIDTH - MyData::CX)tmp_x = MyData::MAP_WIDTH * (tmp_x / MyData::MAP_WIDTH) + MyData::MAP_WIDTH - MyData::CX;
@@ -378,12 +378,6 @@ bool PlayerChild::isOnLesal(const StageChild* _stage)
 
 void PlayerChild::animation() 
 {
-	//for Debug
-	if (CheckHitKey(KEY_INPUT_Q))
-	{
-		int gomi = 0;
-	}
-
 	int num = 0;
 	switch (actionState) 
 	{

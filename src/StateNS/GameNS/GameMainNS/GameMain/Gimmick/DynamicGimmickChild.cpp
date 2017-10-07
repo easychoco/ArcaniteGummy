@@ -34,9 +34,13 @@ void DynamicGimmickChild::standardMove(const StageChild* _stage)
 
 bool DynamicGimmickChild::rideOnGimmick(const Vector2* _player) const 
 {
+	/*
 	return
 		abs( p->y() - (_player->y() + PLAYER_CHIP_HEIGHT / 2) ) <= height * 2 / 3 &&
 		abs( p->x() - _player->x() ) < width / 2;
+	*/
+	return abs((_player->raw_y + PLAYER_CHIP_HEIGHT_RATE() / 2) - this->getTopPosition()) < 1000 && 
+		abs(p->x() - _player->x()) < width / 2;
 }
 
 bool DynamicGimmickChild::standardOverLap(const Vector2* _player) const
@@ -46,9 +50,9 @@ bool DynamicGimmickChild::standardOverLap(const Vector2* _player) const
 
 	return
 		this->p->raw_x - half_w <= _player->raw_x &&
-		this->p->raw_x + half_w  > _player->raw_x &&
-		this->p->raw_y - half_h <= _player->raw_y &&
-		this->p->raw_y + half_h  > _player->raw_y;
+		this->p->raw_x + half_w >= _player->raw_x &&
+		this->p->raw_y - half_h - dy - vectorRate <= _player->raw_y &&
+		this->p->raw_y + half_h >= _player->raw_y;
 }
 
 

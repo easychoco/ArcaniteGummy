@@ -19,10 +19,12 @@ DynamicGimmickChild(_x, _y, 1.0)
 	float differ_x = (float)(_term_x - _x);
 	float differ_y = (float)(_term_y - _y);
 
+	if ((int)differ_x == 0)differ_x = 1.0f;
+	if ((int)differ_y == 0)differ_x = 1.0f;
 
 	//‰•œ‚É‚©‚©‚éŽžŠÔ‚ðŒvŽZ
 	this->r = (int)hypotf(differ_x, differ_y)/2;
-	this->interval = (int)(2 * hypotf(differ_x, differ_y) / (_movingSpeed+GetRand(10)/10.0f));
+	this->interval = (int)(2 * hypotf(differ_x, differ_y) / _movingSpeed);
 
 	//2’¸“_ŠÔ‚ÌŠp“x‚ðŒvŽZ
 	float angle = atan2f(differ_y, differ_x);

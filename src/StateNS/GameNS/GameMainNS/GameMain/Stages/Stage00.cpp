@@ -31,9 +31,7 @@ void Stage00::initialize()
 	//this->maps[0]->addEnemy(BOSS_JUNKO, 540, 1488);
 
 	flag = new ClearFlag(Vector2(3056, 1264));
-	maps[0]->addGimmick(flag);
-
-	maps[0]->addEnemy(AllEnemies::ENE_USA, 1540, 1552);
+	maps[1]->addGimmick(flag);
 
 	/*
 	maps[0]->addDynamicGimmick(new OrderEmergeFloor(80, 1520, 1.0f, 1));
@@ -55,10 +53,12 @@ void Stage00::initialize()
 	maps[0]->addDynamicGimmick(d_tmp);
 	*/
 
-	maps[0]->addDynamicGimmick(new Block(240, 1520, 1.0));
 	maps[0]->addDynamicGimmick(new Block(272, 1520, 1.0));
 	maps[0]->addDynamicGimmick(new Block(304, 1520, 1.0));
 	maps[0]->addDynamicGimmick(new Block(336, 1520, 1.0));
+	maps[0]->addDynamicGimmick(new Block(368, 1520, 1.0));
+
+	maps[0]->addDynamicGimmick(new MovingFloor(208, 1520, 100, 1400, 2.0f, 0));
 	
 	startX = 144, startY = 1536;
 }

@@ -40,14 +40,6 @@ Map::~Map()
 
 void Map::initialize()
 {
-	//TODO ƒNƒŠƒAŠÖŒW—v’²®
-
-	/*
-	//mGimmicks‚Ì0”Ô–Ú‚ÍclearFlag
-	this->clearFlag = new ClearFlag(Vector2(400, 1552));
-	mGimmicks.push_back(clearFlag);
-	//*/
-
 	this->mEController = new EnemyController();
 
 	for (unsigned y = 0; y < gimmickData.size(); y++)
@@ -56,37 +48,8 @@ void Map::initialize()
 		{
 			loadGimmick(x, y, gimmickData[y][x]);
 			loadEnemy(x, y, gimmickData[y][x]);
-			//DrawGraph(x * 32 - draw_x, y * 32 - draw_y, mapChip[_mapData[y][x]], true);
 		}
 	}
-
-	// for Debug
-
-	/*
-	mGimmicks.push_back(new Door(new Vector2(224, 1472), new Vector2(320, 1472)));
-	mDynamicGimmicks.push_back(new Burner(368, 1456, 0.0f, true));
-	mDynamicGimmicks.push_back(new Burner(336, 1488, pi(0.5f), true));
-	mDynamicGimmicks.push_back(new Burner(304, 1456, Pi, false));
-	mDynamicGimmicks.push_back(new Burner(336, 1424, pi(1.5f), false));
-	mDynamicGimmicks.push_back(new Block(336, 1456, 1.0, false));
-	*/
-
-	//mDynamicGimmicks.push_back(new Torch(304, 1520));
-
-	//mDynamicGimmicks.push_back(new FireBar(304, 1488,true));
-	//mDynamicGimmicks.push_back(new Block(656, 1488, 1.0));
-	//mDynamicGimmicks.push_back(new Block(688, 1488, 1.0, false));
-	//mSwitchWithBlocks.push_back(new SwitchWithBlock(208, 1488));
-	
-	//mSwitchWithBlocks[0]->push_block(new Block(208, 1296, 1.0));
-	//mSwitchWithBlocks[0]->push_block(new Block(256, 1312, 2.0));
-
-	//SwitchWithBlock* s = new SwitchWithBlock(208, 1488);
-	//s->push_block(new Block(208, 1296, 1.0), true);
-	//s->push_block(new Block(256, 1312, 2.0), false);
-
-	//mDynamicGimmicks.push_back(s);
-	//mSwitchWithBlocks.push_back(s);
 }
 
 void Map::update(PlayerChild* _player, const StageChild* _stage)
@@ -271,7 +234,6 @@ ChipType Map::getChipType(const Vector2& _other, bool isPlayer) const
 			return ChipType::TYPE_RIGID;
 
 		//else
-		//return ChipType::TYPE_LESAL;
 		return ChipType::TYPE_BACK;
 	}
 
@@ -293,6 +255,7 @@ ChipType Map::getChipType(const Vector2& _other, bool isPlayer) const
 		{
 			if (d_gimmick->isOverlap(&_other))
 			{
+
 				ret = d_gimmick->getChipType();
 			}
 		}
@@ -319,6 +282,7 @@ ChipType Map::getChipType(const Vector2& _other, bool isPlayer) const
 			}
 		}
 	}
+
 	return ret;
 }
 
