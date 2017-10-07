@@ -23,16 +23,18 @@ Stage51::~Stage51()
 void Stage51::initialize()
 {
 
-
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
-	this->maps.push_back(new Map(51, 0, MapPos::POS_UP_DOWN));
+	this->maps.push_back(new Map(51, 0, MapPos::POS_RIGHT_FREE));
 	this->maps.push_back(new Map(51, 1, MapPos::POS_UP_DOWN));
-	this->maps.push_back(new Map(51, 2, MapPos::POS_LEFT_FREE));
+	this->maps.push_back(new Map(51, 2, MapPos::POS_UP_DOWN));
+	this->maps.push_back(new Map(51, 3, MapPos::POS_UP_DOWN));
+	this->maps.push_back(new Map(51, 4, MapPos::POS_LEFT_FREE));
+
 
 	flag = new ClearFlag(Vector2(16, 16));
 	maps[0]->addGimmick(flag);
-
+	now_stage_num = 2;
 	startX = 144, startY = 1536;
 
 
