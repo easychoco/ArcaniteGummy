@@ -3,22 +3,20 @@
 #include "..\Character.h"
 
 
-//for Debug
-#include "..\Collision.h"
-
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
 bool Block::imgLoad = false;
-int Block::image;
+int Block::image[4];
 
 Block::Block(int _x, int _y, double _scale) :
-	Block(_x, _y, _scale, true){ }
+	Block(_x, _y, _scale, TYPE_FRAGILE){ }
 
-Block::Block(int _x, int _y, double _scale, bool _isBreakable) :
+Block::Block(int _x, int _y, double _scale, BlockType _blockType) :
 DynamicGimmickChild(_x, _y, _scale),
-isBreakable(_isBreakable)
+isBreakable(_blockType & 0b0001),
+blockType(_blockType)
 {
 	this->width  = (int)(32 * _scale);
 	this->height = (int)(32 * _scale);
@@ -34,13 +32,31 @@ Block::~Block()
 void Block::initialize()
 {
 	loadImage();
-	mImage = image;
+
+	//画像のタイプを設定
+	int imageNum = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		if (blockType & (1 << i))imageNum = i;
+	}
+
+	mImage = image[imageNum];
+
 	dy = 0;
 }
 
 void Block::update(const StageChild* _stage)
 {
 	standardMove(_stage);
+
+	//for Debug
+	if (CheckHitKey(KEY_INPUT_W))
+	{
+		int gomi = 0;
+		dy + 2;
+	}
+
+
 	//this->dy = getBottomDiffer(_stage, 4000);
 	//this->p->raw_y += this->dy;
 }
@@ -105,8 +121,15 @@ void Block::loadImage()
 {
 	if (!imgLoad)
 	{
-		this->image = LoadGraph("Data/Image/block.png");
-		assert(image != -1 && "Block画像読み込みエラー!");
+		this->image[0] = LoadGraph("Data/Image/block_fragile.png");
+		this->image[1] = LoadGraph("Data/Image/block_wood.png");
+		this->image[2] = LoadGraph("Data/Image/block_switch.png");
+		this->image[3] = LoadGraph("Data/Image/block_lock.png");
+
+		assert(image[0] != -1 && "block_fragile読み込みエラー!");
+		assert(image[1] != -1 && "block_wood読み込みエラー!");
+		assert(image[2] != -1 && "block_switch読み込みエラー!");
+		assert(image[3] != -1 && "block_lock読み込みエラー!");
 	}
 	imgLoad = true;
 }

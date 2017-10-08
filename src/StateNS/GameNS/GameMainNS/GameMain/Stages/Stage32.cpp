@@ -34,14 +34,14 @@ void Stage32::initialize()
 	startX = 3088, startY = 1536;
 
 	SwitchWithBlock* s = new SwitchWithBlock(3 * 32 + 16, 48 * 32 + 16);
-	for (int i = 0; i < 4; i++)s->push_block(new Block((5 + i) * 32 + 16, 44 * 32 + 16, 1.0), true);
+	for (int i = 0; i < 4; i++)s->push_block(new Block((5 + i) * 32 + 16, 44 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
 	maps[0]->addSwitchWithBlock(s);
 
 
 	SwitchWithBlock* s2 = new SwitchWithBlock(56 * 32 + 16, 39 * 32 + 16);
-	for (int i = 0; i < 3; i++)s2->push_block(new Block((42 + i) * 32 + 16, 40 * 32 + 16, 1.0), false);
-	for (int i = 0; i < 3; i++)s2->push_block(new Block((45 + i) * 32 + 16, 40 * 32 + 16, 1.0), true);
-	for (int i = 0; i < 3; i++)s2->push_block(new Block((48 + i) * 32 + 16, 40 * 32 + 16, 1.0), false);
+	for (int i = 0; i < 3; i++)s2->push_block(new Block((42 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
+	for (int i = 0; i < 3; i++)s2->push_block(new Block((45 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
+	for (int i = 0; i < 3; i++)s2->push_block(new Block((48 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s2);
 
 	//for Debug

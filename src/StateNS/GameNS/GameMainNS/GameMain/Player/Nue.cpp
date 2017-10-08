@@ -11,15 +11,16 @@ namespace GameNS {
 namespace GameMainNS {
 
 
+Nue::Nue(int _x, int _y) : Nue(_x, _y, 100)
+{
+
+}
+
 Nue::Nue(int _x, int _y, int _hp) : PlayerChild(_x, _y, 3.0f, 22.0f, 1, _hp)
 {
 	initialize();
 }
 
-Nue::Nue(int _x, int _y) : Nue(_x, _y, 100)
-{
-
-}
 
 Nue::~Nue()
 {
@@ -83,7 +84,7 @@ PlayerChild* Nue::update(const StageChild* _stage)
 
 		if (nextCharacter & StageChild::ChangeableCharacter::CHARA_MOKOU)
 			next = new Mokou(x, y, hpController.getHP());
-		if (nextCharacter & StageChild::ChangeableCharacter::CHARA_SAKUYA)
+		else if (nextCharacter & StageChild::ChangeableCharacter::CHARA_SAKUYA)
 			next = new Sakuya(x, y, hpController.getHP());
 	}
 	return next;

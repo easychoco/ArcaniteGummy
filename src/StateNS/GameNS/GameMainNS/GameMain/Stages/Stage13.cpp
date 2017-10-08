@@ -40,7 +40,7 @@ void Stage13::initialize()
 	this->maps.push_back(new Map(13, 3, MapPos::POS_LEFT_FREE));
 
 	SwitchWithBlock* s = new SwitchWithBlock(76 * 32 + 16, 37 * 32 + 16);
-	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0), false);
+	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s);
 
 	maps[3]->addEnemy(BOSS_REISEN, 78 * 32, 48 * 32);

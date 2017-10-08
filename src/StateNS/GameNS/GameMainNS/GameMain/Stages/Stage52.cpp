@@ -31,34 +31,34 @@ void Stage52::initialize()
 	maps[1]->addGimmick(flag);
 
 	SwitchWithBlock* s = new SwitchWithBlock(41 * 32 + 16, 36 * 32 + 16);
-	for (int i = 0; i < 2; i++)s->push_block(new Block((29 + i) * 32 + 16, 37 * 32 + 16, 1.0), false);
-	for (int i = 0; i < 2; i++)s->push_block(new Block((31 + i) * 32 + 16, 37 * 32 + 16, 1.0), true);
-	for (int i = 0; i < 2; i++)s->push_block(new Block((33 + i) * 32 + 16, 37 * 32 + 16, 1.0), false);
-	for (int i = 0; i < 2; i++)s->push_block(new Block((35 + i) * 32 + 16, 37 * 32 + 16, 1.0), true);
-	for (int i = 0; i < 2; i++)s->push_block(new Block((37 + i) * 32 + 16, 37 * 32 + 16, 1.0), false);
+	for (int i = 0; i < 2; i++)s->push_block(new Block((29 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
+	for (int i = 0; i < 2; i++)s->push_block(new Block((31 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
+	for (int i = 0; i < 2; i++)s->push_block(new Block((33 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
+	for (int i = 0; i < 2; i++)s->push_block(new Block((35 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
+	for (int i = 0; i < 2; i++)s->push_block(new Block((37 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[0]->addSwitchWithBlock(s);
 
 	SwitchWithBlock* s2 = new SwitchWithBlock(97 * 32 + 16, 37 * 32 + 16);
-	for (int i = 0; i < 4; i++)s->push_block(new Block((90 + i) * 32 + 16, 35 * 32 + 16, 1.0), true);
+	for (int i = 0; i < 4; i++)s->push_block(new Block((90 + i) * 32 + 16, 35 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
 	maps[0]->addSwitchWithBlock(s2);
 
 	SwitchWithBlock* s3 = new SwitchWithBlock(82 * 32 + 16, 27 * 32 + 16);
-	for (int i = 0; i < 3; i++)s3->push_block(new Block((85 + i) * 32 + 16, 25 * 32 + 16, 1.0), true);
+	for (int i = 0; i < 3; i++)s3->push_block(new Block((85 + i) * 32 + 16, 25 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
 	maps[0]->addSwitchWithBlock(s3);
 
 	SwitchWithBlock* s4 = new SwitchWithBlock(97 * 32 + 16, 17 * 32 + 16);
-	for (int i = 0; i < 3; i++)s4->push_block(new Block((89 + i) * 32 + 16, 18 * 32 + 16, 1.0), false);
-	for (int i = 0; i < 3; i++)s4->push_block(new Block((92 + i) * 32 + 16, 14 * 32 + 16, 1.0), true);
+	for (int i = 0; i < 3; i++)s4->push_block(new Block((89 + i) * 32 + 16, 18 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
+	for (int i = 0; i < 3; i++)s4->push_block(new Block((92 + i) * 32 + 16, 14 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
 	maps[0]->addSwitchWithBlock(s4);
 
 	SwitchWithBlock* s5 = new SwitchWithBlock(78 * 32 + 16, 11 * 32 + 16);
-	for (int i = 0; i < 3; i++)s5->push_block(new Block((92 + i) * 32 + 16, 8 * 32 + 16, 1.0), false);
-	for (int i = 0; i < 3; i++)s5->push_block(new Block((82 + i) * 32 + 16, 8 * 32 + 16, 1.0), true);
+	for (int i = 0; i < 3; i++)s5->push_block(new Block((92 + i) * 32 + 16, 8 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
+	for (int i = 0; i < 3; i++)s5->push_block(new Block((82 + i) * 32 + 16, 8 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
 	maps[0]->addSwitchWithBlock(s5);
 
 
 	SwitchWithBlock* s6 = new SwitchWithBlock(98 * 32 + 16, 32 * 32 + 16);
-	for (int i = 0; i < 3; i++)s6->push_block(new Block(83 * 32 + 16, (37 + i) * 32 + 16, 1.0), false);
+	for (int i = 0; i < 3; i++)s6->push_block(new Block(83 * 32 + 16, (37 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s6);
 
 

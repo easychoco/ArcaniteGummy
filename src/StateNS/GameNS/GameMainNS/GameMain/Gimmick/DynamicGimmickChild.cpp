@@ -24,9 +24,12 @@ DynamicGimmickChild::~DynamicGimmickChild()
 //==============================================
 void DynamicGimmickChild::standardMove(const StageChild* _stage)
 {
-	dx = getHorizontalDiffer(_stage, dx, dy < 0);
-	dy = ((dy < 0) ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0));
-	
+	if (dx != 0 || dy != 0)
+	{
+		dx = getHorizontalDiffer(_stage, dx, dy < 0);
+		dy = ((dy < 0) ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0));
+	}
+
 	this->p->raw_x += dx;
 	this->p->raw_y += dy;
 }

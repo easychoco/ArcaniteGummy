@@ -17,7 +17,6 @@
 #include "GameMain\Gimmick\Block.h"
 #include "GameMain\Gimmick\Switches\SwitchWithBlock.h"
 
-//#include "..\..\..\Data.h"
 #include "..\..\..\KeyInput.h"
 
 

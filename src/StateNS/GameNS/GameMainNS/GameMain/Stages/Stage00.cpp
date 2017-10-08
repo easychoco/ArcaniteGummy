@@ -36,32 +36,16 @@ void Stage00::initialize()
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[1]->addGimmick(flag);
 
-	/*
-	maps[0]->addDynamicGimmick(new OrderEmergeFloor(80, 1520, 1.0f, 1));
-	maps[0]->addDynamicGimmick(new FallFloor(176, 1520, false));
+	maps[0]->addDynamicGimmick(new MovingFloor(208, 1520, 208, 1328, 5, 0));
 
-	SwitchWithBlock* s = new SwitchWithBlock(208, 1488);
-	s->push_block(new Block(208, 1296, 1.0), true);
-	s->push_block(new Block(256, 1312, 2.0), false);
+
+	SwitchWithBlock* s = new SwitchWithBlock(272, 1520);
+	s->push_block(new Block(272, 1424, 1.0, BlockType::TYPE_SWITCH), true);
+	s->push_block(new Block(304, 1424, 1.0, BlockType::TYPE_LOCK), true);
 	maps[0]->addSwitchWithBlock(s);
-	SwitchWithBlock* s2 = new SwitchWithBlock(272, 1488);
-	s2->push_block(new Block(272, 1296, 1.0), true);
-	s2->push_block(new Block(288, 1312, 2.0), false);
-	maps[0]->addSwitchWithBlock(s2);
 
-	MovingFloor* mv_tmp = new MovingFloor(304, 1488, 400, 1200, 2, 0);
-	maps[0]->addDynamicGimmick(mv_tmp);
-
-	Dossunn* d_tmp = new Dossunn(272, 1488, 1.0);
-	maps[0]->addDynamicGimmick(d_tmp);
-	*/
-
-	maps[0]->addEnemy(AllEnemies::ENE_USA, 352, 1520);
-
-	maps[0]->addGimmick(new BeltConveyor(2.3f, Vector2(272, 1552)));
-	maps[0]->addGimmick(new BeltConveyor(2.3f, Vector2(304, 1552)));
-	maps[0]->addGimmick(new BeltConveyor(2.3f, Vector2(336, 1552)));
-	maps[0]->addGimmick(new BeltConveyor(2.3f, Vector2(368, 1552)));
+	maps[0]->addDynamicGimmick(new Block(368, 1552, 1.0, BlockType::TYPE_FRAGILE));
+	maps[0]->addDynamicGimmick(new Block(400, 1552, 1.0, BlockType::TYPE_WOOD));
 
 	startX = 144, startY = 1536;
 }

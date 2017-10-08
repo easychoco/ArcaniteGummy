@@ -80,7 +80,7 @@ PlayerChild* Mokou::update(const StageChild* _stage)
 
 		if (nextCharacter & StageChild::ChangeableCharacter::CHARA_SAKUYA)
 			next = new Sakuya(x, y, hpController.getHP());
-		if (nextCharacter & StageChild::ChangeableCharacter::CHARA_NUE)
+		else if (nextCharacter & StageChild::ChangeableCharacter::CHARA_NUE)
 			next = new Nue(x, y, hpController.getHP());
 	}
 	

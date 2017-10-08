@@ -6,17 +6,21 @@
 
 namespace StateNS {
 namespace GameNS {
-
-
 namespace GameMainNS{
 
-class Child;
+enum BlockType
+{
+	TYPE_FRAGILE	= 0b0001,
+	TYPE_WOOD		= 0b0010,
+	TYPE_SWITCH		= 0b0100,
+	TYPE_LOCK		= 0b1000,
+};
 
 class Block : public DynamicGimmickChild
 {
 public:
 	Block(int x, int y, double scale);
-	Block(int x, int y, double scale, bool isBreakable);
+	Block(int x, int y, double scale, BlockType);
 	~Block();
 	void initialize();
 	void update(const StageChild*);
@@ -35,9 +39,10 @@ private:
 	int width;
 	int height;
 	const bool isBreakable;
+	const BlockType blockType;
 
 	static bool imgLoad;
-	static int image;
+	static int image[4];
 	void loadImage();
 };
 
