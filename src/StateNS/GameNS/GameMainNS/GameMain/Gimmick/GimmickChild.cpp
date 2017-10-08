@@ -10,7 +10,7 @@ GimmickChild::GimmickChild(Vector2 _pos)
 {
 	pos = _pos;
 	isActive = true;
-	assert(_pos.x() % 32 == 16 && _pos.y() % 32 == 16 && "DynamicGimmickÇÃç¿ïWÇ™ (32 * n + 16) Ç∂Ç·Ç»Ç¢Ç≈Ç∑");
+	assert(_pos.x() % 32 == 16 && _pos.y() % 32 == 16 && "GimmickÇÃç¿ïWÇ™ (32 * n + 16) Ç∂Ç·Ç»Ç¢Ç≈Ç∑");
 }
 
 void GimmickChild::standardDraw(const Vector2* _camera) const
@@ -27,7 +27,7 @@ void GimmickChild::standardDraw(const Vector2* _camera) const
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
 }
 
-bool GimmickChild::isOverlap(const Vector2* _other)
+bool GimmickChild::isOverlap(const Vector2* _other) const
 {
 	int half_w = 17000;
 	int half_h = 17000;

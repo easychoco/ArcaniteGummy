@@ -244,7 +244,7 @@ void GameMain::processCollision(StageChild* _stage)
 		//プレイヤーとDynamicGimmickの衝突
 		if (mPlayer->isHit(gimmick))
 		{
-
+			gimmick->apply(mPlayer);
 		}
 
 		//プレイヤーの攻撃とDynamicGimmickの衝突

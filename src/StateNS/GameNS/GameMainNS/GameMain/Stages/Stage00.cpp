@@ -32,25 +32,29 @@ void Stage00::initialize()
 	this->changeableCharacter |= CHARA_SAKUYA;
 	this->changeableCharacter |= CHARA_NUE;
 
-
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[1]->addGimmick(flag);
 
-	maps[0]->addDynamicGimmick(new MovingFloor(208, 1520, 400, 1520, 2, 0));
 
-	/*
+
 	SwitchWithBlock* s = new SwitchWithBlock(272, 1520);
 	s->push_block(new Block(272, 1424, 1.0, BlockType::TYPE_SWITCH), true);
 	s->push_block(new Block(304, 1424, 1.0, BlockType::TYPE_LOCK), true);
 	maps[0]->addSwitchWithBlock(s);
-	*/
 
+	/*
 	maps[0]->addGimmick(new BeltConveyor(1.0f, Vector2(368, 1552)));
 	maps[0]->addGimmick(new BeltConveyor(1.0f, Vector2(400, 1552)));
 	maps[0]->addGimmick(new BeltConveyor(1.0f, Vector2(432, 1552)));
 	maps[0]->addGimmick(new BeltConveyor(1.0f, Vector2(464, 1552)));
 
 	maps[0]->addEnemy(AllEnemies::ENE_USA, 400, 1520);
+	*/
+
+	maps[0]->addGimmick(new Needle(368, 1552, 0.0f));
+	maps[0]->addGimmick(new Needle(400, 1552, 0.0f));
+	maps[0]->addGimmick(new Needle(432, 1552, 0.0f));
+	maps[0]->addGimmick(new Needle(464, 1552, 0.0f));
 
 
 	startX = 144, startY = 1536;

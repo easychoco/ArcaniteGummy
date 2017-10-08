@@ -1,42 +1,36 @@
 #pragma once
 
-#include "DynamicGimmickChild.h"
+#include "GimmickChild.h"
 
 
 
 namespace StateNS {
 namespace GameNS {
-
-
 namespace GameMainNS {
 
-class Child;
-
-class Needle : public DynamicGimmickChild
+class Needle : public GimmickChild
 {
 public:
 	Needle(int x, int y, float angle);
 	~Needle();
 	void initialize();
-	void update(const StageChild*);
+	void update();
 	void draw(const Vector2* camera) const;
 	StageChild::ChipType getChipType() const { return StageChild::ChipType::TYPE_BACK; };
 
 	void apply(Character*);
-	void hittedAction() override;
-	void burnedAction() override;
-	bool isOverlap(const Vector2*) const;
-	bool onActiveArea(const Vector2*) const;
+	virtual bool onActiveArea(const Vector2*) const override;
 
 
 private:
-	int img;
-	float angle;//radian
 	int mTime;
-	const int damageValue = 10000;
-
+	static bool imgLoad;
+	static int image;
 	void loadImage();
-	void move();
+
+	float angle;//radian
+	const int damageValue = 20;
+
 };
 
 

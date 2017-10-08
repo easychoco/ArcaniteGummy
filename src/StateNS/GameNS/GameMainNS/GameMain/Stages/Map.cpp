@@ -254,8 +254,9 @@ ChipType Map::getChipType(const Vector2& _other, bool isCharacter) const
 		{
 			if (d_gimmick->isOverlap(&_other))
 			{
-
-				ret = d_gimmick->getChipType();
+				ChipType tmp = d_gimmick->getChipType();
+				if (tmp != ChipType::TYPE_BACK)
+					ret = tmp;
 			}
 		}
 	}
@@ -266,7 +267,9 @@ ChipType Map::getChipType(const Vector2& _other, bool isCharacter) const
 		{
 			if (b->isOverlap(&_other))
 			{
-				ret = b->getChipType();
+				ChipType tmp = b->getChipType();
+				if (tmp != ChipType::TYPE_BACK)
+					ret = tmp;
 			}
 		}
 	}
@@ -278,7 +281,9 @@ ChipType Map::getChipType(const Vector2& _other, bool isCharacter) const
 			//if (gimmick->isOverlap(sub_x, sub_y))
 			if (gimmick->isOverlap(&_other))
 			{
-				ret = gimmick->getChipType();
+				ChipType tmp = gimmick->getChipType();
+				if (tmp != ChipType::TYPE_BACK)
+					ret = tmp;
 			}
 		}
 	}

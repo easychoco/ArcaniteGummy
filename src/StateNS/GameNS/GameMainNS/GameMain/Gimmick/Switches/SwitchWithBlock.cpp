@@ -75,7 +75,8 @@ void SwitchWithBlock::draw(const Vector2* _camera) const
 
 void SwitchWithBlock::apply(Character* _character)
 {
-	if(!preOnActiveArea)isPushed = !isPushed;
+	if(!preOnActiveArea && mTime > 5)isPushed = !isPushed;
+	mTime = 0;
 }
 
 void SwitchWithBlock::hittedAction()
