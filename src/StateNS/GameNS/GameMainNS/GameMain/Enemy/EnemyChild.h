@@ -54,6 +54,10 @@ protected:
 	};
 	ActState actState;
 
+	int getTopDiffer(const StageChild* _stage, const int dy, bool _moveLeft) const override { return DynamicObject::getTopDiffer(_stage, dy, _moveLeft, true); }
+	int getBottomDiffer(const StageChild* _stage, const int dy, bool _moveLeft) const override { return DynamicObject::getBottomDiffer(_stage, dy, _moveLeft, true); }
+	int getHorizontalDiffer(const StageChild* _stage, const int dx, bool _moveUp) const override { return DynamicObject::getHorizontalDiffer(_stage, dx, _moveUp, true); }
+
 private:
 	bool mIsAlive;
 

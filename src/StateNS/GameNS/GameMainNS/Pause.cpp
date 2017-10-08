@@ -45,6 +45,8 @@ Child* Pause::update(GameParent* _parent)
 
 	update_state();
 	
+	if (!prePush && Input_A())exit = true;
+
 	if (exit)next = main;
 
 	prePush = Input_A() || Input_OK() || Input_NO() || Input_UP() || Input_DOWN();

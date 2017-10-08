@@ -34,9 +34,9 @@ protected:
 	int width;
 	int height;
 
-	int getTopDiffer(const StageChild*, const int dy, bool moveLeft) const;
-	int getBottomDiffer(const StageChild*, const int dy, bool moveLeft) const;
-	int getHorizontalDiffer(const StageChild*, const int dx, bool moveUp) const;
+	virtual int getTopDiffer(const StageChild*, const int dy, bool moveLeft) const = 0;
+	virtual int getBottomDiffer(const StageChild*, const int dy, bool moveLeft) const = 0;
+	virtual int getHorizontalDiffer(const StageChild*, const int dx, bool moveUp) const = 0;
 };
 
 

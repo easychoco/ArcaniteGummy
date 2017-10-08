@@ -41,9 +41,6 @@ void Character::warpCharacter(int _x, int _y)
 	p->raw_y = _y;
 }
 
-int Character::getTopDiffer(const StageChild* _stage, const int dy, bool _moveLeft) const { return DynamicObject::getTopDiffer(_stage, dy, _moveLeft, true); }
-int Character::getBottomDiffer(const StageChild* _stage, const int dy, bool _moveLeft) const { return DynamicObject::getBottomDiffer(_stage, dy, _moveLeft, true); }
-int Character::getHorizontalDiffer(const StageChild* _stage, const int dx, bool _moveUp) const { return DynamicObject::getHorizontalDiffer(_stage, dx, _moveUp, true); }
 
 
 

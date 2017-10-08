@@ -49,11 +49,11 @@ void Usagi::move(const StageChild* _stage, int& _dx, int& _dy)
 
 	//自分の下のチップのChipTypeをゲット
 	RawVector2 pos = RawVector2(p->x(), p->y() + CHIP_HEIGHT);
-	StageChild::ChipType chipType_under = _stage->getChipType(pos, false);
+	StageChild::ChipType chipType_under = _stage->getChipType(pos, true);
 
 	//自分の前のチップのChipTypeをゲット
 	pos = RawVector2(p->x() + CHIP_WIDTH / 4 * ((mDirection) ? 1: -1), p->y() - CHIP_HEIGHT / 2);
-	StageChild::ChipType chipType_front = _stage->getChipType(pos, false);
+	StageChild::ChipType chipType_front = _stage->getChipType(pos, true);
 
 	//崖か壁で方向転換
 	if( !( _stage->isRigid_down(chipType_under) || _stage->isSlant(chipType_under) ) || 

@@ -99,6 +99,10 @@ protected:
 	};
 	ActionState actionState;
 
+	int getTopDiffer(const StageChild* _stage, const int dy, bool _moveLeft) const override { return DynamicObject::getTopDiffer(_stage, dy, _moveLeft, true); }
+	int getBottomDiffer(const StageChild* _stage, const int dy, bool _moveLeft) const override { return DynamicObject::getBottomDiffer(_stage, dy, _moveLeft, true); }
+	int getHorizontalDiffer(const StageChild* _stage, const int dx, bool _moveUp) const override { return DynamicObject::getHorizontalDiffer(_stage, dx, _moveUp, true); }
+
 
 private:
 	//ƒLƒƒƒ‰‚²‚Æ‚ÉˆÚ“®‘¬“x‚È‚Ç‚Ìˆá‚¢‚ğo‚·‚È‚ç‚±‚±‚Ì•Ï”‚ğ‚¢‚¶‚­‚é
@@ -129,6 +133,7 @@ private:
 	bool isOnGround(const StageChild*);
 	bool isOnLadder(const StageChild*) const;
 	bool isOnLesal(const StageChild*);
+
 
 
 };
