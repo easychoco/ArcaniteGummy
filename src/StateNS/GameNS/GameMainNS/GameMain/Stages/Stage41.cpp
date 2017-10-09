@@ -10,7 +10,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 Stage41::Stage41() :
-StageChild(2, 1) //エリアの数: よこ，たて
+StageChild(3, 1) //エリアの数: よこ，たて
 {
 	initialize();
 }
@@ -27,10 +27,11 @@ void Stage41::initialize()
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(41, 0, MapPos::POS_RIGHT_FREE));
-	this->maps.push_back(new Map(41, 1, MapPos::POS_LEFT_FREE));
+	this->maps.push_back(new Map(41, 1, MapPos::POS_UP_DOWN));
+	this->maps.push_back(new Map(41, 2, MapPos::POS_LEFT_FREE));
 
-	flag = new ClearFlag(Vector2(3056, 240));
-	maps[1]->addGimmick(flag);
+	flag = new ClearFlag(Vector2(97 * 32 + 16, 16 * 32 + 16));
+	maps[2]->addGimmick(flag);
 
 	startX = 144, startY = 1536;
 
