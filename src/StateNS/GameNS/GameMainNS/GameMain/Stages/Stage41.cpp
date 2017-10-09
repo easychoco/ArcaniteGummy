@@ -23,6 +23,8 @@ Stage41::~Stage41()
 void Stage41::initialize()
 {
 
+	//変更できるキャラクターを設定
+	this->changeableCharacter |= CHARA_NUE;
 
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形

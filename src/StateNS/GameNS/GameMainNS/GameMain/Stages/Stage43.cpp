@@ -33,6 +33,8 @@ Stage43::~Stage43()
 
 void Stage43::initialize()
 {
+	//変更できるキャラクターを設定
+	this->changeableCharacter |= CHARA_MOKOU;
 
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形

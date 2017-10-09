@@ -118,6 +118,8 @@ enum AllEnemies
 	ENE_KARON,
 	ENE_AIRMZ,
 	ENE_TERESA,
+	ENE_ICE,
+
 	BOSS_REISEN,
 	BOSS_JUNKO,
 

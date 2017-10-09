@@ -34,6 +34,11 @@ Stage53::~Stage53()
 void Stage53::initialize()
 {
 
+	//変更できるキャラクターを設定
+	this->changeableCharacter |= CHARA_MOKOU;
+	this->changeableCharacter |= CHARA_SAKUYA;
+	this->changeableCharacter |= CHARA_NUE;
+
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(43, 0, MapPos::POS_RIGHT_FREE));

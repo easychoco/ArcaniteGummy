@@ -35,6 +35,9 @@ void Stage00::initialize()
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[1]->addGimmick(flag);
 
+	maps[0]->addEnemy(ENE_ICE, 816, 1328);
+
+
 
 
 	SwitchWithBlock* s = new SwitchWithBlock(272, 1520);
