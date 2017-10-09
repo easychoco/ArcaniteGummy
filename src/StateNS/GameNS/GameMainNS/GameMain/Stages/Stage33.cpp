@@ -32,17 +32,24 @@ Stage33::~Stage33()
 
 void Stage33::initialize()
 {
+
+	this->changeableCharacter |= CHARA_MOKOU;
+	this->changeableCharacter |= CHARA_SAKUYA;
+
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
-	this->maps.push_back(new Map(33, 0, MapPos::POS_LEFT_UP));
+	this->maps.push_back(new Map(33, 0, MapPos::POS_DOWN_FREE));
 	this->maps.push_back(new Map(33, 1, MapPos::POS_SINGLE));
-	this->maps.push_back(new Map(33, 2, MapPos::POS_RIGHT_UP));
+	this->maps.push_back(new Map(33, 2, MapPos::POS_DOWN_FREE));
 	this->maps.push_back(new Map(33, 3, MapPos::POS_LEFT));
 	this->maps.push_back(new Map(33, 4, MapPos::POS_UP));
 	this->maps.push_back(new Map(33, 5, MapPos::POS_RIGHT));
 	this->maps.push_back(new Map(33, 6, MapPos::POS_UP_FREE));
 	this->maps.push_back(new Map(33, 7, MapPos::POS_UP_FREE));
 	this->maps.push_back(new Map(33, 8, MapPos::POS_UP_FREE));
+
+	flag = new ClearFlag(Vector2(592, 1552));
+	maps[1]->addGimmick(flag);
 
 	now_stage_num = 4;
 	startX = 1616, startY = 704;

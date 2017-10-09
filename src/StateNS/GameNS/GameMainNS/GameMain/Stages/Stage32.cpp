@@ -22,6 +22,11 @@ Stage32::~Stage32()
 
 void Stage32::initialize()
 {
+
+	//変更できるキャラクターを設定
+	this->changeableCharacter |= CHARA_MOKOU;
+	this->changeableCharacter |= CHARA_SAKUYA;
+
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(32, 0, MapPos::POS_RIGHT_FREE));

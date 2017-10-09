@@ -22,6 +22,9 @@ Stage11::~Stage11()
 
 void Stage11::initialize()
 {
+
+	//変更できるキャラクターを設定
+	this->changeableCharacter |= CHARA_MOKOU;
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(11, 0, MapPos::POS_RIGHT_FREE));
