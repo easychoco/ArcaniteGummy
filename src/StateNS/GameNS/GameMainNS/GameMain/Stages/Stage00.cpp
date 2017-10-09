@@ -35,7 +35,7 @@ void Stage00::initialize()
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[1]->addGimmick(flag);
 
-	maps[0]->addEnemy(ENE_ICE, 816, 1328);
+//	maps[0]->addEnemy(ENE_MARI, 23*32+16, 46*32+16);
 
 
 
@@ -53,6 +53,7 @@ void Stage00::initialize()
 
 	maps[0]->addEnemy(AllEnemies::ENE_USA, 400, 1520);
 	*/
+
 
 	maps[0]->addGimmick(new Needle(368, 1552, 0.0f));
 	maps[0]->addGimmick(new Needle(400, 1552, 0.0f));

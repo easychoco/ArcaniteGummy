@@ -542,6 +542,7 @@ void Map::loadEnemy(int _x, int _y, int _n)
 	case 248:eneID = ENE_AIRMZ; break;
 	case 249:eneID = ENE_TERESA; break;
 	case 250:eneID = ENE_ICE; break;
+	case 251:eneID = ENE_MARI; break;
 	}
 	//TODO FlyweightÉ`ÉbÉNÇ…èëÇ´ä∑Ç¶ÇÈ
 	if (eneID != ENE_NONE)addEnemy(eneID, _x*CHIP_WIDTH + CHIP_WIDTH / 2, _y*CHIP_HEIGHT + CHIP_HEIGHT / 2);
