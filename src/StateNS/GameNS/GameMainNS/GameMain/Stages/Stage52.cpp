@@ -22,6 +22,12 @@ Stage52::~Stage52()
 
 void Stage52::initialize()
 {
+
+	//変更できるキャラクターを設定
+	this->changeableCharacter |= CHARA_MOKOU;
+	this->changeableCharacter |= CHARA_SAKUYA;
+	this->changeableCharacter |= CHARA_NUE;
+
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(42, 0, MapPos::POS_RIGHT_FREE));

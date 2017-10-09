@@ -439,13 +439,13 @@ void Map::loadGimmick(int _x, int _y, int _n)
 		//小さいドッスン
 	case 119:mDynamicGimmicks.push_back(new Dossunn(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0)); break;
 		//上向きトゲ
-//	case 120:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 0.0f)); break;
+	case 120:mGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 0.0f)); break;
 		//下向きトゲ
-//	case 121:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi)); break;
+	case 121:mGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi)); break;
 		//右向きトゲ
-//	case 122:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi/2)); break;
+	case 122:mGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, Pi/2)); break;
 		//左向きトゲ
-//	case 123:mDynamicGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, -Pi/2)); break;
+	case 123:mGimmicks.push_back(new Needle(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, -Pi/2)); break;
 		//反時計回りファイアバー
 	case 124:mDynamicGimmicks.push_back(new FireBar(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, false)); break;
 		//時計回りファイアバー
@@ -541,7 +541,8 @@ void Map::loadEnemy(int _x, int _y, int _n)
 	case 247:eneID = ENE_KARON; break;
 	case 248:eneID = ENE_AIRMZ; break;
 	case 249:eneID = ENE_TERESA; break;
-
+	case 250:eneID = ENE_ICE; break;
+	case 251:eneID = ENE_MARI; break;
 	}
 	//TODO Flyweightチックに書き換える
 	if (eneID != ENE_NONE)addEnemy(eneID, _x*CHIP_WIDTH + CHIP_WIDTH / 2, _y*CHIP_HEIGHT + CHIP_HEIGHT / 2);

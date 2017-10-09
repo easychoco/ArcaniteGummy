@@ -176,15 +176,16 @@ void Nue::updateUFO(const StageChild* _stage)
 	{
 		//this->warpCharacter(ufo->getVector2()->x(), ufo->getVector2()->y() - 48);
 		nowJumpCount = 0;
-		jumpPower = 0.0f;
 	}
 
 	///////////////////ƒMƒ~ƒbƒN‚Æ“¯‚¶///////////////
-	if (ufo->onActiveArea(p))
+
+	if (ufo->onActiveArea(this->getVector2()))
 		ufo->apply(this);
 
-	if (ufo->rideOnGimmick(p))
+	if (ufo->rideOnGimmick(this->getVector2()))
 		this->moveCharacter(ufo->getDX(), ufo->getDY());
+
 	/////////////////////‚±‚±‚Ü‚Å///////////////////
 
 
@@ -281,6 +282,7 @@ void Nue::UFO::initialize()
 	mTime = 0;
 	isActive = true;
 	isMove = false;
+	dy = 0;
 }
 
 void Nue::UFO::update(const StageChild* _stage)
@@ -335,7 +337,9 @@ bool Nue::UFO::isOverlap(const Vector2* _player) const
 
 bool Nue::UFO::onActiveArea(const Vector2* _player) const
 {
-	return rideOnGimmick(_player);
+	return
+		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH &&
+		(this->p->y() - _player->y()) / MyData::CHIP_HEIGHT == 1;
 }
 
 //==============================================
@@ -349,9 +353,10 @@ void Nue::UFO::loadImage()
 
 void Nue::UFO::move()
 {
+	dy = 0;
 	if (direction == LEFT)dx = -3 * vectorRate;
 	else if (direction == RIGHT)dx = 3 * vectorRate;
-	dy = 0;
+
 }
 
 
