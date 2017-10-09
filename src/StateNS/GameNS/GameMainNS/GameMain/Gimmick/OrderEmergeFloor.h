@@ -31,8 +31,6 @@ public:
 
 private:
 	int dy;
-	int width;
-	int height;
 	int mTime;
 	int order;//oŒ»‚·‚é‡”Ô
 	bool isEmerge;
