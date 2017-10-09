@@ -8,16 +8,18 @@ namespace GameMainNS{
 
 
 bool Shot::imgLoad = false;
-int Shot::images[3];
+int Shot::images[5];
 
 //画像使用バージョン
 Shot::Shot(const Character* parent, int _x, int _y, float _angle, float _speed, int _damage) :
-Attack(parent, _x, _y, 15, 15)
+Attack(parent, _x, _y, 10, 10)
 {
 	this->angle = pi(1 / 180.0f) * _angle;
 	this->dx = (int)(_speed * cos(angle));
 	this->dy = (int)(_speed * sin(angle));
 	this->damageValue = _damage;
+
+	loadImage();
 
 	initialize();
 }
@@ -31,13 +33,11 @@ Shot::~Shot()
 void Shot::initialize()
 {
 	isActive = true;
-	//loadImage();
-	assert(mImage != -1 && "Shot画像読み込みエラー!");
+	mImage = images[0];
 }
 
 void Shot::update() 
 {
-
 	//画面外にあったらreturn
 	if (!isActive)return;
 
@@ -62,7 +62,7 @@ void Shot::draw(const Vector2* _camera) const
 void Shot::setStatus_2args(Vector2 pos, int _angle, int _speed)
 {
 	this->isActive = true;
-	if (pos != Vector2::ZERO)*p = pos;
+	if (pos != Vector2::ZERO) *p = pos;
 	this->angle = pi(1 / 180.0f) * _angle;
 
 	if (_speed != 0)
@@ -76,14 +76,20 @@ void Shot::loadImage()
 {
 	if (!imgLoad)
 	{
-		images[0] = LoadGraph("Data/Images/Shot1.png");
-		assert(images[0] != -1 && "shot1画像読み込みエラー");
+		images[0] = LoadGraph("Data/Image/Shot0.png");
+		assert(images[0] != -1 && "shot0画像読み込みエラー");
 
-		images[1] = LoadGraph("Data/Images/Shot2.png");
-		assert(images[1] != -1 && "shot2画像読み込みエラー");
+		images[1] = LoadGraph("Data/Image/Shot1.png");
+		assert(images[1] != -1 && "shot1画像読み込みエラー");
 
-		images[2] = LoadGraph("Data/Images/Shot3.png");
-		assert(images[2] != -1 && "shot3画像読み込みエラー");
+		images[2] = LoadGraph("Data/Image/Shot2.png");
+		assert(images[2] != -1 && "shot2画像読み込みエラー");
+
+		images[3] = LoadGraph("Data/Image/Shot3.png");
+		assert(images[3] != -1 && "shot3画像読み込みエラー");
+
+		images[4] = LoadGraph("Data/Image/Shot4.png");
+		assert(images[4] != -1 && "shot4画像読み込みエラー");
 	}
 	imgLoad = true;
 }

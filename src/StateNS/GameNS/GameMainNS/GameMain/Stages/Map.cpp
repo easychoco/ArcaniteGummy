@@ -190,7 +190,7 @@ int Map::getBottomPosition(const Vector2* _pos, const int& _dy) const
 	return ret;
 }
 
-ChipType Map::getChipType(const Vector2& _other, bool isCharacter) const
+ChipType Map::getChipType(const Vector2& _other, bool colliWithGimmick) const
 {
 	int sub_x = _other.raw_x / CHIP_WIDTH_RATE();
 	if (_other.raw_x < 0)--sub_x;
@@ -243,7 +243,7 @@ ChipType Map::getChipType(const Vector2& _other, bool isCharacter) const
 		ret = chip[mapData[sub_y][sub_x]].getChipType();
 
 	//Player‚È‚çˆÈ‰º‚ð“Ç‚Þ
-	if (!isCharacter) return ret;
+	if (!colliWithGimmick) return ret;
 
 	//TODO
 	//¡‚Ì‚Ü‚Ü‚¾‚ÆAGimmick‚Ì‚Ù‚¤‚ð—Dæ‚µ‚¿‚á‚¤

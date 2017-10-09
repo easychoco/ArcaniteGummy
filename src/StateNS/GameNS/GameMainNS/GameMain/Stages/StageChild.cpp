@@ -50,9 +50,9 @@ void StageChild::draw_front(const Vector2* _camera) const
 	maps[now_stage_num]->draw_front(_camera);
 }
 
-StageChild::ChipType StageChild::getChipType(const Vector2& _other, bool isPlayer) const
+StageChild::ChipType StageChild::getChipType(const Vector2& _other, bool colliWithGimmick) const
 {
-	return maps[now_stage_num]->getChipType(_other, isPlayer);
+	return maps[now_stage_num]->getChipType(_other, colliWithGimmick);
 }
 
 //ポリモーフィズム
@@ -62,9 +62,9 @@ StageChild::ChipType StageChild::getChipType(const Vector2& _other) const
 }
 
 //ポリモーフィズム
-StageChild::ChipType StageChild::getChipType(const RawVector2& _other, bool _isPlayer) const
+StageChild::ChipType StageChild::getChipType(const RawVector2& _other, bool colliWithGimmick) const
 {
-	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
+	return getChipType(Vector2(_other.pos_x, _other.pos_y), colliWithGimmick);
 }
 
 int StageChild::getTopPosition(const Vector2* _pos, const int& _dy) const

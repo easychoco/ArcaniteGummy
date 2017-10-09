@@ -28,7 +28,7 @@ isOriginal(_isOriginal)
 
 Reisen::~Reisen()
 {
-	//DeleteGraph(mImage2);
+	SAFE_DELETE(replica);
 }
 
 void Reisen::initialize()
@@ -226,7 +226,7 @@ player(_player)
 	//for Debug
 	this->damageValue = 20;
 
-	mImage = LoadGraph("Data/Image/shot3.png");
+	mImage = LoadGraph("Data/Image/shot0.png");
 	assert(mImage != -1 && "—éåShot‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 
 	initialize();

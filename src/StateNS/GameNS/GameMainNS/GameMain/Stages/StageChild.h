@@ -53,9 +53,14 @@ public:
 		CHARA_NUE		= 0b100,
 	};
 
-	virtual bool isRigid_down(ChipType _ct) const { return (_ct & 0b0101100110) != 0; }//下にすり抜けられないブロック，床になる
-	virtual bool isRigid_up(ChipType _ct)   const { return (_ct & 0b0000011010) != 0; }//上にすり抜けられないブロック，天井になる
-	virtual bool isSlant(ChipType _ct)		const { return (_ct & 0b0001111000) != 0; }//斜めブロック
+	//下にすり抜けられないブロック，床になる
+	virtual bool isRigid_down(ChipType _ct) const { return (_ct & 0b0101100110) != 0; }
+
+	//上にすり抜けられないブロック，天井になる
+	virtual bool isRigid_up(ChipType _ct)   const { return (_ct & 0b0000011010) != 0; }
+
+	//斜めブロック
+	virtual bool isSlant(ChipType _ct)		const { return (_ct & 0b0001111000) != 0; }
 
 	ChipType getChipType(const Vector2&, bool isPlayer) const;
 	ChipType getChipType(const Vector2&) const;

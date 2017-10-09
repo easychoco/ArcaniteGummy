@@ -49,13 +49,6 @@ void Block::update(const StageChild* _stage)
 {
 	standardMove(_stage);
 
-	//for Debug
-	if (CheckHitKey(KEY_INPUT_W))
-	{
-		int gomi = 0;
-		dy + 2;
-	}
-
 
 	//this->dy = getBottomDiffer(_stage, 4000);
 	//this->p->raw_y += this->dy;

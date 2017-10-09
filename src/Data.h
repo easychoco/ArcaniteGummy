@@ -118,8 +118,10 @@ enum AllEnemies
 	ENE_KARON,
 	ENE_AIRMZ,
 	ENE_TERESA,
+
 	BOSS_REISEN,
 	BOSS_JUNKO,
+	BOSS_FRAN,
 
 	ENE_NONE,
 };
@@ -206,23 +208,23 @@ public:
 	}
 	const Vector2 operator + (const Vector2& other)
 	{
-		return Vector2(raw_x + other.x(), raw_y + other.y());
+		return Vector2(raw_x + other.raw_x, raw_y + other.raw_y, true);
 	}
 	const Vector2 operator - (const Vector2& other)
 	{
-		return Vector2(raw_x - other.x(), raw_y - other.y());
+		return Vector2(raw_x - other.raw_x, raw_y - other.raw_y, true);
 	}
 	const Vector2 operator * (int other) const
 	{
-		return Vector2(raw_x * other, raw_y * other);
+		return Vector2(raw_x * other, raw_y * other, true);
 	}
 	const Vector2 operator / (int other) const
 	{
-		return Vector2(this->raw_x / other, this->raw_y / other);
+		return Vector2(this->raw_x / other, this->raw_y / other, true);
 	}
 	bool operator == (const Vector2& other) const
 	{
-		return (raw_x == other.x()) && (raw_y == other.y());
+		return (raw_x == other.raw_x) && (raw_y == other.raw_y);
 	}
 	bool operator != (const Vector2& other) const
 	{
