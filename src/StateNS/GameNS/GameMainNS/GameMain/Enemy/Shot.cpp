@@ -8,7 +8,7 @@ namespace GameMainNS{
 
 
 bool Shot::imgLoad = false;
-int Shot::images[5];
+int Shot::images[6];
 
 //画像使用バージョン
 Shot::Shot(const Character* parent, int _x, int _y, float _angle, float _speed, int _damage) :
@@ -90,6 +90,9 @@ void Shot::loadImage()
 
 		images[4] = LoadGraph("Data/Image/Shot4.png");
 		assert(images[4] != -1 && "shot4画像読み込みエラー");
+
+		images[5] = LoadGraph("Data/Image/Shot5.png");
+		assert(images[5] != -1 && "shot5画像読み込みエラー");
 	}
 	imgLoad = true;
 }

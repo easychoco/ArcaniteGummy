@@ -138,12 +138,18 @@ private:
 		private:
 			bool mIsActive;
 			int time;
+			int images[32];
+
+			int dx;
+			int dy;
 
 			//èâä˙à ëä
 			const int init_phase;
 			const int maxShotNum = 4;
 			Vector2* p;
 			vector<Shot*> shots;
+
+			void setDiffer();
 		};
 
 		Childs* child1;
@@ -151,9 +157,34 @@ private:
 		Childs* child3;
 	};
 
+	class LockOn
+	{
+	public:
+		LockOn(EnemyChild*);
+		~LockOn();
+		void update();
+		void draw(const Vector2* camera) const;
+		void addAttacks(vector<Attack*>&);
+		void setStatus(const Vector2* player);
+		void setActive(bool);
+		bool isActive() const { return this->mIsActive; }
+		void checkActive(const StageChild*);
+
+	private:
+		int time;
+		bool mIsActive;
+		int image;
+		
+		Vector2 p;
+		const Vector2* player;
+		EnemyChild* parent;
+		Shot* shot;
+	};
+
 	vector<StarBow*> stars;
 	vector<Wave495*> waves;
 	Kind4* kind4;
+	LockOn* focus;
 
 	const int maxStarBowNum = 5;
 	const int maxWave495Num = 5;

@@ -13,8 +13,13 @@ class Block;
 class SwitchWithBlock : public DynamicGimmickChild
 {
 public:
+	//第3引数がないなら普通のスイッチ
+	//第3引数が1なら押しっぱなしのスイッチ
+	//第3引数が2より大きいなら時限式スイッチ(引数が制限時間(フレーム数 / 引数60で1秒))
+	
 	SwitchWithBlock(int x, int y);
-	SwitchWithBlock(int x, int y, int limitTime);
+	SwitchWithBlock(int x, int y, int notChangeable);
+	SwitchWithBlock(int x, int y, int limitTime, bool notChangeable);
 	~SwitchWithBlock();
 	void initialize();
 	void update(const StageChild*);
@@ -35,8 +40,12 @@ public:
 
 	//スイッチがoffの時に現れるBlock
 	vector<Block*> blocks_off;
-	void push_block(Block* b, bool switch_on) { switch_on ? blocks_on.push_back(b) : blocks_off.push_back(b); }
+
 	vector<Block*> getBlocks() { return ((isPushed) ? blocks_on : blocks_off); }
+
+	//第2引数がtrueで， スイッチonの時に現れる
+	//第2引数がfalseで，スイッチoffの時に現れる
+	void push_block(Block* b, bool switch_on) { switch_on ? blocks_on.push_back(b) : blocks_off.push_back(b); }
 
 private:
 	bool isPushed;
@@ -44,6 +53,7 @@ private:
 	mutable bool tmpOnActiveArea;
 	int mTime;
 	const int limitTime;
+	const bool notChangeable;
 
 	void loadImage();
 };
