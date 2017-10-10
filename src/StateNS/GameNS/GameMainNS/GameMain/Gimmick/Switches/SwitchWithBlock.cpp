@@ -7,14 +7,22 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-SwitchWithBlock::SwitchWithBlock(int x, int y) : SwitchWithBlock(x, y, 1 << 29)
+SwitchWithBlock::SwitchWithBlock(int x, int y) : SwitchWithBlock(x, y, 1 << 29, false)
 {
 
 }
 
-SwitchWithBlock::SwitchWithBlock(int _x, int _y, int _limitTime) : 
+SwitchWithBlock::SwitchWithBlock(int x, int y, int f) : 
+SwitchWithBlock(x, y, ((f < 2) ? 1 << 29 : f), f == 1)
+{
+
+}
+
+
+SwitchWithBlock::SwitchWithBlock(int _x, int _y, int _limitTime, bool _notChangeable) : 
 DynamicGimmickChild(_x, _y, 1.0),
-limitTime(_limitTime)
+limitTime(_limitTime),
+notChangeable(_notChangeable)
 {
 	initialize();
 }
@@ -75,6 +83,11 @@ void SwitchWithBlock::draw(const Vector2* _camera) const
 
 void SwitchWithBlock::apply(Character* _character)
 {
+	if (notChangeable)
+	{
+		isPushed = true;
+		return;
+	}
 	if(!preOnActiveArea && mTime > 5)isPushed = !isPushed;
 	mTime = 0;
 }
