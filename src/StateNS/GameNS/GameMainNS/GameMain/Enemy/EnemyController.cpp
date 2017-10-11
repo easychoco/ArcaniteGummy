@@ -18,7 +18,9 @@
 
 #include "Reisen.h"
 #include "Junko.h"
+#include "Nue_boss.h"
 #include "Fran.h"
+#include "Kaguya.h"
 
 #include "..\Player\PlayerChild.h"
 

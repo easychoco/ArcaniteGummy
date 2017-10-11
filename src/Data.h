@@ -122,8 +122,10 @@ enum AllEnemies
 	ENE_MARI,
 
 	BOSS_REISEN,
+	BOSS_NUE,
 	BOSS_JUNKO,
 	BOSS_FRAN,
+	BOSS_KAGUYA,
 
 	ENE_NONE,
 };
