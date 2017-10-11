@@ -74,7 +74,7 @@ void Usagi::loadImage()
 {
 	if (!imgLoad)
 	{
-		int tmp = LoadDivGraph("Data/Image/Rarashi.png", 8, 8, 1, 32, 32, images);
+		int tmp = LoadDivGraph("Data/Image/Usagi.png", 8, 8, 1, 32, 32, images);
 		assert(tmp != -1 && "Usagi‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 	}
 	imgLoad = true;
