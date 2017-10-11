@@ -40,8 +40,9 @@ void Stage52::initialize()
 
 	flag = new ClearFlag(Vector2(97 * 32 + 16, 6 * 32 + 16));
 	maps[0]->addGimmick(flag);
-	now_stage_num = 1;
-	startX = 144, startY = 1536;
+	now_stage_num = 0;
+	//startX = 144, startY = 1536;
+	startX = 2040, startY = 1536;
 
 	SwitchWithBlock* s = new SwitchWithBlock(91 * 32 + 16, 12 * 32 + 16, 1);
 	for (int i = 0; i < 6; i++)s->push_block(new Block((92 + i) * 32 + 16, 13 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);

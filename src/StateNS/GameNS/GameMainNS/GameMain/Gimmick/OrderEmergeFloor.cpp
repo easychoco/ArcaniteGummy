@@ -40,9 +40,9 @@ void OrderEmergeFloor::initialize()
 void OrderEmergeFloor::update(const StageChild* _stage)
 {
 	mTime++;
-	mTime %= 240;
+	mTime %= 600;
 
-	if (mTime >= order * 30)isEmerge = true;
+	if (mTime >= order * 60)isEmerge = true;
 	else isEmerge = false;
 
 	//if (!isEmerge)return;
@@ -53,7 +53,7 @@ void OrderEmergeFloor::update(const StageChild* _stage)
 
 void OrderEmergeFloor::draw(const Vector2* _camera) const
 {
-	DrawFormatString(100, 100, BLACK, "%d,%d", this->width, this->height);
+	//DrawFormatString(100, 100, BLACK, "%d,%d", this->width, this->height);
 	if (!isEmerge)return;
 
 	standardDraw(_camera, scale, mImage, mDirection);
