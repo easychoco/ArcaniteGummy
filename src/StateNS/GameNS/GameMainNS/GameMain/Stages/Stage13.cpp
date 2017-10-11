@@ -43,7 +43,10 @@ void Stage13::initialize()
 	this->maps.push_back(new Map(13, 2, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(13, 3, MapPos::POS_LEFT_FREE));
 
-	SwitchWithBlock* s = new SwitchWithBlock(76 * 32 + 16, 37 * 32 + 16);
+	flag = new ClearFlag(Vector2(3056, 1264));
+	maps[0]->addGimmick(flag);
+
+	SwitchWithBlock* s = new SwitchWithBlock(76 * 32 + 16, 37 * 32 + 16, 99);
 	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s);
 

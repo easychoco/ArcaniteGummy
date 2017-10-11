@@ -50,6 +50,16 @@ void Stage23::initialize()
 	this->maps.push_back(new Map(23, 7, MapPos::POS_RIGHT_DOWN));
 	this->maps.push_back(new Map(23, 8, MapPos::POS_LEFT_UP));
 
+	SwitchWithBlock* s = new SwitchWithBlock(44 * 32 + 16, 14 * 32 + 16, 99);
+	for (int i = 0; i < 3; i++)s->push_block(new Block((46 + i) * 32 + 16, 46 * 32 + 16, 1.0), false);
+	maps[3]->addSwitchWithBlock(s);
+	SwitchWithBlock* s2 = new SwitchWithBlock(50 * 32 + 16, 24 * 32 + 16, 99);
+	for (int i = 0; i < 3; i++)s2->push_block(new Block((46 + i) * 32 + 16, 47 * 32 + 16, 1.0), false);
+	maps[3]->addSwitchWithBlock(s2);
+	SwitchWithBlock* s3 = new SwitchWithBlock(44 * 32 + 16, 35 * 32 + 16, 99);
+	for (int i = 0; i < 3; i++)s3->push_block(new Block((46 + i) * 32 + 16, 48 * 32 + 16, 1.0), false);
+	maps[3]->addSwitchWithBlock(s3);
+
 	startX = 144, startY = 1536;
 
 	//this->torches.push_back(new Torch(304, 1488));
