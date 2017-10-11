@@ -21,7 +21,7 @@ private:
 	void initialize();
 
 	vector<Torch*> torches;
-
+	vector<Torch*> torches2;
 	//マップチップ
 	array<Chip, 20> chip
 	{
