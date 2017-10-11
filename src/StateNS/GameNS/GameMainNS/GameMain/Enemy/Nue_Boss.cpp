@@ -64,6 +64,10 @@ void Nue_Boss::initialize_attacks()
 		this->attacks.push_back(b);
 	}
 
+	flower = new FireFlower(this);
+	flower->addAttacks(attacks);
+
+	attacks.shrink_to_fit();
 	init_attacks = true;
 }
 
@@ -115,7 +119,12 @@ void Nue_Boss::processAttack(const StageChild* _stage)
 		}
 	}
 
-
+	if (flower->isActive())
+	{
+		flower->update();
+		flower->checkActive();
+		flower->checkOnGround(_stage);
+	}
 
 	//インスタンス生成
 
@@ -135,10 +144,9 @@ void Nue_Boss::processAttack(const StageChild* _stage)
 	}
 	//*/
 
-	//*
+	/*
 	//if(Bombingなら)
-	if (mTime % 45 == 0)
-	{
+	if(mTime % 45 == 0)
 		for (auto& b : bombs)
 		{
 			if (!b->isActive)
@@ -148,6 +156,14 @@ void Nue_Boss::processAttack(const StageChild* _stage)
 				break;
 			}
 		}
+	//*/
+
+	//*
+	//if(FireFlowerなら)	
+	if (!flower->isActive())
+	{
+		flower->setStatus(*p, mDirection);
+		flower->setActive(true);
 	}
 	//*/
 
@@ -159,6 +175,7 @@ void Nue_Boss::draw_other(const Vector2* _camera) const
 	{
 		for (const auto& s3 : shot3)if (s3->isActive())s3->draw(_camera);
 		for (const auto& b : bombs)if (b->isActive)b->draw(_camera);
+		if (flower->isActive())flower->draw(_camera);
 	}
 
 	//for Debug
@@ -170,9 +187,6 @@ void Nue_Boss::draw_other(const Vector2* _camera) const
 
 	//for Debug
 	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
-
-	//for Debug
-	DrawFormatString(0, 50, BLACK, "time: %d", this->mDirection);
 }
 
 
@@ -300,7 +314,6 @@ void Nue_Boss::Shot_3way::checkActive(const StageChild* _stage)
 Nue_Boss::Bombing::Bombing(const Vector2* _pos, EnemyChild* _parent):
 Attack(_parent, _pos->raw_x, _pos->raw_y, 15, 15)
 {
-	parent = _parent;
 	initialize(_pos);
 }
 
@@ -332,7 +345,7 @@ void Nue_Boss::Bombing::update()
 	++time;
 	if (!onGround)
 	{
-		dy = 5 * time * time;
+		dy = min(5 * time * time, 32000);
 
 		p->raw_x += dx;
 		p->raw_y += dy;
@@ -386,7 +399,127 @@ void Nue_Boss::Bombing::checkOnGround(const StageChild* _stage)
 	}
 }
 
+//==============================================
+//Bombingクラス
+//==============================================
+Nue_Boss::FireFlower::FireFlower(EnemyChild* _parent)
+{
+	initialize(_parent);
+}
 
+Nue_Boss::FireFlower::~FireFlower()
+{
+	SAFE_DELETE(p);
+	DeleteGraph(image);
+
+	for (auto& b : f_bombs)
+	{
+		SAFE_DELETE(b);
+	}
+	f_bombs.clear();
+	f_bombs.shrink_to_fit();
+}
+
+void Nue_Boss::FireFlower::initialize(EnemyChild* _parent)
+{
+	this->parent = _parent;
+
+	time = 0;
+	mIsActive = false;
+	p = new Vector2(0, 0, true);
+
+	f_bombs.reserve(maxBombNum);
+	for (int i = 0; i < maxBombNum; i++)
+		f_bombs.push_back(new Bombing(p, _parent));
+
+	image = LoadGraph("Data/Image/Yachamo_fire.png");
+}
+
+void Nue_Boss::FireFlower::update()
+{
+	++time;
+	if (time < 60)
+	{
+		dy = -time * time;
+
+		p->raw_x += dx;
+		p->raw_y += dy;
+	}
+	if (time == 60)//花火炸裂
+	{
+		f_bombs[0]->setStatus(*p, true);
+		f_bombs[1]->setStatus(*p, false);
+		f_bombs[2]->setStatus(Vector2(p->raw_x - 64000, p->raw_y, true), false);
+		f_bombs[3]->setStatus(Vector2(p->raw_x + 64000, p->raw_y, true), true);
+	}
+	if (time > 60)
+	{
+		for (auto& b : f_bombs)if (b->isActive)b->update();
+	}
+}
+
+void Nue_Boss::FireFlower::draw(const Vector2* _camera) const
+{
+	//画面外にあったら描画なし
+	if (!mIsActive)return;
+
+	if (time < 60)
+	{
+		int draw_x = 320 + p->x() - _camera->x();
+		int draw_y = 240 + p->y() - _camera->y();
+
+		DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, image, true, false);
+		return;
+	}
+
+	if (time < 70)
+	{
+		int draw_x = 320 + p->x() - _camera->x();
+		int draw_y = 240 + p->y() - _camera->y();
+
+		DrawCircle(draw_x, draw_y, (time - 60) * 8, RED, false, 3);
+	}
+	for (auto& b : f_bombs)if(b->isActive)b->draw(_camera);
+}
+
+void Nue_Boss::FireFlower::setStatus(Vector2 _pos, bool _direction)
+{
+	time = 0;
+	*p = _pos;
+	mIsActive = true;
+
+	dx = _direction ? -1000 : 1000;
+	dy = 0;
+}
+
+void Nue_Boss::FireFlower::addAttacks(vector<Attack*>& _attacks)
+{
+	_attacks.reserve(_attacks.size() + maxBombNum);
+	for (auto& b : f_bombs)
+	{
+		_attacks.push_back(b);
+	}
+}
+
+void Nue_Boss::FireFlower::setActive(bool _isActive)
+{
+	this->mIsActive = _isActive;
+
+	for (auto& b : f_bombs)b->isActive = _isActive;
+}
+
+void Nue_Boss::FireFlower::checkActive()
+{
+	if (time < 60)return;
+	this->mIsActive = false;
+
+	for (auto& b : f_bombs)this->mIsActive |= b->isActive;
+}
+
+void Nue_Boss::FireFlower::checkOnGround(const StageChild* _stage)
+{
+	for (auto& b : f_bombs)b->checkOnGround(_stage);
+}
 
 }
 }

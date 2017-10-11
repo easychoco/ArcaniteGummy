@@ -92,8 +92,38 @@ private:
 		void initialize(const Vector2* pos);
 	};
 
+	class FireFlower
+	{
+	public:
+		FireFlower(EnemyChild*);
+		~FireFlower();
+		void update();
+		void draw(const Vector2* camera) const;
+		void setStatus(Vector2 pos, bool);
+		void addAttacks(vector<Attack*>&);
+		bool isActive() const { return this->mIsActive; }
+		void setActive(bool);
+		void checkActive();
+		void checkOnGround(const StageChild*);
+
+	private:
+		int time;
+		bool mIsActive;
+		int image;
+		int dx;
+		int dy;
+		Vector2* p;
+		
+		const EnemyChild* parent;
+		const int maxBombNum = 4;
+		vector<Bombing*> f_bombs;
+
+		void initialize(EnemyChild*);
+	};
+
 	vector<Shot_3way*> shot3;
 	vector<Bombing*> bombs;
+	FireFlower* flower;
 
 
 	const int maxShot3Num = 3;
