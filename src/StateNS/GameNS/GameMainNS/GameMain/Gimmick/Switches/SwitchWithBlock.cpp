@@ -94,6 +94,11 @@ void SwitchWithBlock::apply(Character* _character)
 
 void SwitchWithBlock::hittedAction()
 {
+	if (notChangeable)
+	{
+		isPushed = true;
+		return;
+	}
 	if (!preOnActiveArea && mTime > 5)isPushed = !isPushed;
 	mTime = 0;
 }
