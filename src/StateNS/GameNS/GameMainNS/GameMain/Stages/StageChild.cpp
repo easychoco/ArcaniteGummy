@@ -103,10 +103,10 @@ void StageChild::moveStage(HowStageMove _stageMove)
 		now_stage_num--;
 		break;
 	case MOVE_UP:
-		now_stage_num -= stage_max_y;
+		now_stage_num -= stage_max_x;
 		break;
 	case MOVE_DOWN:
-		now_stage_num += stage_max_y;
+		now_stage_num += stage_max_x;
 		break;
 	}
 	assert(now_stage_num < maps.size() && "StageChild: map index out of range!");
