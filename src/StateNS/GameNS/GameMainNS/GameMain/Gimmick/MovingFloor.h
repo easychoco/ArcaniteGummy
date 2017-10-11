@@ -29,7 +29,7 @@ public:
 	void initialize();
 	void update(const StageChild*);
 	void draw(const Vector2* camera) const;
-	StageChild::ChipType getChipType() const { return StageChild::ChipType::TYPE_RIGID; };
+	StageChild::ChipType getChipType() const { return StageChild::ChipType::TYPE_RIDE; };
 
 	void apply(Character*);
 	void hittedAction() override;
