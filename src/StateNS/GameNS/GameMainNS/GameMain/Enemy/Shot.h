@@ -26,7 +26,7 @@ public:
 	void hittedAction() override {}
 	void setImage(int type)
 	{
-		assert(0 <= type && type < 6 && "Shot::setImage images out of range.");
+		assert(0 <= type && type < 7 && "Shot::setImage images out of range.");
 		mImage = images[type]; 
 	}
 	bool direction;
@@ -43,7 +43,7 @@ protected:
 
 private:
 	static bool imgLoad;
-	static int images[6];
+	static int images[7];
 	void loadImage();
 
 };

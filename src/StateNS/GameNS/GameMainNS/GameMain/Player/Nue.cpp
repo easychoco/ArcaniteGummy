@@ -43,6 +43,7 @@ PlayerChild* Nue::update(const StageChild* _stage)
 	PlayerChild* next = this;
 
 	standardAction(_stage);
+	this->hpController.isMuteki = (actionState == ACT_SIT);
 
 	//UŒ‚
 	for (auto& a : attacks)

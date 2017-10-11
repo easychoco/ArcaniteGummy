@@ -67,16 +67,6 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 
 	++mTime;
 
-	/*
-	for (auto& a : attacks)
-	{
-		if (a->isActive)
-		{
-			a->update();
-			a->checkActive(_camera);
-		}
-	}
-	//*/
 	if (s_a->isActive())
 	{
 		s_a->update();
@@ -94,17 +84,17 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 
 void Junko::draw(const Vector2* _camera) const
 {
-	//ï¿½ï¿½Ê“ï¿½É‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½return
+	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
 	//if (!mIsAlive)return;
 
 
-	//ï¿½ï¿½Ê“ï¿½É‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½return
+	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
 	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
 
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
 
-	//ï¿½`ï¿½ï¿½
+	//•`‰æ
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
 	draw_other(_camera);
 }
@@ -136,8 +126,8 @@ void Junko::draw_other(const Vector2* _camera) const
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
 
-	//ï¿½`ï¿½ï¿½
-	DrawString(draw_x - 16, draw_y - 32, "ï¿½ï¿½ï¿½ï¿½", BLUE);
+	//•`‰æ
+	DrawString(draw_x - 16, draw_y - 32, "ƒŒÏ", BLUE);
 
 	//for Debug
 	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
@@ -145,15 +135,15 @@ void Junko::draw_other(const Vector2* _camera) const
 
 
 //==============================================
-//ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½xï¿½[ï¿½gï¿½Öï¿½
+//“à•”ƒvƒ‰ƒCƒx[ƒgŠÖ”
 //==============================================
 void Junko::loadImage()
 {
 	if (!imgLoad)
 	{
-		//TODO ï¿½ï¿½ï¿½ï¿½
+		//TODO ‘‚­
 		//int tmp = LoadDivGraph("Data/Image/.png", 8, 8, 1, 32, 32, images);
-		//assert(tmp != -1 && "Junkoï¿½æ‘œï¿½Ç‚İï¿½ï¿½İƒGï¿½ï¿½ï¿½[");
+		//assert(tmp != -1 && "Junko‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 	}
 	imgLoad = true;
 }
@@ -170,7 +160,7 @@ void Junko::attack(const StageChild* _stage)
 }
 
 //==============================================
-//Shot_aroundï¿½Nï¿½ï¿½ï¿½X
+//Shot_aroundƒNƒ‰ƒX
 //==============================================
 Junko::Shot_around::Shot_around(const Vector2* _pos, EnemyChild* _parent)
 {
@@ -293,7 +283,7 @@ void Junko::Shot_around::checkActive(const Vector2* _camera)
 
 
 //==============================================
-//Shot_cycleï¿½Nï¿½ï¿½ï¿½X
+//Shot_cycleƒNƒ‰ƒX
 //==============================================
 Junko::Shot_cycle::Shot_cycle(const Vector2* _pos, EnemyChild* _parent)
 {
