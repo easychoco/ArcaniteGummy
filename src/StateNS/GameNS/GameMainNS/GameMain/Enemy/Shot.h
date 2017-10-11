@@ -29,6 +29,7 @@ public:
 		assert(0 <= type && type < 6 && "Shot::setImage images out of range.");
 		mImage = images[type]; 
 	}
+	bool direction;
 
 
 protected:

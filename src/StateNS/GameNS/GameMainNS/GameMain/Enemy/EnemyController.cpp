@@ -71,11 +71,6 @@ void EnemyController::draw(const Vector2* _camera) const
 	{
 		enemy->draw(_camera);
 	}
-	
-	//for Debug
-	DrawFormatString(20,  60, BLACK, "time : %d", time % 300);
-	DrawFormatString(20,  80, BLACK, "size : %d", enemies.size());
-	DrawFormatString(20, 100, BLACK, "capa : %d", enemies.capacity());
 }
 
 //Ž©‹@‚Æ“G‚Ì–{‘Ì“¯Žm‚ÌÕ“Ë”»’è
@@ -129,9 +124,10 @@ void EnemyController::addEnemy(AllEnemies _enemy, const Vector2* _player, int _x
 	case ENE_MARI: ene_tmp = new Mariri(_x, _y); break;
 	case BOSS_REISEN: ene_tmp = new Reisen(_x, _y); break;
 	case BOSS_JUNKO: ene_tmp = new Junko(_x, _y); break;
+	case BOSS_NUE: ene_tmp = new Nue_Boss(_x, _y); break;
 	case BOSS_FRAN: ene_tmp = new Fran(_x, _y); break;
 
-	default: assert(!"•s–¾‚È“G‚Å‚·.");
+	default: assert(!"EnemyController: •s–¾‚È“G‚Å‚·.");
 	}
 	
 	if(_player != &Vector2::ZERO)ene_tmp->setPlayer(_player);

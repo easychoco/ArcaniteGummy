@@ -35,11 +35,8 @@ void Fran::initialize()
 
 void Fran::initialize_attacks()
 {
-
-	stars.reserve(maxStarBowNum);
-	waves.reserve(maxWave495Num);
-
 	//*
+	stars.reserve(maxStarBowNum);
 	for (auto i = 0; i < maxStarBowNum; i++)
 	{
 		auto sb_tmp = new StarBow(player, this);
@@ -50,6 +47,7 @@ void Fran::initialize_attacks()
 	//*/
 
 	//*
+	waves.reserve(maxWave495Num);
 	for (auto i = 0; i < maxWave495Num; i++)
 	{
 		auto wave_tmp = new Wave495(player, this);
@@ -76,7 +74,6 @@ void Fran::initialize_attacks()
 void Fran::update(const StageChild* _stage, const Vector2* _camera)
 {
 	if (!init_attacks)initialize_attacks();
-
 
 	
 	++mTime;
@@ -123,19 +120,6 @@ void Fran::draw_other(const Vector2* _camera) const
 
 		if (focus->isActive())focus->draw(_camera);
 	}
-
-	//for Debug
-	int draw_x = 320 + p->x() - _camera->x();
-	int draw_y = 240 + p->y() - _camera->y();
-
-	//•`‰æ
-	//DrawString(draw_x - 16, draw_y - 32, "ƒtƒ‰ƒ“", BLUE);
-
-	//for Debug
-	//DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
-
-
-
 }
 
 void Fran::loadImage()

@@ -19,6 +19,8 @@ Attack(parent, _x, _y, 10, 10)
 	this->dy = (int)(_speed * sin(angle));
 	this->damageValue = _damage;
 
+	this->direction = false;
+
 	loadImage();
 
 	initialize();
@@ -56,7 +58,7 @@ void Shot::draw(const Vector2* _camera) const
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
 
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, direction);
 }
 
 void Shot::setStatus_2args(Vector2 pos, int _angle, int _speed)

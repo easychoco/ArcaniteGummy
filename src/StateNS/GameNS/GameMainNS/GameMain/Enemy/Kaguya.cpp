@@ -1,4 +1,4 @@
-#include "Junko.h"
+#include "Kaguya.h"
 #include "Shot.h"
 
 
@@ -8,12 +8,12 @@ namespace GameNS {
 namespace GameMainNS{
 
 	
-bool Junko::imgLoad = false;
-int Junko::images[8];
+bool Kaguya::imgLoad = false;
+int Kaguya::images[8];
 
 
 	
-Junko::Junko(int _x, int _y) : 
+Kaguya::Kaguya(int _x, int _y) : 
 EnemyChild(1000, _x, _y, 32, 32, false, true)
 {
 	loadImage();
@@ -21,18 +21,18 @@ EnemyChild(1000, _x, _y, 32, 32, false, true)
 	initialize();
 }
 
-Junko::~Junko()
+Kaguya::~Kaguya()
 {
 	//DeleteGraph(mImage2);
 }
 
-void Junko::initialize()
+void Kaguya::initialize()
 {
 	this->mTime = 0;
 	this->init_attacks = false;
 }
 
-void Junko::update(const StageChild* _stage, const Vector2* _camera)
+void Kaguya::update(const StageChild* _stage, const Vector2* _camera)
 {
 	if (!init_attacks)
 	{
@@ -92,29 +92,29 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 	standardAction(_stage);
 }
 
-void Junko::draw(const Vector2* _camera) const
+void Kaguya::draw(const Vector2* _camera) const
 {
-	//ï¿½ï¿½Ê“ï¿½É‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½return
+	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
 	//if (!mIsAlive)return;
 
 
-	//ï¿½ï¿½Ê“ï¿½É‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½return
+	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
 	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
 
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
 
-	//ï¿½`ï¿½ï¿½
+	//•`‰æ
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
 	draw_other(_camera);
 }
 
-void Junko::move(const StageChild* _stage, int& _dx, int& _dy)
+void Kaguya::move(const StageChild* _stage, int& _dx, int& _dy)
 {
 
 }
 
-void Junko::draw_other(const Vector2* _camera) const
+void Kaguya::draw_other(const Vector2* _camera) const
 {
 	/*
 	for (auto& a : attacks)
@@ -136,8 +136,8 @@ void Junko::draw_other(const Vector2* _camera) const
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
 
-	//ï¿½`ï¿½ï¿½
-	DrawString(draw_x - 16, draw_y - 32, "ï¿½ï¿½ï¿½ï¿½", BLUE);
+	//•`‰æ
+	DrawString(draw_x - 16, draw_y - 32, "ƒŒÏ", BLUE);
 
 	//for Debug
 	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
@@ -145,40 +145,40 @@ void Junko::draw_other(const Vector2* _camera) const
 
 
 //==============================================
-//ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½xï¿½[ï¿½gï¿½Öï¿½
+//“à•”ƒvƒ‰ƒCƒx[ƒgŠÖ”
 //==============================================
-void Junko::loadImage()
+void Kaguya::loadImage()
 {
 	if (!imgLoad)
 	{
-		//TODO ï¿½ï¿½ï¿½ï¿½
+		//TODO ‘‚­
 		//int tmp = LoadDivGraph("Data/Image/.png", 8, 8, 1, 32, 32, images);
-		//assert(tmp != -1 && "Junkoï¿½æ‘œï¿½Ç‚Ýï¿½ï¿½ÝƒGï¿½ï¿½ï¿½[");
+		//assert(tmp != -1 && "Kaguya‰æ‘œ“Ç‚Ýž‚ÝƒGƒ‰[");
 	}
 	imgLoad = true;
 }
 
 
-void Junko::hittedAction()
+void Kaguya::hittedAction()
 {
 
 }
 
-void Junko::attack(const StageChild* _stage)
+void Kaguya::attack(const StageChild* _stage)
 {
 	
 }
 
 //==============================================
-//Shot_aroundï¿½Nï¿½ï¿½ï¿½X
+//Shot_aroundƒNƒ‰ƒX
 //==============================================
-Junko::Shot_around::Shot_around(const Vector2* _pos, EnemyChild* _parent)
+Kaguya::Shot_around::Shot_around(const Vector2* _pos, EnemyChild* _parent)
 {
 	parent = _parent;
 	initialize(_pos);
 }
 
-Junko::Shot_around::~Shot_around()
+Kaguya::Shot_around::~Shot_around()
 {
 	SAFE_DELETE(shot1);
 	SAFE_DELETE(shot2);
@@ -188,7 +188,7 @@ Junko::Shot_around::~Shot_around()
 	SAFE_DELETE(shot6);
 }
 
-void Junko::Shot_around::initialize(const Vector2* _pos)
+void Kaguya::Shot_around::initialize(const Vector2* _pos)
 {
 	time = 0;
 	this->mIsActive = false;
@@ -215,7 +215,7 @@ void Junko::Shot_around::initialize(const Vector2* _pos)
 	shot6->isActive = false;
 }
 
-void Junko::Shot_around::update()
+void Kaguya::Shot_around::update()
 {
 	time++;
 	if (time == 60)
@@ -238,7 +238,7 @@ void Junko::Shot_around::update()
 	}
 }
 
-void Junko::Shot_around::draw(const Vector2* _camera) const
+void Kaguya::Shot_around::draw(const Vector2* _camera) const
 {
 	shot1->draw(_camera);
 	shot2->draw(_camera);
@@ -248,7 +248,7 @@ void Junko::Shot_around::draw(const Vector2* _camera) const
 	shot6->draw(_camera);
 }
 
-void Junko::Shot_around::addAttacks(vector<Attack*>& _attacks)
+void Kaguya::Shot_around::addAttacks(vector<Attack*>& _attacks)
 {
 	_attacks.push_back(shot1);
 	_attacks.push_back(shot2);
@@ -258,7 +258,7 @@ void Junko::Shot_around::addAttacks(vector<Attack*>& _attacks)
 	_attacks.push_back(shot6);
 }
 
-void Junko::Shot_around::setStatus(const Vector2* _pos)
+void Kaguya::Shot_around::setStatus(const Vector2* _pos)
 {
 	time = 0;
 	shot1->setStatus_2args(Vector2(_pos->raw_x + (int)(radius * cosf_degree(  0)), _pos->raw_y + (int)(radius * sinf_degree(  0)), true), 0, 0);
@@ -269,7 +269,7 @@ void Junko::Shot_around::setStatus(const Vector2* _pos)
 	shot6->setStatus_2args(Vector2(_pos->raw_x + (int)(radius * cosf_degree(300)), _pos->raw_y + (int)(radius * sinf_degree(300)), true), 0, 0);
 }
 
-void Junko::Shot_around::setActive(bool _isActive)
+void Kaguya::Shot_around::setActive(bool _isActive)
 {
 	this->mIsActive = _isActive;
 
@@ -281,7 +281,7 @@ void Junko::Shot_around::setActive(bool _isActive)
 	shot6->isActive = _isActive;
 }
 
-void Junko::Shot_around::checkActive(const Vector2* _camera)
+void Kaguya::Shot_around::checkActive(const Vector2* _camera)
 {
 	shot1->checkActive(_camera);
 	shot2->checkActive(_camera);
@@ -293,15 +293,15 @@ void Junko::Shot_around::checkActive(const Vector2* _camera)
 
 
 //==============================================
-//Shot_cycleï¿½Nï¿½ï¿½ï¿½X
+//Shot_cycleƒNƒ‰ƒX
 //==============================================
-Junko::Shot_cycle::Shot_cycle(const Vector2* _pos, EnemyChild* _parent)
+Kaguya::Shot_cycle::Shot_cycle(const Vector2* _pos, EnemyChild* _parent)
 {
 	parent = _parent;
 	initialize(_pos);
 }
 
-Junko::Shot_cycle::~Shot_cycle()
+Kaguya::Shot_cycle::~Shot_cycle()
 {
 	SAFE_DELETE(shot1);
 	SAFE_DELETE(shot2);
@@ -311,7 +311,7 @@ Junko::Shot_cycle::~Shot_cycle()
 	SAFE_DELETE(shot6);
 }
 
-void Junko::Shot_cycle::initialize(const Vector2* _pos)
+void Kaguya::Shot_cycle::initialize(const Vector2* _pos)
 {
 	this->time = 0;
 	this->angle = 0.0f;
@@ -330,7 +330,7 @@ void Junko::Shot_cycle::initialize(const Vector2* _pos)
 	shot3->setImage(1);
 	shot4->setImage(1);
 	shot5->setImage(1);
-	//shot6->loadImage("Data/Image/Junko_attack2.png");
+	//shot6->loadImage("Data/Image/Kaguya_attack2.png");
 
 	shot1->isActive = false;
 	shot2->isActive = false;
@@ -340,7 +340,7 @@ void Junko::Shot_cycle::initialize(const Vector2* _pos)
 	//shot6->isActive = false;
 }
 
-void Junko::Shot_cycle::update()
+void Kaguya::Shot_cycle::update()
 {
 	if (time > 240)
 	{
@@ -369,7 +369,7 @@ void Junko::Shot_cycle::update()
 	*/
 }
 
-void Junko::Shot_cycle::draw(const Vector2* _camera) const
+void Kaguya::Shot_cycle::draw(const Vector2* _camera) const
 {
 	shot1->draw(_camera);
 	shot2->draw(_camera);
@@ -379,7 +379,7 @@ void Junko::Shot_cycle::draw(const Vector2* _camera) const
 	//shot6->draw(_camera);
 }
 
-void Junko::Shot_cycle::addAttacks(vector<Attack*>& _attacks)
+void Kaguya::Shot_cycle::addAttacks(vector<Attack*>& _attacks)
 {
 	_attacks.push_back(shot1);
 	_attacks.push_back(shot2);
@@ -389,7 +389,7 @@ void Junko::Shot_cycle::addAttacks(vector<Attack*>& _attacks)
 	//_attacks.push_back(shot6);
 }
 
-void Junko::Shot_cycle::setStatus(const Vector2* _pos)
+void Kaguya::Shot_cycle::setStatus(const Vector2* _pos)
 {
 	time = 0;
 	radius = first_radius;
@@ -403,7 +403,7 @@ void Junko::Shot_cycle::setStatus(const Vector2* _pos)
 	//shot6->setStatus_2args(Vector2(_pos->raw_x + (int)(radius * cosf_degree(330)), _pos->raw_y + (int)(radius * sinf_degree(330)), true), 0, 0);
 }
 
-void Junko::Shot_cycle::setActive(bool _isActive)
+void Kaguya::Shot_cycle::setActive(bool _isActive)
 {
 	this->mIsActive = _isActive;
 
@@ -415,7 +415,7 @@ void Junko::Shot_cycle::setActive(bool _isActive)
 	//shot6->isActive = _isActive;
 }
 
-void Junko::Shot_cycle::checkActive(const Vector2* _camera)
+void Kaguya::Shot_cycle::checkActive(const Vector2* _camera)
 {
 	shot1->checkActive(_camera);
 	shot2->checkActive(_camera);
