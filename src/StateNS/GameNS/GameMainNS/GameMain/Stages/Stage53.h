@@ -22,6 +22,22 @@ private:
 
 	Kaguya* kaguya;
 
+	AllEnemies itoE(int num)
+	{
+		num = max(0, min(5, num));
+		switch (num)
+		{
+			//地上
+		case(0):return ENE_YACH;
+		case(1):return ENE_PIKA;
+		case(2):return ENE_BROTH;
+		case(3):return ENE_MARI;
+		case(4):return ENE_BALL;
+		case(5):return ENE_TERESA;
+		}
+		assert(!"Stage53::itoAE: 敵コードが不正です");
+		return ENE_NONE;
+	}
 
 
 	//マップチップ

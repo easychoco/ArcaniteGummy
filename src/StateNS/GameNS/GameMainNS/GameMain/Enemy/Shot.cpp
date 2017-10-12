@@ -73,6 +73,18 @@ void Shot::setStatus_2args(Vector2 pos, int _angle, int _speed)
 	}
 }
 
+void Shot::setStatus_2args(Vector2 pos, double _angle, int _speed)
+{
+	this->isActive = true;
+	if (pos != Vector2::ZERO) *p = pos;
+
+	if (_speed != 0)
+	{
+		this->dx = (int)(_speed * cos(_angle));
+		this->dy = (int)(_speed * sin(_angle));
+	}
+}
+
 void Shot::loadImage() 
 {
 	if (!imgLoad)
