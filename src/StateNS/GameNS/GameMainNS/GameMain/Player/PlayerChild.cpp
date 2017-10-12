@@ -71,6 +71,8 @@ void PlayerChild::draw() const
 
 	//for Debug
 	DrawFormatString(20, 20, WHITE, "%d, %d", p->x(), p->y());
+
+
 }
 
 //Ž©‹@‚ª°‚Ìã‚É‚¢‚½‚ç°‚ÌyÀ•W‚ð•Ô‚· ‚¢‚È‚©‚Á‚½‚ç0‚ð•Ô‚·

@@ -18,6 +18,7 @@ public:
 	PlayerChild* update(const StageChild*);
 	virtual void draw() const override;
 
+
 private:
 	int attackTime;
 	const int attackInterval = 10;//UŒ‚‚ÌŠÔŠu

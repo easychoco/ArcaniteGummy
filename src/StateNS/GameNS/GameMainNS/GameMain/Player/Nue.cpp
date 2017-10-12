@@ -35,7 +35,7 @@ void Nue::initialize()
 	attackTime = 0;
 	attacks.push_back(new Spear(this, 0, 0, direction));
 	isUFO = false;
-	
+
 }
 
 PlayerChild* Nue::update(const StageChild* _stage)
@@ -62,12 +62,12 @@ PlayerChild* Nue::update(const StageChild* _stage)
 
 	if (Input_C() && !isUFO) {
 
-		int tmp_x = (p->raw_x / CHIP_WIDTH_RATE() + 1) * CHIP_WIDTH - CHIP_WIDTH / 2;
-		int tmp_y = (p->raw_y / CHIP_HEIGHT_RATE() + 1) * CHIP_HEIGHT - CHIP_HEIGHT / 2;
+		int tmp_x = (this->p->raw_x / CHIP_WIDTH_RATE() ) * CHIP_WIDTH + CHIP_WIDTH / 2;
+		int tmp_y = (this->p->raw_y / CHIP_HEIGHT_RATE() ) * CHIP_HEIGHT + CHIP_HEIGHT / 2;
 		ufo = new UFO(tmp_x, tmp_y);
 
 		isUFO = true;
-		this->next_dy = -32*vectorRate;
+		this->next_dy = -CHIP_HEIGHT*vectorRate;
 	}
 
 
@@ -105,6 +105,11 @@ void Nue::draw() const
 	//for Debug
 	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
 	//hpController.draw();
+	if (isUFO)DrawFormatString(50, 160, WHITE, "UFO,DX%f,%f", ufo->getDX(), ufo->getDY());
+DrawFormatString(50, 210, WHITE, "next%d,%d", next_dx, next_dy);
+if(isUFO)DrawFormatString(50, 240, WHITE, "abs%d,%d", this->p->raw_x - ufo->getVector2()->raw_x, this->p->raw_y - ufo->getVector2()->raw_y);
+
+
 }
 
 //==============================================
@@ -127,6 +132,8 @@ void Nue::draw_other() const
 	}
 
 	if(isUFO)ufo->draw(camera);
+
+//	DrawFormatString(20, 120, WHITE, "%d,%d", this->p->raw_x,this->p->raw_y);
 
 }
 
@@ -168,24 +175,22 @@ void Nue::animation()
 void Nue::updateUFO(const StageChild* _stage)
 {
 	ufo->update(_stage);
-
 	//UFO‚Ìã‚Éæ‚éˆ—
 	if (
-		abs(this->p->raw_y - ufo->getVector2()->raw_y) <= CHIP_HEIGHT_RATE() * 3 / 2 &&
-		abs(this->p->raw_x - ufo->getVector2()->raw_x) <= CHIP_WIDTH_RATE() * 3 / 2
+		abs(this->p->raw_y - ufo->getVector2()->raw_y) < CHIP_HEIGHT_RATE()  *3/2&&
+		abs(this->p->raw_x - ufo->getVector2()->raw_x) < CHIP_WIDTH_RATE() * 3 / 2
 		)
 	{
-		//this->warpCharacter(ufo->getVector2()->x(), ufo->getVector2()->y() - 48);
-		nowJumpCount = 0;
+		warpCharacter(ufo->getVector2()->raw_x, ufo->getVector2()->raw_y - 48*vectorRate);
+//		nowJumpCount = 0;
+
 	}
 
 	///////////////////ƒMƒ~ƒbƒN‚Æ“¯‚¶///////////////
 
-	if (ufo->onActiveArea(this->getVector2()))
-		ufo->apply(this);
+	if (ufo->onActiveArea(this->p))ufo->apply(this);
 
-	if (ufo->rideOnGimmick(this->getVector2()))
-		this->moveCharacter(ufo->getDX(), ufo->getDY());
+	if (ufo->rideOnGimmick(this->p))moveCharacter(ufo->getDX(), ufo->getDY());
 
 	/////////////////////‚±‚±‚Ü‚Å///////////////////
 
@@ -283,7 +288,7 @@ void Nue::UFO::initialize()
 	mTime = 0;
 	isActive = true;
 	isMove = false;
-	dy = 0;
+	//dy = 0;
 }
 
 void Nue::UFO::update(const StageChild* _stage)
@@ -301,7 +306,7 @@ void Nue::UFO::draw(const Vector2* _camera) const
 {
 	if (mTime > 150 && mTime / 10 % 2)return;
 
-	DrawFormatString(20, 80, BLACK, "%d, %d", this->p->raw_x, this->p->raw_y);
+
 	standardDraw(_camera, mImage, mDirection);
 
 

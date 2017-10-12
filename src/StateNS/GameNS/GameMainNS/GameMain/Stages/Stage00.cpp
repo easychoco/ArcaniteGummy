@@ -48,7 +48,7 @@ void Stage00::initialize()
 	maps[0]->addEnemy(AllEnemies::ENE_USA, 400, 1520);
 	*/
 
-	maps[0]->addEnemy(AllEnemies::BOSS_NUE, 400, 1334);
+	//maps[0]->addEnemy(AllEnemies::BOSS_NUE, 400, 1334);
 
 
 
