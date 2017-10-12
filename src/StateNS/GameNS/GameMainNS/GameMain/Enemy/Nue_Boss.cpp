@@ -400,7 +400,7 @@ void Nue_Boss::Bombing::checkOnGround(const StageChild* _stage)
 }
 
 //==============================================
-//Bombingクラス
+//FireFlowerクラス
 //==============================================
 Nue_Boss::FireFlower::FireFlower(EnemyChild* _parent)
 {

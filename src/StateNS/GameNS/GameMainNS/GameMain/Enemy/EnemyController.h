@@ -30,11 +30,13 @@ public:
 	void deleteEnemy(int ID);
 	void setPlayerPos(const Vector2* player);
 
+	void minimize_enemies();
+
 private:
 	int time;
 	vector<EnemyChild*> enemies;
 
-	void minimize_enemies();
+
 
 	template<typename T>
 	void remove(std::vector<T>& vector, unsigned int index)

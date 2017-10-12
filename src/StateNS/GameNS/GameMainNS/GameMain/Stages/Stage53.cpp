@@ -4,6 +4,8 @@
 #include "..\Gimmick\ClearFlag.h"
 
 #include "..\Enemy\Kaguya.h"
+#include "..\Enemy\EnemyController.h"
+#include "..\Player\PlayerChild.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -35,9 +37,11 @@ void Stage53::initialize()
 
 	flag = new ClearFlag(Vector2(2384, 1360));
 
-
+	//‹P–éİ’è
 	kaguya = new Kaguya(800, 1536);
 	maps[2]->addEnemy(kaguya);
+
+
 
 	now_stage_num = 2;
 	startX = 600, startY = 1536;
@@ -51,8 +55,45 @@ void Stage53::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
 
-	//gameMain->setFilter(FilterType::FILTER_DARK);
-	//if (torches[0]->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+	//ˆÃˆÅ‚É‚·‚é
+	if (kaguya->makeDark())
+	{
+		gameMain->setFilter(FilterType::FILTER_DARK);
+	}
+	else
+	{
+		gameMain->setFilter(FilterType::FILTER_NONE);
+	}
+
+	//‹P–é‚ª“G‚ğ¶¬‚·‚é
+	if (kaguya->makeEnemy())
+	{
+		kaguya->setMuteki(true);
+		for (int i = 0; i < kaguya->maxCreateEnemyNum; i++)
+		{
+			int ene_num = GetRand(5);
+
+			//’nã‚Ì“G
+			if (ene_num <= 3)
+			{
+				maps[2]->addEnemy(itoE(ene_num), _player->getVector2(), kaguya->getVector2()->x(), kaguya->getVector2()->y() + 16);
+			}
+			else
+			{
+				maps[2]->addEnemy(itoE(ene_num), _player->getVector2(), kaguya->getVector2()->x(), kaguya->getVector2()->y() - 100);
+			}
+		}
+	}
+	auto enes = maps[2]->getEController()->getEnemies();
+
+	//‹P–éˆÈŠO‚É“G‚ª‚¢‚é‚È‚ç
+	if (maps[2]->getEController()->getEnemies().size() != 1)
+	{
+		maps[2]->getEController()->minimize_enemies();
+
+		//ƒTƒCƒY‚ª1‚É‚È‚Á‚Ä‚¢‚½‚ç
+		if(maps[2]->getEController()->getEnemies().size() == 1)kaguya->setMuteki(false);
+	}
 }
 
 void Stage53::draw(const Vector2* _camera) const
@@ -62,7 +103,7 @@ void Stage53::draw(const Vector2* _camera) const
 
 bool Stage53::isClear() const
 {
-	return !flag->isActive;
+	return !kaguya->isAlive();
 }
 
 
