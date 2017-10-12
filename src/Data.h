@@ -104,6 +104,7 @@ const unsigned RED = GetColor(255, 0, 0);
 const unsigned GREEN = GetColor(0, 255, 0);
 const unsigned BLUE = GetColor(0, 0, 255);
 const unsigned PURPLE = GetColor(255, 0, 255);
+const unsigned YELLOW = GetColor(255, 255, 0);
 
 //‚·‚×‚Ä‚Ì“G
 enum AllEnemies

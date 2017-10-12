@@ -302,6 +302,11 @@ ChipType Map::getChipType(const RawVector2& _other, bool _isPlayer) const
 	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
 }
 
+void Map::addEnemy(EnemyChild* _enemy)
+{
+	this->mEController->addEnemy(_enemy);
+}
+
 void Map::addEnemy(AllEnemies _enemy, int _x, int _y)
 {
 	this->mEController->addEnemy(_enemy, &Vector2::ZERO, _x, _y);

@@ -30,7 +30,7 @@ void Stage00::initialize()
 	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(0, 0, MapPos::POS_RIGHT_FREE));
 	this->maps.push_back(new Map(0, 1, MapPos::POS_LEFT_FREE));
-
+	
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;
 	this->changeableCharacter |= CHARA_SAKUYA;

@@ -6,7 +6,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-class Torch;
+class Kaguya;
 
 class Stage53 : public StageChild
 {
@@ -20,7 +20,9 @@ public:
 private:
 	void initialize();
 
-	vector<Torch*> torches;
+	Kaguya* kaguya;
+
+
 
 	//マップチップ
 	array<Chip, 20> chip

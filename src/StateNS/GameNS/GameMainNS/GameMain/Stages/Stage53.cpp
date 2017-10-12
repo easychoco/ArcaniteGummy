@@ -3,10 +3,7 @@
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
 
-#include "..\Gimmick\DynamicGimmickChild.h"
-#include "..\Gimmick\Torch.h"
-
-#include <fstream>
+#include "..\Enemy\Kaguya.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -20,20 +17,11 @@ StageChild(3, 1) //エリアの数: よこ，たて
 
 Stage53::~Stage53()
 {
-	//torchesはMapのDynamickGimmicksと一緒にdeleteされるから，ここではdeleteしない
-	/*
-	for (auto& t : torches)
-	{
-			SAFE_DELETE(t);
-	}
-	torches.clear();
-	torches.shrink_to_fit();
-	*/
+
 }
 
 void Stage53::initialize()
 {
-
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;
 	this->changeableCharacter |= CHARA_SAKUYA;
@@ -45,12 +33,17 @@ void Stage53::initialize()
 	this->maps.push_back(new Map(43, 1, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(43, 2, MapPos::POS_LEFT_FREE));
 
-	startX = 144, startY = 1536;
+	flag = new ClearFlag(Vector2(2384, 1360));
+
+
+	kaguya = new Kaguya(800, 1536);
+	maps[2]->addEnemy(kaguya);
+
+	now_stage_num = 2;
+	startX = 600, startY = 1536;
 
 	//this->torches.push_back(new Torch(304, 1488));
 	//this->maps[0]->addGimmick(torches[0]);
-
-
 }
 
 

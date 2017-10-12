@@ -68,6 +68,9 @@ void PlayerChild::draw() const
 	//for Debug
 	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
 	//hpController.draw();
+
+	//for Debug
+	DrawFormatString(20, 20, WHITE, "%d, %d", p->x(), p->y());
 }
 
 //Ž©‹@‚ª°‚Ìã‚É‚¢‚½‚ç°‚ÌyÀ•W‚ð•Ô‚· ‚¢‚È‚©‚Á‚½‚ç0‚ð•Ô‚·

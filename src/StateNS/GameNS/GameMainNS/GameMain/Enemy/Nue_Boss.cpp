@@ -440,7 +440,7 @@ void Nue_Boss::FireFlower::update()
 	++time;
 	if (time < 60)
 	{
-		dy = -time * time;
+		dy = -5 * time * time;
 
 		p->raw_x += dx;
 		p->raw_y += dy;
@@ -477,7 +477,8 @@ void Nue_Boss::FireFlower::draw(const Vector2* _camera) const
 		int draw_x = 320 + p->x() - _camera->x();
 		int draw_y = 240 + p->y() - _camera->y();
 
-		DrawCircle(draw_x, draw_y, (time - 60) * 8, RED, false, 3);
+		DrawCircle(draw_x, draw_y, (time - 60) * 32, RED, false, 3);
+		DrawCircle(draw_x, draw_y, (time - 60) * 25, YELLOW, false, 10);
 	}
 	for (auto& b : f_bombs)if(b->isActive)b->draw(_camera);
 }

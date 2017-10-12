@@ -22,8 +22,6 @@
 #include "Fran.h"
 #include "Kaguya.h"
 
-#include "..\Player\PlayerChild.h"
-
 
 namespace StateNS {
 namespace GameNS {
@@ -85,8 +83,12 @@ void EnemyController::processCollision(PlayerChild* _player)
 		}
 		*/
 		//(_player->isHit(enemy->getAttacks()))
-
 	}
+}
+
+void EnemyController::addEnemy(EnemyChild* _enemy)
+{
+	this->enemies.push_back(_enemy);
 }
 
 void EnemyController::addEnemy(AllEnemies _enemy, const Vector2* _player, int _x, int _y)
