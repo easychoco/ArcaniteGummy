@@ -142,11 +142,14 @@ void Airmz::Bomb::update()
 	this->p->raw_x += -getHorizontalDiffer(stage, dx, dy < 0, false);
 
 	int dy_tmp = (2 * mTime / 10 - 1) * vectorRate;
-	dy_tmp = getBottomDiffer(stage, dy_tmp, dx < 0, false);
+	//dy_tmp = getBottomDiffer(stage, dy_tmp, dx < 0, false);
 
 	this->p->raw_y += dy_tmp;
 
-	if (dy_tmp == 0 && mTime > 30)this->isActive = false;
+
+	StageChild::ChipType chipType = stage->getChipType(*(this->p), true);
+	//°‚É‚Â‚¢‚½‚ç
+	if (stage->isRigid_down(chipType))this->isActive = false;
 }
 
 void Airmz::Bomb::draw(const Vector2* _camera) const

@@ -151,14 +151,16 @@ Pikachi::Thunder::~Thunder()
 void Pikachi::Thunder::update()
 {
 	mTime++;
-	int dx_tmp = getHorizontalDiffer(stage, dx, false, false);
-	int dy_tmp = dy < 0 ? getTopDiffer(stage, dy, dx < 0, false) : getBottomDiffer(stage, dy, dx < 0, false);
+//	int dx_tmp = getHorizontalDiffer(stage, dx, false, false);
+//	int dy_tmp = dy < 0 ? getTopDiffer(stage, dy, dx < 0, false) : getBottomDiffer(stage, dy, dx < 0, false);
 
 
-	this->p->raw_x += dx_tmp;
-	this->p->raw_y += dy_tmp;
+	this->p->raw_x += dx;
+	this->p->raw_y += dy;
 
-	if (dx_tmp == 0 || dy_tmp == 0)this->isActive = false;
+	StageChild::ChipType chipType = stage->getChipType(*(this->p), true);
+	//°‚É‚Â‚¢‚½‚ç
+	if (stage->isRigid_down(chipType))this->isActive = false;
 }
 
 void Pikachi::Thunder::draw(const Vector2* _camera) const
