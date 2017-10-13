@@ -11,6 +11,7 @@ namespace GameMainNS{
 
 class PlayerChild;
 class GimmickChild;
+class EnemyChild;
 class DynamicGimmickChild;
 class SwitchWithBlock;
 class EnemyController;
@@ -91,8 +92,9 @@ public:
 	//bool isClear() const;
 
 	void addGimmick(GimmickChild* _gmk) { mGimmicks.push_back(_gmk); }
-	void addDynamicGimmick(DynamicGimmickChild* _d_gmk) { mDynamicGimmicks.push_back(_d_gmk); }
+	void addDynamicGimmick(DynamicGimmickChild* _d_gmk) { mDynamicGimmicks.push_back(_d_gmk); mDynamicGimmicks.shrink_to_fit(); }
 	void addGimmick(int x, int y, int ID) { loadGimmick(x, y, ID); }
+	void addEnemy(EnemyChild*);
 	void addEnemy(AllEnemies, int x, int y);
 	void addEnemy(AllEnemies, const Vector2*, int x, int y);
 	void addSwitchWithBlock(SwitchWithBlock* s) {

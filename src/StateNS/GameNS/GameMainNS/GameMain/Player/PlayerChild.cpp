@@ -68,6 +68,11 @@ void PlayerChild::draw() const
 	//for Debug
 	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
 	//hpController.draw();
+
+	//for Debug
+	DrawFormatString(20, 20, WHITE, "%d, %d", p->x(), p->y());
+
+
 }
 
 //自機が床の上にいたら床のy座標を返す いなかったら0を返す
@@ -262,10 +267,17 @@ void PlayerChild::move(const StageChild* _stage)
 
 	p->raw_x += dx;
 
+	//for Debug
+	if (CheckHitKey(KEY_INPUT_W))
+	{
+		int gomi = 0;
+	}
 
 	//dyの計算と反映
 	dy = dy < 0 ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0);
 	
+
+
 	//天井に当たったら
 	if (abs(dy) <= 1000)jumpPower = 0;
 

@@ -22,8 +22,6 @@
 #include "Fran.h"
 #include "Kaguya.h"
 
-#include "..\Player\PlayerChild.h"
-
 
 namespace StateNS {
 namespace GameNS {
@@ -71,6 +69,9 @@ void EnemyController::draw(const Vector2* _camera) const
 	{
 		enemy->draw(_camera);
 	}
+
+	//for Debug
+	DrawFormatString(20, 50, WHITE, "%d", enemies.size());
 }
 
 //自機と敵の本体同士の衝突判定
@@ -85,8 +86,12 @@ void EnemyController::processCollision(PlayerChild* _player)
 		}
 		*/
 		//(_player->isHit(enemy->getAttacks()))
-
 	}
+}
+
+void EnemyController::addEnemy(EnemyChild* _enemy)
+{
+	this->enemies.push_back(_enemy);
 }
 
 void EnemyController::addEnemy(AllEnemies _enemy, const Vector2* _player, int _x, int _y)
@@ -149,10 +154,6 @@ void EnemyController::setPlayerPos(const Vector2* player)
 	}
 }
 
-
-//=================================
-//内部private関数
-//=================================
 void EnemyController::minimize_enemies()
 {
 	//isAliveがfalseになっている敵のインデックスをstackに記憶

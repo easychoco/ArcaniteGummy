@@ -117,6 +117,12 @@ void StageChild::processDynamcCollision(PlayerChild* _player)
 	maps[now_stage_num]->processDynamicCollision(_player);
 }
 
+void StageChild::addDynamicGimmickToAllMaps(DynamicGimmickChild* _d_gmk)
+{
+	for (auto& map : maps)
+		map->addDynamicGimmick(_d_gmk);
+}
+
 //========================================================================
 // ì‡ïîprotectedä÷êî
 //========================================================================

@@ -412,10 +412,7 @@ void Fran::Wave495::draw(const Vector2* _camera) const
 		int draw_x = 320 + center_pos.raw_x - _camera->x();
 		int draw_y = 240 + center_pos.raw_y - _camera->y();
 
-		for (int i = 0; i < 6; i++)
-		{
-			DrawCircle(draw_x, draw_y, (10 - time) * 5, PURPLE, false);
-		}
+		DrawCircle(draw_x, draw_y, (10 - time) * 5, PURPLE, false);
 	}
 }
 

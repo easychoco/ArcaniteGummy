@@ -23,27 +23,31 @@ public:
 
 	//第1引数にVector2::ZEROが来ると位置は更新されない angleは度数法
 	void setStatus_2args(Vector2, int angle, int speed) override;
+	void setStatus_2args(Vector2, double angle, int speed);
 	void hittedAction() override {}
 	void setImage(int type)
 	{
-		assert(0 <= type && type < 6 && "Shot::setImage images out of range.");
+		assert(0 <= type && type < 7 && "Shot::setImage images out of range.");
 		mImage = images[type]; 
 	}
+
+
 	bool direction;
+
+	int dx;
+	int dy;
 
 
 protected:
 
 	float angle;
-	int dx;
-	int dy;
 	int time;
 
 	void initialize();
 
 private:
 	static bool imgLoad;
-	static int images[6];
+	static int images[7];
 	void loadImage();
 
 };

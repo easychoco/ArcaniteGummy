@@ -278,7 +278,6 @@ ChipType Map::getChipType(const Vector2& _other, bool colliWithGimmick) const
 	{
 		if (gimmick->isActive)
 		{
-			//if (gimmick->isOverlap(sub_x, sub_y))
 			if (gimmick->isOverlap(&_other))
 			{
 				ChipType tmp = gimmick->getChipType();
@@ -300,6 +299,11 @@ ChipType Map::getChipType(const Vector2& _other) const
 ChipType Map::getChipType(const RawVector2& _other, bool _isPlayer) const
 {
 	return getChipType(Vector2(_other.pos_x, _other.pos_y), _isPlayer);
+}
+
+void Map::addEnemy(EnemyChild* _enemy)
+{
+	this->mEController->addEnemy(_enemy);
 }
 
 void Map::addEnemy(AllEnemies _enemy, int _x, int _y)

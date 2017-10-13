@@ -104,23 +104,30 @@ const unsigned RED = GetColor(255, 0, 0);
 const unsigned GREEN = GetColor(0, 255, 0);
 const unsigned BLUE = GetColor(0, 0, 255);
 const unsigned PURPLE = GetColor(255, 0, 255);
+const unsigned YELLOW = GetColor(255, 255, 0);
 
 //Ç∑Ç◊ÇƒÇÃìG
 enum AllEnemies
 {
-	ENE_USA,
-	ENE_BALL,
-	ENE_YACH,
-	ENE_PIKA,
-	ENE_POPPY,
-	ENE_RARA,
-	ENE_BROTH,
-	ENE_KARON,
-	ENE_AIRMZ,
-	ENE_TERESA,
-	ENE_ICE,
-	ENE_MARI,
+	//ínè„
+	ENE_USA		= 0,
+	ENE_YACH	= 1,
+	ENE_PIKA	= 2,
+	ENE_BROTH	= 3,
+	ENE_MARI	= 4,
 
+	//ãÛíÜ
+	ENE_BALL	= 5,
+	ENE_POPPY	= 6,
+	ENE_AIRMZ	= 7,
+	ENE_TERESA	= 8,
+
+	//éÄÇ»Ç»Ç¢
+	ENE_KARON,
+	ENE_RARA,
+	ENE_ICE,
+
+	//É{ÉX
 	BOSS_REISEN,
 	BOSS_NUE,
 	BOSS_JUNKO,
