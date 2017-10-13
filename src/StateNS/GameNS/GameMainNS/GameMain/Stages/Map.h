@@ -164,7 +164,7 @@ private:
 	};
 
 	//マップチップ
-	array<Chip, 20> chip
+	array<Chip, 37> chip
 	{
 		Chip(ChipType::TYPE_BACK),
 		Chip(ChipType::TYPE_RIGID),
@@ -182,10 +182,29 @@ private:
 		Chip(ChipType::TYPE_LESAL),
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
+
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIDE),
+		Chip(ChipType::TYPE_DOWN_SLANT_RIGHT),
+		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
+		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
+		Chip(ChipType::TYPE_UP_SLANT_LEFT),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_DOWN_SLANT_RIGHT),
+		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
+		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
+		Chip(ChipType::TYPE_UP_SLANT_LEFT),
 	};
 
 };

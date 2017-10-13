@@ -20,13 +20,13 @@ private:
 	void initialize();
 
 	//マップチップ
-	array<Chip, 20> chip
+	array<Chip, 30> chip
 	{
 		Chip(ChipType::TYPE_BACK),
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
-		Chip(ChipType::TYPE_RIDE),
-		Chip(ChipType::TYPE_DOWN_SLANT_RIGHT),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
 		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
 		Chip(ChipType::TYPE_UP_SLANT_LEFT),
@@ -42,6 +42,16 @@ private:
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
 		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIDE),
+		Chip(ChipType::TYPE_DOWN_SLANT_RIGHT),
+		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
+		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
+		Chip(ChipType::TYPE_UP_SLANT_LEFT),
 	};
 
 
