@@ -37,12 +37,11 @@ void Stage52::initialize()
 	this->maps.push_back(new Map(52, 4, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(52, 5, MapPos::POS_RIGHT_DOWN));
 
-
 	flag = new ClearFlag(Vector2(97 * 32 + 16, 6 * 32 + 16));
 	maps[0]->addGimmick(flag);
 	now_stage_num = 1;
 	startX = 144, startY = 1536;
-	
+
 	SwitchWithBlock* s = new SwitchWithBlock(91 * 32 + 16, 12 * 32 + 16, 1);
 	for (int i = 0; i < 6; i++)s->push_block(new Block((92 + i) * 32 + 16, 13 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[2]->addSwitchWithBlock(s);
@@ -62,7 +61,7 @@ void Stage52::initialize()
 	SwitchWithBlock* s5 = new SwitchWithBlock(58 * 32 + 16, 29 * 32 + 16, 99);
 	for (int i = 0; i < 3; i++)s5->push_block(new Block((59 + i) * 32 + 16, 29 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
 	maps[3]->addSwitchWithBlock(s5);
-
+	
 	SwitchWithBlock* s6 = new SwitchWithBlock(80 * 32 + 16, 28 * 32 + 16, 99);
 	for (int i = 0; i < 4; i++)s6->push_block(new Block(77 * 32 + 16, (28 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[3]->addSwitchWithBlock(s6);
@@ -72,6 +71,7 @@ void Stage52::initialize()
 	SwitchWithBlock* s8 = new SwitchWithBlock(92 * 32 + 16, 31 * 32 + 16, 99);
 	for (int i = 0; i < 4; i++)s8->push_block(new Block(87 * 32 + 16, (28 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[3]->addSwitchWithBlock(s8);
+
 	//for Debug
 	/*
 	maps[0]->addEnemy(AllEnemies::BOSS_REISEN, 640, 1392);
