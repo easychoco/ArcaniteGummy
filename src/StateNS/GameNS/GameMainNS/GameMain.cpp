@@ -138,7 +138,7 @@ Child* GameMain::update(GameParent* _parent)
 
 
 	//for Debug
-	mPlayer->hpController.recover(1);
+	if (Input_W())mPlayer->hpController.recover(1);
 	//if (Input_D())_parent->moveTo(_parent->SEQ_OVER);
 
 	//ƒNƒŠƒA
