@@ -56,6 +56,10 @@ protected:
 	bool in_up;
 	bool in_down;
 	bool in_jump;
+
+	//今いる位置関係
+	bool onGround;
+	bool onLadder;
 	
 	//攻撃のvector
 	vector<Attack*> attacks;
@@ -121,10 +125,6 @@ private:
 	//キャラクター切り換え関連
 	bool isCharaChange;
 	void changeCharacter(const StageChild*);
-
-	//今いる位置関係
-	bool onGround;
-	bool onLadder;
 
 	//その他
 	void initialize();

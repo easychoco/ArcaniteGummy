@@ -37,7 +37,7 @@ void PlayerChild::initialize()
 {
 	this->moveSpeed = maxMoveSpeed;
 	this->jumpPower = 0.0f;
-	this->nowJumpCount = 0;
+	this->nowJumpCount = maxJumpCount;
 	this->prePush = false;
 	this->direction = false;
 	this->animationTime = 0;
@@ -105,7 +105,6 @@ void PlayerChild::standardAction(const StageChild* _stage)
 		in_left  = Input_LEFT();
 		in_up    = Input_UP();
 		in_down  = Input_DOWN();
-		in_jump  = Input_JUMP();
 	}
 	else
 	{
@@ -113,8 +112,8 @@ void PlayerChild::standardAction(const StageChild* _stage)
 		in_left  = false;
 		in_up    = false;
 		in_down  = false;
-		in_jump  = false;
 	}
+	in_jump = Input_JUMP();
 
 	actCheck();
 	animation();

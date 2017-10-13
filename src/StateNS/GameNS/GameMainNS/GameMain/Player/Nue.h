@@ -94,9 +94,8 @@ private:
 		void move();
 	};
 
-
-	bool isUFO;
 	static UFO* ufo;
+	bool createdUFO;
 };
 
 

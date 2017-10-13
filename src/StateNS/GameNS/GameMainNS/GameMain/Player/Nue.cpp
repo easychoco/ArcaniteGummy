@@ -41,7 +41,7 @@ void Nue::initialize()
 
 	if(ufo == nullptr)ufo = new UFO();
 	ufo->isActive = false;
-
+	createdUFO = false;
 }
 
 PlayerChild* Nue::update(const StageChild* _stage)
@@ -66,14 +66,18 @@ PlayerChild* Nue::update(const StageChild* _stage)
 	
 
 
-	if (Input_C() && !ufo->isActive) {
-
+	if (Input_C() && !createdUFO && !ufo->isActive) 
+	{
+		createdUFO = true;
 		int tmp_x = (this->p->raw_x / CHIP_WIDTH_RATE() ) * CHIP_WIDTH + CHIP_WIDTH / 2;
 		int tmp_y = (this->p->raw_y / CHIP_HEIGHT_RATE() ) * CHIP_HEIGHT + CHIP_HEIGHT / 2;
 		ufo->setStatus(tmp_x * vectorRate, tmp_y * vectorRate);
 
 		this->next_dy = -CHIP_HEIGHT*vectorRate;
 	}
+
+	//’n–Ê‚É‚¢‚é‚ÆUFO‚ðÄ¢Š«‚Å‚«‚é
+	if (onGround && !ufo->isActive)createdUFO = false;
 
 
 
@@ -111,13 +115,6 @@ void Nue::draw() const
 	//for Debug
 	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
 	//hpController.draw();
-	
-	//for Debug
-	if (isUFO)DrawFormatString(50, 160, WHITE, "UFO,DX%f,%f", ufo->getDX(), ufo->getDY());
-	DrawFormatString(50, 210, WHITE, "next%d,%d", next_dx, next_dy);
-	if(isUFO)DrawFormatString(50, 240, WHITE, "abs%d,%d", this->p->raw_x - ufo->getVector2()->raw_x, this->p->raw_y - ufo->getVector2()->raw_y);
-
-
 }
 
 //==============================================
@@ -127,9 +124,6 @@ void Nue::attack()
 {
 	if(!attacks[0]->isActive)
 		attacks[0]->setStatus(*p, this->direction);
-	//if (attackTime > 10)attacks[1]->setStatus(Vector2(this->p->raw_x + new_pos * 2, this->p->raw_y, true), this->direction);
-	//if (attackTime > 20)attacks[2]->setStatus(Vector2(this->p->raw_x + new_pos * 3, this->p->raw_y, true), this->direction);
-
 }
 
 void Nue::draw_other() const
@@ -139,7 +133,7 @@ void Nue::draw_other() const
 		if (a->isActive)a->draw(camera);
 	}
 
-	if(isUFO)ufo->draw(camera);
+	if(ufo->isActive)ufo->draw(camera);
 
 //	DrawFormatString(20, 120, WHITE, "%d,%d", this->p->raw_x,this->p->raw_y);
 
@@ -233,13 +227,15 @@ void Nue::Spear::update()
 	if (mTime > 40)isActive = false;
 	int d = 60 - 3 * abs(mTime - 20);
 
-	if (Input_UP()) {
+	if (Input_UP())
+	{
 		mImage = img2;
 		this->p->raw_y = parent_p->raw_y - (d + 30) * vectorRate;
 		this->p->raw_x = parent_p->raw_x;
 
 	}
-	else {
+	else 
+	{
 		mImage = img1;
 		if (mDirection)d = -d;
 		this->p->raw_y = parent_p->raw_y;
@@ -255,7 +251,6 @@ void Nue::Spear::setStatus(Vector2 _pos, int direction)
 	mTime = 0;
 	isActive = true;
 	this->parent_p = this->parent->getVector2();
-
 }
 
 void Nue::Spear::hittedAction()
