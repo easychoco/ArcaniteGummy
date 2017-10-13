@@ -3,6 +3,8 @@
 #include "StateChild.h"
 #include "GameNS\GameChild.h"
 
+#include "..\Save.h"
+
 
 class Parent;
 

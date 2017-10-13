@@ -204,8 +204,12 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 {
 	//widthが32じゃなかったら，その分ずらして計算する必要がある
 	int extraDiffer = vectorRate * (this->width - CHIP_WIDTH) / 2;
-	if(_moveLeft)extraDiffer *= -1;
-	
+	if (_moveLeft)
+	{
+		extraDiffer += 1000;
+		extraDiffer *= -1;
+	}
+
 	//下方向
 	//チップの最下端より少し上
 	RawVector2 pos = RawVector2(p->raw_x + extraDiffer, p->raw_y + (height * vectorRate) / 2 - 2000);

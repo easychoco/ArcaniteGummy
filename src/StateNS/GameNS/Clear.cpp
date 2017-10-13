@@ -34,9 +34,19 @@ Child* Clear::update(StateNS::Parent* _parent)
 	{
 		_parent->moveTo(_parent->NextSequence::SEQ_TITLE);
 	}
+
+	//次のステージへ
 	if (Input_Z())
 	{
-		next = new Play(++_parent->stageNum);
+		int nextStage = _parent->stageNum;
+	
+		//クリアしたら
+		if (nextStage == 53)nextStage = 11;
+		else if (nextStage % 10 == 3)nextStage += 8;
+		else ++nextStage;
+
+		_parent->stageNum = nextStage;
+		next = new Play(nextStage);
 	}
 
 	return next;

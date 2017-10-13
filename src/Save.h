@@ -17,8 +17,8 @@ Memento
 struct Data
 {
 	int hp;//体力
-	int left;//残機
 	int clearStage;//クリア済みのステージ
+	bool isValid();
 };
 
 //Singletonで実装

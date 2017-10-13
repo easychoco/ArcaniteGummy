@@ -7,7 +7,6 @@ namespace MySave{
 SaveData::SaveData()
 {
 	hp = 100;
-	left = 1;
 	clearStage = 0;
 }
 
@@ -26,13 +25,12 @@ Data SaveData::loadData()
 
 	//if (data.inValid)assert("ƒ[ƒh¸”s");
 
-	return Data{ hp, left, clearStage };
+	return Data{ hp, clearStage };
 }
 
 void SaveData::saveData()
 {
 	int save_hp = hp * 2;
-	int save_left = hp * 2;
 	int save_clearStage = hp * 2;
 
 	//fout << save_hp << " " << save_left << " " << save_clearStage << endl;
@@ -41,7 +39,6 @@ void SaveData::saveData()
 void SaveData::setSaveData(Data _data)
 {
 	this->hp = _data.hp;
-	this->left = _data.left;
 	this->clearStage = _data.clearStage;
 }
 
