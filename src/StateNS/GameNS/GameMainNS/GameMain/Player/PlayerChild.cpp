@@ -267,11 +267,6 @@ void PlayerChild::move(const StageChild* _stage)
 
 	p->raw_x += dx;
 
-	//for Debug
-	if (CheckHitKey(KEY_INPUT_W))
-	{
-		int gomi = 0;
-	}
 
 	//dy‚ÌŒvŽZ‚Æ”½‰f
 	dy = dy < 0 ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0);

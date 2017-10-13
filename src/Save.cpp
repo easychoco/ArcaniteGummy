@@ -15,17 +15,20 @@ SaveData::~SaveData()
 
 }
 
-Data SaveData::loadData()
+void SaveData::loadData()
 {
-	/*
-	this->hp = (int)(arg[0] / 2);
-	this->left = (int)(arg[1] / 2);
-	this->clearStage = (int)(arg[2] / 2);
-	*/
+	ifstream fin("save.txt");
 
-	//if (data.inValid)assert("ロード失敗");
+	allDatas.clear();
 
-	return Data{ hp, clearStage };
+	//セーブデータを読み込んでvectorにpush
+	int stage = 0;
+	while (fin >> stage, stage)
+	{
+		allDatas.push_back(stage);
+	}
+	
+	allDatas.shrink_to_fit();
 }
 
 void SaveData::saveData()
@@ -36,11 +39,7 @@ void SaveData::saveData()
 	//fout << save_hp << " " << save_left << " " << save_clearStage << endl;
 }
 
-void SaveData::setSaveData(Data _data)
-{
-	this->hp = _data.hp;
-	this->clearStage = _data.clearStage;
-}
+
 
 
 }

@@ -29,6 +29,7 @@ Nue::Nue(int _x, int _y, int _hp) : PlayerChild(_x, _y, 3.0f, 22.0f, 1, _hp)
 Nue::~Nue()
 {
 	SAFE_DELETE(p);
+	ufo->isActive = false;
 }
 
 void Nue::initialize()

@@ -204,7 +204,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 {
 	//widthが32じゃなかったら，その分ずらして計算する必要がある
 	int extraDiffer = vectorRate * (this->width - CHIP_WIDTH) / 2;
-	if (_moveLeft)
+	if (_moveLeft && extraDiffer != 0)
 	{
 		extraDiffer += 1000;
 		extraDiffer *= -1;
@@ -295,7 +295,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 		//if(!_isPlayer)return getTopDiffer(_stage, _dy, _moveLeft, _isPlayer);
 
 		const int half_height = (height * vectorRate) / 2;
-		int ret = _stage->getTopPosition(p, half_height + 1000 + _dy) - (p->raw_y + half_height);
+		int ret = _stage->getTopPosition(p, half_height + _dy) - (p->raw_y + half_height);
 		return ret;// == 31000 ? 0 : ret;
 		/*
 		旧式

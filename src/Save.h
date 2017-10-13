@@ -1,25 +1,13 @@
 #pragma once
+#include <vector>
 
-
+using namespace std;
 
 namespace MySave
 {
 
 
-/*
-Memento
-メンバ変数
-・機数
-・クリア状況（bool?int? まかせた）
-・（コイン枚数）
-*/
 
-struct Data
-{
-	int hp;//体力
-	int clearStage;//クリア済みのステージ
-	bool isValid();
-};
 
 //Singletonで実装
 class SaveData
@@ -27,15 +15,14 @@ class SaveData
 public:
 	SaveData();
 	~SaveData();
-	Data loadData();
 	void saveData();
-	void setSaveData(Data);
+	void loadData();
 
 private:
 	int hp;
 	int left;
 	int clearStage;
-
+	vector<int> allDatas;
 };
 
 
