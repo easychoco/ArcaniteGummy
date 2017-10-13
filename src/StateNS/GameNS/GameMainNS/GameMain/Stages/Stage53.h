@@ -24,7 +24,9 @@ private:
 
 	AllEnemies itoE(int num)
 	{
+		//範囲外だったら強制的に範囲内に変換
 		num = max(0, min(5, num));
+
 		switch (num)
 		{
 			//地上
@@ -35,7 +37,7 @@ private:
 		case(4):return ENE_BALL;
 		case(5):return ENE_TERESA;
 		}
-		assert(!"Stage53::itoAE: 敵コードが不正です");
+		assert(!"Stage53::itoE: 敵コードが不正です");
 		return ENE_NONE;
 	}
 

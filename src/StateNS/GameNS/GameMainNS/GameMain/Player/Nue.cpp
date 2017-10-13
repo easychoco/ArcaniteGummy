@@ -6,9 +6,13 @@
 #include "Mokou.h"
 
 
+
+
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS {
+
+Nue::UFO* Nue::ufo;
 
 
 Nue::Nue(int _x, int _y) : Nue(_x, _y, 100)
@@ -25,7 +29,6 @@ Nue::Nue(int _x, int _y, int _hp) : PlayerChild(_x, _y, 3.0f, 22.0f, 1, _hp)
 Nue::~Nue()
 {
 	SAFE_DELETE(p);
-	//SAFE_DELETE(ufo);
 }
 
 void Nue::initialize()
@@ -34,7 +37,9 @@ void Nue::initialize()
 	loadImage();
 	attackTime = 0;
 	attacks.push_back(new Spear(this, 0, 0, direction));
-	isUFO = false;
+
+	if(ufo == nullptr)ufo = new UFO();
+	ufo->isActive = false;
 
 }
 
@@ -60,18 +65,18 @@ PlayerChild* Nue::update(const StageChild* _stage)
 	
 
 
-	if (Input_C() && !isUFO) {
+	if (Input_C() && !ufo->isActive) {
 
 		int tmp_x = (this->p->raw_x / CHIP_WIDTH_RATE() ) * CHIP_WIDTH + CHIP_WIDTH / 2;
 		int tmp_y = (this->p->raw_y / CHIP_HEIGHT_RATE() ) * CHIP_HEIGHT + CHIP_HEIGHT / 2;
-		ufo = new UFO(tmp_x, tmp_y);
+		ufo->setStatus(tmp_x * vectorRate, tmp_y * vectorRate);
 
-		isUFO = true;
 		this->next_dy = -CHIP_HEIGHT*vectorRate;
 	}
 
 
-	if (isUFO)updateUFO(_stage);
+
+	if (ufo->isActive)updateUFO(_stage);
 	
 
 	if (canChangeCharacter())
@@ -105,9 +110,11 @@ void Nue::draw() const
 	//for Debug
 	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
 	//hpController.draw();
+	
+	//for Debug
 	if (isUFO)DrawFormatString(50, 160, WHITE, "UFO,DX%f,%f", ufo->getDX(), ufo->getDY());
-DrawFormatString(50, 210, WHITE, "next%d,%d", next_dx, next_dy);
-if(isUFO)DrawFormatString(50, 240, WHITE, "abs%d,%d", this->p->raw_x - ufo->getVector2()->raw_x, this->p->raw_y - ufo->getVector2()->raw_y);
+	DrawFormatString(50, 210, WHITE, "next%d,%d", next_dx, next_dy);
+	if(isUFO)DrawFormatString(50, 240, WHITE, "abs%d,%d", this->p->raw_x - ufo->getVector2()->raw_x, this->p->raw_y - ufo->getVector2()->raw_y);
 
 
 }
@@ -177,11 +184,11 @@ void Nue::updateUFO(const StageChild* _stage)
 	ufo->update(_stage);
 	//UFOの上に乗る処理
 	if (
-		abs(this->p->raw_y - ufo->getVector2()->raw_y) < CHIP_HEIGHT_RATE()  *3/2&&
+		abs(this->p->raw_y - ufo->getVector2()->raw_y) < CHIP_HEIGHT_RATE() * 3 / 2 &&
 		abs(this->p->raw_x - ufo->getVector2()->raw_x) < CHIP_WIDTH_RATE() * 3 / 2
 		)
 	{
-		warpCharacter(ufo->getVector2()->raw_x, ufo->getVector2()->raw_y - 48*vectorRate);
+		warpCharacter(ufo->getVector2()->raw_x, ufo->getVector2()->raw_y - 48 * vectorRate);
 //		nowJumpCount = 0;
 
 	}
@@ -189,17 +196,9 @@ void Nue::updateUFO(const StageChild* _stage)
 	///////////////////ギミックと同じ///////////////
 
 	if (ufo->onActiveArea(this->p))ufo->apply(this);
-
 	if (ufo->rideOnGimmick(this->p))moveCharacter(ufo->getDX(), ufo->getDY());
 
 	/////////////////////ここまで///////////////////
-
-
-	if (!ufo->isActive)
-	{
-		isUFO = false;
-		SAFE_DELETE(ufo);
-	}
 }
 
 
@@ -267,8 +266,8 @@ void Nue::Spear::hittedAction()
 //==============================================
 //UFOクラス
 //==============================================
-Nue::UFO::UFO(int _x, int _y) :
-DynamicGimmickChild(_x, _y, 1.0)
+Nue::UFO::UFO() :
+DynamicGimmickChild(16, 16, 1.0)
 {
 	this->width  = 96;
 	this->height = 32;
@@ -286,9 +285,8 @@ void Nue::UFO::initialize()
 	loadImage();
 	direction = NONE;
 	mTime = 0;
-	isActive = true;
+	isActive = false;
 	isMove = false;
-	//dy = 0;
 }
 
 void Nue::UFO::update(const StageChild* _stage)
@@ -297,15 +295,20 @@ void Nue::UFO::update(const StageChild* _stage)
 	move();
 	standardMove(_stage);
 
-	if (mTime > 300) isActive = false;
+	if (mTime > 300)
+	{
+		isActive = false;
+		direction = NONE;
+		dx = dy = 0;
+	}
 
 	
 }
 
 void Nue::UFO::draw(const Vector2* _camera) const
 {
+	if (!isActive)return;
 	if (mTime > 150 && mTime / 10 % 2)return;
-
 
 	standardDraw(_camera, mImage, mDirection);
 
@@ -343,9 +346,22 @@ bool Nue::UFO::isOverlap(const Vector2* _player) const
 
 bool Nue::UFO::onActiveArea(const Vector2* _player) const
 {
-	return
-		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH &&
-		(this->p->y() - _player->y()) / MyData::CHIP_HEIGHT == 1;
+	return rideOnGimmick(_player);
+//		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH &&
+//		(this->p->y() - _player->y()) / MyData::CHIP_HEIGHT == 1;
+}
+
+void Nue::UFO::setStatus(int _x, int _y)
+{
+	this->p->raw_x = _x;
+	this->p->raw_y = _y;
+
+	dx = dy = 0;
+
+	this->direction = NONE;
+	this->mTime = 0;
+	this->isActive = true;
+	this->isMove = false;
 }
 
 //==============================================
@@ -360,8 +376,8 @@ void Nue::UFO::loadImage()
 void Nue::UFO::move()
 {
 	dy = 0;
-	if (direction == LEFT)dx = -3 * vectorRate;
-	else if (direction == RIGHT)dx = 3 * vectorRate;
+	if (direction == LEFT)dx = -2 * vectorRate;
+	else if (direction == RIGHT)dx = 2 * vectorRate;
 
 }
 

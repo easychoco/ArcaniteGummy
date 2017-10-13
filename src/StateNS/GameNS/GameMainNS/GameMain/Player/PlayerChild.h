@@ -26,6 +26,8 @@ public:
 	vector<Attack*> getAttacks() const { return attacks; }
 	StageChild::HowStageMove getStageMove() const { return nextStageMove; }
 	int getFloorCoordinate() override;
+	virtual bool hasAdditionalGimmick() const { return false; }
+	virtual DynamicGimmickChild* getAdditionalGimmick() const { assert(!"‚±‚±‚É‚Í‚±‚È‚¢"); return NULL; }
 
 
 	const StopType getStopDynamicObject() const { return stopDynamics; }

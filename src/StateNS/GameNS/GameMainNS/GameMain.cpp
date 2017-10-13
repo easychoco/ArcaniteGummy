@@ -42,7 +42,30 @@ void GameMain::initialize()
 {
 
 	mStage = getNextStage(stageID);
-	mPlayer = new Mokou(mStage->startX, mStage->startY, 100);
+
+	//最初のキャラを設定
+	int changeableCharacter = mStage->getChangeableCharacter();
+	if (changeableCharacter & StageChild::ChangeableCharacter::CHARA_MOKOU)
+	{
+		mPlayer = new Mokou(mStage->startX, mStage->startY, 100);
+	}
+	else if (changeableCharacter & StageChild::ChangeableCharacter::CHARA_SAKUYA)
+	{
+		mPlayer = new Sakuya(mStage->startX, mStage->startY, 100);
+	}
+	else if (changeableCharacter & StageChild::ChangeableCharacter::CHARA_NUE)
+	{
+		mPlayer = new Nue(mStage->startX, mStage->startY, 100);
+	}
+	else
+	{
+		assert(!"使用キャラを設定してください");
+	}
+
+	if(mPlayer->hasAdditionalGimmick())
+		mStage->addDynamicGimmickToAllMaps(mPlayer->getAdditionalGimmick());
+
+
 	mSystem = new System();
 
 	mEController = mStage->getEController();
@@ -83,6 +106,12 @@ Child* GameMain::update(GameParent* _parent)
 	{
 		SAFE_DELETE(mPlayer);
 		mPlayer = nextPlayer;
+
+		//ぬえのUFOを追加
+		if(mPlayer->hasAdditionalGimmick())
+			mStage->addDynamicGimmickToAllMaps(mPlayer->getAdditionalGimmick());
+
+		//EnemyControllerを更新
 		this->mEController = mStage->getEController();
 		mEController->setPlayerPos(mPlayer->getVector2());
 	}

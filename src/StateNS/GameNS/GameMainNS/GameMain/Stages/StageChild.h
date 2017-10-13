@@ -88,6 +88,7 @@ public:
 
 	void moveStage(HowStageMove);
 	void processDynamcCollision(PlayerChild*);
+	void addDynamicGimmickToAllMaps(DynamicGimmickChild*);
 
 	int startX, startY;
 

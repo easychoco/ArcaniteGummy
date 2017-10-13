@@ -278,7 +278,6 @@ ChipType Map::getChipType(const Vector2& _other, bool colliWithGimmick) const
 	{
 		if (gimmick->isActive)
 		{
-			//if (gimmick->isOverlap(sub_x, sub_y))
 			if (gimmick->isOverlap(&_other))
 			{
 				ChipType tmp = gimmick->getChipType();

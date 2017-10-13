@@ -17,6 +17,8 @@ public:
 	~Nue();
 	PlayerChild* update(const StageChild*);
 	virtual void draw() const override;
+	virtual bool hasAdditionalGimmick() const override { return true; }
+	virtual DynamicGimmickChild* getAdditionalGimmick() const override { return ufo; }
 
 
 private:
@@ -39,7 +41,7 @@ private:
 
 	void updateUFO(const StageChild*);
 
-	virtual bool onRigidBlock() const override { return isUFO && ufo->onActiveArea(p); }
+	virtual bool onRigidBlock() const override { return ufo->isActive && ufo->onActiveArea(p); }
 
 	//UŒ‚•û–@‚Ì“à•”ƒNƒ‰ƒX
 	class Spear : public Attack
@@ -62,7 +64,7 @@ private:
 	class UFO : public DynamicGimmickChild
 	{
 	public:
-		UFO(int x, int y);
+		UFO();
 
 		~UFO();
 		void initialize();
@@ -75,6 +77,8 @@ private:
 		void burnedAction() override;
 		bool isOverlap(const Vector2*) const;
 		bool onActiveArea(const Vector2*) const;
+
+		void setStatus(int, int);
 
 	private:
 		int mImage;
@@ -92,7 +96,7 @@ private:
 
 
 	bool isUFO;
-	UFO* ufo;
+	static UFO* ufo;
 };
 
 
