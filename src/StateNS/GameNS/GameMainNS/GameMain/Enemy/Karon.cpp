@@ -1,6 +1,6 @@
 #include "Karon.h"
 
-
+#include "..\Collision.h"
 
 
 namespace StateNS {
@@ -36,16 +36,17 @@ void Karon::update(const StageChild* _stage,const Vector2* _camera)
 {
 	aTime++;
 
+	//ダメージを受けたら
 	if (damaged && isAlive) 
 	{
-
-		hpController.recover(500);
+		hpController.recover(1);
 		isAlive = false;
 		hpController.isMuteki = true;
 	}
 
 
 	if (!isAlive) {
+		this->collision->noCollide = true;
 		aTime = 0;
 		actState = ENE_ACT_DEAD;
 		mTime++;
@@ -57,6 +58,8 @@ void Karon::update(const StageChild* _stage,const Vector2* _camera)
 		actState = ENE_ACT_WALK;
 		isAlive = true;
 		hpController.isMuteki = false;
+		this->collision->noCollide = false;
+		hpController.recover(500);
 	}
 	standardAction(_stage);
 	
@@ -72,34 +75,9 @@ void Karon::move(const StageChild* _stage, int& _dx, int& _dy)
 	//_dyが0でなかったら空中にいる
 	if (_dy != 0)
 	{
-		/*ここをコメントアウトすると，がけで落ちる
-		//右下のチップ
-		RawVector2 pos = RawVector2(p->x() + 1, p->y() + 16);
-		Stage::ChipType chipType_right = _stage->getChipType(pos, false);
-
-		//左下のチップ
-		pos = RawVector2(p->x() - 1, p->y() + 16);
-		Stage::ChipType chipType_left = _stage->getChipType(pos, false);
-		
-		//右下と左下が壁と空中なら，崖なう
-		//方向転換する
-		if (
-			(_stage->isRigid_down(chipType_right) && chipType_left == _stage->TYPE_BACK) ||
-			(_stage->isRigid_down(chipType_left) && chipType_right == _stage->TYPE_BACK)
-			)
-		{
-			_dy = 0;
-			mDirection = !mDirection;
-			moveSpeed = -moveSpeed;
-		}
-		else//*/
-		{
-			_dx = 0;
-			return;
-		}
-
+		_dx = 0;
+		return;
 	}
-
 	_dx = getHorizontalDiffer(_stage, moveSpeed, _dy < 0);
 	this->mDirection = _dx > 0;
 

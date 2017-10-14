@@ -94,6 +94,8 @@ int fixToStageHeight(int _a);
 int fixToVectorWidth(int _a);
 int fixToVectorHeight(int _a);
 
+//‘Ì—Í
+constexpr int PLAYER_MAX_HP = 200;
 
 
 //F

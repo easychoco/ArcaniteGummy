@@ -11,7 +11,7 @@ Character(hp, x, y, w, h, false, jump, jumpCount, false)
 
 Character::Character(int _hp, int _x, int _y, int _w, int _h, bool _isPlayer, float _jump,int _jumpCount, bool _hasChild) : 
 DynamicObject(_x, _y, _w, _h, _jump, _jumpCount, _hasChild),
-hpController(HPController(this, _hp))
+hpController(HPController(this, PLAYER_MAX_HP, _hp))
 {
 	width = _w;
 	height = _h;
