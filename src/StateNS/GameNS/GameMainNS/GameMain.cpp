@@ -271,7 +271,7 @@ void GameMain::processCollision(StageChild* _stage)
 		if (!gimmick->isActive)continue;
 
 		//ƒvƒŒƒCƒ„[‚ÆDynamicGimmick‚ÌÕ“Ë
-		if (mPlayer->isHit(gimmick))
+		if (gimmick->isOverlap(mPlayer->getVector2()))
 		{
 			gimmick->apply(mPlayer);
 		}
