@@ -55,7 +55,7 @@ void Stage33::initialize()
 	for (int i = 0; i < 3; i++)s->push_block(new Block((49 + i) * 32 + 16, 34 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[4]->addSwitchWithBlock(s);
 
-	SwitchWithBlock* s1 = new SwitchWithBlock(94 * 32 + 16, 32 * 32 + 16, 1);
+	SwitchWithBlock* s1 = new SwitchWithBlock(94 * 32 + 16, 15 * 32 + 16, 1);
 	for (int i = 0; i < 3; i++)s1->push_block(new Block((49 + i) * 32 + 16, 36 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[4]->addSwitchWithBlock(s1);
 
