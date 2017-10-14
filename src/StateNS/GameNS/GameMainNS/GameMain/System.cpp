@@ -27,9 +27,7 @@ void System::initialize()
 
 void System::update()
 {
-	//for Debug
-	//if (Input_S())filter = TYPE_NONE;
-	//if (Input_D())filter = TYPE_DARK;
+
 }
 
 void System::draw(const Vector2* _player) const

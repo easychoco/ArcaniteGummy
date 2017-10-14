@@ -10,7 +10,7 @@ namespace GameNS {
 namespace GameMainNS {
 
 PlayerChild::PlayerChild(int _x, int _y, float _move, float _jump, int _jumpCount, int _hp) :
-Character(_hp, _x, _y, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT, true, _jump, _jumpCount, false),
+Character(_hp, _x, _y, PLAYER_CHIP_WIDTH, PLAYER_CHIP_HEIGHT, true, _jump, _jumpCount, false),
 maxMoveSpeed(_move)
 {
 	post_x = _x % MAP_WIDTH;
@@ -71,8 +71,6 @@ void PlayerChild::draw() const
 
 	//for Debug
 	DrawFormatString(20, 20, WHITE, "%d, %d", p->x(), p->y());
-
-
 }
 
 //Ž©‹@‚ª°‚Ìã‚É‚¢‚½‚ç°‚ÌyÀ•W‚ð•Ô‚· ‚¢‚È‚©‚Á‚½‚ç0‚ð•Ô‚·

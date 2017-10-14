@@ -17,6 +17,7 @@
 #include "GameMain\Gimmick\Block.h"
 #include "GameMain\Gimmick\Switches\SwitchWithBlock.h"
 
+//for Debug
 #include "..\..\..\KeyInput.h"
 
 
@@ -40,22 +41,21 @@ GameMain::~GameMain()
 
 void GameMain::initialize()
 {
-
 	mStage = getNextStage(stageID);
 
 	//Å‰‚ÌƒLƒƒƒ‰‚ğİ’è
 	int changeableCharacter = mStage->getChangeableCharacter();
 	if (changeableCharacter & StageChild::ChangeableCharacter::CHARA_MOKOU)
 	{
-		mPlayer = new Mokou(mStage->startX, mStage->startY, 100);
+		mPlayer = new Mokou(mStage->startX, mStage->startY, PLAYER_MAX_HP);
 	}
 	else if (changeableCharacter & StageChild::ChangeableCharacter::CHARA_SAKUYA)
 	{
-		mPlayer = new Sakuya(mStage->startX, mStage->startY, 100);
+		mPlayer = new Sakuya(mStage->startX, mStage->startY, PLAYER_MAX_HP);
 	}
 	else if (changeableCharacter & StageChild::ChangeableCharacter::CHARA_NUE)
 	{
-		mPlayer = new Nue(mStage->startX, mStage->startY, 100);
+		mPlayer = new Nue(mStage->startX, mStage->startY, PLAYER_MAX_HP);
 	}
 	else
 	{
@@ -167,6 +167,8 @@ void GameMain::draw() const
 	mStage->draw_front(mPlayer->getCamera());
 
 	mSystem->draw(mPlayer->getVector2());
+
+
 }
 
 void GameMain::setFilter(FilterType _f) { mSystem->setFilter(_f); }

@@ -22,6 +22,7 @@ public:
 	virtual ~PlayerChild();
 	virtual PlayerChild* update(const StageChild*) = 0;
 	virtual void draw() const;
+	virtual void draw_PlayerInfo() {};
 	const Vector2* getCamera() const { return camera; }
 	vector<Attack*> getAttacks() const { return attacks; }
 	StageChild::HowStageMove getStageMove() const { return nextStageMove; }
