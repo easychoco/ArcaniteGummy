@@ -263,7 +263,7 @@ void Nue::Spear::hittedAction()
 //UFOƒNƒ‰ƒX
 //==============================================
 Nue::UFO::UFO() :
-DynamicGimmickChild(16, 16, 1.0)
+DynamicGimmickChild(16, 16, 1.0, false)
 {
 	this->width  = 96;
 	this->height = 32;

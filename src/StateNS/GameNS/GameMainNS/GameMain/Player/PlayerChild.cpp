@@ -66,11 +66,7 @@ void PlayerChild::draw() const
 	draw_changingAnimation(draw_x, draw_y);
 
 	//for Debug
-	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
-	//hpController.draw();
-
-	//for Debug
-	DrawFormatString(20, 20, WHITE, "%d, %d", p->x(), p->y());
+	//DrawFormatString(20, 20, WHITE, "%d, %d", p->x(), p->y());
 }
 
 //自機が床の上にいたら床のy座標を返す いなかったら0を返す
@@ -138,7 +134,7 @@ bool PlayerChild::canChangeCharacter()
 //キャラ変更アニメーション
 void PlayerChild::changeCharacter(const StageChild* _stage)
 {
-	if (Input_CHANGE() && _stage->canChangeCharacter(getThisCharacter()))
+	if (Input_CHANGE() && _stage->canChangeCharacter(getThisCharacter(), true))
 	{
 		animationTime = max(animationTime, 1);
 		stopDynamics = StopType::TYPE_CHANGE;

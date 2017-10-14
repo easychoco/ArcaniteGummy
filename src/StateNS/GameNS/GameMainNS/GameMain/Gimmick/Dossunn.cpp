@@ -9,10 +9,13 @@ bool Dossunn::imgLoad = false;
 int Dossunn::image;
 
 Dossunn::Dossunn(int _x, int _y, double _scale) :
-DynamicGimmickChild(_x, _y, _scale)
+DynamicGimmickChild(_x, _y, _scale),
+originPos(Vector2(_x, _y))
 {
 	this->width = (int)(32 * _scale);
 	this->height = (int)(32 * _scale);
+
+
 
 	initialize();
 }
@@ -97,17 +100,23 @@ void Dossunn::loadImage()
 
 void Dossunn::move()
 {
-	if (isMove && mTime <= 150)
+	++mTime;
+	if (isMove)
 	{
-		++mTime;
-		if (mTime < 30)dy = CHIP_HEIGHT * 100;
-		else dy = - CHIP_HEIGHT * 25;
-	}
-	else
-	{
-		dy = 0;
-		mTime = 0;
-		isMove = false;
+		if (mTime <= 30)
+		{
+			dy = 3200;
+		}
+		else if (this->p->raw_y > originPos.raw_y)
+		{
+			dy = -1600;
+		}
+		else
+		{
+			*this->p = originPos;
+			isMove = false;
+			mTime = 0;
+		}
 	}
 
 }

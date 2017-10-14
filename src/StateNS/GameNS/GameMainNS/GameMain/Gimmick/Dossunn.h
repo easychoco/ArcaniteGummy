@@ -31,13 +31,14 @@ public:
 
 private:
 	int mTime;
+	const Vector2 originPos;
 
 	static bool imgLoad;
 	static int image;
 	void loadImage();
 
-	bool isMove;
 
+	bool isMove;
 	void move();
 };
 

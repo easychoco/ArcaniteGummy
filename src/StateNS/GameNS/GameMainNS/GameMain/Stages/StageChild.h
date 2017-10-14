@@ -69,7 +69,11 @@ public:
 	int getTopPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 	int getBottomPosition(const Vector2*, const int& dy) const;//引数は今いる地点の座標にvectorRrateをかけたもの
 
-	const bool canChangeCharacter(ChangeableCharacter cc) const { return (changeableCharacter & (~cc)); }
+	const bool canChangeCharacter(const ChangeableCharacter& cc, bool inverse) const 
+	{
+		if(inverse)	return (changeableCharacter & (~cc)); 
+		return (changeableCharacter & (cc));
+	}
 	int getChangeableCharacter() const { return changeableCharacter; }
 
 	vector< DynamicGimmickChild* > getDynamicGimmicks();
