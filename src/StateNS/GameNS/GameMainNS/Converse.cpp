@@ -41,7 +41,7 @@ void Converse::initialize()
 		allPassages.push_back(Passage(name, YennToCR(serifu)));
 	}
 
-	}
+}
 
 Child* Converse::update(GameParent* _parent)
 {

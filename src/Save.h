@@ -6,17 +6,14 @@ using namespace std;
 namespace MySave
 {
 
-
-
-
-//Singleton‚ÅŽÀ‘•
 class SaveData
 {
 public:
 	SaveData();
 	~SaveData();
-	void saveData();
+	void save(int);
 	void loadData();
+	const vector<int>& getSaveData() const { return allDatas; }
 
 private:
 	int hp;

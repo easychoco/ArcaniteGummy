@@ -6,18 +6,22 @@ namespace MySave{
 
 SaveData::SaveData()
 {
-	hp = 100;
-	clearStage = 0;
+	loadData();
 }
 
 SaveData::~SaveData()
 {
-
+	//ファイル出力
+	ofstream fout("Data/Text/save.txt", ios_base::binary | ios_base::out);
+	for (const auto& data : allDatas)
+	{
+		fout << data << endl;
+	}
 }
 
 void SaveData::loadData()
 {
-	ifstream fin("save.txt");
+	ifstream fin("Data/Text/save.txt", ios_base::binary | ios_base::in);
 
 	allDatas.clear();
 
@@ -31,12 +35,9 @@ void SaveData::loadData()
 	allDatas.shrink_to_fit();
 }
 
-void SaveData::saveData()
+void SaveData::save(int _stageNum)
 {
-	int save_hp = hp * 2;
-	int save_clearStage = hp * 2;
-
-	//fout << save_hp << " " << save_left << " " << save_clearStage << endl;
+	allDatas.push_back(_stageNum);
 }
 
 
