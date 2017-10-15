@@ -46,21 +46,32 @@ void Stage12::initialize()
 
 
 	startX = 208, startY = 1472;
+	converseFlag0 = true;
+	converseFlag0fin = false;
+	imageReisen = LoadGraph("Data/Image/Character/haribote_reisen.png");
+
 }
 
 
 void Stage12::update(GameMain* gameMain, PlayerChild* _player)
 {
+	if (!converseFlag0) 
+	{
+		converseFlag0fin = true;
+		DeleteGraph(imageReisen);
+	}
+	if (converseFlag0)
+	{
+		gameMain->startConverse(120);
+		converseFlag0 = false;
+	}
 	standardUpdate(_player);
-
-	//for Debug
-	if(CheckHitKey(KEY_INPUT_1))
-		gameMain->startConverse(12);
 }
 
 void Stage12::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
+	if(!converseFlag0fin)DrawRotaGraph(320, 352, 1.0, 0.0, imageReisen, TRUE);
 }
 
 bool Stage12::isClear() const

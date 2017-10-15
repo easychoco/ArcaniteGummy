@@ -3,7 +3,7 @@
 #include "..\..\GameMain.h"
 #include "..\Player\PlayerChild.h"
 #include "..\Gimmick\ClearFlag.h"
-
+#include "..\Gimmick\Door.h"
 #include <fstream>
 
 namespace StateNS {
@@ -50,38 +50,68 @@ void Stage23::initialize()
 	this->maps.push_back(new Map(23, 7, MapPos::POS_RIGHT_DOWN));
 	this->maps.push_back(new Map(23, 8, MapPos::POS_LEFT_UP));
 
-	SwitchWithBlock* s = new SwitchWithBlock(44 * 32 + 16, 14 * 32 + 16, 99);
-	for (int i = 0; i < 3; i++)s->push_block(new Block((46 + i) * 32 + 16, 46 * 32 + 16, 1.0), false);
+	flag = new ClearFlag(Vector2(16, 16));
+	maps[8]->addGimmick(flag);
+
+	Door* d = new Door(new Vector2(9 * 32 + 16, 13 * 32 + 16), new Vector2(72 * 32 + 16, 31 * 32 + 16));
+	maps[2]->addGimmick(d);
+
+	maps[2]->addEnemy(BOSS_JUNKO, 88 * 32, 48 * 32);
+
+
+	SwitchWithBlock* s = new SwitchWithBlock(44 * 32 + 16, 14 * 32 + 16, 330);
+	for (int i = 0; i < 3; i++)s->push_block(new Block((46 + i) * 32 + 16, 46 * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
 	maps[3]->addSwitchWithBlock(s);
-	SwitchWithBlock* s2 = new SwitchWithBlock(50 * 32 + 16, 24 * 32 + 16, 99);
-	for (int i = 0; i < 3; i++)s2->push_block(new Block((46 + i) * 32 + 16, 47 * 32 + 16, 1.0), false);
+	SwitchWithBlock* s2 = new SwitchWithBlock(50 * 32 + 16, 24 * 32 + 16, 330);
+	for (int i = 0; i < 3; i++)s2->push_block(new Block((46 + i) * 32 + 16, 47 * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
 	maps[3]->addSwitchWithBlock(s2);
-	SwitchWithBlock* s3 = new SwitchWithBlock(44 * 32 + 16, 35 * 32 + 16, 99);
-	for (int i = 0; i < 3; i++)s3->push_block(new Block((46 + i) * 32 + 16, 48 * 32 + 16, 1.0), false);
+	SwitchWithBlock* s3 = new SwitchWithBlock(44 * 32 + 16, 35 * 32 + 16, 330);
+	for (int i = 0; i < 3; i++)s3->push_block(new Block((46 + i) * 32 + 16, 48 * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
 	maps[3]->addSwitchWithBlock(s3);
 
 	startX = 144, startY = 1536;
 
-	//this->torches.push_back(new Torch(304, 1488));
-	//this->maps[0]->addGimmick(torches[0]);
-
+	imageJunko = LoadGraph("Data/Image/Character/haribote_junko.png");
+	converseFlag0 = true;
+	converseFlag0fin = false;
+	converseFlag1 = true;
 
 }
 
 
 void Stage23::update(GameMain* gameMain, PlayerChild* _player)
 {
+	
+	if (!converseFlag0)
+	{
+		converseFlag0fin = true;
+		DeleteGraph(imageJunko);
+	}
+	if (converseFlag0)
+	{
+		gameMain->startConverse(230);
+		converseFlag0 = false;
+	}
+
+
+	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
+	{
+		gameMain->startConverse(231);
+		converseFlag1 = false;
+	}
+
+	
 	standardUpdate(_player);
 	time++;
 	if (time % 360 == 0)maps[0]->addEnemy(ENE_TERESA, _player->getVector2(), (1 + GetRand(1) * 30) * 32, 31 * 32);
 
-	//gameMain->setFilter(FilterType::FILTER_DARK);
-	//if (torches[0]->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
 }
 
 void Stage23::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
+	if (!converseFlag0fin)DrawRotaGraph(360, 416, 1.0, 0.0, imageJunko, TRUE);
+
 }
 
 bool Stage23::isClear() const

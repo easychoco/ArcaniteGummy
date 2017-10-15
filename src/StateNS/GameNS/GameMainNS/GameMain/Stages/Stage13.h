@@ -19,7 +19,8 @@ public:
 	
 private:
 	void initialize();
-
+	bool converseFlag0;
+	bool converseFlag1;
 
 
 	//マップチップ

@@ -36,16 +36,18 @@ void Stage11::initialize()
 	maps[1]->addGimmick(flag);
 	
 	startX = 144, startY = 1536;
+	converseFlag0 = true;
 }
 
 
 void Stage11::update(GameMain* gameMain, PlayerChild* _player)
 {
+	if (converseFlag0)
+	{
+		gameMain->startConverse(110);
+		converseFlag0 = false;
+	}
 	standardUpdate(_player);
-
-	//for Debug
-	if(CheckHitKey(KEY_INPUT_1))
-		gameMain->startConverse(11);
 }
 
 void Stage11::draw(const Vector2* _camera) const

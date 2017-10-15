@@ -4,7 +4,8 @@
 #include "..\Gimmick\ClearFlag.h"
 
 #include "..\Gimmick\DynamicGimmickChild.h"
-
+#include "..\Player\PlayerChild.h"
+#include "..\Gimmick\Door.h"
 #include <fstream>
 
 namespace StateNS {
@@ -19,15 +20,7 @@ StageChild(4, 1) //エリアの数: よこ，たて
 
 Stage13::~Stage13()
 {
-	//torchesはMapのDynamickGimmicksと一緒にdeleteされるから，ここではdeleteしない
-	/*
-	for (auto& t : torches)
-	{
-			SAFE_DELETE(t);
-	}
-	torches.clear();
-	torches.shrink_to_fit();
-	*/
+	
 }
 
 void Stage13::initialize()
@@ -46,32 +39,40 @@ void Stage13::initialize()
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[0]->addGimmick(flag);
 
-	SwitchWithBlock* s = new SwitchWithBlock(76 * 32 + 16, 37 * 32 + 16, 99);
+	Door* d = new Door(new Vector2(8 * 32 + 16, 27 * 32 + 16), new Vector2(78 * 32 + 16, 32 * 32 + 16));
+	maps[3]->addGimmick(d);
+
+	SwitchWithBlock* s = new SwitchWithBlock(76 * 32 + 16, 37 * 32 + 16, 390);
 	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s);
 
-	maps[3]->addEnemy(BOSS_REISEN, 78 * 32, 48 * 32);
+	maps[3]->addEnemy(BOSS_REISEN, 88 * 32, 48 * 32);
 
 	startX = 208, startY = 1440;
 
-//	this->torches.push_back(new Torch(304, 1488));
-//	this->maps[0]->addGimmick(torches[0]);
-
-
+	converseFlag0 = true;
+	converseFlag1 = true;
 }
 
 
 void Stage13::update(GameMain* gameMain, PlayerChild* _player)
 {
+	
+	if(now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y()==1536)
+	{
+		gameMain->startConverse(130);
+		converseFlag0 = false;
+	}
+
+	
 	standardUpdate(_player);
 
-//	gameMain->setFilter(FilterType::FILTER_DARK);
-//	if (torches[0]->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
 }
 
 void Stage13::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
+	if (!converseFlag1)DrawBox(0, 0, 640, 480, BLACK, TRUE);
 }
 
 bool Stage13::isClear() const

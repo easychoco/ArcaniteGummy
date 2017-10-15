@@ -53,22 +53,27 @@ void Stage21::initialize()
 
 
 	startX = 2864, startY = 1536;
+	converseFlag0;
 }
 
 
 void Stage21::update(GameMain* gameMain, PlayerChild* _player)
 {
+
+	if (converseFlag0)
+	{
+		gameMain->startConverse(210);
+		converseFlag0 = false;
+	}
 	standardUpdate(_player);
 
 	gameMain->setFilter(FilterType::FILTER_DARK);
+	if(now_stage_num==0)gameMain->setFilter(FilterType::FILTER_NONE);
 	if(now_stage_num==1)for (const auto& t : torches)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
 	if(now_stage_num==2)for (const auto& t : torches2)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
 
 
 	
-	//for Debug
-	if(CheckHitKey(KEY_INPUT_1))
-		gameMain->startConverse(21);
 }
 
 void Stage21::draw(const Vector2* _camera) const
