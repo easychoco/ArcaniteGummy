@@ -20,15 +20,9 @@ StageChild(3, 3) //エリアの数: よこ，たて
 
 Stage33::~Stage33()
 {
-	//torchesはMapのDynamickGimmicksと一緒にdeleteされるから，ここではdeleteしない
-	/*
-	for (auto& t : torches)
-	{
-			SAFE_DELETE(t);
-	}
-	torches.clear();
-	torches.shrink_to_fit();
-	*/
+	DeleteGraph(imageReisen);
+	DeleteGraph(imageNue);
+	DeleteGraph(imageMokou);
 }
 
 void Stage33::initialize()
@@ -52,6 +46,9 @@ void Stage33::initialize()
 	flag = new ClearFlag(Vector2(592, 1552));
 	maps[1]->addGimmick(flag);
 
+	Door* d = new Door(new Vector2(50 * 32 + 16, 8 * 32 + 16), new Vector2(79 * 32 + 16, 31 * 32 + 16));
+	maps[7]->addGimmick(d);
+
 	SwitchWithBlock* s = new SwitchWithBlock(8 * 32 + 16, 15 * 32 + 16, 1);
 	for (int i = 0; i < 3; i++)s->push_block(new Block((49 + i) * 32 + 16, 34 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[4]->addSwitchWithBlock(s);
@@ -68,41 +65,107 @@ void Stage33::initialize()
 	for (int i = 0; i < 3; i++)s3->push_block(new Block((49 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[4]->addSwitchWithBlock(s3);
 
+	imageReisen = LoadGraph("Data/Image/Character/haribote_reisen.png");
+	imageNue = LoadGraph("Data/Image/Character/haribote_nue.png");
+	imageMokou = LoadGraph("Data/Image/Character/haribote_mokou.png");
+
 	now_stage_num = 4;
 	startX = 1616, startY = 704;
-
+	nue = new Nue_Boss(88 * 32, 48 * 32);
 	converseFlag0 = true;
 	converseFlag1 = true;
+	converseFlag2 = true;
+	converseFlag3 = true;
+	converseFlag0fin = false;
 	converseFlag1fin = false;
+	converseFlag2fin = false;
+	converseFlag3fin = false;
 
+	cTime = 0;
+	findRestartPoint();
 
 }
 
 
 void Stage33::update(GameMain* gameMain, PlayerChild* _player)
 {
+	updateConverse(gameMain, _player);
+	standardUpdate(_player);
 
+}
+
+void Stage33::updateConverse(GameMain* gameMain, PlayerChild* _player)
+{
+	cTime = min(cTime, 180);
+	if (!converseFlag3 && !converseFlag3fin)converseFlag3fin = true;
+	if (converseFlag3 && !nue->isAlive())
+	{
+		gameMain->startConverse(333);
+		converseFlag3 = false;
+	}
+	if (!converseFlag2 && !converseFlag2fin)
+	{
+		converseFlag2fin = true;
+		///////////////////////////強制的に妹紅に変更する//////////////////
+		this->changeableCharacter ^= CHARA_SAKUYA;
+		nue->setPlayer(_player->getVector2());
+		maps[7]->addEnemy(nue);
+	}
+	if (converseFlag1fin && converseFlag2)
+	{
+		gameMain->startConverse(332);
+		converseFlag2 = false;
+	}
+	if (cTime == 180)converseFlag1fin = true;
+	if (!converseFlag1 && !converseFlag1fin)
+	{
+		cTime++;
+		_player->lock = true;
+	}
+	if (converseFlag0fin && converseFlag1)
+	{
+		gameMain->startConverse(331);
+		converseFlag1 = false;
+	}
+	if (cTime == 90)converseFlag0fin = true;
+	if (!converseFlag0 && !converseFlag0fin)
+	{
+		cTime++;
+		_player->lock = true;
+	}
 	if (now_stage_num == 7 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
-		maps[7]->addEnemy(BOSS_NUE, 88 * 32, 48 * 32);
 		gameMain->startConverse(330);
 		converseFlag0 = false;
 	}
 
-
-	standardUpdate(_player);
 
 }
 
 void Stage33::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
+	if (!converseFlag0fin &&!converseFlag0&&cTime<=45)
+		DrawRotaGraph(400, 416, 1.0, 0.0, imageReisen, TRUE);
+	if (!converseFlag1fin && 45 < cTime&&cTime <= 135)
+		DrawRotaGraph(400, 416, 1.0, 0.0, imageNue, TRUE);
+	if (!converseFlag2fin && 135 < cTime)
+		DrawRotaGraph(400, 416, 1.0, 0.0, imageMokou, TRUE);
 
 }
 
+void Stage33::draw_front(const Vector2* _camera) const
+{
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255 - 0.126*(cTime % 90 - 45)*(cTime % 90 - 45));
+	DrawBox(0, 0, 640, 480, BLACK, TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+}
+
+
 bool Stage33::isClear() const
 {
-	return !flag->isActive;
+	return converseFlag3fin;
 }
 
 

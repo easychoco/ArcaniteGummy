@@ -17,6 +17,7 @@ StageChild(2, 1) //ƒGƒŠƒA‚Ì”: ‚æ‚±C‚½‚Ä
 
 Stage22::~Stage22()
 {
+	DeleteGraph(imageSakuya);
 
 }
 
@@ -35,12 +36,10 @@ void Stage22::initialize()
 	flag = new ClearFlag(Vector2(2608, 1040));
 	maps[1]->addGimmick(flag);
 
-	//////ŽžŒÀŽ®‚É‚µ‚½‚¢/////
-	SwitchWithBlock* s = new SwitchWithBlock(73 * 32 + 16, 32 * 32 + 16, 99);
+	SwitchWithBlock* s = new SwitchWithBlock(73 * 32 + 16, 32 * 32 + 16, 90);
 	for (int i = 0; i < 6; i++)s->push_block(new Block(95 * 32 + 16, (27 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[0]->addSwitchWithBlock(s);
-	/////////////////////////
-
+	
 	SwitchWithBlock* s2 = new SwitchWithBlock(34 * 32 + 16, 3 * 32 + 16, 1);
 	for (int i = 0; i < 4; i++)s2->push_block(new Block((27 + i) * 32 + 16, 5 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s2);
@@ -60,23 +59,29 @@ void Stage22::initialize()
 	converseFlag0 = true;
 	converseFlag0fin = false;
 	startX = 144, startY = 704;
+
+	findRestartPoint();
 }
 
 
 void Stage22::update(GameMain* gameMain, PlayerChild* _player)
 {
-	if (!converseFlag0)
+	updateConverse(gameMain, _player);
+	standardUpdate(_player);
+}
+
+void Stage22::updateConverse(GameMain* gameMain, PlayerChild* _player)
+{
+	if (!converseFlag0 && !converseFlag0fin)
 	{
 		converseFlag0fin = true;
 		this->changeableCharacter |= CHARA_SAKUYA;
-		DeleteGraph(imageSakuya);
 	}
 	if (converseFlag0)
 	{
 		gameMain->startConverse(220);
 		converseFlag0 = false;
 	}
-	standardUpdate(_player);
 }
 
 void Stage22::draw(const Vector2* _camera) const

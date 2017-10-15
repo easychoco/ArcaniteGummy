@@ -20,15 +20,7 @@ StageChild(3, 1) //エリアの数: よこ，たて
 
 Stage43::~Stage43()
 {
-	//torchesはMapのDynamickGimmicksと一緒にdeleteされるから，ここではdeleteしない
-	/*
-	for (auto& t : torches)
-	{
-			SAFE_DELETE(t);
-	}
-	torches.clear();
-	torches.shrink_to_fit();
-	*/
+
 }
 
 void Stage43::initialize()
@@ -64,22 +56,26 @@ void Stage43::initialize()
 
 	startX = 144, startY = 1536;
 
-	//this->torches.push_back(new Torch(304, 1488));
-	//this->maps[0]->addGimmick(torches[0]);
 	flag = new ClearFlag(Vector2(16, 16));
 	maps[0]->addGimmick(flag);
-
+	converseFlag0 = true;
+	converseFlag1 = true;
+	findRestartPoint();
 }
 
 
 void Stage43::update(GameMain* gameMain, PlayerChild* _player)
 {
+	updateConverse(gameMain, _player);
 	standardUpdate(_player);
-
 	gameMain->setFilter(FilterType::FILTER_DARK);
-	for (const auto& t : torches)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
-	for (const auto& t : torches2)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+	if(converseFlag0)gameMain->setFilter(FilterType::FILTER_NONE);
+	if(now_stage_num==0)for (const auto& t : torches)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+	if(now_stage_num==1)for (const auto& t : torches2)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+}
 
+void Stage43::updateConverse(GameMain* gameMain, PlayerChild* _player)
+{
 }
 
 void Stage43::draw(const Vector2* _camera) const

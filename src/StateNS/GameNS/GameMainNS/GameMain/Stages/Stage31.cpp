@@ -17,7 +17,7 @@ StageChild(2, 1) //ƒGƒŠƒA‚Ì”: ‚æ‚±C‚½‚Ä
 
 Stage31::~Stage31()
 {
-
+	DeleteGraph(imageReisen);
 }
 
 void Stage31::initialize()
@@ -62,6 +62,21 @@ void Stage31::initialize()
 
 void Stage31::update(GameMain* gameMain, PlayerChild* _player)
 {
+
+	updateConverse(gameMain, _player);
+	standardUpdate(_player);
+
+	gameMain->setFilter(FilterType::FILTER_DARK);
+	if(!converseFlag1fin)	gameMain->setFilter(FilterType::FILTER_NONE);
+	for (const auto& t : torches)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+	for (const auto& t : torches2)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
+
+
+	findRestartPoint();
+}
+
+void Stage31::updateConverse(GameMain* gameMain, PlayerChild* _player)
+{
 	if (!converseFlag1)converseFlag1fin = true;
 	if (converseFlag1 && converseFlag0fin)
 	{
@@ -72,7 +87,6 @@ void Stage31::update(GameMain* gameMain, PlayerChild* _player)
 	if (!converseFlag0 && converseFlag1)
 	{
 		converseFlag0fin = true;
-		DeleteGraph(imageReisen);
 	}
 
 	if (converseFlag0)
@@ -80,16 +94,6 @@ void Stage31::update(GameMain* gameMain, PlayerChild* _player)
 		gameMain->startConverse(310);
 		converseFlag0 = false;
 	}
-
-
-	standardUpdate(_player);
-
-	gameMain->setFilter(FilterType::FILTER_DARK);
-	if(!converseFlag1fin)	gameMain->setFilter(FilterType::FILTER_NONE);
-	for (const auto& t : torches)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
-	for (const auto& t : torches2)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
-
-
 
 }
 
