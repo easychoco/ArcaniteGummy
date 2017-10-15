@@ -69,7 +69,7 @@ void Stage31::update(GameMain* gameMain, PlayerChild* _player)
 		converseFlag1 = false;
 	}
 
-	if (!converseFlag0)
+	if (!converseFlag0 && converseFlag1)
 	{
 		converseFlag0fin = true;
 		DeleteGraph(imageReisen);

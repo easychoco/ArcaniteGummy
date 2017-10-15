@@ -15,9 +15,15 @@ public:
 	void update(GameMain*, PlayerChild*);
 	void draw(const Vector2* player) const;
 	bool isClear() const;
-	
+	void draw_front(const Vector2* _camera) const override;
 private:
 	void initialize();
+	void updateConverse(GameMain*,PlayerChild*);
+	bool converseFlag0;
+	bool converseFlag1;
+	int cTime;
+	int imageFlan;
+
 
 	//マップチップ
 	array<Chip, 20> chip
