@@ -55,7 +55,7 @@ void Stage12::initialize()
 
 void Stage12::update(GameMain* gameMain, PlayerChild* _player)
 {
-	if (!converseFlag0) 
+	if (!converseFlag0 &&!converseFlag0fin) 
 	{
 		converseFlag0fin = true;
 		DeleteGraph(imageReisen);
