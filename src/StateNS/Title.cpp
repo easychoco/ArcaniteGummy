@@ -95,17 +95,20 @@ Child* Title::update(const GrandParent* parent)
 
 void Title::draw() const
 {
-	DrawGraph(0, 0, movie, FALSE);
-	DrawGraph(0, 0, mBackImg, FALSE);
-
 	switch (step) {
+	case 0:
+		DrawGraph(0, 0, movie, FALSE);
+		break;
 	case 1:
+		DrawGraph(0, 0, mBackImg, FALSE);
 		pressZ_draw();
 		break;
 	case 2:
+		DrawGraph(0, 0, mBackImg, FALSE);
 		command_draw();
 		break;
 	case 3://for Debug
+		DrawGraph(0, 0, mBackImg, FALSE);
 		DrawBox(200, 280, 440, 420, BLACK, TRUE);
 
 		//*/
