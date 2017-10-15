@@ -49,7 +49,6 @@ public:
 
 	bool isPushed;
 
-
 private:
 	bool preOnActiveArea;
 	mutable bool tmpOnActiveArea;

@@ -37,12 +37,31 @@ void Stage00::initialize()
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[1]->addGimmick(flag);
 
+	CheckPoint* cp = new CheckPoint(816, 1488, 0);
+	checkPoints.push_back(cp);
+	maps[0]->addGimmick(cp);
 
-	maps[0]->addEnemy(AllEnemies::ENE_USA, 400, 1334);
+	CheckPoint* cp2 = new CheckPoint(496, 1168, 1);
+	checkPoints.push_back(cp2);
+	maps[1]->addGimmick(cp2);
+
+	SwitchWithBlock* s = new SwitchWithBlock(20 * 32 + 16, 40 * 32 + 16);
+	for (int i = 0; i < 8; i++)s->push_block(new Block((75 + i) * 32 + 16, 38 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
+	maps[0]->addSwitchWithBlock(s);
+
+	SwitchWithBlock* s2 = new SwitchWithBlock(20 * 32 + 16, 34 * 32 + 16);
+	for (int i = 0; i < 8; i++)s2->push_block(new Block(42 * 32 + 16, (37 + i) * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
+	maps[0]->addSwitchWithBlock(s2);
+
+	SwitchWithBlock* s3 = new SwitchWithBlock(20 * 32 + 16, 40 * 32 + 16);
+	for (int i = 0; i < 8; i++)s3->push_block(new Block(42 * 32 + 16, (37 + i) * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
+	maps[1]->addSwitchWithBlock(s3);
 
 
 
 	startX = 144, startY = 1536;
+
+	findRestartPoint();
 }
 
 

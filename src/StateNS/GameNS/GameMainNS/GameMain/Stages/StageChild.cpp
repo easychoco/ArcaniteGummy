@@ -29,6 +29,9 @@ StageChild::~StageChild()
 	}
 	maps.clear();
 	maps.shrink_to_fit();
+
+	checkPoints.clear();
+	checkPoints.shrink_to_fit();
 }
 
 void StageChild::initialize()
@@ -50,10 +53,13 @@ void StageChild::standardUpdate(PlayerChild* _player)
 			int switch_flags = 0;
 
 			int loopCount = 0;
-			for (const auto& s : maps[now_stage_num]->getSwitchWithBlocks())
+			for (int i = 0; i < stage_max_x * stage_max_y; ++i)
 			{
-				if (s->isPushed)switch_flags |= (1 << loopCount);
-				++loopCount;
+				for (const auto& s : maps[i]->getSwitchWithBlocks())
+				{
+					if (s->isPushed)switch_flags |= (1 << loopCount);
+					++loopCount;
+				}
 			}
 			saveData->saveCheckPoint(i, switch_flags);
 			break;
@@ -151,9 +157,9 @@ void StageChild::addDynamicGimmickToAllMaps(DynamicGimmickChild* _d_gmk)
 void StageChild::findRestartPoint()
 {
 	int checkIndex = -10;
-	int switch_flags = 0;
+	int switch_flag = 0;
 
-	saveData->updateCheckPoint(checkIndex, switch_flags);
+	saveData->updateCheckPoint(checkIndex, switch_flag);
 
 	//復活できるチェックポイントがあったら
 	if (0 <= checkIndex && checkIndex < checkPoints.size())
@@ -162,6 +168,11 @@ void StageChild::findRestartPoint()
 		this->now_stage_num = restartPoint->getStageNum();
 		this->startX = restartPoint->getX();
 		this->startY = restartPoint->getY();
+
+		for (int i = 0; i < stage_max_x * stage_max_y; ++i)
+		{
+			switch_flag = maps[i]->setSwitchesWithFlag(switch_flag);
+		}
 	}
 }
 

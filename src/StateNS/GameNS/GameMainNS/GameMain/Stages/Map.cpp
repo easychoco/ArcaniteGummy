@@ -329,6 +329,17 @@ void Map::processDynamicCollision(PlayerChild* _player)
 	}
 }
 
+int Map::setSwitchesWithFlag(int _switch_flag)
+{
+	//àÍî‘âEÇÃbitÇ™ç°å©ÇƒÇ¢ÇÈswitchÇ∆ëŒâûÇµÇƒÇ¢ÇÈ
+	for (auto& s : mSwitchWithBlocks)
+	{
+		s->isPushed = (_switch_flag & 1);
+		_switch_flag >>= 1;
+	}
+	return _switch_flag;
+}
+
 //========================================================================
 // ì‡ïîprivateä÷êî
 //========================================================================

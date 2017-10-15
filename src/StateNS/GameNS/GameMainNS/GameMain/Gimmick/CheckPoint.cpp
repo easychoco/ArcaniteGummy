@@ -44,6 +44,10 @@ void CheckPoint::draw(const Vector2* _camera) const
 
 	//•`‰æ
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, image, true, false);
+
+	//—ˆ‚½‚ç‰æ‘œ‚Ì’†S‚ª—Î‚É‚È‚é
+	if (time < 120) DrawCircle(draw_x, draw_y - 3, 8, CYAN, true);
+	else DrawCircle(draw_x, draw_y - 3, 8, RED, true);
 }
 
 void CheckPoint::apply(Character* _character)

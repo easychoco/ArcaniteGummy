@@ -84,6 +84,8 @@ public:
 
 	void processDynamicCollision(PlayerChild*);
 
+	int setSwitchesWithFlag(int);
+
 	vector< GimmickChild* > getGimmicks() { return mGimmicks; }
 	vector< DynamicGimmickChild* > getDynamicGimmicks() { return mDynamicGimmicks; }
 	vector< SwitchWithBlock* > getSwitchWithBlocks() { return mSwitchWithBlocks; }

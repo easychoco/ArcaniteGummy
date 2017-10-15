@@ -16,3 +16,4 @@
 #include "Torch.h"
 #include "Needle.h"
 #include "FallFloor.h"
+#include "CheckPoint.h"
