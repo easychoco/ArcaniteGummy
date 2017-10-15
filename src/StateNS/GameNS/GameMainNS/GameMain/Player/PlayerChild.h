@@ -35,6 +35,8 @@ public:
 	void moveCamera(int dx, int dy);
 	void setCamera(const Vector2& _camera) { *(this->camera) = _camera; };
 
+	bool lock;
+
 protected:
 	//•Ï”
 	float moveSpeed;

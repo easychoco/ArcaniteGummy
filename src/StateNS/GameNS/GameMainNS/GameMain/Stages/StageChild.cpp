@@ -17,7 +17,7 @@ StageChild::StageChild(int _stage_max_x,int _stage_max_y)
 	stage_max_y = _stage_max_y;
 
 	initialize();
-	mBackImg = LoadGraph("Data/Image/back.jpg");
+	mBackImg = LoadGraph("Data/Image/back1.jpg");
 	assert(mBackImg != -1 && "”wŒi‰æ‘œ“Ç‚Ýž‚ÝƒGƒ‰[");
 }
 
@@ -69,7 +69,10 @@ void StageChild::standardUpdate(PlayerChild* _player)
 
 void StageChild::standardDraw(const Vector2* _camera) const
 {
-	DrawGraph(0, 0, mBackImg, true);
+	int draw_x = (_camera->x() - MyData::CX) / -5;
+	int draw_y = (_camera->y() - MyData::CY) / -5;
+	DrawGraph(draw_x, draw_y, mBackImg, true);
+
 	maps[now_stage_num]->draw(_camera);
 }
 

@@ -23,7 +23,7 @@ CheckPoint::~CheckPoint()
 
 void CheckPoint::initialize()
 {
-	this->time = 60;
+	this->time = 120;
 	visited = false;
 	loadImage();
 }

@@ -14,6 +14,7 @@ maxMoveSpeed(_move)
 	post_x = _x % MAP_WIDTH;
 	post_y = _y % MAP_HEIGHT;
 	this->camera = new Vector2(_x, _y);
+	this->lock = false;
 
 	initialize();
 	assert(*mImage != -1 && "©‹@‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
@@ -85,6 +86,12 @@ void PlayerChild::moveCamera(int _dx, int _dy)
 //================================================
 void PlayerChild::standardAction(const StageChild* _stage)
 {
+	if (lock)
+	{
+		lock = false;
+		return;
+	}
+
 	onGround = isOnGround(_stage);
 	onLadder = isOnLadder(_stage);
 

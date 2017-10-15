@@ -37,6 +37,7 @@ void Stage00::initialize()
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[1]->addGimmick(flag);
 
+	//ˆø”‚Í x, y, stage_num
 	CheckPoint* cp = new CheckPoint(816, 1488, 0);
 	checkPoints.push_back(cp);
 	maps[0]->addGimmick(cp);
