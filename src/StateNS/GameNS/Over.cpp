@@ -69,8 +69,6 @@ void Over::draw() const
 	if (cursorPos == 0)	DrawFormatString(220, 350, WHITE, "‚Í‚¢");
 	if (cursorPos == 1)	DrawFormatString(220, 380, WHITE, "‚¢‚¢‚¦");
 
-	//for Debug
-	DrawFormatString(0, 0, WHITE, "%d", cursorPos);
 }
 
 

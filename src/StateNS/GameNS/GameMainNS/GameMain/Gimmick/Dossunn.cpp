@@ -52,10 +52,10 @@ void Dossunn::apply(Character* _character)
 	this->isMove = true;
 
 	//動作実装未確認
-	if (abs(_character->getVector2()->raw_x - this->p->raw_x) < this->width)
+	if (abs(_character->getVector2()->raw_x - this->p->raw_x) < this->width * vectorRate / 2)
 	{
 		if (this->p->raw_y < _character->getVector2()->raw_y && 
-			(_character->getFloorCoordinate() - this->p->raw_y) < PLAYER_CHIP_HEIGHT_RATE() + this->height / 2)
+			(_character->getFloorCoordinate() - this->p->raw_y) < (PLAYER_CHIP_HEIGHT_RATE() + this->height / 2))
 		{
 			//つぶされたらダメージ
 			_character->hpController.damage(300);
@@ -100,9 +100,9 @@ void Dossunn::loadImage()
 
 void Dossunn::move()
 {
-	++mTime;
 	if (isMove)
 	{
+		++mTime;
 		if (mTime <= 30)
 		{
 			dy = 3200;
@@ -113,6 +113,7 @@ void Dossunn::move()
 		}
 		else
 		{
+			dy = 0;
 			*this->p = originPos;
 			isMove = false;
 			mTime = 0;

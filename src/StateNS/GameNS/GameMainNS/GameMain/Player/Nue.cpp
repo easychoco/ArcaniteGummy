@@ -111,10 +111,6 @@ void Nue::draw() const
 
 	draw_other();
 	draw_changingAnimation(draw_x, draw_y);
-
-	//for Debug
-	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
-	//hpController.draw();
 }
 
 //==============================================
@@ -135,7 +131,6 @@ void Nue::draw_other() const
 
 	if(ufo->isActive)ufo->draw(camera);
 
-//	DrawFormatString(20, 120, WHITE, "%d,%d", this->p->raw_x,this->p->raw_y);
 
 }
 

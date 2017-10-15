@@ -74,8 +74,6 @@ PlayerChild* Mokou::update(const StageChild* _stage)
 		else if (CheckHitKey(KEY_INPUT_LEFT))this->direction = true;
 	}
 
-
-	//for Debug
 	if (canChangeCharacter())
 	{
 		animationTime = 0;

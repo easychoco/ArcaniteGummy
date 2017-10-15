@@ -260,9 +260,6 @@ void Nue_Boss::Shot_3way::draw(const Vector2* _camera) const
 	{
 		s->draw(_camera);
 	}
-
-	//for Debug
-	DrawFormatString(0, 80, BLACK, "time: %d", shots[0]->direction);
 }
 
 void Nue_Boss::Shot_3way::addAttacks(vector<Attack*>& _attacks)

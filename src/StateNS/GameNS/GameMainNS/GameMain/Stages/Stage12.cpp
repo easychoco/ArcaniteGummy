@@ -45,16 +45,7 @@ void Stage12::initialize()
 	maps[3]->addSwitchWithBlock(s2);
 
 
-
-
 	startX = 208, startY = 1472;
-	//for Debug
-	/*
-	maps[0]->addEnemy(AllEnemies::BOSS_REISEN, 640, 1392);
-	maps[0]->addEnemy(AllEnemies::ENE_AIRMZ, 540, 1392);
-	maps[0]->addEnemy(AllEnemies::ENE_BROTH, 540, 1488);
-	*/
-	//maps[0]->addEnemy(AllEnemies::BOSS_JUNKO, 540, 1360);
 }
 
 

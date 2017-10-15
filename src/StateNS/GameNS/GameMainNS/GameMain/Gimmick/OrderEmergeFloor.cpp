@@ -2,10 +2,6 @@
 
 #include "..\Character.h"
 
-
-//for Debug
-#include "..\Collision.h"
-
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
@@ -53,7 +49,6 @@ void OrderEmergeFloor::update(const StageChild* _stage)
 
 void OrderEmergeFloor::draw(const Vector2* _camera) const
 {
-	//DrawFormatString(100, 100, BLACK, "%d,%d", this->width, this->height);
 	if (!isEmerge)return;
 
 	standardDraw(_camera, scale, mImage, mDirection);

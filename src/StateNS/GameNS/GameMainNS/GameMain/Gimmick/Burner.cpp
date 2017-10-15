@@ -84,14 +84,6 @@ void Burner::draw(const Vector2* _camera) const
 	if (!isEmerge)return;
 	DrawRotaGraph2(draw_x, draw_y, 16, 16, 1.0, angle, img_bar, true);
 
-
-	//for Debug
-	DrawBox(
-		320 + l / 1000 - _camera->x(),
-		240 + u / 1000 - _camera->y(),
-		320 + r / 1000 - _camera->x(),
-		240 + d / 1000 - _camera->y(),
-		GREEN, false);
 }
 
 void Burner::apply(Character* _character)

@@ -69,9 +69,6 @@ void EnemyController::draw(const Vector2* _camera) const
 	{
 		enemy->draw(_camera);
 	}
-
-	//for Debug
-	DrawFormatString(20, 50, WHITE, "%d", enemies.size());
 }
 
 //©‹@‚Æ“G‚Ì–{‘Ì“¯m‚ÌÕ“Ë”»’è
