@@ -22,7 +22,7 @@ private:
 
 	vector<Torch*> torches;
 	vector<Torch*> torches2;
-
+	bool converseFlag0;
 	//マップチップ
 	array<Chip, 37> chip
 	{

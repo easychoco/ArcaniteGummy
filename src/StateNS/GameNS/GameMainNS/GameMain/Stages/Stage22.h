@@ -18,7 +18,8 @@ public:
 	
 private:
 	void initialize();
-
+	bool converseFlag0, converseFlag0fin;
+	int imageSakuya;
 	//マップチップ
 	array<Chip, 20> chip
 	{

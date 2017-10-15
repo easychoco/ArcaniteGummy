@@ -10,7 +10,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 Stage22::Stage22() :
-StageChild(2, 2) //エリアの数: よこ，たて
+StageChild(2, 1) //エリアの数: よこ，たて
 {
 	initialize();
 }
@@ -25,13 +25,12 @@ void Stage22::initialize()
 
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;
-	this->changeableCharacter |= CHARA_SAKUYA;
+
 	//左上から右にpushしていく
 	//StageID, 0から昇順, エリアの形
 	this->maps.push_back(new Map(22, 0, MapPos::POS_LEFT_UP));
 	this->maps.push_back(new Map(22, 1, MapPos::POS_LEFT_FREE));
-	this->maps.push_back(new Map(22, 2, MapPos::POS_UP_FREE));
-	this->maps.push_back(new Map(22, 3, MapPos::POS_SINGLE));
+
 
 	flag = new ClearFlag(Vector2(2608, 1040));
 	maps[1]->addGimmick(flag);
@@ -57,24 +56,33 @@ void Stage22::initialize()
 	SwitchWithBlock* s5 = new SwitchWithBlock(38 * 32 + 16, 39 * 32 + 16, 1);
 	for (int i = 0; i < 3; i++)s5->push_block(new Block(36 * 32 + 16, (41 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s5);
-
-
+	imageSakuya = LoadGraph("Data/Image/Character/haribote_sakuya.png");
+	converseFlag0 = true;
+	converseFlag0fin = false;
 	startX = 144, startY = 704;
 }
 
 
 void Stage22::update(GameMain* gameMain, PlayerChild* _player)
 {
+	if (!converseFlag0)
+	{
+		converseFlag0fin = true;
+		this->changeableCharacter |= CHARA_SAKUYA;
+		DeleteGraph(imageSakuya);
+	}
+	if (converseFlag0)
+	{
+		gameMain->startConverse(220);
+		converseFlag0 = false;
+	}
 	standardUpdate(_player);
-
-	//for Debug
-	if(CheckHitKey(KEY_INPUT_1))
-		gameMain->startConverse(22);
 }
 
 void Stage22::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
+	if (!converseFlag0fin)DrawRotaGraph(320, 240, 1.0, 0.0, imageSakuya, TRUE);
 }
 
 bool Stage22::isClear() const

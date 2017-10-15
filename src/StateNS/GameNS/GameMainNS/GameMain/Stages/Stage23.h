@@ -20,7 +20,9 @@ public:
 private:
 	void initialize();
 	int time;
-
+	bool converseFlag0, converseFlag0fin;
+	bool converseFlag1;
+	int imageJunko;
 
 
 	//マップチップ

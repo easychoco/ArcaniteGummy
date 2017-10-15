@@ -180,7 +180,7 @@ void PlayerChild::move(const StageChild* _stage)
 
 
 	//“ü—Í
-	if (canMove &&actionState != ACT_SIT)
+	if (canMove && actionState != ACT_SIT)
 	{
 		if (in_right)
 		{
@@ -278,27 +278,28 @@ void PlayerChild::move(const StageChild* _stage)
 	int dx_onScreen = p->x() - post_x;
 	int dy_onScreen = p->y() - post_y;
 
+
 	nextStageMove = StageChild::MOVE_NONE;
 	if (abs(dx_onScreen) > MyData::MAP_WIDTH / 2)
 	{
 		if (dx_onScreen < 0)
 		{
-			nextStageMove = StageChild::MOVE_RIGHT;
+			if(p->x() < 32)nextStageMove = StageChild::MOVE_RIGHT;
 		}
 		else
 		{
-			nextStageMove = StageChild::MOVE_LEFT;
+			if(p->x() > MAP_WIDTH - 32)nextStageMove = StageChild::MOVE_LEFT;
 		}
 	}
 	if (abs(dy_onScreen) > MyData::MAP_HEIGHT / 2)
 	{
 		if (dy_onScreen > 0)
 		{
-			nextStageMove = StageChild::MOVE_UP;
+			if(p->y() > MAP_HEIGHT - 32)nextStageMove = StageChild::MOVE_UP;
 		}
 		else
 		{
-			nextStageMove = StageChild::MOVE_DOWN;
+			if(p->y() < 32)nextStageMove = StageChild::MOVE_DOWN;
 		}
 	}
 

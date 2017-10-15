@@ -41,6 +41,8 @@ void Converse::initialize()
 		allPassages.push_back(Passage(name, YennToCR(serifu)));
 	}
 
+	//for Debug
+	//allPassages.push_back(Passage("sakuya", "tesてすテスト\n忠誠心は鼻から出る\n\nこ　ん　に　ち　は"));
 }
 
 Child* Converse::update(GameParent* _parent)
@@ -71,7 +73,7 @@ void Converse::draw() const
 	allPassages[passageNum].show();
 
 	//for Debug
-	DrawFormatString(560, 320, WHITE, "%d / %d", passageNum + 1, allPassages.size());
+	DrawFormatString(560, 80, WHITE, "%d / %d", passageNum + 1, allPassages.size());
 }
 
 
@@ -123,22 +125,23 @@ Converse::Passage::~Passage()
 void Converse::Passage::show() const
 {
 	//for Debug
-
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
 	//フレーム表示
-	DrawBox(10, 250, 150, 290, BLACK, true);
-	DrawBox(10, 300, 630, 470, BLACK, true);
+	DrawBox(10, 10, 150, 50, BLACK, true);
+	DrawBox(10, 60, 630, 210, BLACK, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	//枠
-	DrawBox(10, 250, 150, 290, WHITE, false);
-	DrawBox(10, 300, 630, 470, WHITE, false);
+	DrawBox(10, 10, 150, 50, WHITE, false);
+	DrawBox(10, 60, 630, 210, WHITE, false);
 
-	DrawString(480, 450, "press Z to next", WHITE);
+	DrawString(480, 190, "press Z to next", WHITE);
 
 	//文章表示
 
 	//名前
-	DrawString(20, 260, speaker.c_str(), WHITE);
+	DrawString(20, 20, speaker.c_str(), WHITE);
 	//文章
-	DrawString(20, 320, passage.c_str(), WHITE);
+	DrawString(20, 80, passage.c_str(), WHITE);
 }
 
 
