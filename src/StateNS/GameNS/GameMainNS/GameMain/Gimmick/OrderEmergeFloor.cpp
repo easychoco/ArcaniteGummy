@@ -2,10 +2,6 @@
 
 #include "..\Character.h"
 
-
-//for Debug
-#include "..\Collision.h"
-
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
@@ -45,15 +41,11 @@ void OrderEmergeFloor::update(const StageChild* _stage)
 	if (mTime >= order * 60)isEmerge = true;
 	else isEmerge = false;
 
-	//if (!isEmerge)return;
 	standardMove(_stage);
-	//this->dy = getBottomDiffer(_stage, 4000);
-	//this->p->raw_y += this->dy;
 }
 
 void OrderEmergeFloor::draw(const Vector2* _camera) const
 {
-	//DrawFormatString(100, 100, BLACK, "%d,%d", this->width, this->height);
 	if (!isEmerge)return;
 
 	standardDraw(_camera, scale, mImage, mDirection);
@@ -62,7 +54,6 @@ void OrderEmergeFloor::draw(const Vector2* _camera) const
 void OrderEmergeFloor::apply(Character* _character)
 {
 
-	//_character->moveCharacter(0.0f, (float)dy);
 }
 
 void OrderEmergeFloor::hittedAction()

@@ -17,8 +17,6 @@
 #include "GameMain\Gimmick\Block.h"
 #include "GameMain\Gimmick\Switches\SwitchWithBlock.h"
 
-//for Debug
-#include "..\..\..\KeyInput.h"
 
 
 
@@ -105,6 +103,9 @@ Child* GameMain::update(GameParent* _parent)
 		this->mEController = mStage->getEController();
 		mEController->setPlayerPos(mPlayer->getVector2());
 	}
+
+	//for Debug
+	if(Input_W())mPlayer->hpController.recover(10000000);
 	
 
 	//時が止まっているか更新
@@ -149,12 +150,6 @@ Child* GameMain::update(GameParent* _parent)
 		next = new Pause(this);
 		mTime = 0;
 	}
-
-
-
-	//for Debug
-	if (Input_W())mPlayer->hpController.recover(1);
-	//if (Input_D())_parent->moveTo(_parent->SEQ_OVER);
 
 	//クリア
 	if (mStage->isClear())

@@ -26,10 +26,6 @@ public:
 	void setJumpPower(float _x) { jumpPower = _x; }
 	void setJumpCount(int _x) { nowJumpCount = _x; }
 
-	//for Debug
-	int getColliX() const;
-	int getColliY() const;
-
 	const bool hasChild;
 
 protected:

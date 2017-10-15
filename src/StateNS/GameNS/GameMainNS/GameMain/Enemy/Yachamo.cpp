@@ -118,9 +118,6 @@ void Yachamo::draw_other(const Vector2* _camera) const
 	{
 		if (a->isActive)a->draw(_camera);
 	}
-
-	//for Debug
-	DrawFormatString(0, 130, BLACK, "%d", attacks.size());
 }
 
 //==============================================

@@ -56,8 +56,6 @@ void FireBar::draw(const Vector2* _camera) const
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, img_block, true, mDirection);
 	DrawRotaGraph2(draw_x, draw_y, 16, 16, 1.0, radian, img_bar, true);
 
-	//for Debug
-	DrawFormatString(0, 70, BLACK, "F: %d, %d", p->x(), p->y());
 }
 
 void FireBar::apply(Character* _character)
@@ -87,9 +85,6 @@ bool FireBar::onActiveArea(const Vector2* _player) const
 		distance(x_1, y_1, _player) < 16 * vectorRate ||
 		distance(x_2, y_2, _player) < 16 * vectorRate ||
 		distance(x_3, y_3, _player) < 16 * vectorRate;
-
-	//for Debug;
-	return false;
 }
 
 //==============================================

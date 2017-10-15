@@ -3,10 +3,6 @@
 #include "..\Character.h"
 
 
-//for Debug
-#include "..\Collision.h"
-#include "..\..\..\..\..\KeyInput.h"
-
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
@@ -51,7 +47,6 @@ void FallFloor::update(const StageChild* _stage)
 		mTime2 = 0;
 		mTime = 0;
 		this->p->raw_y = sy;
-		
 	}
 
 
@@ -68,9 +63,6 @@ void FallFloor::draw(const Vector2* _camera) const
 
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
-
-	//•`‰æ
-	DrawFormatString(100, 150, BLACK, "%d,%d", this->width, this->height);
 
 	DrawRotaGraph(draw_x, draw_y, 1.0, Pi*!falldown, mImage, true, mDirection);
 }

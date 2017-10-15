@@ -2,8 +2,6 @@
 
 #include "..\Stages\StageChild.h"
 
-//for Debug
-#include "..\Collision.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -65,18 +63,16 @@ void PlayerChild::draw() const
 	draw_other();
 	draw_changingAnimation(draw_x, draw_y);
 
-	//for Debug
-	//DrawFormatString(20, 20, WHITE, "%d, %d", p->x(), p->y());
 }
 
-//自機が床の上にいたら床のy座標を返す いなかったら0を返す
+//自機が床の上にいたら床のy座標を返す
 int PlayerChild::getFloorCoordinate()
 {
 	if (this->onGround)
 	{
 		return this->p->raw_x + PLAYER_CHIP_HEIGHT_RATE() / 2;
 	}
-	return 0;
+	return 1 << 29;
 }
 
 void PlayerChild::moveCamera(int _dx, int _dy)
@@ -271,7 +267,7 @@ void PlayerChild::move(const StageChild* _stage)
 
 	//for Debug
 	if (Input_D() && in_up) dy = getTopDiffer(_stage, -10000, dx < 0);
-	if (Input_D() && in_down) dy = getTopDiffer(_stage, 10000, dx < 0);
+	if (Input_D() && in_down) dy = getBottomDiffer(_stage, 10000, dx < 0);
 
 	p->raw_y += dy;
 

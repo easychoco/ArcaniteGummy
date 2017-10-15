@@ -49,13 +49,6 @@ void Stage32::initialize()
 	for (int i = 0; i < 3; i++)s2->push_block(new Block((48 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s2);
 
-	//for Debug
-	/*
-	maps[0]->addEnemy(AllEnemies::BOSS_REISEN, 640, 1392);
-	maps[0]->addEnemy(AllEnemies::ENE_AIRMZ, 540, 1392);
-	maps[0]->addEnemy(AllEnemies::ENE_BROTH, 540, 1488);
-	*/
-	//maps[0]->addEnemy(AllEnemies::BOSS_JUNKO, 540, 1360);
 }
 
 

@@ -69,15 +69,12 @@ void EnemyController::draw(const Vector2* _camera) const
 	{
 		enemy->draw(_camera);
 	}
-
-	//for Debug
-	DrawFormatString(20, 50, WHITE, "%d", enemies.size());
 }
 
 //Ž©‹@‚Æ“G‚Ì–{‘Ì“¯Žm‚ÌÕ“Ë”»’è
 void EnemyController::processCollision(PlayerChild* _player)
 {
-	for (auto& enemy : enemies)
+	//for (auto& enemy : enemies)
 	{
 		/*
 		if (_player->isHit(enemy))
@@ -99,22 +96,6 @@ void EnemyController::addEnemy(AllEnemies _enemy, const Vector2* _player, int _x
 	EnemyChild* ene_tmp = 0;
 	switch (_enemy)
 	{
-	/*
-	case ENE_USA: enemies.push_back(new Usagi(_x, _y)); break;
-	case ENE_BALL: enemies.push_back(new Balloon(_x, _y)); break;
-	case ENE_YACH: enemies.push_back(new Yachamo(_x, _y)); break;
-	case ENE_PIKA: enemies.push_back(new Pikachi(_x, _y)); break;
-	case ENE_POPPY: enemies.push_back(new Poppy(_x, _y)); break;
-	case ENE_RARA: enemies.push_back(new Rarashi(_x, _y)); break;
-	case ENE_BROTH: enemies.push_back(new Broth(_x, _y)); break;
-	case ENE_KARON: enemies.push_back(new Karon(_x, _y)); break;
-	case ENE_AIRMZ: enemies.push_back(new Airmz(_x, _y)); break;
-	case ENE_TERESA: enemies.push_back(new Teresa(_x, _y)); break;
-
-	case BOSS_REISEN: enemies.push_back(new Reisen(_x, _y)); break;
-	case BOSS_JUNKO: enemies.push_back(new Junko(_x, _y)); break;
-	default: assert(!"•s–¾‚È“G‚Å‚·.");
-	*/
 	case ENE_USA: ene_tmp = new Usagi(_x, _y); break;
 	case ENE_BALL: ene_tmp = new Balloon(_x, _y); break;
 	case ENE_YACH: ene_tmp = new Yachamo(_x, _y); break;

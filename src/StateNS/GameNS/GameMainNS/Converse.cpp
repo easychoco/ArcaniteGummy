@@ -41,9 +41,7 @@ void Converse::initialize()
 		allPassages.push_back(Passage(name, YennToCR(serifu)));
 	}
 
-	//for Debug
-	//allPassages.push_back(Passage("sakuya", "tesてすテスト\n忠誠心は鼻から出る\n\nこ　ん　に　ち　は"));
-}
+	}
 
 Child* Converse::update(GameParent* _parent)
 {

@@ -111,10 +111,6 @@ void Nue::draw() const
 
 	draw_other();
 	draw_changingAnimation(draw_x, draw_y);
-
-	//for Debug
-	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
-	//hpController.draw();
 }
 
 //==============================================
@@ -134,8 +130,6 @@ void Nue::draw_other() const
 	}
 
 	if(ufo->isActive)ufo->draw(camera);
-
-//	DrawFormatString(20, 120, WHITE, "%d,%d", this->p->raw_x,this->p->raw_y);
 
 }
 
@@ -184,7 +178,6 @@ void Nue::updateUFO(const StageChild* _stage)
 		)
 	{
 		warpCharacter(ufo->getVector2()->raw_x, ufo->getVector2()->raw_y - 48 * vectorRate);
-//		nowJumpCount = 0;
 
 	}
 
@@ -321,8 +314,7 @@ void Nue::UFO::apply(Character* _character)
 	}
 
 
-	//	else _character->moveCharacter(3.2f, 0.0f);
-	this->isMove = true;
+		this->isMove = true;
 }
 
 void Nue::UFO::hittedAction()
@@ -343,8 +335,6 @@ bool Nue::UFO::isOverlap(const Vector2* _player) const
 bool Nue::UFO::onActiveArea(const Vector2* _player) const
 {
 	return rideOnGimmick(_player);
-//		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH &&
-//		(this->p->y() - _player->y()) / MyData::CHIP_HEIGHT == 1;
 }
 
 void Nue::UFO::setStatus(int _x, int _y)

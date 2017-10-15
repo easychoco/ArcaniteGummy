@@ -5,8 +5,6 @@
 
 #include <fstream>
 
-//for Debug
-#include "..\Enemy\EnemyController.h"
 
 /////////////////////////////////////////////デバッグ用ステージ/////////////////////
 namespace StateNS {

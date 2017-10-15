@@ -10,7 +10,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 Stage51::Stage51() :
-StageChild(3, 1) //エリアの数: よこ，たて
+StageChild(5, 1) //エリアの数: よこ，たて
 {
 	initialize();
 }
@@ -37,7 +37,7 @@ void Stage51::initialize()
 	this->maps.push_back(new Map(51, 4, MapPos::POS_LEFT_FREE));
 
 
-	flag = new ClearFlag(Vector2(16, 16));
+	flag = new ClearFlag(Vector2(176, 1552));
 	maps[0]->addGimmick(flag);
 	now_stage_num = 2;
 	startX = 144, startY = 1536;

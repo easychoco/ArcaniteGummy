@@ -60,13 +60,6 @@ void Stage22::initialize()
 
 
 	startX = 144, startY = 704;
-	//for Debug
-	/*
-	maps[0]->addEnemy(AllEnemies::BOSS_REISEN, 640, 1392);
-	maps[0]->addEnemy(AllEnemies::ENE_AIRMZ, 540, 1392);
-	maps[0]->addEnemy(AllEnemies::ENE_BROTH, 540, 1488);
-	*/
-	//maps[0]->addEnemy(AllEnemies::BOSS_JUNKO, 540, 1360);
 }
 
 
