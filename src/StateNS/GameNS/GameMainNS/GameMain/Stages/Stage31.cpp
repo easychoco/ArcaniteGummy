@@ -51,27 +51,52 @@ void Stage31::initialize()
 
 
 	startX = 144, startY = 1536;
+	converseFlag0 = true;
+	converseFlag0fin = false;
+	converseFlag1 = true;
+	converseFlag1fin = false;
+	imageReisen = LoadGraph("Data/Image/Character/haribote_reisen.png");
 
 }
 
 
 void Stage31::update(GameMain* gameMain, PlayerChild* _player)
 {
+	if (!converseFlag1)converseFlag1fin = true;
+	if (converseFlag1 && converseFlag0fin)
+	{
+		gameMain->startConverse(311);
+		converseFlag1 = false;
+	}
+
+	if (!converseFlag0)
+	{
+		converseFlag0fin = true;
+		DeleteGraph(imageReisen);
+	}
+
+	if (converseFlag0)
+	{
+		gameMain->startConverse(310);
+		converseFlag0 = false;
+	}
+
+
 	standardUpdate(_player);
 
 	gameMain->setFilter(FilterType::FILTER_DARK);
+	if(!converseFlag1fin)	gameMain->setFilter(FilterType::FILTER_NONE);
 	for (const auto& t : torches)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
 	for (const auto& t : torches2)if (t->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
 
 
-	//for Debug
-	if(CheckHitKey(KEY_INPUT_1))
-		gameMain->startConverse(31);
+
 }
 
 void Stage31::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
+	if (!converseFlag0fin)DrawRotaGraph(360, 416, 1.0, 0.0, imageReisen, TRUE);
 }
 
 bool Stage31::isClear() const

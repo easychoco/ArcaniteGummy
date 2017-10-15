@@ -4,7 +4,8 @@
 #include "..\Gimmick\ClearFlag.h"
 
 #include "..\Gimmick\DynamicGimmickChild.h"
-
+#include "..\Gimmick\Door.h"
+#include "..\Player\PlayerChild.h"
 #include <fstream>
 
 namespace StateNS {
@@ -70,8 +71,9 @@ void Stage33::initialize()
 	now_stage_num = 4;
 	startX = 1616, startY = 704;
 
-	//this->torches.push_back(new Torch(304, 1488));
-	//this->maps[0]->addGimmick(torches[0]);
+	converseFlag0 = true;
+	converseFlag1 = true;
+	converseFlag1fin = false;
 
 
 }
@@ -79,15 +81,22 @@ void Stage33::initialize()
 
 void Stage33::update(GameMain* gameMain, PlayerChild* _player)
 {
+
+	if (now_stage_num == 7 && converseFlag0 &&_player->getVector2()->y() == 1536)
+	{
+		gameMain->startConverse(330);
+		converseFlag0 = false;
+	}
+
+
 	standardUpdate(_player);
 
-	//gameMain->setFilter(FilterType::FILTER_DARK);
-	//if (torches[0]->isBurned())gameMain->setFilter(FilterType::FILTER_NONE);
 }
 
 void Stage33::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
+
 }
 
 bool Stage33::isClear() const

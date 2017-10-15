@@ -48,16 +48,14 @@ void Stage32::initialize()
 	for (int i = 0; i < 3; i++)s2->push_block(new Block((45 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
 	for (int i = 0; i < 3; i++)s2->push_block(new Block((48 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s2);
+
+
 }
 
 
 void Stage32::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
-
-	//for Debug
-	if(CheckHitKey(KEY_INPUT_1))
-		gameMain->startConverse(12);
 }
 
 void Stage32::draw(const Vector2* _camera) const
