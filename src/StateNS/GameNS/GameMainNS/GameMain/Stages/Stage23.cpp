@@ -18,15 +18,7 @@ StageChild(3, 3) //エリアの数: よこ，たて
 
 Stage23::~Stage23()
 {
-	//torchesはMapのDynamickGimmicksと一緒にdeleteされるから，ここではdeleteしない
-	/*
-	for (auto& t : torches)
-	{
-			SAFE_DELETE(t);
-	}
-	torches.clear();
-	torches.shrink_to_fit();
-	*/
+	DeleteGraph(imageJunko);
 }
 
 void Stage23::initialize()
@@ -70,41 +62,47 @@ void Stage23::initialize()
 	maps[3]->addSwitchWithBlock(s3);
 
 	startX = 144, startY = 1536;
-
+	junko = new Junko(88 * 32, 48 * 32);
 	imageJunko = LoadGraph("Data/Image/Character/haribote_junko.png");
 	converseFlag0 = true;
 	converseFlag0fin = false;
 	converseFlag1 = true;
-
+	converseFlag2 = true;
+	converseFlag2fin = false;
+	findRestartPoint();
 }
 
 
 void Stage23::update(GameMain* gameMain, PlayerChild* _player)
 {
-	
-	if (!converseFlag0)
-	{
-		converseFlag0fin = true;
-		DeleteGraph(imageJunko);
-	}
+	updateConverse(gameMain,_player);	
+	standardUpdate(_player);
+	time++;
+	if (time % 360 == 0)maps[0]->addEnemy(ENE_TERESA, _player->getVector2(), (1 + GetRand(1) * 30) * 32, 31 * 32);
+
+}
+
+void Stage23::updateConverse(GameMain* gameMain, PlayerChild* _player)
+{
+	if (!converseFlag0 && !converseFlag0fin)converseFlag0fin = true;
 	if (converseFlag0)
 	{
-		maps[2]->addEnemy(BOSS_JUNKO, 88 * 32, 48 * 32);
+		junko->setPlayer(_player->getVector2());
+		maps[2]->addEnemy(junko);
 		gameMain->startConverse(230);
 		converseFlag0 = false;
 	}
-
-
+	if (!converseFlag2)converseFlag2fin = true;
+	if (converseFlag2 && !junko->isAlive())
+	{
+		gameMain->startConverse(232);
+		converseFlag2 = false;
+	}
 	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
 	{
 		gameMain->startConverse(231);
 		converseFlag1 = false;
 	}
-
-	
-	standardUpdate(_player);
-	time++;
-	if (time % 360 == 0)maps[0]->addEnemy(ENE_TERESA, _player->getVector2(), (1 + GetRand(1) * 30) * 32, 31 * 32);
 
 }
 
@@ -117,7 +115,7 @@ void Stage23::draw(const Vector2* _camera) const
 
 bool Stage23::isClear() const
 {
-	return !flag->isActive;
+	return converseFlag2fin;
 }
 
 

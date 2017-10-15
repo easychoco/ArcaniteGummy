@@ -2,7 +2,7 @@
 #include "Map.h"
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
-
+#include "..\Player\PlayerChild.h"
 #include <fstream>
 
 namespace StateNS {
@@ -10,7 +10,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 Stage41::Stage41() :
-StageChild(3, 1) //エリアの数: よこ，たて
+StageChild(4, 1) //エリアの数: よこ，たて
 {
 	initialize();
 }
@@ -44,6 +44,7 @@ void Stage41::initialize()
 	cTime = 0;
 
 	imageFlan = LoadGraph("Data/Image/Character/haribote_flan.png");
+	findRestartPoint();
 }
 
 
@@ -52,6 +53,33 @@ void Stage41::update(GameMain* gameMain, PlayerChild* _player)
 	updateConverse(gameMain,_player);
 	standardUpdate(_player);
 }
+
+void Stage41::updateConverse(GameMain* gameMain, PlayerChild* _player)
+{
+	cTime = min(cTime, 180);
+	if (converseFlag1 && cTime == 180)
+	{
+		gameMain->startConverse(411);
+		converseFlag1 = false;
+	}
+
+	if (cTime == 90)
+	{
+		this->changeableCharacter ^= CHARA_MOKOU;
+		this->changeableCharacter ^= CHARA_SAKUYA;
+		//////////////////強制的にぬえに変更する関数をここに/////////////////
+		DeleteGraph(imageFlan);
+	}
+	if (cTime < 180)_player->lock = true;
+
+	if (converseFlag0)
+	{
+		gameMain->startConverse(410);
+		converseFlag0 = false;
+	}
+	cTime++;
+}
+
 
 void Stage41::draw(const Vector2* _camera) const
 {
@@ -74,32 +102,6 @@ bool Stage41::isClear() const
 	return !flag->isActive;
 }
 
-void Stage41::updateConverse(GameMain* gameMain,PlayerChild* _player) 
-{
-	cTime = min(cTime, 180);
-	if (converseFlag1 && cTime==180)
-	{
-		gameMain->startConverse(411);
-		converseFlag1 = false;
-	}
-	
-	if(cTime==90)
-	{
-		this->changeableCharacter ^= CHARA_MOKOU;
-		this->changeableCharacter ^= CHARA_SAKUYA;
-		//////////////////強制的にぬえに変更する関数をここに/////////////////
-		DeleteGraph(imageFlan);
-	}
-
-	if (converseFlag0)
-	{
-		gameMain->startConverse(410);
-		converseFlag0 = false;
-	}
-	cTime++;
-
-
-}
 
 
 }

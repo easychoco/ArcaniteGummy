@@ -51,7 +51,7 @@ void Stage42::initialize()
 	for (int i = 0; i < 3; i++)s3->push_block(new Block((85 + i) * 32 + 16, 25 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
 	maps[0]->addSwitchWithBlock(s3);
 
-	SwitchWithBlock* s4 = new SwitchWithBlock(92 * 32 + 16, 20 * 32 + 16, 99);
+	SwitchWithBlock* s4 = new SwitchWithBlock(92 * 32 + 16, 20 * 32 + 16, 300);
 	for (int i = 0; i < 4; i++)s4->push_block(new Block(97 * 32 + 16, (1 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[0]->addSwitchWithBlock(s4);
 
@@ -60,18 +60,26 @@ void Stage42::initialize()
 	maps[1]->addSwitchWithBlock(s5);
 
 	startX = 144, startY = 1536;
-
+	converseFlag0 = true;
+	findRestartPoint();
 }
 
 
 void Stage42::update(GameMain* gameMain, PlayerChild* _player)
 {
+	updateConverse(gameMain, _player);
 	standardUpdate(_player);
-
-	//for Debug
-	if(CheckHitKey(KEY_INPUT_1))
-		gameMain->startConverse(12);
 }
+
+void Stage42::updateConverse(GameMain* gameMain, PlayerChild* _player)
+{
+	if (converseFlag0)
+	{
+		gameMain->startConverse(420);
+		converseFlag0 = false;
+	}
+}
+
 
 void Stage42::draw(const Vector2* _camera) const
 {

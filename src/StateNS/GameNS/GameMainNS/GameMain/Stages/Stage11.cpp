@@ -37,17 +37,23 @@ void Stage11::initialize()
 	
 	startX = 144, startY = 1536;
 	converseFlag0 = true;
+	findRestartPoint();
 }
 
 
 void Stage11::update(GameMain* gameMain, PlayerChild* _player)
+{
+	updateConverse(gameMain, _player);
+	standardUpdate(_player);
+}
+
+void Stage11::updateConverse(GameMain* gameMain, PlayerChild* _player)
 {
 	if (converseFlag0)
 	{
 		gameMain->startConverse(110);
 		converseFlag0 = false;
 	}
-	standardUpdate(_player);
 }
 
 void Stage11::draw(const Vector2* _camera) const

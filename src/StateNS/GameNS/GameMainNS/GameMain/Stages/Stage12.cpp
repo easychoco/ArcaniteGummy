@@ -17,7 +17,7 @@ StageChild(2, 2) //ƒGƒŠƒA‚Ì”: ‚æ‚±C‚½‚Ä
 
 Stage12::~Stage12()
 {
-
+	DeleteGraph(imageReisen);
 }
 
 void Stage12::initialize()
@@ -49,23 +49,23 @@ void Stage12::initialize()
 	converseFlag0 = true;
 	converseFlag0fin = false;
 	imageReisen = LoadGraph("Data/Image/Character/haribote_reisen.png");
-
+	findRestartPoint();
 }
 
 
 void Stage12::update(GameMain* gameMain, PlayerChild* _player)
 {
-	if (!converseFlag0 &&!converseFlag0fin) 
-	{
-		converseFlag0fin = true;
-		DeleteGraph(imageReisen);
-	}
+	updateConverse(gameMain, _player);
+	standardUpdate(_player);
+}
+
+void Stage12::updateConverse(GameMain* gameMain, PlayerChild* _player) 
+{
 	if (converseFlag0)
 	{
 		gameMain->startConverse(120);
 		converseFlag0 = false;
 	}
-	standardUpdate(_player);
 }
 
 void Stage12::draw(const Vector2* _camera) const

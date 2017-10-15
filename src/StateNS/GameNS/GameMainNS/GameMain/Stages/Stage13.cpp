@@ -46,38 +46,64 @@ void Stage13::initialize()
 	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s);
 
+	reisen = new Reisen(88 * 32, 48 * 32);
 
 	startX = 208, startY = 1440;
-
+	cTime = 0;
 	converseFlag0 = true;
 	converseFlag1 = true;
+	converseFlag2 = true;
+	findRestartPoint();
 }
 
 
 void Stage13::update(GameMain* gameMain, PlayerChild* _player)
 {
 	
-	if(now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y()==1536)
+	updateConverse(gameMain, _player);
+	
+	standardUpdate(_player);
+
+}
+
+void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player) 
+{
+	
+	if (now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
-		maps[3]->addEnemy(BOSS_REISEN, 88 * 32, 48 * 32);
+		reisen->setPlayer(_player->getVector2());
+		maps[3]->addEnemy(reisen);
 		gameMain->startConverse(130);
 		converseFlag0 = false;
 	}
+	if (!reisen->isAlive())
+	{
+		cTime++;
+		_player->lock = true;
+	}
+	if (cTime > 90 && converseFlag2) 
+	{
+		gameMain->startConverse(132);
+		converseFlag2 = false;
 
-	
-	standardUpdate(_player);
+	}
+	if (converseFlag1 && !reisen->isAlive())
+	{
+		gameMain->startConverse(131);
+		converseFlag1 = false;
+	}
 
 }
 
 void Stage13::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
-	if (!converseFlag1)DrawBox(0, 0, 640, 480, BLACK, TRUE);
+//	if (!converseFlag1)DrawBox(0, 0, 640, 480, BLACK, TRUE);
 }
 
 bool Stage13::isClear() const
 {
-	return !flag->isActive;
+	return !converseFlag2 && cTime>=92;
 }
 
 
