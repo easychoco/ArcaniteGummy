@@ -9,7 +9,7 @@ namespace GameMainNS{
 
 	
 bool Junko::imgLoad = false;
-int Junko::images[8];
+int Junko::images[32];
 
 
 	
@@ -23,13 +23,14 @@ EnemyChild(1000, _x, _y, 32, 32, false, true)
 
 Junko::~Junko()
 {
-	//DeleteGraph(mImage2);
+	
 }
 
 void Junko::initialize()
 {
-	this->mTime = 0;
+	this->mTime = 1;
 	this->init_attacks = false;
+	mImage = images[0];
 }
 
 void Junko::update(const StageChild* _stage, const Vector2* _camera)
@@ -44,29 +45,30 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 		init_attacks = true;
 	}
 
-
+	++mTime;
 	this->mDirection = player->raw_x > this->p->raw_x;
+	standardAction(_stage);
 
-	//for Debug
-	if (CheckHitKey(KEY_INPUT_Q))
+	//時間経過で攻撃
+	if (mTime % 720 == 0)attack_around = true;
+	if (mTime % 420 == 0)attack_cycle = true;
+
+	//攻撃を生成
+	if (attack_around)
+	{
+		s_a->setStatus(player);
+		s_a->setActive(true);
+		attack_around = false;
+	}
+
+	if (attack_cycle)
 	{
 		s_c->setStatus(player);
 		s_c->setActive(true);
-		//s_a->setStatus(player);
-		//s_a->setActive(true);
+		attack_cycle = false;
 	}
 
-	//for Debug
-	if (CheckHitKey(KEY_INPUT_W))
-	{
-		s_c->setActive(false);
-		s_c->setActive(false);
-		//s_a->setActive(false);
-		//s_a->setActive(false);
-	}
-
-	++mTime;
-
+	//攻撃をupdate
 	if (s_a->isActive())
 	{
 		s_a->update();
@@ -79,7 +81,6 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 		s_c->checkActive(_camera);
 	}
 
-	standardAction(_stage);
 }
 
 void Junko::draw(const Vector2* _camera) const
@@ -101,21 +102,12 @@ void Junko::draw(const Vector2* _camera) const
 
 void Junko::move(const StageChild* _stage, int& _dx, int& _dy)
 {
-
+	_dx = (int)(radius * sinf(2 * mTime * pi(1 / 60.0f) / 7.0f));
+	_dy = (int)(radius * cosf(5 * mTime * pi(1 / 60.0f) / 7.0f));
 }
 
 void Junko::draw_other(const Vector2* _camera) const
 {
-	/*
-	for (auto& a : attacks)
-	{
-		if (a->isActive)
-		{
-			a->draw(_camera);
-		}
-	}
-	*/
-
 	if (init_attacks)
 	{
 		if (s_c->isActive())s_c->draw(_camera);
@@ -140,9 +132,8 @@ void Junko::loadImage()
 {
 	if (!imgLoad)
 	{
-		//TODO 書く
-		//int tmp = LoadDivGraph("Data/Image/.png", 8, 8, 1, 32, 32, images);
-		//assert(tmp != -1 && "Junko画像読み込みエラー");
+		int tmp = LoadDivGraph("Data/Image/Character/chip_junko.png", 32, 8, 4, 32, 64, images);
+		assert(tmp != -1 && "Junko画像読み込みエラー");
 	}
 	imgLoad = true;
 }

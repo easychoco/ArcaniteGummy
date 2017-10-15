@@ -23,8 +23,13 @@ private:
 	int mTime;
 	bool init_attacks;
 
+	bool attack_around;
+	bool attack_cycle;
+
+	const int radius = 2000;
+
 	static bool imgLoad;
-	static int images[8];
+	static int images[32];
 	void loadImage();
 
 	//Character‚ÌŠÖ”
@@ -32,12 +37,11 @@ private:
 
 	//Enemychild‚ÌŠÖ”
 	void move(const StageChild*, int& dx, int& dy);
-	virtual void draw_other(const Vector2* camera)const override;
-
+	virtual void draw_other(const Vector2* camera) const override;
 	void attack(const StageChild*);
-
 	void initialize();
 
+	//void setMotion();
 
 	//==========================================
 	//‚±‚±‚©‚ç“à•”ƒNƒ‰ƒX

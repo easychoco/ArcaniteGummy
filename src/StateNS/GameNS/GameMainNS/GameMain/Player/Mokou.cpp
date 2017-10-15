@@ -37,6 +37,12 @@ PlayerChild* Mokou::update(const StageChild* _stage)
 {
 	PlayerChild* next = this;
 
+	if (lock)
+	{
+		lock = false;
+		return next;
+	}
+
 	standardAction(_stage);
 
 	//UŒ‚

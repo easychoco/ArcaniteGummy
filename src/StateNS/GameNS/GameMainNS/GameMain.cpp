@@ -77,7 +77,7 @@ void GameMain::initialize()
 	converseNum = 0;
 
 	stopDynamicObject = StopType::TYPE_NONE;
-
+	nextCharacter = PlayerCharacter::CHARA_NONE;
 	
 
 	icon_mokou = LoadGraph("Data/Image/icon_mokou.png");
@@ -116,6 +116,20 @@ Child* GameMain::update(GameParent* _parent)
 
 	//Playerのupdate
 	PlayerChild* nextPlayer = mPlayer->update(mStage);
+
+	//外部からのキャラ変更
+	if (nextCharacter != CHARA_NONE)
+	{
+		int x = mPlayer->getVector2()->x();
+		int y = mPlayer->getVector2()->y();
+
+		switch (nextCharacter)
+		{
+		case CHARA_MOKOU: nextPlayer = new Mokou(x, y, mPlayer->hpController.getHP()); break;
+		case CHARA_SAKUYA: nextPlayer = new Sakuya(x, y, mPlayer->hpController.getHP()); break;
+		case CHARA_NUE: nextPlayer = new Nue(x, y, mPlayer->hpController.getHP()); break;
+		}
+	}
 
 	//for Debug
 	//リジェネ
@@ -184,7 +198,6 @@ void GameMain::draw() const
 	mSystem->draw(mPlayer->getVector2());
 
 	drawPlayerInfo();
-
 }
 
 void GameMain::setFilter(FilterType _f) { mSystem->setFilter(_f); }
@@ -204,6 +217,10 @@ void GameMain::setCamera(const Vector2& _camera)
 	mPlayer->setCamera(_camera);
 }
 
+void GameMain::setNextCharacter(PlayerCharacter _next)
+{
+	nextCharacter = _next;
+}
 
 //==============================================
 //内部プライベート関数

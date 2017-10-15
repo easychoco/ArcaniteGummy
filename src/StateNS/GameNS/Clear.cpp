@@ -50,7 +50,7 @@ Child* Clear::update(StateNS::Parent* _parent)
 	}
 
 	//次のステージへ
-	if (_parent->stageNum % 10 == 3 || Input_Z())
+	if (Input_Z())
 	{
 		int nextStage = _parent->stageNum;
 	
@@ -70,7 +70,7 @@ void Clear::draw() const
 {
 	DrawFormatString(250, 220, MyData::WHITE, "くりあー！");
 	DrawFormatString(250, 320, MyData::WHITE, "Zで次へ");
-
+	DrawFormatString(250, 350, MyData::WHITE, "Cでタイトルへ");
 }
 
 

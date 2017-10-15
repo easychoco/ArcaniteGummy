@@ -23,6 +23,12 @@ private:
 	bool init_attacks;
 	const Vector2 initial_pos;
 
+	bool attack_3way;
+	bool attack_bomb;
+	bool attack_flower;
+
+	int move_type;
+
 	int dx;
 	int dy;
 
@@ -35,10 +41,9 @@ private:
 
 	//EnemychildÇÃä÷êî
 	void move(const StageChild*, int& dx, int& dy);
+	void setMotion(const StageChild*, int& _dx, int& _dy);
 	virtual void draw_other(const Vector2* camera)const override;
-
 	void processAttack(const StageChild* _stage);
-
 	void initialize();
 	void initialize_attacks();
 

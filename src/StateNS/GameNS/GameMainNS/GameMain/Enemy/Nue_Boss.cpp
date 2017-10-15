@@ -14,7 +14,7 @@ int Nue_Boss::images[32];
 
 	
 Nue_Boss::Nue_Boss(int _x, int _y) : 
-EnemyChild(1000, _x, _y, 32, 32, false, true),
+EnemyChild(1000, _x, _y, 32, 64, false, true),
 initial_pos(Vector2(_x, _y))
 {
 	loadImage();
@@ -24,7 +24,7 @@ initial_pos(Vector2(_x, _y))
 
 Nue_Boss::~Nue_Boss()
 {
-	//DeleteGraph(mImage2);
+
 }
 
 void Nue_Boss::initialize()
@@ -35,6 +35,12 @@ void Nue_Boss::initialize()
 
 	this->dx = 3000;
 	this->dy = 0;
+
+	this->move_type = 0;
+
+	this->attack_3way = false;
+	this->attack_bomb = false;
+	this->attack_flower = false;
 }
 
 void Nue_Boss::initialize_attacks()
@@ -87,15 +93,83 @@ void Nue_Boss::update(const StageChild* _stage, const Vector2* _camera)
 //==============================================
 void Nue_Boss::move(const StageChild* _stage, int& _dx, int& _dy)
 {
-	//*
-	//左右往復
-	_dx = dx;
-	if (p->raw_x + dx < initial_pos.raw_x - 200000 || initial_pos.raw_x + 200000 < p->raw_x + dx)
+	if (mTime % 360 == 0)
 	{
-		dx = -dx;
-		p->raw_x += dx;
+		move_type = GetRand(6);
 	}
-	//*/
+
+	setMotion(_stage, _dx, _dy);
+
+}
+
+void Nue_Boss::setMotion(const StageChild* _stage, int& _dx, int& _dy)
+{
+	switch (move_type)
+	{
+	case 0:
+	case 1:
+	case 2: //3wayShot
+		attack_3way = false;
+		if (mTime % 360 < 30)
+		{
+			_dx = 0;
+			break;
+		}
+		else if (mTime % 360 < 100)attack_3way = true;
+		else if (250 < mTime % 360 && mTime % 360 < 280)
+		{
+			_dx = 0;
+			break;
+		}
+		else if (280 < mTime % 360 && mTime % 360 < 350)attack_3way = true;
+
+		//左右往復
+		_dy = 0;
+		_dx = dx * 2 / 3;
+		if (p->raw_x + dx < initial_pos.raw_x - 100000 + 5000 * move_type || initial_pos.raw_x + 100000 + 5000 * move_type < p->raw_x + dx)
+		{
+			dx = -dx;
+			p->raw_x += dx;
+		}
+		break;
+
+
+	case 3:
+	case 4: //飛び上がって Bomb 
+		if (mTime % 360 < 60)
+		{
+			attack_bomb = false;
+			_dy = -4000;
+			_dx = 0;
+		}
+		else if (mTime % 360 < 300)
+		{
+			//左右往復
+			attack_bomb = true;
+			_dx = dx * 3 / 2;
+			if (p->raw_x + dx < initial_pos.raw_x - 200000 || initial_pos.raw_x + 200000 < p->raw_x + dx)
+			{
+				dx = -dx;
+				p->raw_x += dx;
+			}
+		}
+		else
+		{
+			//地面に戻る
+			attack_bomb = false;
+			_dy = getBottomDiffer(_stage, 5000, _dx < 0);
+		}
+		break;
+
+
+	case 5: //FireFlower
+		_dx = 0;
+		if (mTime % 360 < 60)_dy = -2000;
+		else if (mTime % 360 < 120)attack_flower = true;
+		else if (300 < mTime % 360)_dy = getBottomDiffer(_stage, 3000, _dx < 0);
+		break;
+	}
+
 }
 
 void Nue_Boss::processAttack(const StageChild* _stage)
@@ -128,42 +202,48 @@ void Nue_Boss::processAttack(const StageChild* _stage)
 
 	//インスタンス生成
 
-	/*
-	//if(Shot3wayなら)
-	if (mTime % 20 == 0)
+	//*
+	if (attack_3way)
 	{
-		for (auto& s3 : shot3)
+		if (mTime % 20 == 0)
 		{
-			if (!s3->isActive())
+			for (auto& s3 : shot3)
 			{
-				s3->setStatus(p, mDirection);
-				s3->setActive(true);
-				break;
+				if (!s3->isActive())
+				{
+					s3->setStatus(p, mDirection);
+					s3->setActive(true);
+					break;
+				}
 			}
 		}
 	}
 	//*/
 
-	/*
-	//if(Bombingなら)
-	if(mTime % 45 == 0)
-		for (auto& b : bombs)
-		{
-			if (!b->isActive)
+	//*
+	if (attack_bomb)
+	{
+		if (mTime % 45 == 0)
+			for (auto& b : bombs)
 			{
-				b->setStatus(*p, mDirection);
-				b->isActive = true;
-				break;
+				if (!b->isActive)
+				{
+					b->setStatus(*p, mDirection);
+					b->isActive = true;
+					break;
+				}
 			}
-		}
+	}
 	//*/
 
 	//*
-	//if(FireFlowerなら)	
-	if (!flower->isActive())
+	if (attack_flower)
 	{
-		flower->setStatus(*p, mDirection);
-		flower->setActive(true);
+		if (!flower->isActive())
+		{
+			flower->setStatus(*p, mDirection);
+			flower->setActive(true);
+		}
 	}
 	//*/
 
@@ -236,11 +316,10 @@ void Nue_Boss::Shot_3way::initialize(const Vector2* _pos)
 
 	for (int i = 0; i < 3; i++)
 	{
-		Shot* s_tmp = new Shot(parent, 0, 0, 0, 0, 50);
+		Shot* s_tmp = new Shot(parent, 0, 0, 0, 0, 30);
 		s_tmp->isActive = false;
 
 		//乱数で弾の色を設定
-		//GetRand(3) + 1 は 1 ~ 4 の値を返す
 		s_tmp->setImage(6);
 
 		shots.push_back(s_tmp);
@@ -278,7 +357,7 @@ void Nue_Boss::Shot_3way::setStatus(const Vector2* _pos, bool _direction)
 	time = 0;
 	for (int i = 0; i < 3; i++)
 	{
-		shots[i]->setStatus_2args(Vector2(_pos->raw_x, _pos->raw_y, true), -30 + 30 * i, ((_direction) ? -1 : 1) * 3000);
+		shots[i]->setStatus_2args(Vector2(_pos->raw_x, _pos->raw_y, true), -10 + 10 * i, ((_direction) ? -1 : 1) * 3000);
 		shots[i]->direction = _direction;
 	}
 }

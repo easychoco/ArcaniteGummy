@@ -18,8 +18,8 @@ class System;
 class EnemyController;
 
 enum StopType { TYPE_SAKUYA, TYPE_CHANGE, TYPE_NONE };
-
 enum FilterType{ FILTER_DARK, FILTER_NONE, };
+enum PlayerCharacter{ CHARA_MOKOU, CHARA_SAKUYA, CHARA_NUE, CHARA_NONE };
 
 class GameMain : public Child
 {
@@ -36,6 +36,9 @@ public:
 	void moveCamera(int dx, int dy);
 	void setCamera(const Vector2&);
 
+	void setNextCharacter(PlayerCharacter);
+
+
 private:
 	StageChild* mStage;
 	PlayerChild* mPlayer;
@@ -50,6 +53,8 @@ private:
 	int icon_sakuya;
 	int icon_nue;
 
+	PlayerCharacter nextCharacter;
+
 	int changeableCharacter;
 
 	//~‚ß‚âƒLƒƒƒ‰•ÏX‚Ì‚ÉA“®‚¢‚Ä‚¢‚é‚à‚Ì‚ğ~‚ß‚é
@@ -59,6 +64,8 @@ private:
 	void processCollision(StageChild* stage);
 	StageChild* getNextStage(int);
 	void drawPlayerInfo() const;
+
+
 };
 
 

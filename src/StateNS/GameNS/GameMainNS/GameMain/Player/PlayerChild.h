@@ -37,6 +37,7 @@ public:
 
 	bool lock;
 
+
 protected:
 	//•Ï”
 	float moveSpeed;

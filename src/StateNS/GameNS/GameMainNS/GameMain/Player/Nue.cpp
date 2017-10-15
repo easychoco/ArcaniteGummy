@@ -48,6 +48,12 @@ PlayerChild* Nue::update(const StageChild* _stage)
 {
 	PlayerChild* next = this;
 
+	if (lock)
+	{
+		lock = false;
+		return next;
+	}
+
 	standardAction(_stage);
 	this->hpController.isMuteki = (actionState == ACT_SIT);
 
