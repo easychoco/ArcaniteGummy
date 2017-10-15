@@ -18,7 +18,6 @@ public:
 	
 private:
 	void initialize();
-
 	//マップチップ
 	array<Chip, 20> chip
 	{

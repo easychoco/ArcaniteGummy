@@ -17,6 +17,7 @@ Converse::Converse(GameMain* _main, int _stageNum)
 	main = _main;
 	stageNum = _stageNum;
 	initialize();
+	prePush = true;
 }
 
 Converse::~Converse()
