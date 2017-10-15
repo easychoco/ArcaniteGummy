@@ -33,6 +33,8 @@ void Dossunn::initialize()
 	mTime = 0;
 	isActive = true;
 	isMove = false;
+	interval = 0;
+	isDown = false;
 }
 
 void Dossunn::update(const StageChild* _stage)
@@ -50,12 +52,12 @@ void Dossunn::draw(const Vector2* _camera) const
 void Dossunn::apply(Character* _character)
 {
 	this->isMove = true;
-
+	if (!isDown)return;
 	//動作実装未確認
-	if (abs(_character->getVector2()->raw_x - this->p->raw_x) < this->width)
+	if (abs(_character->getVector2()->raw_x - this->p->raw_x) < this->width / 2 * vectorRate)
 	{
-		if (this->p->raw_y < _character->getVector2()->raw_y && 
-			(_character->getFloorCoordinate() - this->p->raw_y) < PLAYER_CHIP_HEIGHT_RATE() + this->height / 2)
+		if (this->p->raw_y < _character->getVector2()->raw_y &&
+			(abs(_character->getFloorCoordinate() - this->p->raw_y)) < PLAYER_CHIP_HEIGHT_RATE() + this->height / 2 * vectorRate)
 		{
 			//つぶされたらダメージ
 			_character->hpController.damage(300);
@@ -100,24 +102,33 @@ void Dossunn::loadImage()
 
 void Dossunn::move()
 {
+	isDown = false;
+	if (!isMove)return;
+
+
 	++mTime;
-	if (isMove)
+	if (mTime <= 90)
 	{
-		if (mTime <= 30)
-		{
-			dy = 3200;
-		}
-		else if (this->p->raw_y > originPos.raw_y)
-		{
-			dy = -1600;
-		}
-		else
-		{
-			*this->p = originPos;
-			isMove = false;
-			mTime = 0;
-		}
+		isDown = true;
+		dy = 3200;
 	}
+	else if (this->p->raw_y > originPos.raw_y)
+	{
+		dy = -1600;
+	}
+	else if (this->p->raw_y <= originPos.raw_y)
+	{
+		dy = 0;
+		*this->p = originPos;
+		interval++;
+	}
+	if (interval >= 60)
+	{
+		isMove = false;
+		mTime = 0;
+		interval = 0;
+	}
+	
 
 }
 

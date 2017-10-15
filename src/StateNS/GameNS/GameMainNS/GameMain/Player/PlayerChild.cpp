@@ -74,7 +74,7 @@ int PlayerChild::getFloorCoordinate()
 {
 	if (this->onGround)
 	{
-		return this->p->raw_x + PLAYER_CHIP_HEIGHT_RATE() / 2;
+		return this->p->raw_y + PLAYER_CHIP_HEIGHT_RATE() / 2;
 	}
 	return 0;
 }
