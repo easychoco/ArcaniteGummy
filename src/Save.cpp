@@ -6,40 +6,102 @@ namespace MySave{
 
 SaveData::SaveData()
 {
+	slotNum = 0;
+	checkIndex = -10;
+	switch_flags = 0;
+
 	loadData();
 }
 
 SaveData::~SaveData()
 {
 	//ファイル出力
-	ofstream fout("Data/Text/save.txt", ios_base::binary | ios_base::out);
-	for (const auto& data : allDatas)
+	ofstream fout;
+	fout.open("Data/Text/save.bin", ios::binary | ios::out | ios::trunc);
+
+	//vectorのサイズを書き込み
+	unsigned size = allDatas.size();
+	fout.write((char*)&size, sizeof(int));
+
+	for (const int data : allDatas)
 	{
-		fout << data << endl;
+		fout.write((char*)&data, sizeof(int));
 	}
+	fout.close();
 }
 
 void SaveData::loadData()
 {
-	ifstream fin("Data/Text/save.txt", ios_base::binary | ios_base::in);
+	ifstream fin;
+	fin.open("Data/Text/save.bin", ios::binary | ios::in);
 
 	allDatas.clear();
+	allDatas.shrink_to_fit();
 
-	//セーブデータを読み込んでvectorにpush
-	int stage = 0;
-	while (fin >> stage, stage)
+	if (!fin)
 	{
-		allDatas.push_back(stage);
+		allDatas.push_back(11);
+		allDatas.push_back(11);
+		allDatas.push_back(11);
+		fin.close();
+		return;
 	}
 	
+	//セーブデータを読み込んでvectorにpush
+	int size;
+	fin.read((char*)&size, sizeof(int));
+
+	while (size--)
+	{
+		int stage;
+		fin.read((char*)&stage, sizeof(int));
+		allDatas.push_back(stage);
+	}
+
+	//もしセーブスロットが足りなかったら初期データで埋める
+	while (allDatas.size() < 3)
+	{
+		allDatas.push_back(11);
+	}
+
+	allDatas[2] = 52;
+
 	allDatas.shrink_to_fit();
+	fin.close();
 }
 
+//上書きオートセーブ
 void SaveData::save(int _stageNum)
 {
-	allDatas.push_back(_stageNum);
+	allDatas[slotNum] = _stageNum;
 }
 
+//別スロットへのセーブ
+void SaveData::saveNewData(int _stageNum, int _slot)
+{
+	if (_slot < allDatas.size())allDatas[_slot] = _stageNum;
+	else assert("Save:: slot範囲外");
+
+	this->slotNum = _slot;
+}
+
+void SaveData::resetCheckPoint()
+{
+	checkIndex = -10;
+	switch_flags = 0;
+}
+
+void SaveData::saveCheckPoint(int _checkIndex, int _switch_flags)
+{
+	checkIndex = _checkIndex;
+	switch_flags = _switch_flags;
+}
+
+void SaveData::updateCheckPoint(int& _checkIndex, int& _switch_flags)
+{
+	_checkIndex = checkIndex;
+	_switch_flags = switch_flags;
+}
 
 
 

@@ -41,7 +41,6 @@ void Door::update()
 
 void Door::draw(const Vector2* _camera) const
 {
-
 	//Door1
 	int draw_x = 320 + (door1->raw_x - _camera->raw_x) / MyData::vectorRate;
 	int draw_y = 240 + (door1->raw_y - _camera->raw_y) / MyData::vectorRate;

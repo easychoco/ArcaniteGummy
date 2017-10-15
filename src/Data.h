@@ -2,6 +2,7 @@
 
 #include "DXLib.h"
 #include "Sound.h"
+#include "Save.h"
 
 #include <cassert>
 #include <array>
@@ -47,6 +48,9 @@ extern int MapChip[256];
 
 //サウンド
 extern Sound* sound;
+
+//セーブデータ
+extern SaveData* saveData;
 
 //プレイヤーのチップサイズ
 constexpr int PLAYER_CHIP_HEIGHT = 64;

@@ -16,7 +16,7 @@ Parent::Parent(int _stageNum)
 
 Parent::~Parent()
 {
-
+	
 }
 
 void Parent::initialize()

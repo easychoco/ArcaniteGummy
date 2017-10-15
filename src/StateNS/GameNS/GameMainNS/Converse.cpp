@@ -40,7 +40,6 @@ void Converse::initialize()
 	while (fin >> name >> serifu) {
 		allPassages.push_back(Passage(name, YennToCR(serifu)));
 	}
-
 }
 
 Child* Converse::update(GameParent* _parent)

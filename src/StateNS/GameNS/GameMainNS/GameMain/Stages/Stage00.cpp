@@ -19,7 +19,7 @@ StageChild(2, 1) //ƒGƒŠƒA‚Ì”: ‚æ‚±C‚½‚Ä
 
 Stage00::~Stage00()
 {
-
+	
 }
 
 void Stage00::initialize()

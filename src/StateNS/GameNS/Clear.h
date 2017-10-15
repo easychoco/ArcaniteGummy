@@ -18,6 +18,8 @@ public:
 	Child* update(StateNS::Parent*);
 	void draw() const;
 
+private:
+	bool saved;
 };
 
 

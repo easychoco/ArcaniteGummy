@@ -1,6 +1,9 @@
 #include "StageChild.h"
 #include "Map.h"
 
+#include "..\Gimmick\CheckPoint.h"
+#include "..\Gimmick\Switches\SwitchWithBlock.h"
+
 #include "..\..\..\..\..\KeyInput.h"
 
 namespace StateNS {
@@ -37,6 +40,25 @@ void StageChild::initialize()
 void StageChild::standardUpdate(PlayerChild* _player)
 {
 	maps[now_stage_num]->update(_player, this);
+
+	//チェックポイントに来ていてるか確認
+	for (int i = 0; i < checkPoints.size(); i++)
+	{
+		//チェックポイントに来ていたら
+		if (checkPoints[i]->visitCheckPoint())
+		{
+			int switch_flags = 0;
+
+			int loopCount = 0;
+			for (const auto& s : maps[now_stage_num]->getSwitchWithBlocks())
+			{
+				if (s->isPushed)switch_flags |= (1 << loopCount);
+				++loopCount;
+			}
+			saveData->saveCheckPoint(i, switch_flags);
+			break;
+		}
+	}
 }
 
 void StageChild::standardDraw(const Vector2* _camera) const
@@ -126,7 +148,22 @@ void StageChild::addDynamicGimmickToAllMaps(DynamicGimmickChild* _d_gmk)
 //========================================================================
 // 内部protected関数
 //========================================================================
+void StageChild::findRestartPoint()
+{
+	int checkIndex = -10;
+	int switch_flags = 0;
 
+	saveData->updateCheckPoint(checkIndex, switch_flags);
+
+	//復活できるチェックポイントがあったら
+	if (0 <= checkIndex && checkIndex < checkPoints.size())
+	{
+		CheckPoint*  restartPoint = checkPoints[checkIndex];
+		this->now_stage_num = restartPoint->getStageNum();
+		this->startX = restartPoint->getX();
+		this->startY = restartPoint->getY();
+	}
+}
 
 
 //========================================================================

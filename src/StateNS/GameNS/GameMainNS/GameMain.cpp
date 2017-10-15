@@ -117,7 +117,8 @@ Child* GameMain::update(GameParent* _parent)
 	//Playerのupdate
 	PlayerChild* nextPlayer = mPlayer->update(mStage);
 
-	//リジェネ(デバグ)
+	//for Debug
+	//リジェネ
 	if (Input_W())mPlayer->hpController.recover(10000);
 
 	//Player交代
@@ -134,6 +135,8 @@ Child* GameMain::update(GameParent* _parent)
 		this->mEController = mStage->getEController();
 		mEController->setPlayerPos(mPlayer->getVector2());
 	}
+
+	if (!mPlayer->hpController.isAlive())_parent->moveTo(_parent->SEQ_OVER);
 
 	//衝突判定
 	processCollision(mStage);

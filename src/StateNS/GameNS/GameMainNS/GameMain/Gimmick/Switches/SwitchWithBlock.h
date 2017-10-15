@@ -47,8 +47,10 @@ public:
 	//第2引数がfalseで，スイッチoffの時に現れる
 	void push_block(Block* b, bool switch_on) { switch_on ? blocks_on.push_back(b) : blocks_off.push_back(b); }
 
-private:
 	bool isPushed;
+
+
+private:
 	bool preOnActiveArea;
 	mutable bool tmpOnActiveArea;
 	int mTime;

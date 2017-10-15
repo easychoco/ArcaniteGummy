@@ -12,6 +12,7 @@ class GimmickChild;
 class DynamicGimmickChild;
 class SwitchWithBlock;
 class ClearFlag;
+class CheckPoint;
 class GameMain;
 class EnemyController;
 
@@ -106,7 +107,11 @@ protected:
 	int changeableCharacter;
 
 	vector<Map*> maps;
+	vector<CheckPoint*> checkPoints;
 	ClearFlag* flag;
+	
+	//復活できるチェックポイントを探して，あれば復活
+	void findRestartPoint();
 
 	class Chip
 	{

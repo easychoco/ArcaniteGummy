@@ -12,7 +12,7 @@ namespace GameNS {
 
 Clear::Clear()
 {
-
+	initialize();
 }
 
 
@@ -23,11 +23,25 @@ Clear::~Clear()
 
 void Clear::initialize()
 {
-
+	saved = false;
 }
 
 Child* Clear::update(StateNS::Parent* _parent)
 {
+	if (!saved)
+	{
+		int nextStage = _parent->stageNum;
+
+		//ƒNƒŠƒA‚µ‚½‚ç
+		if (nextStage == 53)nextStage = 11;
+		else if (nextStage % 10 == 3)nextStage += 8;
+		else ++nextStage;
+
+		saveData->save(nextStage);
+		saveData->resetCheckPoint();
+		saved = true;
+	}
+
 	Child* next = this;
 
 	if (Input_C())

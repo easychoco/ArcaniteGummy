@@ -6,13 +6,15 @@
 #include "MusicRoom.h"
 
 
+//for Debug
 int hoge[15] = { 11,12,13,21,22,23,31,32,33,41,42,43,51,52,53 };
 
 namespace StateNS{
 
 
 
-Title::Title()
+Title::Title():
+save(saveData->getSaveData())
 {
 	step = 0;
 	select = 0;
@@ -20,7 +22,8 @@ Title::Title()
 }
 
 
-Title::Title(int _step,int _select)
+Title::Title(int _step,int _select):
+save(saveData->getSaveData())
 {
 	step = _step;
 	select = _select;
@@ -65,12 +68,13 @@ Child* Title::update(const GrandParent* parent)
 			if (select == 0) { step++; select = 0; }
 			else next = nextScene(select);
 		}
-
 		if (Input_UP() && pushUP)select = (select + 3) % 4;
 		if (Input_DOWN() && pushDOWN)select = (select + 1) % 4;
 		break;
-	case 3://デバッグ
+	case 3:
 		if(Input_OK() && pushZ)next = nextScene(0);
+		//if (Input_UP() && pushUP)select = (select + 2) % 3;
+		//if (Input_DOWN() && pushDOWN)select = (select + 1) % 3;
 		if (Input_UP() && pushUP)select = (select + 14) % 15;
 		if (Input_DOWN() && pushDOWN)select = (select + 1) % 15;
 	}
@@ -92,24 +96,34 @@ Child* Title::update(const GrandParent* parent)
 void Title::draw() const
 {
 	DrawGraph(0, 0, movie, FALSE);
+	DrawGraph(0, 0, mBackImg, FALSE);
 
 	switch (step) {
 	case 1:
-		DrawGraph(0, 0, mBackImg, FALSE);
 		pressZ_draw();
 		break;
 	case 2:
-		DrawGraph(0, 0, mBackImg, FALSE);
 		command_draw();
 		break;
 	case 3://for Debug
-		DrawGraph(0, 0, mBackImg, FALSE);
 		DrawBox(200, 280, 440, 420, BLACK, TRUE);
 
-		DrawFormatString(250, 300, WHITE, "ステージ%d-%d",hoge[select]/10,hoge[select]%10);
+		//*/
+		DrawFormatString(250, 300, WHITE, "ステージ%d-%d", hoge[select] / 10, hoge[select]%10);
 		DrawFormatString(250, 330, WHITE, "デバッグ用だよ");
 		DrawFormatString(250, 360, WHITE, "上下でステージ選択");
+		//*/
+		
+		/*/
+		DrawBox(240, 295 + select * 20, 400, 315 + select * 20, GREEN, false);
 
+		DrawFormatString(260, 300, WHITE, "1: ステージ%d-%d", save[0] / 10, save[0] % 10);
+		DrawFormatString(260, 320, WHITE, "2: ステージ%d-%d", save[1] / 10, save[1] % 10);
+		DrawFormatString(260, 340, WHITE, "3: ステージ%d-%d", save[2] / 10, save[2] % 10);
+		DrawFormatString(270, 360, WHITE, "上下でステージ選択");
+		//*/
+
+		break;
 	}
 }
 
@@ -153,6 +167,7 @@ Child* Title::nextScene(int n) {
 	///////////もっとうまい書き方あったら教えてくれ/////////////////
 	switch (n) {
 	case 0:scene = new Parent(hoge[select]); break;
+	//case 0:scene = new Parent(save[select]); saveData->slotNum = select; break;
 	case 1:scene = new MusicRoom(); break;
 	case 2:scene = new Config(); break;
 	case 3:scene = new Parent(0); break;

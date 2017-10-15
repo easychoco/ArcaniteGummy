@@ -123,6 +123,7 @@ void Pause::update_reset()
 	if (Input_OK())
 	{
 		resetGame = true;
+		saveData->resetCheckPoint();
 	}
 	if (Input_NO())nowState = STATE_HOME;
 }
