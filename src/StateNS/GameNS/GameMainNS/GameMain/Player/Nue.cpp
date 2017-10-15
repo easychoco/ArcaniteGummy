@@ -131,6 +131,7 @@ void Nue::draw_other() const
 
 	if(ufo->isActive)ufo->draw(camera);
 
+
 }
 
 void Nue::loadImage()
@@ -178,6 +179,7 @@ void Nue::updateUFO(const StageChild* _stage)
 		)
 	{
 		warpCharacter(ufo->getVector2()->raw_x, ufo->getVector2()->raw_y - 48 * vectorRate);
+//		nowJumpCount = 0;
 
 	}
 
@@ -314,7 +316,8 @@ void Nue::UFO::apply(Character* _character)
 	}
 
 
-		this->isMove = true;
+	//	else _character->moveCharacter(3.2f, 0.0f);
+	this->isMove = true;
 }
 
 void Nue::UFO::hittedAction()
@@ -335,6 +338,8 @@ bool Nue::UFO::isOverlap(const Vector2* _player) const
 bool Nue::UFO::onActiveArea(const Vector2* _player) const
 {
 	return rideOnGimmick(_player);
+//		abs(this->p->x() - _player->x()) <= MyData::CHIP_WIDTH &&
+//		(this->p->y() - _player->y()) / MyData::CHIP_HEIGHT == 1;
 }
 
 void Nue::UFO::setStatus(int _x, int _y)

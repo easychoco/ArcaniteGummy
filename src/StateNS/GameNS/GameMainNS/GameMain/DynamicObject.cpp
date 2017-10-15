@@ -228,10 +228,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 		*/
 
-		//for Debug
-		//return fixToVectorHeight(pos.pos_y) + (32000 - pos.pos_x % 32000) - pos.pos_y;
 		return fixToVectorHeight(pos.pos_y) + (32000 - (pos.pos_x + extraDiffer) % 32000) - pos.pos_y;
-	
 	}
 
 

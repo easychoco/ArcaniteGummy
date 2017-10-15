@@ -59,9 +59,7 @@ void Stage42::initialize()
 	for (int i = 0; i < 3; i++)s5->push_block(new Block(83 * 32 + 16, (37 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s5);
 
-
-	startX = 144, startY = 1536;
-	
+	startX = 144, startY = 1536;
 }
 
 

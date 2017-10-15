@@ -45,8 +45,6 @@ void Stage12::initialize()
 	maps[3]->addSwitchWithBlock(s2);
 
 
-
-
 	startX = 208, startY = 1472;
 }
 

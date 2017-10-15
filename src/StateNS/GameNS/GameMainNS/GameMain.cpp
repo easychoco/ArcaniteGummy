@@ -117,6 +117,9 @@ Child* GameMain::update(GameParent* _parent)
 	//Playerのupdate
 	PlayerChild* nextPlayer = mPlayer->update(mStage);
 
+	//リジェネ(デバグ)
+	if (Input_W())mPlayer->hpController.recover(10000);
+
 	//Player交代
 	if (nextPlayer != mPlayer)
 	{
@@ -134,7 +137,6 @@ Child* GameMain::update(GameParent* _parent)
 
 	//衝突判定
 	processCollision(mStage);
-
 
 	//Systemのupdate
 	mSystem->update();
@@ -322,6 +324,7 @@ StageChild* GameMain::getNextStage(int stageID)
 	if (stageID == 51)return new Stage51();
 	if (stageID == 52)return new Stage52();
 	if (stageID == 53)return new Stage53();
+
 	//for Debug
 	if (stageID == 0)return new Stage00();
 
