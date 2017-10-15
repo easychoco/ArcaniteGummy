@@ -164,7 +164,7 @@ private:
 	};
 
 	//マップチップ
-	array<Chip, 37> chip
+	array<Chip, 64> chip
 	{
 		Chip(ChipType::TYPE_BACK),
 		Chip(ChipType::TYPE_RIGID),
@@ -201,10 +201,39 @@ private:
 		Chip(ChipType::TYPE_RIGID),
 
 		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIDE),
 		Chip(ChipType::TYPE_DOWN_SLANT_RIGHT),
 		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
 		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
 		Chip(ChipType::TYPE_UP_SLANT_LEFT),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIDE),
+		Chip(ChipType::TYPE_DOWN_SLANT_RIGHT),
+		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
+		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
+		Chip(ChipType::TYPE_UP_SLANT_LEFT),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIDE),
+		Chip(ChipType::TYPE_DOWN_SLANT_RIGHT),
+		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
+		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
+		Chip(ChipType::TYPE_UP_SLANT_LEFT),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIDE),
+		Chip(ChipType::TYPE_DOWN_SLANT_RIGHT),
+		Chip(ChipType::TYPE_DOWN_SLANT_LEFT),
+		Chip(ChipType::TYPE_UP_SLANT_RIGHT),
+		Chip(ChipType::TYPE_UP_SLANT_LEFT),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+		Chip(ChipType::TYPE_RIGID),
+
 	};
 
 };
