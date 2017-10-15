@@ -17,6 +17,7 @@
 #include "GameMain\Gimmick\Block.h"
 #include "GameMain\Gimmick\Switches\SwitchWithBlock.h"
 
+//for Debug
 #include "..\..\..\KeyInput.h"
 
 
@@ -36,26 +37,29 @@ GameMain::~GameMain()
 	SAFE_DELETE(mStage);
 	SAFE_DELETE(mPlayer);
 	SAFE_DELETE(mSystem);
+
+	DeleteGraph(icon_mokou);
+	DeleteGraph(icon_sakuya);
+	DeleteGraph(icon_nue);
 }
 
 void GameMain::initialize()
 {
-
 	mStage = getNextStage(stageID);
 
 	//最初のキャラを設定
 	int changeableCharacter = mStage->getChangeableCharacter();
 	if (changeableCharacter & StageChild::ChangeableCharacter::CHARA_MOKOU)
 	{
-		mPlayer = new Mokou(mStage->startX, mStage->startY, 100);
+		mPlayer = new Mokou(mStage->startX, mStage->startY, PLAYER_MAX_HP);
 	}
 	else if (changeableCharacter & StageChild::ChangeableCharacter::CHARA_SAKUYA)
 	{
-		mPlayer = new Sakuya(mStage->startX, mStage->startY, 100);
+		mPlayer = new Sakuya(mStage->startX, mStage->startY, PLAYER_MAX_HP);
 	}
 	else if (changeableCharacter & StageChild::ChangeableCharacter::CHARA_NUE)
 	{
-		mPlayer = new Nue(mStage->startX, mStage->startY, 100);
+		mPlayer = new Nue(mStage->startX, mStage->startY, PLAYER_MAX_HP);
 	}
 	else
 	{
@@ -75,6 +79,17 @@ void GameMain::initialize()
 	converseNum = 0;
 
 	stopDynamicObject = StopType::TYPE_NONE;
+
+	
+
+	icon_mokou = LoadGraph("Data/Image/icon_mokou.png");
+	assert(icon_mokou != -1 && "icon_mokou読み込みエラー");
+
+	icon_sakuya = LoadGraph("Data/Image/icon_sakuya.png");
+	assert(icon_sakuya != -1 && "icon_sakuya読み込みエラー");
+
+	icon_nue = LoadGraph("Data/Image/icon_nue.png");
+	assert(icon_nue != -1 && "icon_nue読み込みエラー");
 }
 
 Child* GameMain::update(GameParent* _parent)
@@ -138,7 +153,7 @@ Child* GameMain::update(GameParent* _parent)
 
 
 	//for Debug
-	mPlayer->hpController.recover(1);
+	if (Input_W())mPlayer->hpController.recover(1);
 	//if (Input_D())_parent->moveTo(_parent->SEQ_OVER);
 
 	//クリア
@@ -167,6 +182,9 @@ void GameMain::draw() const
 	mStage->draw_front(mPlayer->getCamera());
 
 	mSystem->draw(mPlayer->getVector2());
+
+	drawPlayerInfo();
+
 }
 
 void GameMain::setFilter(FilterType _f) { mSystem->setFilter(_f); }
@@ -271,7 +289,7 @@ void GameMain::processCollision(StageChild* _stage)
 		if (!gimmick->isActive)continue;
 
 		//プレイヤーとDynamicGimmickの衝突
-		if (mPlayer->isHit(gimmick))
+		if (gimmick->isOverlap(mPlayer->getVector2()))
 		{
 			gimmick->apply(mPlayer);
 		}
@@ -315,6 +333,28 @@ StageChild* GameMain::getNextStage(int stageID)
 	//ここにはこない
 	assert(!"GameMain::getNextStage 不正なStageID");
 	return NULL;
+}
+
+void GameMain::drawPlayerInfo() const
+{
+	//枠を書く
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+	DrawBox(30, 10, 50 + PLAYER_MAX_HP * 2, 60, BLACK, true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 200);
+
+	//残りHPを数値で表示
+	DrawFormatString(38, 15, WHITE, "HP: %d / %d", mPlayer->hpController.getHP(), PLAYER_MAX_HP);
+
+	//残りHPをバーで表示
+	DrawBox(38, 38, 42 + PLAYER_MAX_HP * 2, 52, WHITE, false);
+	DrawBox(40, 40, 40 + mPlayer->hpController.getHP() * 2, 50, MyData::GREEN, true);
+
+	//交代可能なアイコンを表示
+	if(mStage->canChangeCharacter(mStage->ChangeableCharacter::CHARA_MOKOU, false))DrawGraph(320, 10, icon_mokou, true);
+	if(mStage->canChangeCharacter(mStage->ChangeableCharacter::CHARA_SAKUYA, false))DrawGraph(360, 10, icon_sakuya, true);
+	if(mStage->canChangeCharacter(mStage->ChangeableCharacter::CHARA_NUE, false))DrawGraph(400, 10, icon_nue, true);
+
+
 }
 
 

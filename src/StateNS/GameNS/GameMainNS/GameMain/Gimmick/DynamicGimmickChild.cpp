@@ -4,9 +4,15 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+DynamicGimmickChild::DynamicGimmickChild(int _x, int _y, double _scale) :
+DynamicGimmickChild(_x, _y, _scale, true)
+{
 
-DynamicGimmickChild::DynamicGimmickChild(int _x, int _y, double _scale) : 
-DynamicObject(_x, _y, (int)(32 * _scale), (int)(32 * _scale), 0, 0)
+}
+
+DynamicGimmickChild::DynamicGimmickChild(int _x, int _y, double _scale, bool _isDeletable) : 
+DynamicObject(_x, _y, (int)(32 * _scale), (int)(32 * _scale), 0, 0),
+isDeletable(_isDeletable)
 {
 	dx = dy = 0;
 	mDirection = false;

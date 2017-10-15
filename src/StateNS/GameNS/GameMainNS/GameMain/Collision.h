@@ -15,11 +15,12 @@ public:
 	Collision(DynamicObject*, int w, int h);
 	~Collision();
 	bool isHit(const Collision* other) const;
-	
+	void setSize(int w, int h);
+
 	DynamicObject* parent;
 	const Vector2* p;
-	
-	void setSize(int w, int h);
+
+	bool noCollide;
 
 	int width;
 	int height;

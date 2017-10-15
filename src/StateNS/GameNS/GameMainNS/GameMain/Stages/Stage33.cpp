@@ -53,19 +53,19 @@ void Stage33::initialize()
 
 	SwitchWithBlock* s = new SwitchWithBlock(8 * 32 + 16, 15 * 32 + 16, 1);
 	for (int i = 0; i < 3; i++)s->push_block(new Block((49 + i) * 32 + 16, 34 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
-	maps[0]->addSwitchWithBlock(s);
+	maps[4]->addSwitchWithBlock(s);
 
-	SwitchWithBlock* s1 = new SwitchWithBlock(94 * 32 + 16, 32 * 32 + 16, 1);
+	SwitchWithBlock* s1 = new SwitchWithBlock(94 * 32 + 16, 15 * 32 + 16, 1);
 	for (int i = 0; i < 3; i++)s1->push_block(new Block((49 + i) * 32 + 16, 36 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
-	maps[0]->addSwitchWithBlock(s1);
+	maps[4]->addSwitchWithBlock(s1);
 
 	SwitchWithBlock* s2 = new SwitchWithBlock(8 * 32 + 16, 38 * 32 + 16, 1);
 	for (int i = 0; i < 3; i++)s2->push_block(new Block((49 + i) * 32 + 16, 38 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
-	maps[0]->addSwitchWithBlock(s2);
+	maps[4]->addSwitchWithBlock(s2);
 
 	SwitchWithBlock* s3 = new SwitchWithBlock(94 * 32 + 16, 38 * 32 + 16, 1);
 	for (int i = 0; i < 3; i++)s3->push_block(new Block((49 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
-	maps[0]->addSwitchWithBlock(s3);
+	maps[4]->addSwitchWithBlock(s3);
 
 	now_stage_num = 4;
 	startX = 1616, startY = 704;

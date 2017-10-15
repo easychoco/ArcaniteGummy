@@ -52,13 +52,20 @@ void Broth::update(const StageChild* _stage,const Vector2* _camera)
 		}
 	}
 	mImage = images[actState * 2 + (aTime / 10) % 2];
-
 }
 
 void Broth::move(const StageChild* _stage, int& _dx, int& _dy)
 {
+	//UŒ‚‚µ‚Ä‚¢‚È‚¯‚ê‚Î
+	if (mTime >= 450)
+	{
+		_dy = getBottomDiffer(_stage, 4000, true);
 
-	if (mTime >= 450)return;
+		//—Ž‰º’†‚È‚ç‰½‚à‚µ‚È‚¢(ŽŸ‚Ìƒ‹[ƒv‚à‚±‚±‚É‚­‚é)
+		if (_dy > 0)mTime = 450;
+
+		return;
+	}
 
 	if (mTime % 60 <= 30) 
 	{
@@ -67,7 +74,7 @@ void Broth::move(const StageChild* _stage, int& _dx, int& _dy)
 		_dy = tmp_dy;
 	}
 	
-	if (mTime%60 == 15)
+	if (mTime % 60 == 15)
 	{
 		aTime = 0;
 		actState = ENE_ACT_ATTACK;

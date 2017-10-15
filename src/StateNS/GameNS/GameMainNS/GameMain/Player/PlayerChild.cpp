@@ -10,7 +10,7 @@ namespace GameNS {
 namespace GameMainNS {
 
 PlayerChild::PlayerChild(int _x, int _y, float _move, float _jump, int _jumpCount, int _hp) :
-Character(_hp, _x, _y, MyData::PLAYER_CHIP_WIDTH, MyData::PLAYER_CHIP_HEIGHT, true, _jump, _jumpCount, false),
+Character(_hp, _x, _y, PLAYER_CHIP_WIDTH, PLAYER_CHIP_HEIGHT, true, _jump, _jumpCount, false),
 maxMoveSpeed(_move)
 {
 	post_x = _x % MAP_WIDTH;
@@ -37,7 +37,7 @@ void PlayerChild::initialize()
 {
 	this->moveSpeed = maxMoveSpeed;
 	this->jumpPower = 0.0f;
-	this->nowJumpCount = 0;
+	this->nowJumpCount = maxJumpCount;
 	this->prePush = false;
 	this->direction = false;
 	this->animationTime = 0;
@@ -66,13 +66,7 @@ void PlayerChild::draw() const
 	draw_changingAnimation(draw_x, draw_y);
 
 	//for Debug
-	DrawBox(60, 20, 60 + hpController.getHP() * 5, 50, MyData::GREEN, true);
-	//hpController.draw();
-
-	//for Debug
-	DrawFormatString(20, 20, WHITE, "%d, %d", p->x(), p->y());
-
-
+	//DrawFormatString(20, 20, WHITE, "%d, %d", p->x(), p->y());
 }
 
 //自機が床の上にいたら床のy座標を返す いなかったら0を返す
@@ -105,7 +99,6 @@ void PlayerChild::standardAction(const StageChild* _stage)
 		in_left  = Input_LEFT();
 		in_up    = Input_UP();
 		in_down  = Input_DOWN();
-		in_jump  = Input_JUMP();
 	}
 	else
 	{
@@ -113,8 +106,8 @@ void PlayerChild::standardAction(const StageChild* _stage)
 		in_left  = false;
 		in_up    = false;
 		in_down  = false;
-		in_jump  = false;
 	}
+	in_jump = Input_JUMP();
 
 	actCheck();
 	animation();
@@ -141,7 +134,7 @@ bool PlayerChild::canChangeCharacter()
 //キャラ変更アニメーション
 void PlayerChild::changeCharacter(const StageChild* _stage)
 {
-	if (Input_CHANGE() && _stage->canChangeCharacter(getThisCharacter()))
+	if (Input_CHANGE() && _stage->canChangeCharacter(getThisCharacter(), true))
 	{
 		animationTime = max(animationTime, 1);
 		stopDynamics = StopType::TYPE_CHANGE;
@@ -267,11 +260,6 @@ void PlayerChild::move(const StageChild* _stage)
 
 	p->raw_x += dx;
 
-	//for Debug
-	if (CheckHitKey(KEY_INPUT_W))
-	{
-		int gomi = 0;
-	}
 
 	//dyの計算と反映
 	dy = dy < 0 ? getTopDiffer(_stage, dy, dx < 0) : getBottomDiffer(_stage, dy, dx < 0);

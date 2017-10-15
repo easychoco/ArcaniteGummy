@@ -47,6 +47,44 @@ void Usagi::move(const StageChild* _stage, int& _dx, int& _dy)
 	_dx = getHorizontalDiffer(_stage, moveSpeed, _dy < 0);
 	_dy = getBottomDiffer(_stage, 2000, _dx > 0);
 
+	//自分の右下のチップのChipTypeをゲット
+	RawVector2 pos = RawVector2(p->x() + CHIP_WIDTH / 4, p->y() + CHIP_HEIGHT);
+	StageChild::ChipType chip_under_right = _stage->getChipType(pos, true);
+
+	//自分の左下のチップのChipTypeをゲット
+	pos = RawVector2(p->x() - CHIP_WIDTH / 4, p->y() + CHIP_HEIGHT);
+	StageChild::ChipType chip_under_left = _stage->getChipType(pos, true);
+
+	//自分の前のチップのChipTypeをゲット
+	pos = RawVector2(p->x() + CHIP_WIDTH / 4 * ((mDirection) ? 1: -1), p->y() - CHIP_HEIGHT / 2);
+	StageChild::ChipType chipType_front = _stage->getChipType(pos, true);
+
+	bool right_isCliff = _stage->isRigid_down(chip_under_right) | _stage->isSlant(chip_under_right);
+	bool left_isCliff  = _stage->isRigid_down(chip_under_left)  | _stage->isSlant(chip_under_left);
+
+	if( //崖
+		(right_isCliff ^ left_isCliff) || 
+		//壁
+		chipType_front == StageChild::ChipType::TYPE_RIGID 
+		)
+	{
+		//方向転換
+		_dy = 0;
+		mDirection = !mDirection;
+		moveSpeed = -moveSpeed;
+		this->p->raw_x += moveSpeed * 5;
+	}
+	else if(!(right_isCliff | left_isCliff))
+	{
+		//空中にいる
+		_dy = getBottomDiffer(_stage, 4000, _dx > 0);
+		_dx = 0;
+	}
+
+	/*
+	_dx = getHorizontalDiffer(_stage, moveSpeed, _dy < 0);
+	_dy = getBottomDiffer(_stage, 2000, _dx > 0);
+
 	//自分の下のチップのChipTypeをゲット
 	RawVector2 pos = RawVector2(p->x(), p->y() + CHIP_HEIGHT);
 	StageChild::ChipType chipType_under = _stage->getChipType(pos, true);
@@ -64,6 +102,7 @@ void Usagi::move(const StageChild* _stage, int& _dx, int& _dy)
 		moveSpeed = -moveSpeed;
 		this->p->raw_x += moveSpeed * 5;
 	}
+	*/
 }
 
 

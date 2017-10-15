@@ -32,7 +32,7 @@ Map::~Map()
 
 	for (auto& gimmick : mDynamicGimmicks)
 	{
-		if(gimmick != nullptr)SAFE_DELETE(gimmick);
+		if(gimmick->isDeletable)SAFE_DELETE(gimmick);
 	}
 	mDynamicGimmicks.clear();
 	mDynamicGimmicks.shrink_to_fit();

@@ -14,7 +14,8 @@ class Character;
 class DynamicGimmickChild : public DynamicObject
 {
 public:
-	DynamicGimmickChild(int x, int y, double _scale);
+	DynamicGimmickChild(int x, int y, double scale);
+	DynamicGimmickChild(int x, int y, double scale, bool isDeletable);
 	virtual ~DynamicGimmickChild();
 	virtual void update(const StageChild*) = 0;
 	virtual void draw(const Vector2* camera) const = 0;
@@ -40,6 +41,8 @@ public:
 	//画面上に表示して、更新するかどうかのpublic変数
 	bool isActive;
 
+	const bool isDeletable;
+
 	//ギミックの上に乗っているかどうかの判定
 	bool rideOnGimmick(const Vector2*) const;
 
@@ -52,6 +55,8 @@ protected:
 	int mImage;
 	bool mDirection;
 	double scale;
+
+
 
 	virtual void loadImage() = 0;
 

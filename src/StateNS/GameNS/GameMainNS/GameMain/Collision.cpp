@@ -10,6 +10,7 @@ Collision::Collision(DynamicObject* _parent, int _w, int _h) :
 parent(_parent)
 {
 	this->p = _parent->getVector2();
+	this->noCollide = false;
 	this->setSize(_w, _h);
 }
 
@@ -31,6 +32,7 @@ void Collision::setSize(int _w, int _h)
 
 bool Collision::isHit(const Collision* other) const
 {
+	if (noCollide)return false;
 	return
 		this->p->raw_x - this->half_width  < other->p->raw_x + other->half_width  &&
 		this->p->raw_x + this->half_width  > other->p->raw_x - other->half_width  &&

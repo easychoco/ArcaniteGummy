@@ -46,12 +46,19 @@ private:
 	int mTime;
 	int converseNum;
 
+	int icon_mokou;
+	int icon_sakuya;
+	int icon_nue;
+
+	int changeableCharacter;
+
 	//~‚ß‚âƒLƒƒƒ‰•ÏX‚Ì‚ÉA“®‚¢‚Ä‚¢‚é‚à‚Ì‚ğ~‚ß‚é
 	StopType stopDynamicObject;
 
 	void updateDynamics(StageChild* stage);
 	void processCollision(StageChild* stage);
 	StageChild* getNextStage(int);
+	void drawPlayerInfo() const;
 };
 
 

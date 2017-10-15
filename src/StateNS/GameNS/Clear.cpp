@@ -10,11 +10,11 @@
 namespace StateNS {
 namespace GameNS {
 
-
 Clear::Clear()
 {
 
 }
+
 
 Clear::~Clear()
 {
@@ -36,7 +36,7 @@ Child* Clear::update(StateNS::Parent* _parent)
 	}
 
 	//次のステージへ
-	if (Input_Z())
+	if (_parent->stageNum % 10 == 3 || Input_Z())
 	{
 		int nextStage = _parent->stageNum;
 	
@@ -55,6 +55,8 @@ Child* Clear::update(StateNS::Parent* _parent)
 void Clear::draw() const
 {
 	DrawFormatString(250, 220, MyData::WHITE, "くりあー！");
+	DrawFormatString(250, 320, MyData::WHITE, "Zで次へ");
+
 }
 
 
