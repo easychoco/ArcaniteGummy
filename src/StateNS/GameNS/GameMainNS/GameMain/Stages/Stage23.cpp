@@ -56,7 +56,7 @@ void Stage23::initialize()
 	Door* d = new Door(new Vector2(9 * 32 + 16, 13 * 32 + 16), new Vector2(72 * 32 + 16, 31 * 32 + 16));
 	maps[2]->addGimmick(d);
 
-	maps[2]->addEnemy(BOSS_JUNKO, 88 * 32, 48 * 32);
+
 
 
 	SwitchWithBlock* s = new SwitchWithBlock(44 * 32 + 16, 14 * 32 + 16, 330);
@@ -89,6 +89,7 @@ void Stage23::update(GameMain* gameMain, PlayerChild* _player)
 	}
 	if (converseFlag0)
 	{
+		maps[2]->addEnemy(BOSS_JUNKO, 88 * 32, 48 * 32);
 		gameMain->startConverse(230);
 		converseFlag0 = false;
 	}

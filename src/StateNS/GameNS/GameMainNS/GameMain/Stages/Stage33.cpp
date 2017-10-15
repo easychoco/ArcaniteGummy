@@ -84,6 +84,7 @@ void Stage33::update(GameMain* gameMain, PlayerChild* _player)
 
 	if (now_stage_num == 7 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
+		maps[7]->addEnemy(BOSS_NUE, 88 * 32, 48 * 32);
 		gameMain->startConverse(330);
 		converseFlag0 = false;
 	}

@@ -46,7 +46,6 @@ void Stage13::initialize()
 	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s);
 
-	maps[3]->addEnemy(BOSS_REISEN, 88 * 32, 48 * 32);
 
 	startX = 208, startY = 1440;
 
@@ -60,6 +59,7 @@ void Stage13::update(GameMain* gameMain, PlayerChild* _player)
 	
 	if(now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y()==1536)
 	{
+		maps[3]->addEnemy(BOSS_REISEN, 88 * 32, 48 * 32);
 		gameMain->startConverse(130);
 		converseFlag0 = false;
 	}
