@@ -20,11 +20,15 @@ StageChild(4, 1) //エリアの数: よこ，たて
 
 Stage13::~Stage13()
 {
-	
+	sound->deleteSound("bgm1");
+	sound->deleteSound("boss1");
 }
 
 void Stage13::initialize()
 {
+	sound->setSound("Data/Sound/stage1.wav", "bgm1");
+	sound->setSound("Data/Sound/Invisible_Full_Moon.wav", "boss1");
+	sound->playSound("bgm1", LOOP, false);
 
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;
@@ -51,6 +55,7 @@ void Stage13::initialize()
 	startX = 208, startY = 1440;
 	cTime = 0;
 	converseFlag0 = true;
+	converseFlag0fin = false;
 	converseFlag1 = true;
 	converseFlag2 = true;
 	findRestartPoint();
@@ -68,7 +73,11 @@ void Stage13::update(GameMain* gameMain, PlayerChild* _player)
 
 void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player) 
 {
-	
+	if (!converseFlag0 && !converseFlag0fin) {
+		converseFlag0fin = true;
+		sound->StopSound("bgm1");
+		sound->playSound("boss1");
+	}
 	if (now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
 		reisen->setPlayer(_player->getVector2());

@@ -20,11 +20,17 @@ StageChild(3, 1) //エリアの数: よこ，たて
 
 Stage43::~Stage43()
 {
-
+	sound->deleteSound("bgm4");
+	sound->deleteSound("boss4");
 }
 
 void Stage43::initialize()
 {
+
+	sound->setSound("Data/Sound/hyakunen.wav", "bgm4");
+	sound->setSound("Data/Sound/uno-en.wav", "boss4");
+	sound->playSound("bgm4", LOOP, false);
+
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;
 

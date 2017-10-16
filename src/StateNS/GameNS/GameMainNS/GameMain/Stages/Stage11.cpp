@@ -22,8 +22,8 @@ Stage11::~Stage11()
 
 void Stage11::initialize()
 {
-	sound->setSound("Data/Sound/stage1.wav", "bgm11");
-	sound->playSound("bgm11", LOOP, false);
+	sound->setSound("Data/Sound/stage1.wav", "bgm1");
+	sound->playSound("bgm1", LOOP, false);
 
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;

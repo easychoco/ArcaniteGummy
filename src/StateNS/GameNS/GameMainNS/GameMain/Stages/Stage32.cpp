@@ -17,11 +17,13 @@ StageChild(2, 1) //エリアの数: よこ，たて
 
 Stage32::~Stage32()
 {
-
+	sound->deleteSound("bgm3");
 }
 
 void Stage32::initialize()
 {
+	sound->setSound("Data/Sound/Phantom_Ship.wav", "bgm3");
+	sound->playSound("bgm3", LOOP, false);
 
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;

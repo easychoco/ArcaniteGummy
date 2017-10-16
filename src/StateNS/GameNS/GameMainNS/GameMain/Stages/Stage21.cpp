@@ -17,11 +17,13 @@ StageChild(3, 1) //エリアの数: よこ，たて
 
 Stage21::~Stage21()
 {
-
+	sound->deleteSound("bgm2");
 }
 
 void Stage21::initialize()
 {
+	sound->setSound("Data/Sound/Ousa-sama3.wav", "bgm2");
+	sound->playSound("bgm2", LOOP, false);
 
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;

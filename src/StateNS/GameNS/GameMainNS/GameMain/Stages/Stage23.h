@@ -22,7 +22,7 @@ private:
 	void updateConverse(GameMain*, PlayerChild*);
 	int time;
 	bool converseFlag0,converseFlag0fin;
-	bool converseFlag1;
+	bool converseFlag1,converseFlag1fin;
 	bool converseFlag2,converseFlag2fin;
 	int imageJunko;
 	Junko* junko;

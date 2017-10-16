@@ -23,10 +23,15 @@ Stage33::~Stage33()
 	DeleteGraph(imageReisen);
 	DeleteGraph(imageNue);
 	DeleteGraph(imageMokou);
+	sound->deleteSound("bgm3");
+	sound->deleteSound("boss3");
 }
 
 void Stage33::initialize()
 {
+	sound->setSound("Data/Sound/Phantom_Ship.wav", "bgm3");
+	sound->setSound("Data/Sound/husi.wav", "boss3");
+	sound->playSound("bgm3", LOOP, false);
 
 	this->changeableCharacter |= CHARA_MOKOU;
 	this->changeableCharacter |= CHARA_SAKUYA;
@@ -110,6 +115,10 @@ void Stage33::updateConverse(GameMain* gameMain, PlayerChild* _player)
 		this->changeableCharacter ^= CHARA_SAKUYA;
 		nue->setPlayer(_player->getVector2());
 		maps[7]->addEnemy(nue);
+		sound->StopSound("bgm3");
+		sound->playSound("boss3");
+
+
 	}
 	if (converseFlag1fin && converseFlag2)
 	{

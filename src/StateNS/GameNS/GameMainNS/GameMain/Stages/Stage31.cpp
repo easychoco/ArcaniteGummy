@@ -18,11 +18,13 @@ StageChild(2, 1) //エリアの数: よこ，たて
 Stage31::~Stage31()
 {
 	DeleteGraph(imageReisen);
+	sound->deleteSound("bgm3");
 }
 
 void Stage31::initialize()
 {
-
+	sound->setSound("Data/Sound/Phantom_Ship.wav", "bgm3");
+	sound->playSound("bgm3", LOOP, false);
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;
 	this->changeableCharacter |= CHARA_SAKUYA;

@@ -17,11 +17,13 @@ StageChild(2, 1) //エリアの数: よこ，たて
 
 Stage42::~Stage42()
 {
-
+	sound->deleteSound("bgm4");
 }
 
 void Stage42::initialize()
 {
+	sound->setSound("Data/Sound/hyakunen.wav", "bgm4");
+	sound->playSound("bgm4", LOOP, false);
 
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_SAKUYA;

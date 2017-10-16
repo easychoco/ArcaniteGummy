@@ -19,10 +19,15 @@ StageChild(3, 3) //エリアの数: よこ，たて
 Stage23::~Stage23()
 {
 	DeleteGraph(imageJunko);
+	sound->deleteSound("bgm2");
+	sound->deleteSound("boss2");
 }
 
 void Stage23::initialize()
 {
+	sound->setSound("Data/Sound/Ousa-sama3.wav", "bgm2");
+	sound->setSound("Data/Sound/Pure_Furies.wav", "boss2");
+	sound->playSound("bgm2", LOOP, false);
 
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;
@@ -67,6 +72,7 @@ void Stage23::initialize()
 	converseFlag0 = true;
 	converseFlag0fin = false;
 	converseFlag1 = true;
+	converseFlag1fin = false;
 	converseFlag2 = true;
 	converseFlag2fin = false;
 	findRestartPoint();
@@ -85,6 +91,7 @@ void Stage23::update(GameMain* gameMain, PlayerChild* _player)
 void Stage23::updateConverse(GameMain* gameMain, PlayerChild* _player)
 {
 	if (!converseFlag0 && !converseFlag0fin)converseFlag0fin = true;
+
 	if (converseFlag0)
 	{
 		junko->setPlayer(_player->getVector2());
@@ -97,6 +104,11 @@ void Stage23::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	{
 		gameMain->startConverse(232);
 		converseFlag2 = false;
+	}
+	if (!converseFlag1 && !converseFlag1fin) 
+	{
+		sound->StopSound("bgm2");
+		sound->playSound("boss2");
 	}
 	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
 	{
