@@ -47,6 +47,8 @@ void Stage32::initialize()
 	for (int i = 0; i < 3; i++)s2->push_block(new Block((42 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	for (int i = 0; i < 3; i++)s2->push_block(new Block((45 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
 	for (int i = 0; i < 3; i++)s2->push_block(new Block((48 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
+	for (int i = 0; i < 4; i++)s2->push_block(new Block(44 * 32 + 16, (36 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
+	for (int i = 0; i < 4; i++)s2->push_block(new Block(47 * 32 + 16, (36 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s2);
 
 

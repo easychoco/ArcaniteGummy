@@ -24,8 +24,8 @@ void Stage41::initialize()
 {
 
 	//変更できるキャラクターを設定
-	this->changeableCharacter |= CHARA_MOKOU;
-	this->changeableCharacter |= CHARA_SAKUYA;
+	//this->changeableCharacter |= CHARA_MOKOU;
+	//this->changeableCharacter |= CHARA_SAKUYA;
 	this->changeableCharacter |= CHARA_NUE;
 
 	//左上から右にpushしていく
@@ -65,8 +65,8 @@ void Stage41::updateConverse(GameMain* gameMain, PlayerChild* _player)
 
 	if (cTime == 90)
 	{
-		this->changeableCharacter ^= CHARA_MOKOU;
-		this->changeableCharacter ^= CHARA_SAKUYA;
+		//this->changeableCharacter ^= CHARA_MOKOU;
+		//this->changeableCharacter ^= CHARA_SAKUYA;
 		//////////////////強制的にぬえに変更する関数をここに/////////////////
 		DeleteGraph(imageFlan);
 	}
