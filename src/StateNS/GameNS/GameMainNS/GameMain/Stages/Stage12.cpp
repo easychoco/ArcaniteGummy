@@ -40,7 +40,7 @@ void Stage12::initialize()
 	SwitchWithBlock* s = new SwitchWithBlock(72*32+16, 40*32+16);
 	for (int i = 0; i < 8;i++)s->push_block(new Block((75+i)*32+16, 38*32+16, 1.0, BlockType::TYPE_SWITCH), true);
 	maps[1]->addSwitchWithBlock(s);
-	SwitchWithBlock* s2 = new SwitchWithBlock(46 * 32 + 16, 24 * 32 + 16, 1);
+	SwitchWithBlock* s2 = new SwitchWithBlock(46 * 32 + 16, 34 * 32 + 16, 1);
 	for (int i = 0; i < 8; i++)s2->push_block(new Block(42 * 32 + 16, (37 + i) * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
 	maps[3]->addSwitchWithBlock(s2);
 
