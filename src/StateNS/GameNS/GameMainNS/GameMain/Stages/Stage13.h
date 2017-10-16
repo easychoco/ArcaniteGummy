@@ -20,6 +20,7 @@ public:
 private:
 	void initialize();
 	void updateConverse(GameMain*,PlayerChild*);
+	void draw_front(const Vector2* _camera) const override;
 	bool converseFlag0;
 	bool converseFlag1;
 	bool converseFlag2;

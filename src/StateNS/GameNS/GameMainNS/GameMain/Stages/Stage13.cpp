@@ -98,8 +98,17 @@ void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player)
 void Stage13::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
-//	if (!converseFlag1)DrawBox(0, 0, 640, 480, BLACK, TRUE);
+
 }
+
+void Stage13::draw_front(const Vector2* _camera) const
+{
+
+
+	if(cTime>30)DrawBox(0, 0, 640, 480, BLACK, TRUE);
+
+}
+
 
 bool Stage13::isClear() const
 {

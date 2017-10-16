@@ -61,6 +61,7 @@ void Stage12::update(GameMain* gameMain, PlayerChild* _player)
 
 void Stage12::updateConverse(GameMain* gameMain, PlayerChild* _player) 
 {
+	if (!converseFlag0 && !converseFlag0fin)converseFlag0fin = true;
 	if (converseFlag0)
 	{
 		gameMain->startConverse(120);

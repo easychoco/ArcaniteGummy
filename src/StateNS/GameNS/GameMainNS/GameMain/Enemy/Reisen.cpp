@@ -174,7 +174,8 @@ void Reisen::draw_other(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//•`‰æ
-	DrawString(draw_x - 16, draw_y - 32, "—éå", BLUE);
+	//DrawString(draw_x - 16, draw_y - 32, "—éå", BLUE);
+	DrawRotaGraph(draw_x, draw_y-16, 1.0, 0.0, images[0], true, !mDirection);
 
 	//for Debug
 	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
@@ -188,7 +189,7 @@ void Reisen::loadImage()
 {
 	if (!imgLoad)
 	{
-		int tmp = LoadDivGraph("Data/Image/Reisen.png", 8, 8, 1, 32, 32, images);
+		int tmp = LoadDivGraph("Data/Image/Character/chip_Reisen.png", 32, 8, 4, 32, 64, images);
 		assert(tmp != -1 && "Reisen‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 	}
 	imgLoad = true;
