@@ -30,11 +30,13 @@ Nue::~Nue()
 {
 	SAFE_DELETE(p);
 	ufo->isActive = false;
+
+	sound->deleteSound("ufo");
+	sound->deleteSound("jizou");
 }
 
 void Nue::initialize()
 {
-	//this->moveSpeed = 5.0f;
 	loadImage();
 	attackTime = 0;
 	attacks.push_back(new Spear(this, 0, 0, direction));
@@ -42,6 +44,11 @@ void Nue::initialize()
 	if(ufo == nullptr)ufo = new UFO();
 	ufo->isActive = false;
 	createdUFO = false;
+
+	preSit = false;
+
+	sound->setSound("Data/Sound/ufo.mp3", "ufo");
+	sound->setSound("Data/Sound/jizou.mp3", "jizou");
 }
 
 PlayerChild* Nue::update(const StageChild* _stage)
@@ -57,6 +64,15 @@ PlayerChild* Nue::update(const StageChild* _stage)
 	standardAction(_stage);
 	this->hpController.isMuteki = (actionState == ACT_SIT);
 
+
+	if (!preSit && actionState == ACT_SIT)
+	{
+		sound->playSound("jizou", BACK, true);
+		preSit = true;
+	}
+
+	preSit = actionState == ACT_SIT;
+
 	//UŒ‚
 	for (auto& a : attacks)
 	{
@@ -71,9 +87,11 @@ PlayerChild* Nue::update(const StageChild* _stage)
 	else attackTime = 0;
 	
 
-
+	//UFO‚ð¢Š«‚·‚é
 	if (Input_C() && !createdUFO && !ufo->isActive) 
 	{
+		sound->playSound("ufo");
+
 		createdUFO = true;
 		int tmp_x = (this->p->raw_x / CHIP_WIDTH_RATE() ) * CHIP_WIDTH + CHIP_WIDTH / 2;
 		int tmp_y = (this->p->raw_y / CHIP_HEIGHT_RATE() ) * CHIP_HEIGHT + CHIP_HEIGHT / 2;
@@ -84,8 +102,6 @@ PlayerChild* Nue::update(const StageChild* _stage)
 
 	//’n–Ê‚É‚¢‚é‚ÆUFO‚ðÄ¢Š«‚Å‚«‚é
 	if (onGround && !ufo->isActive)createdUFO = false;
-
-
 
 	if (ufo->isActive)updateUFO(_stage);
 	

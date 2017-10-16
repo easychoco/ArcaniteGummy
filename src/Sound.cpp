@@ -16,18 +16,33 @@ void Sound::setSound(string _path, string _name)
 
 void Sound::deleteSound(string _name)
 {
-	if (!exists(_name))return;
+	if (!exists(_name))
+	{
+		//このassertいるかー？
+		assert(!"Delete: 指定のサウンドは存在しません");
+		return;
+	}
 
 	DeleteSoundMem(soundMap.at(_name));
 	soundMap.erase(_name);
 }
 
+void Sound::playSound(string _name)
+{
+	playSound(_name, BACK, false);
+}
+
 void Sound::playSound(string _name, PlayType _pType)
+{
+	playSound(_name, _pType, false);
+}
+
+void Sound::playSound(string _name, PlayType _pType, bool _coverable)
 {
 	if (!exists(_name))assert(!"指定のサウンドは存在しません");
 
 	//多重再生を防ぐ
-	if (CheckSoundMem(soundMap.at(_name)) == 1)return;
+	if (!_coverable && CheckSoundMem(soundMap.at(_name)) == 1)return;
 
 	int pType = 0;
 	switch (_pType)

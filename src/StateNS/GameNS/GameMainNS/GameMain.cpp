@@ -39,6 +39,8 @@ GameMain::~GameMain()
 	DeleteGraph(icon_mokou);
 	DeleteGraph(icon_sakuya);
 	DeleteGraph(icon_nue);
+
+	sound->deleteSound("jump");
 }
 
 void GameMain::initialize()
@@ -79,7 +81,7 @@ void GameMain::initialize()
 	stopDynamicObject = StopType::TYPE_NONE;
 	nextCharacter = PlayerCharacter::CHARA_NONE;
 	
-
+	//HPバーに描く画像をロード
 	icon_mokou = LoadGraph("Data/Image/icon_mokou.png");
 	assert(icon_mokou != -1 && "icon_mokou読み込みエラー");
 
@@ -88,6 +90,10 @@ void GameMain::initialize()
 
 	icon_nue = LoadGraph("Data/Image/icon_nue.png");
 	assert(icon_nue != -1 && "icon_nue読み込みエラー");
+
+
+	//Player共通で使うサウンドを設定
+	sound->setSound("Data/Sound/jump.mp3", "jump");
 }
 
 Child* GameMain::update(GameParent* _parent)

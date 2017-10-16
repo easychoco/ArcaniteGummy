@@ -15,11 +15,17 @@ Parent::Parent()
 Parent::~Parent()
 {
 	SAFE_DELETE(mChild);
+
+	sound->deleteSound("ok");
+	sound->deleteSound("no");
 }
 
 void Parent::initialize()
 {
 	mChild = new StateNS::Title();
+
+	sound->setSound("Data/Sound/ok.mp3", "ok");
+	sound->setSound("Data/Sound/no.mp3", "no");
 }
 
 void Parent::update()

@@ -17,11 +17,13 @@ StageChild(2, 1) //エリアの数: よこ，たて
 
 Stage11::~Stage11()
 {
-
+	sound->deleteSound("bgm1");
 }
 
 void Stage11::initialize()
 {
+	sound->setSound("Data/Sound/stage1.wav", "bgm11");
+	sound->playSound("bgm11", LOOP, false);
 
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;

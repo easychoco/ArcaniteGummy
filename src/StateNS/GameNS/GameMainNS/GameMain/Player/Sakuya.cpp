@@ -20,7 +20,8 @@ Sakuya::Sakuya(int _x, int _y) : Sakuya(_x, _y, 100)
 
 Sakuya::~Sakuya()
 {
-
+	sound->deleteSound("knife");
+	sound->deleteSound("stoptime");
 }
 
 void Sakuya::initialize()
@@ -29,6 +30,9 @@ void Sakuya::initialize()
 
 	stoppingTime = 0;
 	isStoppingTime = false;
+
+	sound->setSound("Data/Sound/attack_knife.mp3", "knife");
+	sound->setSound("Data/Sound/stoptime.mp3", "stoptime");
 
 	loadImage();
 }
@@ -109,6 +113,7 @@ void Sakuya::processAttack(const StageChild* _stage)
 	attackTime++;
 	if (Input_ATTACK() && attackTime > attackInterval && actionState!=ACT_LADDER)
 	{
+		sound->playSound("knife", BACK, true);
 		attack(_stage);
 		attackTime = 0;
 	}
@@ -134,6 +139,7 @@ void Sakuya::processStopDynamics()
 
 	if (!isStoppingTime)return;
 
+	if (stoppingTime == 0)sound->playSound("stoptime");
 	stoppingTime++;
 
 	//§ŒÀŠÔ‚ğ’´‚¦‚½‚ç‰ğœ

@@ -38,7 +38,7 @@ void Stage00::initialize()
 	maps[1]->addGimmick(flag);
 
 	//maps[0]->addEnemy(AllEnemies::BOSS_REISEN, 676, 1552);
-	maps[0]->addEnemy(AllEnemies::BOSS_NUE, 356, 1536);
+	maps[0]->addEnemy(AllEnemies::BOSS_FRAN, 356, 1536);
 
 	startX = 144, startY = 1536;
 

@@ -13,7 +13,7 @@ int Fran::images[32];
 
 	
 Fran::Fran(int _x, int _y) : 
-EnemyChild(1000, _x, _y, 32, 64, false, true),
+EnemyChild(400, _x, _y, 32, 64, false, true),
 initial_pos(Vector2(_x, _y))
 {
 	loadImage();
@@ -31,6 +31,12 @@ void Fran::initialize()
 	this->mImage = images[0];
 	this->mTime = 0;
 	this->init_attacks = false;
+	this->move_type = 0;
+
+	this->attack_star = false;
+	this->attack_qed  = false;
+	this->attack_kind = false;
+	this->attack_lock = false;
 }
 
 void Fran::initialize_attacks()
@@ -90,15 +96,143 @@ void Fran::update(const StageChild* _stage, const Vector2* _camera)
 //==============================================
 void Fran::move(const StageChild* _stage, int& _dx, int& _dy)
 {
-	/*
-	_dx = dx;
-	if (p->raw_x + dx < initial_pos.raw_x - 200000 || initial_pos.raw_x + 200000 < p->raw_x + dx)
+	if (mTime > timeToNextMotion)
 	{
-		dx = -dx;
-		p->raw_x += dx;
+		mTime = 0;
+		move_type = GetRand(6);
 	}
-	//*/
+
+	switch (move_type)
+	{
+	case 0: 
+	case 1: 
+	case 2: processStar(_stage, _dx, _dy); break;
+	case 3: 
+	case 4: processQED(_stage, _dx, _dy); break;
+	case 5: processKind(_stage, _dx, _dy); break;
+	case 6: processLock(_stage, _dx, _dy); break;
+	}
 }
+
+
+void Fran::processStar(const StageChild* _stage, int& _dx, int& _dy)
+{
+
+}
+
+void Fran::processQED(const StageChild* _stage, int& _dx, int& _dy)
+{
+	
+}
+
+void Fran::processKind(const StageChild* _stage, int& _dx, int& _dy)
+{
+	timeToNextMotion = 600;
+	attack_kind = false;
+	if (mTime % 360 < 60)
+	{
+		_dy = -4000;
+		_dx = 0;
+	}
+	else if (mTime % 360 < 300)
+	{
+		//左右往復
+		attack_kind = true;
+		_dx = dx * 3 / 2;
+		if (p->raw_x + dx < initial_pos.raw_x - 200000 || initial_pos.raw_x + 200000 < p->raw_x + dx)
+		{
+			dx = -dx;
+			p->raw_x += dx;
+		}
+	}
+	else
+	{
+		//地面に戻る
+		_dy = getBottomDiffer(_stage, 5000, _dx < 0);
+	}
+}
+
+void Fran::processLock(const StageChild* _stage, int& _dx, int& _dy)
+{
+	_dx = 0;
+	attack_lock = false;
+	if (mTime % 360 < 60)_dy = -2000;
+	else if (mTime % 360 < 120)attack_lock = true;
+	else if (300 < mTime % 360)_dy = getBottomDiffer(_stage, 3000, _dx < 0);
+
+}
+
+
+
+void Fran::setMotion(const StageChild* _stage, int& _dx, int& _dy)
+{
+	switch (move_type)
+	{
+	case 0:
+	case 1:
+	case 2: //StarBowBreak
+		attack_star = false;
+		if (mTime % 360 < 30)
+		{
+			_dx = 0;
+			break;
+		}
+		else if (mTime % 360 < 100)attack_star = true;
+		else if (250 < mTime % 360 && mTime % 360 < 280)
+		{
+			_dx = 0;
+			break;
+		}
+		else if (280 < mTime % 360 && mTime % 360 < 350)attack_star = true;
+
+		//左右往復
+		_dy = 0;
+		_dx = dx * 2 / 3;
+		if (p->raw_x + dx < initial_pos.raw_x - 100000 + 5000 * move_type || initial_pos.raw_x + 100000 + 5000 * move_type < p->raw_x + dx)
+		{
+			dx = -dx;
+			p->raw_x += dx;
+		}
+		break;
+
+
+	case 3:
+	case 4: //飛び上がって 4 of a kind
+		attack_kind = false;
+		if (mTime % 360 < 60)
+		{
+			_dy = -4000;
+			_dx = 0;
+		}
+		else if (mTime % 360 < 300)
+		{
+			//左右往復
+			attack_kind = true;
+			_dx = dx * 3 / 2;
+			if (p->raw_x + dx < initial_pos.raw_x - 200000 || initial_pos.raw_x + 200000 < p->raw_x + dx)
+			{
+				dx = -dx;
+				p->raw_x += dx;
+			}
+		}
+		else
+		{
+			//地面に戻る
+			_dy = getBottomDiffer(_stage, 5000, _dx < 0);
+		}
+		break;
+
+	case 5: //ぎゅっとしてドカーン
+		_dx = 0;
+		attack_lock = false;
+		if (mTime % 360 < 60)_dy = -2000;
+		else if (mTime % 360 < 120)attack_lock = true;
+		else if (300 < mTime % 360)_dy = getBottomDiffer(_stage, 3000, _dx < 0);
+		break;
+	}
+
+}
+
 
 void Fran::draw_other(const Vector2* _camera) const
 {
@@ -126,7 +260,7 @@ void Fran::loadImage()
 {
 	if (!imgLoad)
 	{
-		int tmp = LoadDivGraph("Data/Image/Character/chip_fran.png", 32, 8, 4, 32, 64, images);
+		int tmp = LoadDivGraph("Data/Image/Character/chip_fran.png", 32, 8, 4, 64, 64, images);
 		assert(tmp != -1 && "Fran画像読み込みエラー");
 	}
 	imgLoad = true;
@@ -160,72 +294,68 @@ void Fran::processAttack(const StageChild* _stage)
 	}
 
 	if (kind4->isActive())kind4->update();
-
 	if (focus->isActive())focus->update();
 
+
 	//弾生成
-
-	//for Debug
-
-	/*
-	//if(スターボウブレイク！なら)
-	if (mTime % 17 == 0)
+	//*
+	if (attack_star)
 	{
-		for (auto& sb : stars)
+		if (mTime % 17 == 0)
 		{
-			if (!sb->isActive())
+			for (auto& sb : stars)
 			{
-				sb->setStatus(this->p);
-				sb->setActive(true);
-				break;
+				if (!sb->isActive())
+				{
+					sb->setStatus(this->p);
+					sb->setActive(true);
+					break;
+				}
 			}
 		}
-	}
-	//*/
-
-	/*
-	//if(Q.E.Dなら)
-	if (mTime % 17 == 0)
-	{
-		for (auto& wave : waves)
-		{
-			if (!wave->isActive())
-			{
-				wave->setStatus(&Vector2(p->raw_x + GetRand(100000) - 50000, p->raw_y + GetRand(100000) - 50000, true));
-				wave->setActive(true);
-				break;
-			}
-		}
-	}
-	//*/
-
-	/*
-	//if(Kind4なら)
-	if (!kind4->isActive())
-	{
-		kind4->setStatus(p);
-		kind4->setActive(true);
 	}
 	//*/
 
 	//*
-	//if(LockOnなら)
-	if (!focus->isActive())
+	if (attack_qed)
 	{
-		focus->setStatus(player);
-		focus->setActive(true);
+		if (mTime % 17 == 0)
+		{
+			for (auto& wave : waves)
+			{
+				if (!wave->isActive())
+				{
+					wave->setStatus(&Vector2(p->raw_x + GetRand(100000) - 50000, p->raw_y + GetRand(100000) - 50000, true));
+					wave->setActive(true);
+					break;
+				}
+			}
+		}
 	}
 	//*/
 
-	//for Debug
-	//弾を消す
-	if (CheckHitKey(KEY_INPUT_W))
+	//*
+	if (attack_kind)
 	{
-		for (auto& sb : stars)
+		if (!kind4->isActive())
 		{
-			sb->setActive(false);
+			kind4->setStatus(p);
+			kind4->setActive(true);
 		}
 	}
+	//*/
+
+	//*
+	if (attack_lock)
+	{
+		if (!focus->isActive())
+		{
+			focus->setStatus(player);
+			focus->setActive(true);
+		}
+	}
+	//*/
+
 
 }
 
@@ -299,7 +429,6 @@ void Fran::StarBow::draw(const Vector2* _camera) const
 			DrawCircle(draw_x + differ_x[i], draw_y, (10 - time) * 5, PURPLE, false);
 		}
 	}
-
 }
 
 void Fran::StarBow::addAttacks(vector<Attack*>& _attacks)

@@ -20,7 +20,15 @@ public:
 	
 private:
 	int mTime;
+	int timeToNextMotion;
 	bool init_attacks;
+
+	bool attack_star;
+	bool attack_qed;
+	bool attack_kind;
+	bool attack_lock;
+
+	int move_type;
 
 	int dx = 5000;
 
@@ -36,12 +44,17 @@ private:
 	void initialize();
 	void initialize_attacks();
 
+	void processStar(const StageChild*, int&, int&);
+	void processQED(const StageChild*, int&, int&);
+	void processKind(const StageChild*, int&, int&);
+	void processLock(const StageChild*, int&, int&);
 
 	//CharacterÇÃä÷êî
 	void hittedAction();
 
 	//EnemychildÇÃä÷êî
 	void move(const StageChild*, int& dx, int& dy);
+	void setMotion(const StageChild*, int& _dx, int& _dy);
 	virtual void draw_other(const Vector2* camera)const override;
 
 

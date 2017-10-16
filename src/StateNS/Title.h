@@ -20,7 +20,7 @@ private:
 	int mBackImg;
 	int movie;
 	int count = 0;
-	bool pushZ, pushUP, pushDOWN;
+	bool pushZ, pushX, pushUP, pushDOWN;
 	int step;
 	int select;
 	int fontHandle1, fontHandle2;

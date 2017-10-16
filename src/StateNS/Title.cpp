@@ -40,6 +40,7 @@ void Title::initialize()
 {
 	count = 0;
 	pushZ = false;
+	pushX = false;
 	pushUP = false;
 	pushDOWN = false;
 	fontHandle1 = CreateFontToHandle(NULL, 60, 3);
@@ -52,42 +53,42 @@ Child* Title::update(const GrandParent* parent)
 {
 ////////////////////ネストじゃあああああああああ/////////////////////
 	Child* next = this;
+
+	//決定音再生
+	if(Input_OK() && pushZ)sound->playSound("ok", BACK, true);
+	if(Input_NO() && pushX)sound->playSound("no", BACK, true);
+
 	switch (step) {
 	case 0:
 		if (!GetMovieStateToGraph(movie))step++;
 		if (Input_OK())step++;
 		break;
 	case 1://push z key
-		//SeekMovieToGraph(movie, 6000);
 		count = (count + 1) % 120;
 		if (Input_OK() && pushZ)step++;
 		break;
 	case 2://ゲームスタート、そうさせつめい
-//		SeekMovieToGraph(movie, 6000);
 		if (Input_OK() && pushZ) { 
 			if (select == 0) { step++; select = 0; }
 			else next = nextScene(select);
 		}
-		if (Input_UP() && pushUP)select = (select + 3) % 4;
-		if (Input_DOWN() && pushDOWN)select = (select + 1) % 4;
+		if (Input_NO() && pushX)step--;
+		else if (Input_UP() && pushUP)select = (select + 3) % 4;
+		else if (Input_DOWN() && pushDOWN)select = (select + 1) % 4;
 		break;
 	case 3:
 		if(Input_OK() && pushZ)next = nextScene(0);
-		//if (Input_UP() && pushUP)select = (select + 2) % 3;
-		//if (Input_DOWN() && pushDOWN)select = (select + 1) % 3;
-		if (Input_UP() && pushUP)select = (select + 14) % 15;
-		if (Input_DOWN() && pushDOWN)select = (select + 1) % 15;
+		else if (Input_NO() && pushX)step--;
+		//else if (Input_UP() && pushUP)select = (select + 2) % 3;
+		//else if (Input_DOWN() && pushDOWN)select = (select + 1) % 3;
+		else if (Input_UP() && pushUP)select = (select + 14) % 15;
+		else if (Input_DOWN() && pushDOWN)select = (select + 1) % 15;
 	}
 
-	
-	if (!Input_OK())pushZ = true;
-	else pushZ = false;
-
-	if (!Input_UP())pushUP = true;
-	else pushUP = false;
-
-	if (!Input_DOWN())pushDOWN = true;
-	else pushDOWN = false;
+		pushZ = !Input_OK();
+	pushX = !Input_NO(); 
+	pushUP = !Input_UP();
+	pushDOWN = !Input_DOWN();
 
 
 	return next;

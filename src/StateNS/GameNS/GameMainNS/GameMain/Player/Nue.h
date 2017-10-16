@@ -24,6 +24,7 @@ public:
 private:
 	int attackTime;
 	const int attackInterval = 10;//UŒ‚‚ÌŠÔŠu
+	bool preSit;
 
 	int mImageR[32];
 	int mImageL[32];

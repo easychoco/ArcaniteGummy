@@ -80,29 +80,6 @@ void Usagi::move(const StageChild* _stage, int& _dx, int& _dy)
 		_dy = getBottomDiffer(_stage, 4000, _dx > 0);
 		_dx = 0;
 	}
-
-	/*
-	_dx = getHorizontalDiffer(_stage, moveSpeed, _dy < 0);
-	_dy = getBottomDiffer(_stage, 2000, _dx > 0);
-
-	//自分の下のチップのChipTypeをゲット
-	RawVector2 pos = RawVector2(p->x(), p->y() + CHIP_HEIGHT);
-	StageChild::ChipType chipType_under = _stage->getChipType(pos, true);
-
-	//自分の前のチップのChipTypeをゲット
-	pos = RawVector2(p->x() + CHIP_WIDTH / 4 * ((mDirection) ? 1: -1), p->y() - CHIP_HEIGHT / 2);
-	StageChild::ChipType chipType_front = _stage->getChipType(pos, true);
-
-	//崖か壁で方向転換
-	if( !( _stage->isRigid_down(chipType_under) || _stage->isSlant(chipType_under) ) || 
-		chipType_front == StageChild::ChipType::TYPE_RIGID )
-	{
-		_dy = 0;
-		mDirection = !mDirection;
-		moveSpeed = -moveSpeed;
-		this->p->raw_x += moveSpeed * 5;
-	}
-	*/
 }
 
 

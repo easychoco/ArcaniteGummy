@@ -234,6 +234,7 @@ void PlayerChild::move(const StageChild* _stage)
 	//ジャンプ
 	if (in_jump && !prePush && nowJumpCount < maxJumpCount)
 	{
+		sound->playSound("jump");
 		jumpPower = maxJumpPower + runCheck()*3.0f;
 		nowJumpCount++;
 	}
@@ -372,7 +373,6 @@ bool PlayerChild::isOnLesal(const StageChild* _stage)
 	return chipType == StageChild::ChipType::TYPE_LESAL;
 }
 
-
 void PlayerChild::animation() 
 {
 	int num = 0;
@@ -401,8 +401,6 @@ void PlayerChild::animation()
 
 void PlayerChild::actCheck()
 {
-
-
 	///////////////////////////////めちゃくちゃネストでごめんね//むむむーん/////////////////
 	ActionState preAction = actionState;
 	if (onLadder)
@@ -421,7 +419,10 @@ void PlayerChild::actCheck()
 		if (onGround && !in_up)
 		{
 			actionState = ACT_NORMAL;
-			if (in_down)actionState = ACT_SIT;
+			if (in_down)
+			{
+				actionState = ACT_SIT;
+			}
 		}
 	}
 	else if (Input_ATTACK())
@@ -450,7 +451,10 @@ void PlayerChild::actCheck()
 		if (preAction == ACT_RUN || preAction==ACT_RUNJUMP)actionState = ACT_RUNJUMP;
 		else actionState = ACT_AIR;
 	}
-	else if (in_down)actionState = ACT_SIT;
+	else if (in_down)
+	{
+		actionState = ACT_SIT;
+	}
 	else if (in_left || in_right)
 	{
 		actionState = ACT_WALK;

@@ -136,9 +136,9 @@ void Nue_Boss::setMotion(const StageChild* _stage, int& _dx, int& _dy)
 
 	case 3:
 	case 4: //”ò‚Ñã‚ª‚Á‚Ä Bomb 
+		attack_bomb = false;
 		if (mTime % 360 < 60)
 		{
-			attack_bomb = false;
 			_dy = -4000;
 			_dx = 0;
 		}
@@ -156,7 +156,6 @@ void Nue_Boss::setMotion(const StageChild* _stage, int& _dx, int& _dy)
 		else
 		{
 			//’n–Ê‚É–ß‚é
-			attack_bomb = false;
 			_dy = getBottomDiffer(_stage, 5000, _dx < 0);
 		}
 		break;
@@ -164,6 +163,7 @@ void Nue_Boss::setMotion(const StageChild* _stage, int& _dx, int& _dy)
 
 	case 5: //FireFlower
 		_dx = 0;
+		attack_flower = false;
 		if (mTime % 360 < 60)_dy = -2000;
 		else if (mTime % 360 < 120)attack_flower = true;
 		else if (300 < mTime % 360)_dy = getBottomDiffer(_stage, 3000, _dx < 0);
