@@ -292,7 +292,7 @@ void Nue::UFO::update(const StageChild* _stage)
 	move();
 	standardMove(_stage);
 
-	if (mTime > 300)
+	if (mTime > 450)
 	{
 		isActive = false;
 		direction = NONE;
@@ -305,7 +305,7 @@ void Nue::UFO::update(const StageChild* _stage)
 void Nue::UFO::draw(const Vector2* _camera) const
 {
 	if (!isActive)return;
-	if (mTime > 150 && mTime / 10 % 2)return;
+	if (mTime > 250 && mTime / 10 % 2)return;
 
 	standardDraw(_camera, mImage, mDirection);
 
