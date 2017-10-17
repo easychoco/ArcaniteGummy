@@ -90,14 +90,19 @@ PlayerChild* Nue::update(const StageChild* _stage)
 	//UFOを召喚する
 	if (Input_C() && !createdUFO && !ufo->isActive) 
 	{
-		sound->playSound("ufo");
+		//1マス上が壁(天井)なら召喚できない
+		StageChild::ChipType upType = _stage->getChipType(Vector2(this->p->raw_x, this->p->raw_y - 48000, true));
+		if (!_stage->isRigid_up(upType))
+		{
+			sound->playSound("ufo");
 
-		createdUFO = true;
-		int tmp_x = (this->p->raw_x / CHIP_WIDTH_RATE() ) * CHIP_WIDTH + CHIP_WIDTH / 2;
-		int tmp_y = (this->p->raw_y / CHIP_HEIGHT_RATE() ) * CHIP_HEIGHT + CHIP_HEIGHT / 2;
-		ufo->setStatus(tmp_x * vectorRate, tmp_y * vectorRate);
+			createdUFO = true;
+			int tmp_x = (this->p->raw_x / CHIP_WIDTH_RATE()) * CHIP_WIDTH + CHIP_WIDTH / 2;
+			int tmp_y = (this->p->raw_y / CHIP_HEIGHT_RATE()) * CHIP_HEIGHT + CHIP_HEIGHT / 2;
+			ufo->setStatus(tmp_x * vectorRate, tmp_y * vectorRate);
 
-		this->next_dy = -CHIP_HEIGHT*vectorRate;
+			this->next_dy = -CHIP_HEIGHT*vectorRate;
+		}
 	}
 
 	//地面にいるとUFOを再召喚できる

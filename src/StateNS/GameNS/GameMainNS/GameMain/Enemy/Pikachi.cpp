@@ -60,7 +60,8 @@ void Pikachi::update(const StageChild* _stage,const Vector2* _camera)
 void Pikachi::move(const StageChild* _stage, int& _dx, int& _dy)
 {
 
-	if (mTime == 150) {
+	if (mTime == 150) 
+	{
 		aTime = 0;
 		actState = ENE_ACT_WALK;
 	}
@@ -70,6 +71,7 @@ void Pikachi::move(const StageChild* _stage, int& _dx, int& _dy)
 		_dy = tmp_dy;
 
 	}
+	else _dy = getBottomDiffer(_stage, 2000, true);
 	
 	if (mTime == 180)
 	{

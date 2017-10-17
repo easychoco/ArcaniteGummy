@@ -18,9 +18,10 @@ public:
 
 private:
 	int attackTime;
-	const int attackInterval = 10;//UŒ‚‚ÌŠÔŠu
+	const int attackInterval = 15;//UŒ‚‚ÌŠÔŠu
 
 	bool isStoppingTime;
+	int notStoppingTime;
 	int stoppingTime;
 	const int maxStoppingTime = 120;//‚ğ~‚ß‚Ä‚¢‚ç‚ê‚éŠÔ(ƒtƒŒ[ƒ€”)
 

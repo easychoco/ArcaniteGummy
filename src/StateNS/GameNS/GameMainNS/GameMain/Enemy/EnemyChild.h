@@ -23,7 +23,7 @@ public:
 
 	bool isAlive()  const { return mIsAlive; }
 	bool isActive() const { return mIsActive; }
-	void checkIsActive();
+	void checkIsActive(const Vector2* camera) const;
 
 	virtual void setPlayer(const Vector2* _player) { this->player = _player; }
 
@@ -46,7 +46,8 @@ protected:
 	//çUåÇÇÃvector
 	vector<Attack*> attacks;
 
-	enum ActState {
+	enum ActState 
+	{
 		ENE_ACT_NONE,
 		ENE_ACT_WALK,
 		ENE_ACT_ATTACK,
@@ -60,7 +61,7 @@ protected:
 
 private:
 	bool mIsAlive;
-	bool mIsActive;
+	mutable bool mIsActive;
 
 	void initialize();
 	void standardMove(const StageChild* stage);

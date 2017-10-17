@@ -28,6 +28,7 @@ void Sakuya::initialize()
 {
 	attackTime = 0;
 
+	notStoppingTime = 0;
 	stoppingTime = 0;
 	isStoppingTime = false;
 
@@ -130,10 +131,14 @@ void Sakuya::processAttack(const StageChild* _stage)
 
 void Sakuya::processStopDynamics()
 {
+	if(!isStoppingTime)++notStoppingTime;
+	
+
 	//C‚ÅŽžŽ~‚ß
-	if (Input_C() && !prePushC)
+	if (Input_C() && !prePushC && notStoppingTime > 60)
 	{
 		isStoppingTime = true;
+		notStoppingTime = 0;
 		stopDynamics = StopType::TYPE_SAKUYA;
 	}
 

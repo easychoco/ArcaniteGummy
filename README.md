@@ -1,10 +1,13 @@
 # ArcaniteGummy
-東方紅楼夢で発表するゲームです．
+
+東方紅楼夢でだすゲームです．
+
+制作環境：
+DxLibrary
 
 ___
 メンバー  
 リーダー : akana  
 プログラマ : gummy  
-サウンド : clara, raim  
-プランナー : sakam  
-
+サウンド : clara 
+special thx: otsutomn

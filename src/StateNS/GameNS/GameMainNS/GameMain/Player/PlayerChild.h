@@ -29,8 +29,12 @@ public:
 	int getFloorCoordinate() override;
 	virtual bool hasAdditionalGimmick() const { return false; }
 	virtual DynamicGimmickChild* getAdditionalGimmick() const { assert(!"ここにはこない"); return NULL; }
-
-
+	void lockCameraPos(const Vector2* _camera)
+	{
+		cameraLocked = true;
+		*(this->camera) = *_camera;
+	}
+	void unlockCameraPos() { cameraLocked = false; }
 	const StopType getStopDynamicObject() const { return stopDynamics; }
 	void moveCamera(int dx, int dy);
 	void setCamera(const Vector2& _camera) { *(this->camera) = _camera; };
@@ -40,6 +44,7 @@ public:
 
 protected:
 	//変数
+	int mTime;
 	float moveSpeed;
 	Vector2* camera;
 	int mImage[32];
@@ -64,6 +69,8 @@ protected:
 	//今いる位置関係
 	bool onGround;
 	bool onLadder;
+
+	bool cameraLocked;
 	
 	//攻撃のvector
 	vector<Attack*> attacks;
@@ -125,6 +132,8 @@ private:
 	//前フレームでの自機の位置
 	int post_x;
 	int post_y;
+
+	int sinkedTime;
 
 	//キャラクター切り換え関連
 	bool isCharaChange;

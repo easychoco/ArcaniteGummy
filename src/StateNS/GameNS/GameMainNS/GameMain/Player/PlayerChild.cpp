@@ -1,6 +1,7 @@
 #include "PlayerChild.h"
 
 #include "..\Stages\StageChild.h"
+#include "..\Collision.h"
 
 
 namespace StateNS {
@@ -14,6 +15,8 @@ maxMoveSpeed(_move)
 	post_x = _x % MAP_WIDTH;
 	post_y = _y % MAP_HEIGHT;
 	this->camera = new Vector2(_x, _y);
+	cameraLocked = false;
+
 	this->lock = false;
 
 	initialize();
@@ -49,6 +52,8 @@ void PlayerChild::initialize()
 	this->prePushC = false;
 	this->stopDynamics = StopType::TYPE_NONE;
 	this->ladderTime = 0;
+	this->sinkedTime = 0;
+	this->mTime = 0;
 
 	updateCamera();
 }
@@ -84,6 +89,7 @@ int PlayerChild::getFloorCoordinate()
 
 void PlayerChild::moveCamera(int _dx, int _dy)
 {
+	if (cameraLocked)return;
 	camera->raw_x = max(0, min(MAP_WIDTH_RATE()  - 1000, camera->raw_x + _dx * vectorRate));
 	camera->raw_y = max(0, min(MAP_HEIGHT_RATE() - 1000, camera->raw_y + _dy * vectorRate));
 }
@@ -93,6 +99,8 @@ void PlayerChild::moveCamera(int _dx, int _dy)
 //================================================
 void PlayerChild::standardAction(const StageChild* _stage)
 {
+	++mTime;
+	this->collision->noCollide = mTime < 30;
 
 	onGround = isOnGround(_stage);
 	onLadder = isOnLadder(_stage);
@@ -221,7 +229,7 @@ void PlayerChild::move(const StageChild* _stage)
 		ladderTime++;
 		if (in_up)
 		{
-			dy -= (int)(moveSpeed * vectorRate);
+			dy -= (int)(moveSpeed * vectorRate + Input_DASH() * 3000);
 			jumpPower = 0.0f;
 			nowJumpCount = 0;
 			direction = ladderTime % 10 == 0 ? !direction : direction;
@@ -229,13 +237,11 @@ void PlayerChild::move(const StageChild* _stage)
 
 		if (in_down)
 		{
-			dy += (int)(moveSpeed * vectorRate);
+			dy += (int)(moveSpeed * vectorRate + Input_DASH() * 3000);
 			jumpPower = 0.0f;
 			nowJumpCount = 0;
 			direction = ladderTime % 10 == 0 ? !direction : direction;
 		}
-		//if(in_left ||in_right)direction = ladderTime % 10 == 0 ? !direction : direction;
-
 	}
 
 	//ƒWƒƒƒ“ƒv
@@ -310,6 +316,20 @@ void PlayerChild::move(const StageChild* _stage)
 		{
 			if(p->y() < 32)nextStageMove = StageChild::MOVE_DOWN;
 		}
+	}
+
+	//‚ß‚èž‚Ý‰ñ”ð
+	StageChild::ChipType thisType = _stage->getChipType(*p);
+	if (thisType == StageChild::ChipType::TYPE_RIGID)
+	{
+		sinkedTime++;
+	}
+	else sinkedTime = 0;
+
+	if (sinkedTime > 5)
+	{
+		if (in_right)this->p->raw_x -= 32000;
+		else if (in_left)this->p->raw_x += 32000;
 	}
 
 	post_x = p->x();

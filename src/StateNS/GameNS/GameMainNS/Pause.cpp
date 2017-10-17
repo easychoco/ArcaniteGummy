@@ -21,6 +21,8 @@ Pause::~Pause()
 {
 	DeleteGraph(img_showStage);
 	DeleteGraph(img_resetGame);
+
+	if (resetGame)SAFE_DELETE(main);
 }
 
 void Pause::initialize()

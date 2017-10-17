@@ -33,9 +33,10 @@ void EnemyChild::draw(const Vector2* _camera) const
 {
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
 	if (!mIsAlive)return;
-	if (!mIsActive)return;
 
-	
+	checkIsActive(_camera);
+	if (!mIsActive)return;
+		
 	standardDraw(_camera,mDirection);
 	draw_other(_camera);
 }
@@ -88,11 +89,10 @@ void EnemyChild::checkIsAlive(const StageChild* _stage)
 	mIsAlive &= (this->p->raw_y % MAP_HEIGHT_RATE() > (this->p->raw_y - 10000) % MAP_HEIGHT_RATE());
 }
 
-void EnemyChild::checkIsActive()
+void EnemyChild::checkIsActive(const Vector2* _camera) const 
 {
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îfalse
-	this->mIsActive = (abs(p->raw_x - player->raw_x) < 640000 && abs(p->raw_y - player->raw_y) < 480000);
-
+	this->mIsActive = (abs(p->raw_x - _camera->raw_x) < 640000 && abs(p->raw_y - _camera->raw_y) < 480000);
 }
 
 void EnemyChild::processDamage()

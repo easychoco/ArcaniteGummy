@@ -64,13 +64,12 @@ void Karon::update(const StageChild* _stage,const Vector2* _camera)
 	standardAction(_stage);
 	
 	mImage = images[actState * 2 + (aTime / 10) % 2];
-
 }
 
 void Karon::move(const StageChild* _stage, int& _dx, int& _dy)
 {
-	if (!isAlive)return;
 	_dy = getBottomDiffer(_stage, 4000, _dx < 0);
+	if (!isAlive)return;
 
 	//_dy‚ª0‚Å‚È‚©‚Á‚½‚ç‹ó’†‚É‚¢‚é
 	if (_dy != 0)

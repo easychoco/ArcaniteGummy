@@ -49,14 +49,12 @@ Child* Converse::update(GameParent* _parent)
 	Child* next = this;
 
 	bool finish = false;
-	if (Input_Z() && !prePush)finish = nextPassage();
-
-	prePush = Input_Z();
+	if ((Input_OK() && !prePush) || Input_NO())finish = nextPassage();
 
 	//for Debug
 	if (finish)next = main;
 	
-	prePush = Input_Z();
+	prePush = Input_OK();
 
 	return next;
 }

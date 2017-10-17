@@ -32,7 +32,7 @@ void Collision::setSize(int _w, int _h)
 
 bool Collision::isHit(const Collision* other) const
 {
-	if (noCollide)return false;
+	if (this->noCollide || other->noCollide)return false;
 	return
 		this->p->raw_x - this->half_width  < other->p->raw_x + other->half_width  &&
 		this->p->raw_x + this->half_width  > other->p->raw_x - other->half_width  &&
