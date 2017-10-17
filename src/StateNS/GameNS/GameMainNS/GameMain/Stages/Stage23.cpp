@@ -50,7 +50,7 @@ void Stage23::initialize()
 	flag = new ClearFlag(Vector2(16, 16));
 	maps[8]->addGimmick(flag);
 
-	Door* d = new Door(new Vector2(9 * 32 + 16, 13 * 32 + 16), new Vector2(72 * 32 + 16, 31 * 32 + 16));
+	Door* d = new Door(new Vector2(9 * 32 + 16, 13 * 32 + 16), new Vector2(83 * 32 + 16, 31 * 32 + 16));
 	maps[2]->addGimmick(d);
 
 

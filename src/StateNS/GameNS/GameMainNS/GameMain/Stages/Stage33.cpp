@@ -51,7 +51,7 @@ void Stage33::initialize()
 	flag = new ClearFlag(Vector2(592, 1552));
 	maps[1]->addGimmick(flag);
 
-	Door* d = new Door(new Vector2(50 * 32 + 16, 8 * 32 + 16), new Vector2(79 * 32 + 16, 31 * 32 + 16));
+	Door* d = new Door(new Vector2(50 * 32 + 16, 8 * 32 + 16), new Vector2(83 * 32 + 16, 31 * 32 + 16));
 	maps[7]->addGimmick(d);
 
 	SwitchWithBlock* s = new SwitchWithBlock(8 * 32 + 16, 15 * 32 + 16, 1);
