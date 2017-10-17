@@ -469,22 +469,24 @@ void Map::loadGimmick(int _x, int _y, int _n)
 	case 126:mDynamicGimmicks.push_back(new FallFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, true)); break;
 		//乗ると上がる床
 	case 127:mDynamicGimmicks.push_back(new FallFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, false)); break;
+		//////////小3,大7
+		//////////ななめ、小2,大5
 		//動く床：上下：小
 	case 128:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT - CHIP_HEIGHT * 5 / 2, 1.0f, 0)); break;
 		//動く床：上下：大
-	case 129:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT - CHIP_HEIGHT * 15 / 2, 1.0f, 0)); break;
+	case 129:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT - CHIP_HEIGHT * 13 / 2, 1.0f, 0)); break;
 		//動く床：左右：小
-	case 130:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 5 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 0)); break;
+	case 130:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 7 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 0)); break;
 		//動く床：左右：大
 	case 131:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 15 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 0)); break;
 		//動く床：右上斜め：小
-	case 132:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 9 / 2, _y * CHIP_HEIGHT - CHIP_HEIGHT * 7 / 2, 1.0f, 0)); break;
+	case 132:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 5 / 2, _y * CHIP_HEIGHT - CHIP_HEIGHT * 3 / 2, 1.0f, 0)); break;
 		//動く床：右上斜め：大
-	case 133:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 17 / 2, _y * CHIP_HEIGHT - CHIP_HEIGHT * 15 / 2, 1.0f, 0)); break;
+	case 133:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 11 / 2, _y * CHIP_HEIGHT - CHIP_HEIGHT * 9 / 2, 1.0f, 0)); break;
 		//動く床：右下斜め：小
-	case 134:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 9 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT * 9 / 2, 1.0f, 0)); break;
+	case 134:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 5 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT * 5 / 2, 1.0f, 0)); break;
 		//動く床：右下斜め：大
-	case 135:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 17 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT * 17 / 2, 1.0f, 0)); break;
+	case 135:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 11 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT * 11 / 2, 1.0f, 0)); break;
 		//動く床：円：小：時計回り
 	case 136:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH * 5 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 3)); break;
 		//動く床：円：大：時計回り
@@ -534,6 +536,27 @@ void Map::loadGimmick(int _x, int _y, int _n)
 		//時間差で現れる足場７
 	case 159:mDynamicGimmicks.push_back(new OrderEmergeFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 7)); break;
 	
+
+		/////////反転/////////
+		//動く床：上下：小
+	case 192:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT * 7 / 2, 1.0f, 0)); break;
+		//動く床：上下：大
+	case 193:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT * 15 / 2, 1.0f, 0)); break;
+		//動く床：左右：小
+	case 194:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH - CHIP_WIDTH * 5 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 0)); break;
+		//動く床：左右：大
+	case 195:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH - CHIP_WIDTH * 13 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, 1.0f, 0)); break;
+		//動く床：右上斜め：小
+	case 196:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH - CHIP_WIDTH *3 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT * 5 / 2, 1.0f, 0)); break;
+		//動く床：右上斜め：大
+	case 197:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH - CHIP_WIDTH * 9 / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT * 11 / 2, 1.0f, 0)); break;
+		//動く床：右下斜め：小
+	case 198:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH - CHIP_WIDTH *3 / 2, _y * CHIP_HEIGHT - CHIP_HEIGHT * 3 / 2, 1.0f, 0)); break;
+		//動く床：右下斜め：大
+	case 199:mDynamicGimmicks.push_back(new MovingFloor(_x * CHIP_WIDTH + CHIP_WIDTH / 2, _y * CHIP_HEIGHT + CHIP_HEIGHT / 2, _x * CHIP_WIDTH - CHIP_WIDTH * 9 / 2, _y * CHIP_HEIGHT - CHIP_HEIGHT * 9 / 2, 1.0f, 0)); break;
+
+
+
 
 	}
 	
