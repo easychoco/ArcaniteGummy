@@ -40,12 +40,6 @@ void Stage43::initialize()
 	this->maps.push_back(new Map(43, 1, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(43, 2, MapPos::POS_LEFT_FREE));
 
-	torches.push_back(new Torch(27 * 32 + 16, 46 * 32 + 16));
-	torches.push_back(new Torch(5 * 32 + 16, 36 * 32 + 16));
-	torches.push_back(new Torch(10 * 32 + 16, 6 * 32 + 16));
-	torches.push_back(new Torch(53 * 32 + 16, 6 * 32 + 16));
-	for (const auto& t : torches)maps[0]->addDynamicGimmick(t);
-
 	torches2.push_back(new Torch(9 * 32 + 16, 3 * 32 + 16));
 	torches2.push_back(new Torch(42 * 32 + 16, 8 * 32 + 16));
 	torches2.push_back(new Torch(71 * 32 + 16, 6 * 32 + 16));

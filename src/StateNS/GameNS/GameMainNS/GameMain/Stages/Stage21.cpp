@@ -43,14 +43,15 @@ void Stage21::initialize()
 	maps[2]->addSwitchWithBlock(s);
 
 
-	torches.push_back(new Torch(9 * 32 + 16, 48 * 32 + 16));
+	torches.push_back(new Torch(3 * 32 + 16, 48 * 32 + 16));
 	torches.push_back(new Torch(42 * 32 + 16, 24 * 32 + 16));
 	torches.push_back(new Torch(84 * 32 + 16, 7 * 32 + 16));
-
+	torches.push_back(new Torch(89 * 32 + 16, 34 * 32 + 16));
 	for (const auto& t : torches)maps[1]->addDynamicGimmick(t);
 
 
-	torches2.push_back(new Torch(63 * 32 + 16, 21 * 32 + 16));
+	torches2.push_back(new Torch(23 * 32 + 16, 6 * 32 + 16));
+	torches2.push_back(new Torch(69 * 32 + 16, 7 * 32 + 16));
 	for (const auto& t : torches2)maps[2]->addDynamicGimmick(t);
 
 
