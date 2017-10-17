@@ -56,13 +56,13 @@ void Stage23::initialize()
 
 
 
-	SwitchWithBlock* s = new SwitchWithBlock(41 * 32 + 16, 14 * 32 + 16, 330);
+	SwitchWithBlock* s = new SwitchWithBlock(44 * 32 + 16, 14 * 32 + 16, 330);
 	for (int i = 0; i < 3; i++)s->push_block(new Block((46 + i) * 32 + 16, 46 * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
 	maps[3]->addSwitchWithBlock(s);
-	SwitchWithBlock* s2 = new SwitchWithBlock(53 * 32 + 16, 24 * 32 + 16, 330);
+	SwitchWithBlock* s2 = new SwitchWithBlock(50 * 32 + 16, 24 * 32 + 16, 330);
 	for (int i = 0; i < 3; i++)s2->push_block(new Block((46 + i) * 32 + 16, 47 * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
 	maps[3]->addSwitchWithBlock(s2);
-	SwitchWithBlock* s3 = new SwitchWithBlock(41 * 32 + 16, 35 * 32 + 16, 330);
+	SwitchWithBlock* s3 = new SwitchWithBlock(44 * 32 + 16, 35 * 32 + 16, 330);
 	for (int i = 0; i < 3; i++)s3->push_block(new Block((46 + i) * 32 + 16, 48 * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
 	maps[3]->addSwitchWithBlock(s3);
 

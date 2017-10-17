@@ -39,13 +39,13 @@ void Stage31::initialize()
 
 
 	torches.push_back(new Torch(22 * 32 + 16, 48 * 32 + 16));
-	torches.push_back(new Torch(4 * 32 + 16, 36 * 32 + 16));
+	torches.push_back(new Torch(23 * 32 + 16, 30 * 32 + 16));
+	torches.push_back(new Torch(8 * 32 + 16, 16 * 32 + 16));
 	torches.push_back(new Torch(58 * 32 + 16, 9 * 32 + 16));
-	torches.push_back(new Torch(62 * 32 + 16, 38 * 32 + 16));
+	torches.push_back(new Torch(49 * 32 + 16, 48 * 32 + 16));
 	for (const auto& t : torches)maps[0]->addDynamicGimmick(t);
 
 	torches2.push_back(new Torch(8 * 32 + 16, 48 * 32 + 16));
-	torches2.push_back(new Torch(77 * 32 + 16, 18 * 32 + 16));
 	torches2.push_back(new Torch(26 * 32 + 16, 5 * 32 + 16));
 	for (const auto& t : torches2)maps[1]->addDynamicGimmick(t);
 

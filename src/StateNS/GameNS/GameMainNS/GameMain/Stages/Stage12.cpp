@@ -41,7 +41,7 @@ void Stage12::initialize()
 	flag = new ClearFlag(Vector2(80, 1424));
 	maps[3]->addGimmick(flag);
 
-	SwitchWithBlock* s = new SwitchWithBlock(72*32+16, 40*32+16);
+	SwitchWithBlock* s = new SwitchWithBlock(68 * 32 + 16, 40 * 32 + 16);
 	for (int i = 0; i < 8;i++)s->push_block(new Block((75+i)*32+16, 38*32+16, 1.0, BlockType::TYPE_SWITCH), true);
 	maps[1]->addSwitchWithBlock(s);
 	SwitchWithBlock* s2 = new SwitchWithBlock(46 * 32 + 16, 34 * 32 + 16, 1);

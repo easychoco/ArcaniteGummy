@@ -38,11 +38,8 @@ void Stage42::initialize()
 	maps[1]->addGimmick(flag);
 
 	SwitchWithBlock* s = new SwitchWithBlock(41 * 32 + 16, 36 * 32 + 16);
-	for (int i = 0; i < 2; i++)s->push_block(new Block((29 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
-	for (int i = 0; i < 2; i++)s->push_block(new Block((31 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
-	for (int i = 0; i < 2; i++)s->push_block(new Block((33 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
-	for (int i = 0; i < 2; i++)s->push_block(new Block((35 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
-	for (int i = 0; i < 2; i++)s->push_block(new Block((37 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
+	for (int i = 0; i < 4; i++)s->push_block(new Block((34 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), true);
+	for (int i = 0; i < 4; i++)s->push_block(new Block((30 + i) * 32 + 16, 37 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[0]->addSwitchWithBlock(s);
 
 	SwitchWithBlock* s2 = new SwitchWithBlock(97 * 32 + 16, 37 * 32 + 16, 1);
