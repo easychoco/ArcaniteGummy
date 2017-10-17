@@ -38,11 +38,6 @@ void Stage21::initialize()
 	flag = new ClearFlag(Vector2(3088, 400));
 	maps[2]->addGimmick(flag);
 
-	SwitchWithBlock* s = new SwitchWithBlock(23 * 32 + 16, 6 * 32 + 16, 1);
-	for (int i = 0; i < 4; i++)s->push_block(new Block(59 * 32 + 16, (18 + i) * 32 + 16, 1.0,BlockType::TYPE_LOCK), false);
-	maps[2]->addSwitchWithBlock(s);
-
-
 	torches.push_back(new Torch(3 * 32 + 16, 48 * 32 + 16));
 	torches.push_back(new Torch(42 * 32 + 16, 24 * 32 + 16));
 	torches.push_back(new Torch(84 * 32 + 16, 7 * 32 + 16));
