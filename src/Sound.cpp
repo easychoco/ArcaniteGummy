@@ -8,7 +8,8 @@ void Sound::setSound(string _path, string _name)
 	if (exists(_name))assert(!"Sound: すでに登録されている名前です.");
 	
 	int tmp_handle = LoadSoundMem(_path.c_str());
-	assert(tmp_handle != -1 && "サウンド読み込みエラー");
+	//for Debug
+	//assert(tmp_handle != -1 && "サウンド読み込みエラー");
 
 	soundMap.insert(make_pair(_name, tmp_handle));
 	ChangeVolumeSoundMem((int)(255 * allVolume), soundMap.at(_name));

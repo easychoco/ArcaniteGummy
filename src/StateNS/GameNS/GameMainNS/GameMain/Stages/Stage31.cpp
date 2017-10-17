@@ -50,7 +50,7 @@ void Stage31::initialize()
 	for (const auto& t : torches2)maps[1]->addDynamicGimmick(t);
 
 	SwitchWithBlock* s = new SwitchWithBlock(78 * 32 + 16, 5 * 32 + 16);
-	for (int i = 0; i < 3; i++)s->push_block(new Block(78 * 32 + 16, (11 + i) * 32 + 16, 1.0), false);
+	for (int i = 0; i < 3; i++)s->push_block(new Block(78 * 32 + 16, (11 + i) * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
 	maps[1]->addSwitchWithBlock(s);
 
 

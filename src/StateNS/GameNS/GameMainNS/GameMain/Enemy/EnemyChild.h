@@ -21,7 +21,9 @@ public:
 	void standardDraw(const Vector2* _camera, const bool& _direction) const;
 	virtual void draw_other(const Vector2* camera)const {}
 
-	bool isAlive() const { return mIsAlive; }
+	bool isAlive()  const { return mIsAlive; }
+	bool isActive() const { return mIsActive; }
+	void checkIsActive();
 
 	virtual void setPlayer(const Vector2* _player) { this->player = _player; }
 
@@ -58,7 +60,7 @@ protected:
 
 private:
 	bool mIsAlive;
-
+	bool mIsActive;
 
 	void initialize();
 	void standardMove(const StageChild* stage);

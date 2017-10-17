@@ -42,7 +42,6 @@ void Shot::update()
 	//‰æ–ÊŠO‚É‚ ‚Á‚½‚çreturn
 	if (!isActive)return;
 
-	++time;
 
 	//ˆÚ“®
 	p->raw_x += dx;

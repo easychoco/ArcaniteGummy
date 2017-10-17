@@ -69,11 +69,20 @@ void StageChild::standardUpdate(PlayerChild* _player)
 
 void StageChild::standardDraw(const Vector2* _camera) const
 {
+	//”wŒi•`‰æ
 	int draw_x = (_camera->x() - MyData::CX) / -5;
 	int draw_y = (_camera->y() - MyData::CY) / -5;
 	DrawGraph(draw_x, draw_y, mBackImg, true);
 
 	maps[now_stage_num]->draw(_camera);
+
+	//for Debug
+	if (CheckHitKey(KEY_INPUT_W))
+	{
+		DrawBox(0, 100, 100, 200, BLACK, true);
+		DrawFormatString(10, 110, WHITE, "%d", now_stage_num);
+	}
+
 }
 
 void StageChild::draw_front(const Vector2* _camera) const

@@ -41,7 +41,6 @@ public:
 protected:
 
 	float angle;
-	int time;
 
 	void initialize();
 

@@ -23,6 +23,7 @@ EnemyChild::~EnemyChild()
 void EnemyChild::initialize()
 {
 	this->mIsAlive = true;
+	this->mIsActive = false;
 	this->mDirection = false;
 	this->actState = ENE_ACT_NONE;
 	this->aTime = 0;
@@ -32,6 +33,8 @@ void EnemyChild::draw(const Vector2* _camera) const
 {
 	//画面内にいなければreturn
 	if (!mIsAlive)return;
+	if (!mIsActive)return;
+
 	
 	standardDraw(_camera,mDirection);
 	draw_other(_camera);
@@ -39,10 +42,6 @@ void EnemyChild::draw(const Vector2* _camera) const
 
 void EnemyChild::standardDraw(const Vector2* _camera, const bool& _direction) const
 {
-
-	//画面内にいなければreturn
-	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
-
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
 
@@ -54,12 +53,11 @@ void EnemyChild::standardDraw(const Vector2* _camera, const bool& _direction) co
 void EnemyChild::standardAction(const StageChild* _stage)
 {
 	checkIsAlive(_stage);
-	if (!this->mIsAlive)return;
+	if (!this->mIsAlive || !this->mIsActive)return;
 
 	processDamage();
 	standardMove(_stage);
 }
-
 
 void EnemyChild::standardMove(const StageChild* _stage)
 {
@@ -88,6 +86,13 @@ void EnemyChild::checkIsAlive(const StageChild* _stage)
 	//マップ外ならfalse
 	mIsAlive &= (this->p->raw_y % MAP_HEIGHT_RATE() < (this->p->raw_y + 10000) % MAP_HEIGHT_RATE());
 	mIsAlive &= (this->p->raw_y % MAP_HEIGHT_RATE() > (this->p->raw_y - 10000) % MAP_HEIGHT_RATE());
+}
+
+void EnemyChild::checkIsActive()
+{
+	//画面内にいなければfalse
+	this->mIsActive = (abs(p->raw_x - player->raw_x) < 640000 && abs(p->raw_y - player->raw_y) < 480000);
+
 }
 
 void EnemyChild::processDamage()

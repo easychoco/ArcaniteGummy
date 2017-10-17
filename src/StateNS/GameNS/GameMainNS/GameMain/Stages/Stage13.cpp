@@ -40,9 +40,6 @@ void Stage13::initialize()
 	this->maps.push_back(new Map(13, 2, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(13, 3, MapPos::POS_LEFT_FREE));
 
-	flag = new ClearFlag(Vector2(3056, 1264));
-	maps[0]->addGimmick(flag);
-
 	Door* d = new Door(new Vector2(8 * 32 + 16, 27 * 32 + 16), new Vector2(78 * 32 + 16, 32 * 32 + 16));
 	maps[3]->addGimmick(d);
 

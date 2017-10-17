@@ -54,9 +54,12 @@ private:
 
 	//EnemychildÇÃä÷êî
 	void move(const StageChild*, int& dx, int& dy);
-	void setMotion(const StageChild*, int& _dx, int& _dy);
 	virtual void draw_other(const Vector2* camera)const override;
-
+	virtual void setPlayer(const Vector2* _player) override
+	{
+		this->player = _player;
+		if(init_attacks)focus->setPlayer(_player);
+	}
 
 
 	//==========================================
@@ -118,10 +121,11 @@ private:
 	public:
 		Kind4(const Vector2* pos, EnemyChild*);
 		~Kind4();
-		void update();
+		void update(int  px);
 		void draw(const Vector2* camera) const;
 		void addAttacks(vector<Attack*>&);
-		void setStatus(const Vector2* pos);
+		void setStatus(const Vector2* pos) { setStatus(pos, false); };
+		void setStatus(const Vector2* pos, bool);
 		void setActive(bool);
 		bool isActive() const { return this->mIsActive; }
 		void checkActive(const StageChild*);
@@ -141,10 +145,11 @@ private:
 		public:
 			Childs(int x, int y, EnemyChild*, int phase);
 			~Childs();
-			void update();
+			void update(int px);
 			void draw(const Vector2*) const;
 			void addAttacks(vector<Attack*>&);
-			void setStatus(int, int);
+			void setStatus(int _x, int _y) { setStatus(_x, _y, false); };
+			void setStatus(int, int, bool);
 			void setActive(bool);
 			bool isActive() const { return this->mIsActive; }
 			void checkActive(const StageChild*);
@@ -152,10 +157,14 @@ private:
 			bool mIsActive;
 			int time;
 			int images[32];
+			int mImage;
 
 			int dx;
 			int dy;
 
+			bool direction;
+			bool init = true;
+			
 			//èâä˙à ëä
 			const int init_phase;
 			const int maxShotNum = 4;
@@ -179,6 +188,11 @@ private:
 		void draw(const Vector2* camera) const;
 		void addAttacks(vector<Attack*>&);
 		void setStatus(const Vector2* player);
+		void setPlayer(const Vector2* _player)
+		{
+			this->player = _player;
+			this->p = *_player;
+		}
 		void setActive(bool);
 		bool isActive() const { return this->mIsActive; }
 		void checkActive(const StageChild*);

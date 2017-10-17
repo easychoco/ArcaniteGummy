@@ -26,11 +26,15 @@ Rarashi::~Rarashi()
 
 void Rarashi::initialize()
 {
-	this->mDirection = false;
-	this->moveSpeed = 3000;
+	this->mDirection = true;
+	this->moveSpeed = 2000;
 	actState = ENE_ACT_WALK;
+
+	this->mTime = 0;
+
 	//–³“G
 	hpController.isMuteki = true;
+
 }
 
 void Rarashi::update(const StageChild* _stage,const Vector2* _camera)
@@ -38,9 +42,9 @@ void Rarashi::update(const StageChild* _stage,const Vector2* _camera)
 	actState = ENE_ACT_WALK;
 	aTime++;
 	mTime++;
+
 	standardAction(_stage);	
 	mImage = images[actState * 2 + (aTime / 10) % 2];
-
 }
 
 void Rarashi::move(const StageChild* _stage, int& _dx, int& _dy)

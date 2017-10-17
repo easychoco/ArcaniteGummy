@@ -58,7 +58,8 @@ void EnemyController::update(const StageChild* _stage, const Vector2* _camera)
 	{
 		for (auto& enemy : enemies)
 		{
-			enemy->update(_stage, _camera);
+			enemy->checkIsActive();
+			if(enemy->isActive())enemy->update(_stage, _camera);
 		}
 	}
 }
