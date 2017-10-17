@@ -42,7 +42,7 @@ void Icicle::update(const StageChild* _stage, const Vector2* _camera)
 	}
 	else mTime++;
 
-	if ((abs(player->raw_x - this->p->raw_x) <= 32*vectorRate))
+	if ((abs(player->raw_x - this->p->raw_x) <= 32 * vectorRate) && player->raw_y > this->p->raw_y)
 	{
 		nowfall = true;
 		actState = ENE_ACT_ATTACK;
