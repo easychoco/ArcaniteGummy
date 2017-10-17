@@ -322,6 +322,8 @@ void PlayerChild::move(const StageChild* _stage)
 	StageChild::ChipType thisType = _stage->getChipType(*p);
 	if (thisType == StageChild::ChipType::TYPE_RIGID)
 	{
+		//for Debug
+		if(!Input_D())
 		sinkedTime++;
 	}
 	else sinkedTime = 0;
