@@ -133,6 +133,7 @@ enum AllEnemies
 	ENE_KARON,
 	ENE_RARA,
 	ENE_ICE,
+	ENE_KAWARI,
 
 	//É{ÉX
 	BOSS_REISEN,

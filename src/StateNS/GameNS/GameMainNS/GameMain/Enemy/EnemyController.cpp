@@ -15,6 +15,7 @@
 #include "Teresa.h"
 #include "Icicle.h"
 #include "Mariri.h"
+#include "Kawarimi.h"
 
 #include "Reisen.h"
 #include "Junko.h"
@@ -108,6 +109,7 @@ void EnemyController::addEnemy(AllEnemies _enemy, const Vector2* _player, int _x
 	case ENE_TERESA: ene_tmp = new Teresa(_x, _y); break;
 	case ENE_ICE: ene_tmp = new Icicle(_x, _y); break;
 	case ENE_MARI: ene_tmp = new Mariri(_x, _y); break;
+	case ENE_KAWARI: ene_tmp = new Kawarimi(_x, _y); break;
 	case BOSS_REISEN: ene_tmp = new Reisen(_x, _y); break;
 	case BOSS_JUNKO: ene_tmp = new Junko(_x, _y); break;
 	case BOSS_NUE: ene_tmp = new Nue_Boss(_x, _y); break;
