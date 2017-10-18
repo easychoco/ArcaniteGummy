@@ -19,11 +19,15 @@ StageChild(3, 1) //エリアの数: よこ，たて
 
 Stage53::~Stage53()
 {
-
+	sound->deleteSound("bgm5");
+	sound->deleteSound("boss5");
 }
 
 void Stage53::initialize()
 {
+	sound->setSound("Data/Sound/stage5.wav", "bgm5");
+	sound->setSound("Data/Sound/taketori.wav", "boss5");
+	sound->playSound("bgm5", LOOP, false);
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;
 	this->changeableCharacter |= CHARA_SAKUYA;
@@ -45,9 +49,8 @@ void Stage53::initialize()
 
 	now_stage_num = 2;
 	startX = 600, startY = 1536;
+	findRestartPoint();
 
-	//this->torches.push_back(new Torch(304, 1488));
-	//this->maps[0]->addGimmick(torches[0]);
 }
 
 

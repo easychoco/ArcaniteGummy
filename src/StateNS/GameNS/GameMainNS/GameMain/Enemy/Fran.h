@@ -17,7 +17,11 @@ public:
 	Fran(int x, int y);
 	~Fran();
 	void update(const StageChild* _stage, const Vector2* _camera);
-	
+	virtual void setPlayer(const Vector2* _player) override 
+	{
+		this->player = _player;
+		if (init_attacks)focus->setPlayer(_player);
+	}
 private:
 	int mTime;
 	int timeToNextMotion;
@@ -54,11 +58,7 @@ private:
 	//Enemychild‚ÌŠÖ”
 	void move(const StageChild*, int& dx, int& dy);
 	virtual void draw_other(const Vector2* camera)const override;
-	virtual void setPlayer(const Vector2* _player) override
-	{
-		this->player = _player;
-		if(init_attacks)focus->setPlayer(_player);
-	}
+
 
 
 	//==========================================

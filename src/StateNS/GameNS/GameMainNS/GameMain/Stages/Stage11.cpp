@@ -34,7 +34,7 @@ void Stage11::initialize()
 	this->maps.push_back(new Map(11, 1, MapPos::POS_LEFT_FREE));
 
 	//this->maps[0]->addEnemy(BOSS_JUNKO, 540, 1488);
-
+	/*
 	vector<string> message
 	{
 		"        ÉKÉCÉhó·",
@@ -44,7 +44,16 @@ void Stage11::initialize()
 		"    Å`Å@Å@ | ÅPÅPÅPÅP | . |",
 		" §§§§Åi/Å@ | AAÇ‡â¬î\ | Å^, , , , ,",
 	};
+	*/
+	vector<string> message
+	{
+		"ñÖçgÇÃÉTÉ|Å[ÉgÇÕ",
+		"éÑÅAè„îíëÚådâπÇ…",
+		"îCÇπÇƒÇ≠ÇÍ",
+		"ï™Ç©ÇÁÇ»Ç¢Ç±Ç∆Ç™Ç†Ç¡ÇΩÇÁ",
+		"éËÇãìÇ∞ÇÈÇÒÇæÇº",
 
+	};
 
 	Guide* guide = new Guide(272, 1552, message);
 	maps[0]->addGimmick(guide);

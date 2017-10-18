@@ -17,11 +17,13 @@ StageChild(3, 2) //エリアの数: よこ，たて
 
 Stage52::~Stage52()
 {
-
+	sound->deleteSound("bgm5");
 }
 
 void Stage52::initialize()
 {
+	sound->setSound("Data/Sound/stage5.wav", "bgm5");
+	sound->playSound("bgm5", LOOP, false);
 
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;
@@ -71,7 +73,7 @@ void Stage52::initialize()
 	SwitchWithBlock* s8 = new SwitchWithBlock(92 * 32 + 16, 31 * 32 + 16, 99);
 	for (int i = 0; i < 4; i++)s8->push_block(new Block(87 * 32 + 16, (28 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[3]->addSwitchWithBlock(s8);
-
+	findRestartPoint();
 }
 
 
@@ -79,9 +81,6 @@ void Stage52::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
 
-	//for Debug
-	if(CheckHitKey(KEY_INPUT_1))
-		gameMain->startConverse(12);
 }
 
 void Stage52::draw(const Vector2* _camera) const
