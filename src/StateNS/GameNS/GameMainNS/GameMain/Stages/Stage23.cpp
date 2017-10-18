@@ -114,7 +114,7 @@ void Stage23::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	{
 		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
 		junko->setPlayer(_player->getVector2());
-		maps[2]->addEnemy(junko);		
+		maps[2]->addEnemy(junko);
 		gameMain->startConverse(231);
 		converseFlag1 = false;
 	}
