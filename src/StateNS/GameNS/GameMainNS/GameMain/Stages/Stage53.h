@@ -16,10 +16,12 @@ public:
 	void update(GameMain*, PlayerChild*);
 	void draw(const Vector2* player) const;
 	bool isClear() const;
-	
+	void draw_front(const Vector2* _camera) const override;
 private:
 	void initialize();
-
+	void updateConverse(GameMain*, PlayerChild*);
+	bool converseFlag0, converseFlag0fin;
+	bool converseFlag1, converseFlag1fin;
 	Kaguya* kaguya;
 
 	AllEnemies itoE(int num)
