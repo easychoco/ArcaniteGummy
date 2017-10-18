@@ -28,26 +28,20 @@ void Guide::initialize()
 	this->mTime = 0;
 	this->activeWhenStopping = true;
 
-
+	//ògÇÃïùÅCçÇÇ≥Çê›íË
 	int max_str_num = 0;
 	for (const auto& m : messages)
 	{
 		max_str_num = max(max_str_num, (int)m.size());
 	}
 	frameWidth = max_str_num * 10;
-	frameHeight = messages.size() * 30;
+	frameHeight = (int)messages.size() * 30;
 }
 
 void Guide::update()
 {
-	if (this->playerLooking)
-	{
-		mTime = min(mTime + 1, 30);
-	}
-	else
-	{
-		mTime = 0;
-	}
+	if (this->playerLooking)mTime = min(mTime + 1, 30);
+	else mTime = 0;
 
 	this->playerLooking = false;
 }
@@ -70,6 +64,7 @@ void Guide::draw(const Vector2* _camera) const
 		DrawFilledCircledBox(draw_x + 17, draw_y - 13 - frameHeight, draw_x + frameWidth + 13, draw_y - 7, 15, WHITE);
 		DrawFilledCircledBox(draw_x + 20, draw_y - 10 - frameHeight, draw_x + frameWidth + 10, draw_y - 10, 15, BLACK);
 
+		//ï∂èÕÇï\é¶
 		for (unsigned i = 0; i < messages.size(); i++)
 		{
 			DrawString(draw_x + 30, draw_y - frameHeight + i * 30, messages[i].c_str(), WHITE);

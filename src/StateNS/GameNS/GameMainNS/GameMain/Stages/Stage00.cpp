@@ -53,6 +53,19 @@ void Stage00::initialize()
 	Guide* guide = new Guide(336, 1552, message);
 	maps[0]->addGimmick(guide);
 
+	Burner* b1 = new Burner(400, 1552, pi(1.5f), 0);
+	Burner* b2 = new Burner(432, 1552, pi(0.5f), 1);
+
+	Burner* b3 = new Burner(464, 1456, pi(1.0f), 0);
+	Burner* b4 = new Burner(464, 1488, pi(0.0f), 1);
+
+
+	maps[0]->addDynamicGimmick(b1);
+	maps[0]->addDynamicGimmick(b2);
+	maps[0]->addDynamicGimmick(b3);
+	maps[0]->addDynamicGimmick(b4);
+
+
 	startX = 144, startY = 1536;
 
 	findRestartPoint();

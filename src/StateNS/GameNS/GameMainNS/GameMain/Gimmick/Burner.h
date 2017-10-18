@@ -32,7 +32,9 @@ public:
 private:
 	static bool imgLoad;
 	static int img_block;
-	static int img_bar;
+	static int img_bars[3];
+
+	int img_bar;
 	void loadImage();
 
 	float angle;//radian
@@ -40,11 +42,12 @@ private:
 	int mTime;
 	const int damageValue = 50;
 	bool isEmerge;
+	bool drawBurner;
 
 	//ブロック部分の長さ(ピクセル)
-	const int l_block =  32;
+	const int l_block = 32;
 	//バーナー部分の長さ(ピクセル)
-	const int l_burn =  112;
+	const int l_burn  = 96;
 
 	//右、左、上、下の座標
 	int r, l, u, d;

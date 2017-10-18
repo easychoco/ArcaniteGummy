@@ -45,7 +45,7 @@ void StageChild::standardUpdate(PlayerChild* _player)
 	maps[now_stage_num]->update(_player, this, false);
 
 	//チェックポイントに来ていてるか確認
-	int loop_count = checkPoints.size();
+	int loop_count = (int)checkPoints.size();
 	for (int i = 0; i < loop_count; i++)
 	{
 		//チェックポイントに来ていたら

@@ -70,7 +70,6 @@ void EnemyChild::standardMove(const StageChild* _stage)
 
 	next_dx = next_dy = 0;
 
-
 	//ˆÚ“®
 	//ˆø”‚ÍŽQÆ“n‚µ
 	this->move(_stage, dx, dy);
@@ -92,7 +91,7 @@ void EnemyChild::checkIsAlive(const StageChild* _stage)
 void EnemyChild::checkIsActive(const Vector2* _camera) const 
 {
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îfalse
-	this->mIsActive = (abs(p->raw_x - _camera->raw_x) < 480000 && abs(p->raw_y - _camera->raw_y) < 320000);
+	this->mIsActive = (abs(p->raw_x - _camera->raw_x) < 640000 && abs(p->raw_y - _camera->raw_y) < 480000);
 }
 
 void EnemyChild::processDamage()

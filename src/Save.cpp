@@ -20,7 +20,7 @@ SaveData::~SaveData()
 	fout.open("Data/Text/save.bin", ios::binary | ios::out | ios::trunc);
 
 	//vector‚ÌƒTƒCƒY‚ğ‘‚«‚İ
-	unsigned size = allDatas.size();
+	unsigned size = (int)allDatas.size();
 	fout.write((char*)&size, sizeof(int));
 
 	for (const int data : allDatas)
