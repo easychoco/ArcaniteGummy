@@ -26,8 +26,8 @@ Rarashi::~Rarashi()
 
 void Rarashi::initialize()
 {
-	this->mDirection = true;
-	this->moveSpeed = 2000;
+	this->mDirection = false;
+	this->moveSpeed = -2000;
 	actState = ENE_ACT_WALK;
 
 	this->mTime = 0;

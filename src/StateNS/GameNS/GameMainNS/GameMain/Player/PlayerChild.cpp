@@ -17,8 +17,6 @@ maxMoveSpeed(_move)
 	this->camera = new Vector2(_x, _y);
 	cameraLocked = false;
 
-	this->lock = false;
-
 	initialize();
 	assert(*mImage != -1 && "自機画像読み込みエラー");
 }
@@ -54,6 +52,7 @@ void PlayerChild::initialize()
 	this->ladderTime = 0;
 	this->sinkedTime = 0;
 	this->mTime = 0;
+	this->lock = false;
 
 	//キャラ交代直後のみ無敵
 	this->hpController.isMuteki = true;
@@ -92,7 +91,6 @@ int PlayerChild::getFloorCoordinate()
 
 void PlayerChild::moveCamera(int _dx, int _dy)
 {
-	if (cameraLocked)return;
 	camera->raw_x = max(0, min(MAP_WIDTH_RATE()  - 1000, camera->raw_x + _dx * vectorRate));
 	camera->raw_y = max(0, min(MAP_HEIGHT_RATE() - 1000, camera->raw_y + _dy * vectorRate));
 }
@@ -148,10 +146,13 @@ bool PlayerChild::canChangeCharacter()
 //キャラ変更アニメーション
 void PlayerChild::changeCharacter(const StageChild* _stage)
 {
-	if (Input_CHANGE() && _stage->canChangeCharacter(getThisCharacter(), true))
+	if (Input_CHANGE() && mTime > 30 && _stage->canChangeCharacter(getThisCharacter(), true))
 	{
 		animationTime = max(animationTime, 1);
 		stopDynamics = StopType::TYPE_CHANGE;
+
+		//最初に来た時だけ音楽再生
+		if (canMove)sound->playSound("change");
 		canMove = false;
 	}
 	if (animationTime == 0)return;
@@ -170,7 +171,11 @@ void PlayerChild::processDamage()
 	if (damaged)
 	{
 		++damagedTime;
-		if (damagedTime < 3)hittedAction();
+		if (damagedTime < 3)
+		{
+			hittedAction();
+			sound->playSound("damage");
+		}
 		if (damagedTime > 60)
 		{
 			damaged = false;
@@ -357,6 +362,9 @@ void PlayerChild::move(const StageChild* _stage)
 
 void PlayerChild::updateCamera()
 {
+	//lockされてたらupdateせずにreturn
+	if (cameraLocked)return;
+
 	//カメラ位置を更新
 	int tmp_x = p->raw_x / MyData::vectorRate;
 	int tmp_y = p->raw_y / MyData::vectorRate;

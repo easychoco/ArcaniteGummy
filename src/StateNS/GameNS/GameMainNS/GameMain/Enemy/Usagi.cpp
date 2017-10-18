@@ -25,8 +25,8 @@ Usagi::~Usagi()
 
 void Usagi::initialize()
 {
-	this->mDirection = true;
-	this->moveSpeed = 1000;
+	this->mDirection = false;
+	this->moveSpeed = -1000;
 
 	this->mTime = 0;
 	actState = ENE_ACT_WALK;

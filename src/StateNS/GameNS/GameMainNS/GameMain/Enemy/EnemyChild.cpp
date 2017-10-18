@@ -1,4 +1,5 @@
 #include "Enemychild.h"
+#include "..\Collision.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -27,13 +28,30 @@ void EnemyChild::initialize()
 	this->mDirection = false;
 	this->actState = ENE_ACT_NONE;
 	this->aTime = 0;
+	this->deadTime = 0;
 }
 
 void EnemyChild::draw(const Vector2* _camera) const
 {
-	//画面内にいなければreturn
-	if (!mIsAlive)return;
+	//やられているとき
+	if (!mIsAlive)
+	{
+		//やられアニメーションを描画
+		if (deadTime < 30)
+		{
+			int draw_x = 320 + p->x() - _camera->x();
+			int draw_y = 240 + p->y() - _camera->y();
 
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 100);
+			DrawCircle(draw_x, draw_y, (15 - abs(15 - deadTime)) * 10 / 7, GLAY, true);
+			DrawCircle(draw_x, draw_y, (15 - abs(15 - deadTime)) *  8 / 7, WHITE, true);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 100);
+		}
+
+		return;
+	}
+
+	//画面内にいなければreturn
 	checkIsActive(_camera);
 	if (!mIsActive)return;
 		
@@ -53,7 +71,13 @@ void EnemyChild::standardDraw(const Vector2* _camera, const bool& _direction) co
 
 void EnemyChild::standardAction(const StageChild* _stage)
 {
+	//やられていたら
 	checkIsAlive(_stage);
+	if (!this->mIsAlive)
+	{
+		++deadTime;
+		this->collision->noCollide = true;
+	}
 	if (!this->mIsAlive || !this->mIsActive)return;
 
 	processDamage();

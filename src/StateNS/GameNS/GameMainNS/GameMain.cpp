@@ -42,6 +42,9 @@ GameMain::~GameMain()
 	DeleteGraph(icon_nue);
 
 	sound->deleteSound("jump");
+	sound->deleteSound("damage");
+	sound->deleteSound("change");
+	sound->deleteSound("damage_enemy");
 }
 
 void GameMain::initialize()
@@ -67,7 +70,7 @@ void GameMain::initialize()
 		assert(!"使用キャラを設定してください");
 	}
 
-	if(mPlayer->hasAdditionalGimmick())
+	if (mPlayer->hasAdditionalGimmick())
 		mStage->addDynamicGimmickToAllMaps(mPlayer->getAdditionalGimmick());
 
 
@@ -81,7 +84,7 @@ void GameMain::initialize()
 
 	stopDynamicObject = StopType::TYPE_NONE;
 	nextCharacter = PlayerCharacter::CHARA_NONE;
-	
+
 	//HPバーに描く画像をロード
 	icon_mokou = LoadGraph("Data/Image/icon_mokou.png");
 	assert(icon_mokou != -1 && "icon_mokou読み込みエラー");
@@ -95,6 +98,9 @@ void GameMain::initialize()
 
 	//Player共通で使うサウンドを設定
 	sound->setSound("Data/Sound/jump.mp3", "jump");
+	sound->setSound("Data/Sound/damage.mp3", "damage");
+	sound->setSound("Data/Sound/change.mp3", "change");
+	sound->setSound("Data/Sound/damage_enemy.mp3", "damage_enemy");
 }
 
 Child* GameMain::update(GameParent* _parent)

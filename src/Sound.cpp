@@ -20,6 +20,7 @@ void Sound::deleteSound(string _name)
 	if (!exists(_name))
 	{
 		//このassertいるかー？
+		//キーのタイポに気付けるからいるいる
 		assert(!"Delete: 指定のサウンドは存在しません");
 		return;
 	}

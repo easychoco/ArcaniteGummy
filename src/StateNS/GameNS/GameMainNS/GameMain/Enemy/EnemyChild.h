@@ -63,6 +63,8 @@ private:
 	bool mIsAlive;
 	mutable bool mIsActive;
 
+	int deadTime;
+
 	void initialize();
 	void standardMove(const StageChild* stage);
 	void checkIsAlive(const StageChild* stage);
