@@ -13,13 +13,17 @@ int fixToVectorHeight(int _a) { return ( (_a > 0) ? _a : _a - CHIP_HEIGHT_RATE()
 
 void DrawFilledCircledBox(int x1, int y1, int x2, int y2, int r, unsigned color)
 {
-	DrawBox(x1 + r, y1, x2 - r, y2, color, true);
-	DrawBox(x1, y1 + r, x2, y2 - r, color, true);
 
 	DrawCircle(x1 + r, y1 + r, r, color, true);
 	DrawCircle(x1 + r, y2 - r, r, color, true);
 	DrawCircle(x2 - r, y1 + r, r, color, true);
 	DrawCircle(x2 - r, y2 - r, r, color, true);
+
+	++x2;
+	++y2;
+
+	DrawBox(x1 + r, y1, x2 - r, y2, color, true);
+	DrawBox(x1, y1 + r, x2, y2 - r, color, true);
 }
 
 float distance(int x1, int y1, int x2, int y2)

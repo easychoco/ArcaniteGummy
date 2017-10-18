@@ -34,7 +34,7 @@ void Guide::initialize()
 	{
 		max_str_num = max(max_str_num, (int)m.size());
 	}
-	frameWidth = max_str_num * 15;
+	frameWidth = max_str_num * 10;
 	frameHeight = messages.size() * 30;
 }
 
@@ -66,10 +66,13 @@ void Guide::draw(const Vector2* _camera) const
 	//プレイヤーが近くにいたら内容を表示
 	if (playerLooking)
 	{
-		DrawFilledCircledBox(draw_x + 10, draw_y - 10 - frameHeight, draw_x + frameWidth, draw_y - 10, 15, BLACK);
+		//白い縁に黒背景の吹き出しを表示
+		DrawFilledCircledBox(draw_x + 17, draw_y - 13 - frameHeight, draw_x + frameWidth + 13, draw_y - 7, 15, WHITE);
+		DrawFilledCircledBox(draw_x + 20, draw_y - 10 - frameHeight, draw_x + frameWidth + 10, draw_y - 10, 15, BLACK);
+
 		for (unsigned i = 0; i < messages.size(); i++)
 		{
-			DrawString(draw_x + 20, draw_y - frameHeight + i * 30, messages[i].c_str(), WHITE);
+			DrawString(draw_x + 30, draw_y - frameHeight + i * 30, messages[i].c_str(), WHITE);
 		}
 	}
 }
@@ -82,14 +85,14 @@ void Guide::apply(Character* _character)
 bool Guide::onActiveArea(const Vector2* _player) const
 {
 	//他のギミックよりも範囲を広めにする
-	int half_w = 64000;
-	int half_h = 32000;
+	int w = frameWidth  * vectorRate;
+	int h = frameHeight * vectorRate;
 
 	return
-		this->pos.raw_x - half_w <= _player->raw_x &&
-		this->pos.raw_x + half_w >= _player->raw_x &&
-		this->pos.raw_y - half_h <= _player->raw_y &&
-		this->pos.raw_y + half_h >= _player->raw_y;
+		this->pos.raw_x - 32000 <= _player->raw_x &&
+		this->pos.raw_x + w >= _player->raw_x &&
+		this->pos.raw_y - h <= _player->raw_y &&
+		this->pos.raw_y     >= _player->raw_y;
 }
 
 //==============================================

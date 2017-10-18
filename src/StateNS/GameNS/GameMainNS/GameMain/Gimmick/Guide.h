@@ -21,7 +21,6 @@ public:
 	void apply(Character*);
 	virtual bool onActiveArea(const Vector2*) const override;
 
-
 private:
 	int mTime;
 	static bool imgLoad;
