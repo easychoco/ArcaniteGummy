@@ -54,7 +54,8 @@ public:
 	//key, 再生スタイル, 多重で再生できるかどうか
 	void playSound(string name, PlayType, bool coverable);
 	void playSoundWithPath(string path, PlayType);
-	void StopSound(string name);
+	void stopSound(string name);
+	void stopSoundOfFile();
 	void stopAllSound();
 	void setVolume(string name, float ratio);
 	void setAllVolume(float ratio);

@@ -45,6 +45,7 @@ GameMain::~GameMain()
 	sound->deleteSound("damage");
 	sound->deleteSound("change");
 	sound->deleteSound("damage_enemy");
+	sound->deleteSound("break_enemy");
 }
 
 void GameMain::initialize()
@@ -95,12 +96,12 @@ void GameMain::initialize()
 	icon_nue = LoadGraph("Data/Image/icon_nue.png");
 	assert(icon_nue != -1 && "icon_nue読み込みエラー");
 
-
 	//Player共通で使うサウンドを設定
 	sound->setSound("Data/Sound/jump.mp3", "jump");
 	sound->setSound("Data/Sound/damage.mp3", "damage");
 	sound->setSound("Data/Sound/change.mp3", "change");
-	sound->setSound("Data/Sound/damage_enemy.mp3", "damage_enemy");
+	sound->setSound("Data/Sound/damage_enemy.wav", "damage_enemy");
+	sound->setSound("Data/Sound/break_enemy.mp3", "break_enemy");
 }
 
 Child* GameMain::update(GameParent* _parent)

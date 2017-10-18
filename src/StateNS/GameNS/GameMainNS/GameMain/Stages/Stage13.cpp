@@ -72,7 +72,7 @@ void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player)
 {
 	if (!converseFlag0 && !converseFlag0fin) {
 		converseFlag0fin = true;
-		sound->StopSound("bgm1");
+		sound->stopSound("bgm1");
 		sound->playSound("boss1");
 	}
 	if (now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y() == 1536)

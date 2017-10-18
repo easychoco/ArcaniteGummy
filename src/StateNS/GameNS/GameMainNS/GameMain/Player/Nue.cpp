@@ -31,6 +31,7 @@ Nue::~Nue()
 	SAFE_DELETE(p);
 	ufo->isActive = false;
 
+	sound->deleteSound("spear");
 	sound->deleteSound("ufo");
 	sound->deleteSound("jizou");
 }
@@ -47,6 +48,7 @@ void Nue::initialize()
 
 	preSit = false;
 
+	sound->setSound("Data/Sound/attack_spear.mp3", "spear");
 	sound->setSound("Data/Sound/ufo.mp3", "ufo");
 	sound->setSound("Data/Sound/jizou.mp3", "jizou");
 }
@@ -254,7 +256,6 @@ void Nue::Spear::update()
 		mImage = img2;
 		this->p->raw_y = parent_p->raw_y - (d + 30) * vectorRate;
 		this->p->raw_x = parent_p->raw_x;
-
 	}
 	else 
 	{
@@ -267,6 +268,7 @@ void Nue::Spear::update()
 
 void Nue::Spear::setStatus(Vector2 _pos, int direction)
 {
+	sound->playSound("spear", BACK, true);
 	*(this->p) = _pos;
 	this->mDirection = direction;
 

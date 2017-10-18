@@ -23,6 +23,8 @@ Mokou::Mokou(int _x, int _y) : Mokou(_x, _y, 100)
 Mokou::~Mokou()
 {
 	SAFE_DELETE(p);
+
+	sound->deleteSound("fire");
 }
 
 void Mokou::initialize()
@@ -31,6 +33,8 @@ void Mokou::initialize()
 	loadImage();
 	attackTime = 0;
 	attacks.push_back(new Fire(this, 0, 0, &direction));
+
+	sound->setSound("Data/Sound/attack_fire.mp3", "fire");
 }
 
 PlayerChild* Mokou::update(const StageChild* _stage)
@@ -179,6 +183,8 @@ void Mokou::Fire::update()
 	mTime++;
 	mDirection = *direction;
 	int img[3];
+
+	if (mTime % 10 == 0)sound->playSound("fire", BACK, true);
 
 	if(Input_UP()) {
 		this->height = 96;

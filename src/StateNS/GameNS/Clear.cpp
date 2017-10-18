@@ -18,12 +18,14 @@ Clear::Clear()
 
 Clear::~Clear()
 {
+	sound->stopSoundOfFile();
 
 }
 
 void Clear::initialize()
 {
 	saved = false;
+	sound->playSoundWithPath("Data/Sound/clear.mp3", BACK);
 }
 
 Child* Clear::update(StateNS::Parent* _parent)

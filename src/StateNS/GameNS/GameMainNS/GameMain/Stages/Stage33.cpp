@@ -115,7 +115,7 @@ void Stage33::updateConverse(GameMain* gameMain, PlayerChild* _player)
 		this->changeableCharacter ^= CHARA_SAKUYA;
 		nue->setPlayer(_player->getVector2());
 		maps[7]->addEnemy(nue);
-		sound->StopSound("bgm3");
+		sound->stopSound("bgm3");
 		sound->playSound("boss3");
 
 

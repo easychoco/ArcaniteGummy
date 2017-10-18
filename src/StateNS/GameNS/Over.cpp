@@ -18,13 +18,14 @@ Over::Over()
 
 Over::~Over()
 {
-
+	sound->stopSoundOfFile();
 }
 
 void Over::initialize()
 {
 	this->cursorPos = 0;
 	this->prePush = false;
+	sound->playSoundWithPath("Data/Sound/Over.mp3", BACK);
 }
 
 Child* Over::update(StateNS::Parent* _parent)

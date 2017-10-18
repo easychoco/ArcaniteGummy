@@ -39,6 +39,8 @@ void Pause::initialize()
 	img_resetGame = LoadGraph("Data/Image/ResetGame.png");
 	assert(img_showStage != -1 && "ShowStage.png読み込みエラー");
 	assert(img_resetGame != -1 && "ResetGame.png読み込みエラー");
+
+	sound->playSoundWithPath("Data/Sound/Pause.mp3", BACK);
 }
 
 Child* Pause::update(GameParent* _parent)
@@ -50,6 +52,9 @@ Child* Pause::update(GameParent* _parent)
 	if (!prePush && Input_A())exit = true;
 
 	if (exit)next = main;
+
+	if (!prePush && Input_OK())sound->playSound("ok", BACK, true);
+	if (!prePush && Input_NO())sound->playSound("no", BACK, true);
 
 	prePush = Input_A() || Input_OK() || Input_NO() || Input_UP() || Input_DOWN();
 	return next;

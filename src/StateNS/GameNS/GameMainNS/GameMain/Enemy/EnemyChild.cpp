@@ -75,6 +75,7 @@ void EnemyChild::standardAction(const StageChild* _stage)
 	checkIsAlive(_stage);
 	if (!this->mIsAlive)
 	{
+		if (deadTime == 15)sound->playSound("break_enemy", BACK, true);
 		++deadTime;
 		this->collision->noCollide = true;
 	}
@@ -123,7 +124,11 @@ void EnemyChild::processDamage()
 	if (damaged)
 	{
 		++damagedTime;
-		if (damagedTime < 3)hittedAction();
+		if (damagedTime < 3)
+		{
+			hittedAction();
+			sound->playSound("damage_enemy");
+		}
 		if (damagedTime > 60)
 		{
 			damaged = false;

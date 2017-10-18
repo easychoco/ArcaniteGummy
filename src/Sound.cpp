@@ -70,7 +70,7 @@ void Sound::playSoundWithPath(string _path, PlayType _pType)
 	assert(tmp != -1 && "指定のサウンドは存在しません.");
 }
 
-void Sound::StopSound(string _name)
+void Sound::stopSound(string _name)
 {
 	if (soundMap.count(_name) == 0)
 	{
@@ -78,6 +78,11 @@ void Sound::StopSound(string _name)
 		return;
 	}
 	StopSoundMem(soundMap.at(_name));
+}
+
+void Sound::stopSoundOfFile()
+{
+	StopSoundFile();
 }
 
 void Sound::stopAllSound()
