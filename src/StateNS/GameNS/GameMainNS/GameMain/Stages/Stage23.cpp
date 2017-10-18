@@ -67,7 +67,7 @@ void Stage23::initialize()
 	maps[3]->addSwitchWithBlock(s3);
 
 	startX = 144, startY = 1536;
-	junko = new Junko(88 * 32, 48 * 32);
+	junko = new Junko(95 * 32, 48 * 32);
 	imageJunko = LoadGraph("Data/Image/Character/haribote_junko.png");
 	converseFlag0 = true;
 	converseFlag0fin = false;
@@ -112,6 +112,7 @@ void Stage23::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	}
 	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
 	{
+		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
 		gameMain->startConverse(231);
 		converseFlag1 = false;
 	}

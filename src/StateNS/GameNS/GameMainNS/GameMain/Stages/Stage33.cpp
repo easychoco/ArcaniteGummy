@@ -51,7 +51,7 @@ void Stage33::initialize()
 	flag = new ClearFlag(Vector2(592, 1552));
 	maps[1]->addGimmick(flag);
 
-	Door* d = new Door(new Vector2(50 * 32 + 16, 8 * 32 + 16), new Vector2(83 * 32 + 16, 31 * 32 + 16));
+	Door* d = new Door(new Vector2(50 * 32 + 16, 8 * 32 + 16), new Vector2(83 * 32 + 16, 32 * 32 + 16));
 	maps[7]->addGimmick(d);
 
 	SwitchWithBlock* s = new SwitchWithBlock(8 * 32 + 16, 15 * 32 + 16, 1);
@@ -76,7 +76,7 @@ void Stage33::initialize()
 
 	now_stage_num = 4;
 	startX = 1616, startY = 704;
-	nue = new Nue_Boss(88 * 32, 48 * 32);
+	nue = new Nue_Boss(95 * 32, 48 * 32);
 	converseFlag0 = true;
 	converseFlag1 = true;
 	converseFlag2 = true;
@@ -144,6 +144,7 @@ void Stage33::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	}
 	if (now_stage_num == 7 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
+		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
 		gameMain->startConverse(330);
 		converseFlag0 = false;
 	}
@@ -155,11 +156,11 @@ void Stage33::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
 	if (!converseFlag0fin &&!converseFlag0&&cTime<=45)
-		DrawRotaGraph(400, 416, 1.0, 0.0, imageReisen, TRUE);
+		DrawRotaGraph(432, 400, 1.0, 0.0, imageReisen, TRUE);
 	if (!converseFlag1fin && 45 < cTime&&cTime <= 135)
-		DrawRotaGraph(400, 416, 1.0, 0.0, imageNue, TRUE);
+		DrawRotaGraph(432, 400, 1.0, 0.0, imageNue, TRUE);
 	if (!converseFlag2fin && 135 < cTime)
-		DrawRotaGraph(400, 416, 1.0, 0.0, imageMokou, TRUE);
+		DrawRotaGraph(432, 400, 1.0, 0.0, imageMokou, TRUE);
 
 }
 
