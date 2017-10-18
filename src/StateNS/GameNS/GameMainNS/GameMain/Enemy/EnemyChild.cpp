@@ -47,7 +47,6 @@ void EnemyChild::draw(const Vector2* _camera) const
 			DrawCircle(draw_x, draw_y, (15 - abs(15 - deadTime)) *  8 / 7, WHITE, true);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 100);
 		}
-
 		return;
 	}
 

@@ -47,8 +47,8 @@ void Stage23::initialize()
 	this->maps.push_back(new Map(23, 7, MapPos::POS_RIGHT_DOWN));
 	this->maps.push_back(new Map(23, 8, MapPos::POS_LEFT_UP));
 
-	flag = new ClearFlag(Vector2(16, 16));
-	maps[8]->addGimmick(flag);
+	//使わないから0ポインタ
+	flag = 0;
 
 	Door* d = new Door(new Vector2(9 * 32 + 16, 13 * 32 + 16), new Vector2(83 * 32 + 16, 31 * 32 + 16));
 	maps[2]->addGimmick(d);
@@ -67,7 +67,8 @@ void Stage23::initialize()
 	maps[3]->addSwitchWithBlock(s3);
 
 	startX = 144, startY = 1536;
-	junko = new Junko(95 * 32, 48 * 32);
+	junko = new Junko(87 * 32, 40 * 32);
+	//junko = new Junko(95 * 32, 48 * 32);
 	imageJunko = LoadGraph("Data/Image/Character/haribote_junko.png");
 	converseFlag0 = true;
 	converseFlag0fin = false;
@@ -75,6 +76,7 @@ void Stage23::initialize()
 	converseFlag1fin = false;
 	converseFlag2 = true;
 	converseFlag2fin = false;
+
 	findRestartPoint();
 }
 
@@ -94,8 +96,6 @@ void Stage23::updateConverse(GameMain* gameMain, PlayerChild* _player)
 
 	if (converseFlag0)
 	{
-		junko->setPlayer(_player->getVector2());
-		maps[2]->addEnemy(junko);
 		gameMain->startConverse(230);
 		converseFlag0 = false;
 	}
@@ -113,6 +113,8 @@ void Stage23::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
 	{
 		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
+		junko->setPlayer(_player->getVector2());
+		maps[2]->addEnemy(junko);		
 		gameMain->startConverse(231);
 		converseFlag1 = false;
 	}

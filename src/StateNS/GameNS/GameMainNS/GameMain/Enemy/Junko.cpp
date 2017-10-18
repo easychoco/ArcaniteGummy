@@ -30,6 +30,9 @@ void Junko::initialize()
 	this->mTime = 1;
 	this->init_attacks = false;
 	mImage = images[0];
+
+	this->attack_around = false;
+	this->attack_cycle  = false;
 }
 
 void Junko::update(const StageChild* _stage, const Vector2* _camera)
@@ -45,7 +48,7 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 	}
 
 	++mTime;
-	this->mDirection = player->raw_x > this->p->raw_x;
+	this->mDirection = this->p->raw_x > player->raw_x;
 	standardAction(_stage);
 
 	//ŽžŠÔŒo‰ß‚ÅUŒ‚
@@ -80,23 +83,6 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 		s_c->checkActive(_camera);
 	}
 
-}
-
-void Junko::draw(const Vector2* _camera) const
-{
-	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	//if (!mIsAlive)return;
-
-
-	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îreturn
-	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
-
-	int draw_x = 320 + p->x() - _camera->x();
-	int draw_y = 240 + p->y() - _camera->y();
-
-	//•`‰æ
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, mDirection);
-	draw_other(_camera);
 }
 
 void Junko::move(const StageChild* _stage, int& _dx, int& _dy)

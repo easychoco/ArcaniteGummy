@@ -16,7 +16,7 @@ class Junko : public EnemyChild
 public:
 	Junko(int x, int y);
 	~Junko();
-	void draw(const Vector2* camera) const;
+	//void draw(const Vector2* camera) const;
 	void update(const StageChild* _stage, const Vector2* _camera);
 	
 private:
