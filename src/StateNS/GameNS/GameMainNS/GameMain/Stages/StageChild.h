@@ -113,7 +113,7 @@ protected:
 	ClearFlag* flag;
 	
 	//復活できるチェックポイントを探して，あれば復活
-	void findRestartPoint();
+	bool findRestartPoint();
 
 	class Chip
 	{

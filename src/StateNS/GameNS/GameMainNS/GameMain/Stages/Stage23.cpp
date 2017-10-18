@@ -4,7 +4,7 @@
 #include "..\Player\PlayerChild.h"
 #include "..\Gimmick\ClearFlag.h"
 #include "..\Gimmick\Door.h"
-#include <fstream>
+#include "..\Gimmick\CheckPoint.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -53,8 +53,9 @@ void Stage23::initialize()
 	Door* d = new Door(new Vector2(9 * 32 + 16, 13 * 32 + 16), new Vector2(83 * 32 + 16, 31 * 32 + 16));
 	maps[2]->addGimmick(d);
 
-
-
+	CheckPoint* cp = new CheckPoint(5 * 32 + 16, 13 * 32 + 16, 2);
+	this->checkPoints.push_back(cp);
+	maps[2]->addGimmick(cp);
 
 	SwitchWithBlock* s = new SwitchWithBlock(44 * 32 + 16, 14 * 32 + 16, 330);
 	for (int i = 0; i < 3; i++)s->push_block(new Block((46 + i) * 32 + 16, 46 * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
@@ -67,7 +68,6 @@ void Stage23::initialize()
 	maps[3]->addSwitchWithBlock(s3);
 
 	startX = 144, startY = 1536;
-	//junko = new Junko(87 * 32, 40 * 32);
 	junko = new Junko(95 * 32, 48 * 32);
 	imageJunko = LoadGraph("Data/Image/Character/haribote_junko.png");
 	converseFlag0 = true;
@@ -77,7 +77,15 @@ void Stage23::initialize()
 	converseFlag2 = true;
 	converseFlag2fin = false;
 
-	findRestartPoint();
+	//•œŠˆ
+	bool restart = findRestartPoint();
+
+	//•œŠˆ‚µ‚½‚ç‰ï˜bƒtƒ‰ƒO‚ðÜ‚é
+	if (restart)
+	{
+		converseFlag0 = false;
+		converseFlag0fin = true;
+	}
 }
 
 
@@ -112,7 +120,7 @@ void Stage23::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	}
 	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
 	{
-		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
+		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 + 16));
 		junko->setPlayer(_player->getVector2());
 		maps[2]->addEnemy(junko);
 		gameMain->startConverse(231);
@@ -124,7 +132,7 @@ void Stage23::updateConverse(GameMain* gameMain, PlayerChild* _player)
 void Stage23::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
-	if (!converseFlag0fin)DrawRotaGraph(360, 416, 1.0, 0.0, imageJunko, TRUE);
+	if (!converseFlag0fin)DrawRotaGraph(360, 432, 1.0, 0.0, imageJunko, TRUE);
 
 }
 

@@ -119,7 +119,7 @@ void Stage53::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	}
 	if (converseFlag0)
 	{
-		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
+		_player->lockCameraPos(new Vector2(90 * 32, 42 * 32 + 16));
 		kaguya->setPlayer(_player->getVector2());
 		maps[0]->addEnemy(kaguya);
 		gameMain->startConverse(530);

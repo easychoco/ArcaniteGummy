@@ -149,8 +149,26 @@ void Kaguya::move(const StageChild* _stage, int& _dx, int& _dy)
 
 void Kaguya::draw(const Vector2* _camera) const
 {
+	//やられているとき
+	if (!mIsAlive)
+	{
+		//やられアニメーションを描画
+		if (deadTime < 30)
+		{
+			int draw_x = 320 + p->x() - _camera->x();
+			int draw_y = 240 + p->y() - _camera->y();
+
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 100);
+			DrawCircle(draw_x, draw_y, (15 - abs(15 - deadTime)) * 10 / 7, GLAY, true);
+			DrawCircle(draw_x, draw_y, (15 - abs(15 - deadTime)) * 8 / 7, WHITE, true);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 100);
+		}
+		return;
+	}
+
 	//画面内にいなければreturn
-	if (!isAlive())return;
+	checkIsActive(_camera);
+	if (!mIsActive)return;
 
 	if(vanishTime == 0)standardDraw(_camera, mDirection);
 	draw_other(_camera);

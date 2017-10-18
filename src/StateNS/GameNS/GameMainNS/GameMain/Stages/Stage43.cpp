@@ -3,11 +3,10 @@
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
 
-#include "..\Gimmick\DynamicGimmickChild.h"
 #include "..\Gimmick\Torch.h"
 #include "..\Gimmick\Door.h"
+#include "..\Gimmick\CheckPoint.h"
 #include "..\Player\PlayerChild.h"
-#include <fstream>
 
 namespace StateNS {
 namespace GameNS {
@@ -59,7 +58,12 @@ void Stage43::initialize()
 
 	for (const auto& t : torches2)maps[1]->addDynamicGimmick(t);
 
-	fran = new Fran(95 * 32, 48 * 32);
+	CheckPoint* cp = new CheckPoint(3 * 32 + 16, 5 * 32 + 16, 2);
+	this->checkPoints.push_back(cp);
+	maps[2]->addGimmick(cp);
+
+
+	fran = new Fran(95 * 32, 48 * 32, 90 * 32, 40 * 32 + 16);
 
 	startX = 144, startY = 1536;
 
@@ -73,8 +77,14 @@ void Stage43::initialize()
 	imageSakuya = LoadGraph("Data/Image/Character/haribote_sakuya.png");
 	imageNue = LoadGraph("Data/Image/Character/haribote_nueR.png");
 
+	//復活
+	bool restart = findRestartPoint();
 
-	findRestartPoint();
+	//復活したら会話フラグを折る
+	if (restart)
+	{
+		converseFlag0 = false;
+	}
 }
 
 
@@ -111,7 +121,7 @@ void Stage43::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	////ボス戦手前の会話
 	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
 	{
-		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
+		_player->lockCameraPos(new Vector2(90 * 32, 42 * 32 + 16));
 		gameMain->startConverse(431);
 		converseFlag1 = false;
 		fran->setPlayer(_player->getVector2());
@@ -129,8 +139,8 @@ void Stage43::updateConverse(GameMain* gameMain, PlayerChild* _player)
 void Stage43::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
-	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(100, 400, 1.0, 0.0, imageNue, TRUE);
-	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(140, 400, 1.0, 0.0, imageSakuya, TRUE,TRUE);
+	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(100, 416, 1.0, 0.0, imageNue, TRUE);
+	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(140, 416, 1.0, 0.0, imageSakuya, TRUE,TRUE);
 }
 
 bool Stage43::isClear() const

@@ -113,7 +113,7 @@ void EnemyController::addEnemy(AllEnemies _enemy, const Vector2* _player, int _x
 	case BOSS_REISEN: ene_tmp = new Reisen(_x, _y); break;
 	case BOSS_JUNKO: ene_tmp = new Junko(_x, _y); break;
 	case BOSS_NUE: ene_tmp = new Nue_Boss(_x, _y); break;
-	case BOSS_FRAN: ene_tmp = new Fran(_x, _y); break;
+	case BOSS_FRAN: ene_tmp = new Fran(_x, _y, _x, _y); break;
 
 	default: assert(!"EnemyController: •s–¾‚È“G‚Å‚·.");
 	}

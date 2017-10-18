@@ -6,7 +6,7 @@
 #include "..\Gimmick\DynamicGimmickChild.h"
 #include "..\Player\PlayerChild.h"
 #include "..\Gimmick\Door.h"
-#include <fstream>
+#include "..\Gimmick\CheckPoint.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -44,6 +44,11 @@ void Stage13::initialize()
 	Door* d = new Door(new Vector2(8 * 32 + 16, 27 * 32 + 16), new Vector2(84 * 32 + 16, 32 * 32 + 16));
 	maps[3]->addGimmick(d);
 
+	CheckPoint* cp = new CheckPoint(4 * 32 + 16, 27 * 32 + 16, 3);
+	this->checkPoints.push_back(cp);
+	maps[3]->addGimmick(cp);
+
+
 	SwitchWithBlock* s = new SwitchWithBlock(76 * 32 + 16, 37 * 32 + 16, 390);
 	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s);
@@ -56,7 +61,16 @@ void Stage13::initialize()
 	converseFlag0fin = false;
 	converseFlag1 = true;
 	converseFlag2 = true;
-	findRestartPoint();
+	
+	//•œŠˆ
+	bool restart = findRestartPoint();
+
+	//•œŠˆ‚µ‚½‚ç‰ï˜bƒtƒ‰ƒO‚ðÜ‚é
+	if (restart)
+	{
+		converseFlag0 = false;
+		converseFlag0fin = true;
+	}
 }
 
 
@@ -78,7 +92,7 @@ void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player)
 	}
 	if (now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
-		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
+		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 + 16));
 		reisen->setPlayer(_player->getVector2());
 		maps[3]->addEnemy(reisen);
 		gameMain->startConverse(130);
@@ -111,10 +125,7 @@ void Stage13::draw(const Vector2* _camera) const
 
 void Stage13::draw_front(const Vector2* _camera) const
 {
-
-
 	if(cTime>30)DrawBox(0, 0, 640, 480, BLACK, TRUE);
-
 }
 
 

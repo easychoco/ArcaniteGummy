@@ -7,9 +7,9 @@ namespace GameNS {
 namespace GameMainNS{
 
 	
-Fran::Fran(int _x, int _y) : 
+Fran::Fran(int _x, int _y, int _cx, int _cy) : 
 EnemyChild(400, _x, _y, 32, 64, false, true),
-initial_pos(Vector2(_x, _y))
+initial_pos(Vector2(_cx, _cy))
 {
 	loadImage();
 	
@@ -330,7 +330,7 @@ void Fran::processKind(const StageChild* _stage, int& _dx, int& _dy)
 	}
 	else if (mTime == 60)
 	{
-		kind4->setStatus(p, true);
+		kind4->setStatus(&initial_pos, true);
 		kind4->setActive(true);
 	}
 	else if (mTime < 600)

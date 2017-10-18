@@ -46,17 +46,19 @@ void CheckPoint::draw(const Vector2* _camera) const
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, image, true, false);
 
 	//来たら画像の中心が緑になる
-	if (time < 120) DrawCircle(draw_x, draw_y - 3, 8, CYAN, true);
+	if (time < 60) DrawCircle(draw_x, draw_y - 3, 8, CYAN, true);
 	else DrawCircle(draw_x, draw_y - 3, 8, RED, true);
 }
 
 void CheckPoint::apply(Character* _character)
 {
-	//一度来ると，1秒間無効
+	//一度来ると，2秒間無効
 	if (time < 60)return;
 
+	//回復
+	_character->hpController.recover(PLAYER_MAX_HP);
 
-	//TODO 音鳴らすとか
+	sound->playSoundWithPath("Data/Sound/checkpoint.mp3", BACK);
 
 	visited = true;
 	time = 0;

@@ -14,7 +14,7 @@ class Shot;
 class Fran : public EnemyChild
 {
 public:
-	Fran(int x, int y);
+	Fran(int x, int y, int, int);
 	~Fran();
 	void update(const StageChild* _stage, const Vector2* _camera);
 	virtual void setPlayer(const Vector2* _player) override 

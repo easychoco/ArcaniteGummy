@@ -172,7 +172,7 @@ void StageChild::addDynamicGimmickToAllMaps(DynamicGimmickChild* _d_gmk)
 //========================================================================
 // “à•”protectedŠÖ”
 //========================================================================
-void StageChild::findRestartPoint()
+bool StageChild::findRestartPoint()
 {
 	int checkIndex = -10;
 	int switch_flag = 0;
@@ -191,7 +191,9 @@ void StageChild::findRestartPoint()
 		{
 			switch_flag = maps[i]->setSwitchesWithFlag(switch_flag);
 		}
+		return true;
 	}
+	return false;
 }
 
 

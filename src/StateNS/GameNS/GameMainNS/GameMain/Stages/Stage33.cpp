@@ -3,10 +3,10 @@
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
 
-#include "..\Gimmick\DynamicGimmickChild.h"
 #include "..\Gimmick\Door.h"
+#include "..\Gimmick\CheckPoint.h"
 #include "..\Player\PlayerChild.h"
-#include <fstream>
+
 
 namespace StateNS {
 namespace GameNS {
@@ -70,6 +70,12 @@ void Stage33::initialize()
 	for (int i = 0; i < 3; i++)s3->push_block(new Block((49 + i) * 32 + 16, 40 * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[4]->addSwitchWithBlock(s3);
 
+
+	CheckPoint* cp = new CheckPoint(47 * 32 + 16, 8 * 32 + 16, 7);
+	this->checkPoints.push_back(cp);
+	maps[7]->addGimmick(cp);
+
+
 	imageReisen = LoadGraph("Data/Image/Character/haribote_reisen.png");
 	imageNue = LoadGraph("Data/Image/Character/haribote_nue.png");
 	imageMokou = LoadGraph("Data/Image/Character/haribote_mokou.png");
@@ -87,8 +93,16 @@ void Stage33::initialize()
 	converseFlag3fin = false;
 
 	cTime = 0;
-	findRestartPoint();
 
+	//•œŠˆ
+	bool restart = findRestartPoint();
+
+	//•œŠˆ‚µ‚½‚ç‰ï˜bƒtƒ‰ƒO‚ðÜ‚é
+	if (restart)
+	{
+		//converseFlag0 = false;
+		//converseFlag0fin = true;
+	}
 }
 
 
@@ -144,7 +158,7 @@ void Stage33::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	}
 	if (now_stage_num == 7 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
-		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
+		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 - 16));
 		gameMain->startConverse(330);
 		converseFlag0 = false;
 	}
@@ -156,11 +170,11 @@ void Stage33::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
 	if (!converseFlag0fin &&!converseFlag0&&cTime<=45)
-		DrawRotaGraph(432, 400, 1.0, 0.0, imageReisen, TRUE);
+		DrawRotaGraph(480, 416, 1.0, 0.0, imageReisen, TRUE);
 	if (!converseFlag1fin && 45 < cTime&&cTime <= 135)
-		DrawRotaGraph(432, 400, 1.0, 0.0, imageNue, TRUE);
+		DrawRotaGraph(480, 416, 1.0, 0.0, imageNue, TRUE);
 	if (!converseFlag2fin && 135 < cTime)
-		DrawRotaGraph(432, 400, 1.0, 0.0, imageMokou, TRUE);
+		DrawRotaGraph(480, 416, 1.0, 0.0, imageMokou, TRUE);
 
 }
 

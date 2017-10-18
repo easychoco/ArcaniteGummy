@@ -38,6 +38,10 @@ protected:
 	const Vector2* player;
 	int aTime;
 
+	bool mIsAlive;
+	mutable bool mIsActive;
+	int deadTime;
+
 	//dx ‚Æ dy ‚ÉˆÚ“®—Ê‚ð“ü‚ê‚é
 	virtual void move(const StageChild*, int& dx, int& dy) = 0;
 	virtual void loadImage() = 0;
@@ -60,10 +64,7 @@ protected:
 	int getHorizontalDiffer(const StageChild* _stage, const int dx, bool _moveUp) const override { return DynamicObject::getHorizontalDiffer(_stage, dx, _moveUp, true); }
 
 private:
-	bool mIsAlive;
-	mutable bool mIsActive;
 
-	int deadTime;
 
 	void initialize();
 	void standardMove(const StageChild* stage);
