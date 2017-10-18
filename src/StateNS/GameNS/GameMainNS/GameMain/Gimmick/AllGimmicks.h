@@ -17,3 +17,4 @@
 #include "Needle.h"
 #include "FallFloor.h"
 #include "CheckPoint.h"
+#include "Guide.h"

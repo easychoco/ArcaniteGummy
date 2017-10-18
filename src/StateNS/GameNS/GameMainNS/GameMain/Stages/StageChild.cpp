@@ -45,7 +45,8 @@ void StageChild::standardUpdate(PlayerChild* _player)
 	maps[now_stage_num]->update(_player, this, false);
 
 	//チェックポイントに来ていてるか確認
-	for (int i = 0; i < checkPoints.size(); i++)
+	int loop_count = checkPoints.size();
+	for (int i = 0; i < loop_count; i++)
 	{
 		//チェックポイントに来ていたら
 		if (checkPoints[i]->visitCheckPoint())
@@ -179,7 +180,7 @@ void StageChild::findRestartPoint()
 	saveData->updateCheckPoint(checkIndex, switch_flag);
 
 	//復活できるチェックポイントがあったら
-	if (0 <= checkIndex && checkIndex < checkPoints.size())
+	if (0 <= checkIndex && checkIndex < (int)checkPoints.size())
 	{
 		CheckPoint*  restartPoint = checkPoints[checkIndex];
 		this->now_stage_num = restartPoint->getStageNum();

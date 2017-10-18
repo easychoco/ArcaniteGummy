@@ -98,6 +98,9 @@ int fixToStageHeight(int _a);
 int fixToVectorWidth(int _a);
 int fixToVectorHeight(int _a);
 
+//Šp‚ªŠÛ‚¢” ‚ð•\Ž¦
+void DrawFilledCircledBox(int x1, int y1, int x2, int y2, int r, unsigned color);
+
 //‘Ì—Í
 constexpr int PLAYER_MAX_HP = 200;
 

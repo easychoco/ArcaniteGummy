@@ -40,6 +40,19 @@ void Stage00::initialize()
 	//maps[0]->addEnemy(AllEnemies::BOSS_REISEN, 676, 1552);
 	//maps[0]->addEnemy(AllEnemies::BOSS_FRAN, 356, 1536);
 
+	vector<string> message
+	{
+	"           È_È",
+	"          (*ß[ß) QQQQ",
+	"           / ‚Â^ | ^ |",
+	"    `@@ | PPPP | . |",
+	" ¤¤¤¤i/@ | AA‚à‰Â”\ | ^, , , , ,",
+	};
+
+
+	Guide* guide = new Guide(336, 1552, message);
+	maps[0]->addGimmick(guide);
+
 	startX = 144, startY = 1536;
 
 	findRestartPoint();
