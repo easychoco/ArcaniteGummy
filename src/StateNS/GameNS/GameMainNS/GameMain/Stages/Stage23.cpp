@@ -67,8 +67,8 @@ void Stage23::initialize()
 	maps[3]->addSwitchWithBlock(s3);
 
 	startX = 144, startY = 1536;
-	junko = new Junko(87 * 32, 40 * 32);
-	//junko = new Junko(95 * 32, 48 * 32);
+	//junko = new Junko(87 * 32, 40 * 32);
+	junko = new Junko(95 * 32, 48 * 32);
 	imageJunko = LoadGraph("Data/Image/Character/haribote_junko.png");
 	converseFlag0 = true;
 	converseFlag0fin = false;

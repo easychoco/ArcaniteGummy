@@ -27,7 +27,7 @@ Junko::~Junko()
 
 void Junko::initialize()
 {
-	this->mTime = 1;
+	this->mTime = 210;
 	this->init_attacks = false;
 	mImage = images[0];
 
@@ -89,6 +89,13 @@ void Junko::move(const StageChild* _stage, int& _dx, int& _dy)
 {
 	_dx = (int)(radius * sinf(2 * mTime * pi(1 / 60.0f) / 7.0f));
 	_dy = (int)(radius * cosf(5 * mTime * pi(1 / 60.0f) / 7.0f));
+
+	//90ƒtƒŒ[ƒ€‚©‚¯‚Äã‚Éã‚ª‚é
+	if (mTime < 300)
+	{
+		_dy -= 1700;
+	}
+
 }
 
 void Junko::draw_other(const Vector2* _camera) const
