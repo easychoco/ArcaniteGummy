@@ -199,7 +199,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 	//下方向
 	//チップの最下端より少し上
-	RawVector2 pos = RawVector2(p->raw_x + extraDiffer, p->raw_y + (height * vectorRate) / 2 - 2000);
+	RawVector2 pos = RawVector2(p->raw_x + extraDiffer, p->raw_y + (height * vectorRate) / 2 - 1000);
 	StageChild::ChipType chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
 	if (this->onRigidBlock())chipType = StageChild::ChipType::TYPE_RIGID;
 
@@ -215,7 +215,8 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 		*/
 
 		//return MyData::fixToVectorHeight(pos.pos_y) - (p->raw_y + (height * vectorRate) / 2) + p->raw_x % CHIP_WIDTH_RATE();
-		return fixToVectorHeight(pos.pos_y) + (pos.pos_x + extraDiffer) % 32000 - pos.pos_y;
+		int extra_dy = (extraDiffer != 0) * -1000;
+		return fixToVectorHeight(pos.pos_y) + (pos.pos_x + extraDiffer) % 32000 - pos.pos_y + extra_dy;
 	}
 
 	if (chipType == _stage->TYPE_DOWN_SLANT_RIGHT)
@@ -228,13 +229,14 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 		*/
 
-		return fixToVectorHeight(pos.pos_y) + (32000 - (pos.pos_x + extraDiffer) % 32000) - pos.pos_y;
+		int extra_dy = (extraDiffer != 0) * -3000;
+		return fixToVectorHeight(pos.pos_y) + (32000 - (pos.pos_x + extraDiffer) % 32000) - pos.pos_y + extra_dy;
 	}
 
 
 	//チップの下半分の中心
-	pos = RawVector2(p->raw_x + extraDiffer, p->raw_y + (height * MyData::vectorRate) / 4);
-	chipType = _stage->getChipType(pos / MyData::vectorRate, _isPlayer);
+	pos = RawVector2(p->raw_x + extraDiffer, p->raw_y + (height * vectorRate) / 4);
+	chipType = _stage->getChipType(pos / vectorRate, _isPlayer);
 
 	//斜めブロックなら
 	if (chipType == _stage->TYPE_DOWN_SLANT_LEFT)
@@ -247,7 +249,7 @@ int DynamicObject::getBottomDiffer(const StageChild* _stage, const int _dy, bool
 
 		*/
 
-		return MyData::fixToVectorHeight(pos.pos_y) - (p->raw_y + (height * MyData::vectorRate) / 2) + (p->raw_x + extraDiffer) % MyData::CHIP_WIDTH_RATE();
+		return fixToVectorHeight(pos.pos_y) - (p->raw_y + (height * vectorRate) / 2) + (p->raw_x + extraDiffer) % MyData::CHIP_WIDTH_RATE();
 	}
 
 	if (chipType == _stage->TYPE_DOWN_SLANT_RIGHT)
