@@ -59,7 +59,7 @@ void Stage43::initialize()
 
 	for (const auto& t : torches2)maps[1]->addDynamicGimmick(t);
 
-	fran = new Fran(88 * 32, 48 * 32);
+	fran = new Fran(95 * 32, 48 * 32);
 
 	startX = 144, startY = 1536;
 
@@ -111,6 +111,7 @@ void Stage43::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	////ボス戦手前の会話
 	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
 	{
+		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
 		gameMain->startConverse(431);
 		converseFlag1 = false;
 		fran->setPlayer(_player->getVector2());
@@ -128,8 +129,8 @@ void Stage43::updateConverse(GameMain* gameMain, PlayerChild* _player)
 void Stage43::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
-	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(360, 416, 1.0, 0.0, imageNue, TRUE);
-	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(400, 416, 1.0, 0.0, imageSakuya, TRUE,TRUE);
+	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(100, 400, 1.0, 0.0, imageNue, TRUE);
+	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(140, 400, 1.0, 0.0, imageSakuya, TRUE,TRUE);
 }
 
 bool Stage43::isClear() const

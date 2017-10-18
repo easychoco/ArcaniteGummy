@@ -23,6 +23,7 @@ Stage11::~Stage11()
 
 void Stage11::initialize()
 {
+	this->mBackImg = LoadGraph("Data/Image/back1.jpg");
 	sound->setSound("Data/Sound/stage1.wav", "bgm1");
 	sound->playSound("bgm1", LOOP, false);
 

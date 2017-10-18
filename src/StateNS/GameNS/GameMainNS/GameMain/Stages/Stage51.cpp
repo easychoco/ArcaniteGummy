@@ -2,7 +2,7 @@
 #include "Map.h"
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
-
+#include "..\Player\PlayerChild.h"
 #include <fstream>
 
 namespace StateNS {
@@ -54,7 +54,7 @@ void Stage51::initialize()
 	imageKaguya = LoadGraph("Data/Image/Character/haribote_kaguya.png");
 	converseFlag0 = true;
 	converseFlag0fin = false;
-
+	time = 0;
 
 	findRestartPoint();
 }
@@ -64,7 +64,9 @@ void Stage51::update(GameMain* gameMain, PlayerChild* _player)
 {
 	updateConverse(gameMain, _player);
 	standardUpdate(_player);
-
+//	time++;
+//	if (time % 360 == 0)for (int i = 0; i < 2; i++)maps[3]->addEnemy(ENE_ICE, _player->getVector2(), (36 + (i * 2)) * 32, 1 * 32);
+	//ˆê‹C‚É—Ž‚¿‚Ä‚­‚é‚©‚ç‚â‚ß‚½•û‚ª‚¢‚¢‹C‚ª‚·‚é
 
 }
 

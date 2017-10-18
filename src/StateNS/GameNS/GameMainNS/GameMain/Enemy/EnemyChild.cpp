@@ -25,7 +25,7 @@ void EnemyChild::initialize()
 {
 	this->mIsAlive = true;
 	this->mIsActive = false;
-	this->mDirection = false;
+	this->mDirection = true;
 	this->actState = ENE_ACT_NONE;
 	this->aTime = 0;
 	this->deadTime = 0;

@@ -17,7 +17,7 @@ StageChild::StageChild(int _stage_max_x,int _stage_max_y)
 	stage_max_y = _stage_max_y;
 
 	initialize();
-	mBackImg = LoadGraph("Data/Image/back1.jpg");
+	mBackImg = LoadGraph("Data/Image/back11.jpg");
 	assert(mBackImg != -1 && "”wŒi‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 }
 

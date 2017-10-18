@@ -26,6 +26,7 @@ Stage13::~Stage13()
 
 void Stage13::initialize()
 {
+	this->mBackImg = LoadGraph("Data/Image/back1.jpg");
 	sound->setSound("Data/Sound/stage1.wav", "bgm1");
 	sound->setSound("Data/Sound/Invisible_Full_Moon.wav", "boss1");
 	sound->playSound("bgm1", LOOP, false);
@@ -47,7 +48,7 @@ void Stage13::initialize()
 	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s);
 
-	reisen = new Reisen(88 * 32, 48 * 32);
+	reisen = new Reisen(95 * 32, 48 * 32);
 
 	startX = 208, startY = 1440;
 	cTime = 0;
@@ -77,7 +78,7 @@ void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player)
 	}
 	if (now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
-		_player->lockCameraPos(new Vector2(89*32, 42*32));
+		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32));
 		reisen->setPlayer(_player->getVector2());
 		maps[3]->addEnemy(reisen);
 		gameMain->startConverse(130);

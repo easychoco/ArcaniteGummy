@@ -21,6 +21,7 @@ private:
 	void updateConverse(GameMain*,PlayerChild*);
 	int imageKaguya;
 	bool converseFlag0, converseFlag0fin;
+	int time;
 
 
 };
