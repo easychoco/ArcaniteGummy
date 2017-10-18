@@ -8,11 +8,7 @@ namespace GameNS {
 namespace GameMainNS{
 
 	
-bool Junko::imgLoad = false;
-int Junko::images[32];
 
-
-	
 Junko::Junko(int _x, int _y) : 
 EnemyChild(1000, _x, _y, 32, 32, false, true)
 {
@@ -23,7 +19,10 @@ EnemyChild(1000, _x, _y, 32, 32, false, true)
 
 Junko::~Junko()
 {
-	
+	for (int i = 0; i < 32; i++)
+	{
+		DeleteGraph(images[i]);
+	}
 }
 
 void Junko::initialize()
@@ -130,12 +129,8 @@ void Junko::draw_other(const Vector2* _camera) const
 //==============================================
 void Junko::loadImage()
 {
-	if (!imgLoad)
-	{
-		int tmp = LoadDivGraph("Data/Image/Character/chip_junko.png", 32, 8, 4, 32, 64, images);
-		assert(tmp != -1 && "Junko画像読み込みエラー");
-	}
-	imgLoad = true;
+	int tmp = LoadDivGraph("Data/Image/Character/chip_junko.png", 32, 8, 4, 32, 64, images);
+	assert(tmp != -1 && "Junko画像読み込みエラー");
 }
 
 

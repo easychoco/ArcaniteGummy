@@ -91,8 +91,8 @@ void Stage41::draw(const Vector2* _camera) const
 
 void Stage41::draw_front(const Vector2* _camera) const
 {
-
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255 -   0.03*(cTime-90)*(cTime - 90));
+	//”š”­‚ð•\Œ»
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255 - (int)(0.03*(cTime-90)*(cTime - 90)));
 	DrawCircle(320, 240, cTime * 12, YELLOW, TRUE, 1);
 	DrawCircle(320, 240, cTime * 12, RED, FALSE,5);
 	DrawBox(0, 0, 640, 480, WHITE, TRUE);

@@ -28,6 +28,7 @@ HPController::~HPController()
 
 void HPController::damage(int _val)
 {
+
 	if (isMuteki)return;
 	this->damage(_val, true);
 }

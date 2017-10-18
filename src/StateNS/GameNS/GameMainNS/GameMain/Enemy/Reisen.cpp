@@ -7,21 +7,17 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-
-bool Reisen::imgLoad = false;
-int Reisen::images[8];
-
-
 	
 Reisen::Reisen(int x, int y) :
 Reisen(x, y, true)
 { }
 
 Reisen::Reisen(int _x, int _y, bool _isOriginal) : 
-EnemyChild(_isOriginal ? 1000 : 1, _x, _y, 32, 32, _isOriginal, true),
+EnemyChild(_isOriginal ? 1000 : 1, _x, _y, 32, 64, _isOriginal, true),
 isOriginal(_isOriginal)
 {
-	loadImage();
+	loadImage(); 
+	mImage = images[0];
 	
 	initialize();
 }
@@ -29,6 +25,10 @@ isOriginal(_isOriginal)
 Reisen::~Reisen()
 {
 	SAFE_DELETE(replica);
+	for (int i = 0; i < 32; i++)
+	{
+		DeleteGraph(images[i]);
+	}
 }
 
 void Reisen::initialize()
@@ -49,7 +49,7 @@ void Reisen::initialize()
 
 void Reisen::update(const StageChild* _stage, const Vector2* _camera)
 {
-	this->mDirection = player->raw_x > this->p->raw_x;
+	this->mDirection = this->p->raw_x > player->raw_x;
 
 	++mTime;
 	if (mTime % 90 == 0 && !nowMoving)attack();
@@ -121,23 +121,6 @@ vector<Attack*> Reisen::getAttacks() const
 	return ret;
 }
 
-void Reisen::draw(const Vector2* _camera) const
-{
-	//画面内にいなければreturn
-	//if (!mIsAlive)return;
-
-
-	//画面内にいなければreturn
-	if (abs(p->raw_x - _camera->raw_x) > 480000 || abs(p->raw_y - _camera->raw_y) > 320000)return;
-
-	int draw_x = 320 + p->x() - _camera->x();
-	int draw_y = 240 + p->y() - _camera->y();
-
-	//描画
-	//DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage2, true, mDirection);
-	draw_other(_camera);
-}
-
 void Reisen::move(const StageChild* _stage, int& _dx, int& _dy)
 {
 	//何もなければ落下だけする
@@ -174,9 +157,8 @@ void Reisen::draw_other(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//描画
-	//DrawString(draw_x - 16, draw_y - 32, "鈴仙", BLUE);
-	DrawRotaGraph(draw_x, draw_y-16, 1.0, 0.0, images[0], true, !mDirection);
-
+	DrawString(draw_x - 16, draw_y - 32, "鈴仙", BLUE);
+	
 	//for Debug
 	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
 }
@@ -187,12 +169,8 @@ void Reisen::draw_other(const Vector2* _camera) const
 //==============================================
 void Reisen::loadImage()
 {
-	if (!imgLoad)
-	{
-		int tmp = LoadDivGraph("Data/Image/Character/chip_Reisen.png", 32, 8, 4, 32, 64, images);
-		assert(tmp != -1 && "Reisen画像読み込みエラー");
-	}
-	imgLoad = true;
+	int tmp = LoadDivGraph("Data/Image/Character/chip_Reisen.png", 32, 8, 4, 32, 64, images);
+	assert(tmp != -1 && "Reisen画像読み込みエラー");
 }
 
 void Reisen::hittedAction()

@@ -42,7 +42,7 @@ void StageChild::initialize()
 
 void StageChild::standardUpdate(PlayerChild* _player)
 {
-	maps[now_stage_num]->update(_player, this);
+	maps[now_stage_num]->update(_player, this, false);
 
 	//チェックポイントに来ていてるか確認
 	for (int i = 0; i < checkPoints.size(); i++)
@@ -65,6 +65,11 @@ void StageChild::standardUpdate(PlayerChild* _player)
 			break;
 		}
 	}
+}
+
+void StageChild::updateStoppingDynamics(PlayerChild* _player)
+{
+	maps[now_stage_num]->update(_player, this, true);
 }
 
 void StageChild::standardDraw(const Vector2* _camera) const

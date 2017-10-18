@@ -6,14 +6,28 @@ namespace GameNS {
 namespace GameMainNS{
 
 bool BeltConveyor::imgLoad = false;
-int BeltConveyor::image;
+int BeltConveyor::images[3];
 
-BeltConveyor::BeltConveyor(float _dx, Vector2 _pos) : 
+BeltConveyor::BeltConveyor(float _dx, Vector2 _pos) :
+BeltConveyor::BeltConveyor(_dx, _pos, BeltPos::POS_CENTER)
+{
+
+}
+
+
+BeltConveyor::BeltConveyor(float _dx, Vector2 _pos, BeltPos _beltPos) : 
 GimmickChild(_pos)
 {
 	initialize();
-	
 	setMovingSpeed(_dx);
+
+
+	switch (_beltPos)
+	{
+	case BeltPos::POS_LEFT: mImage = images[0]; break;
+	case BeltPos::POS_CENTER: mImage = images[1]; break;
+	case BeltPos::POS_RIGHT: mImage = images[2]; break;
+	}
 }
 
 BeltConveyor::~BeltConveyor()
@@ -24,7 +38,6 @@ BeltConveyor::~BeltConveyor()
 void BeltConveyor::initialize()
 {
 	loadImage();
-	mImage = image;
 
 	isActive = true;
 	dx = 0.0f;
@@ -82,8 +95,8 @@ void BeltConveyor::loadImage()
 {
 	if (!imgLoad)
 	{
-		image = LoadGraph("Data/Image/beltconveyor.png");
-		assert(image != -1 && "ベルトコンベヤー画像読み込みエラー！");
+		int tmp = LoadDivGraph("Data/Image/beltconveyor.png", 3, 3, 1, 32, 32, images);
+		assert(tmp != -1 && "ベルトコンベヤー画像読み込みエラー！");
 	}
 	imgLoad = true;
 }

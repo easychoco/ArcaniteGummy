@@ -67,7 +67,7 @@ class Map
 public:
 	Map(int stageID, int mapID, MapPos);
 	~Map();
-	void update(PlayerChild*, const StageChild*);
+	void update(PlayerChild*, const StageChild*, bool);
 	void draw(const Vector2* camera) const;
 	void draw_front(const Vector2* camera) const;
 

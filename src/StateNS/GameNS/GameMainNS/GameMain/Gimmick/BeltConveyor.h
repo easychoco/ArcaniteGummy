@@ -8,12 +8,20 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-class Child;
 
 class BeltConveyor : public GimmickChild
 {
 public:
+
+	enum BeltPos
+	{
+		POS_LEFT,
+		POS_CENTER,
+		POS_RIGHT,
+	};
+
 	BeltConveyor(float, Vector2);
+	BeltConveyor(float, Vector2, BeltPos);
 	~BeltConveyor();
 	void initialize();
 	void update();
@@ -25,12 +33,14 @@ public:
 
 	void setMovingSpeed(float _dx) { dx = _dx; }
 
+
+
 private:
 	float dx;
 	int mTime;
 
 	static bool imgLoad;
-	static int image;
+	static int images[3];
 	void loadImage();
 };
 

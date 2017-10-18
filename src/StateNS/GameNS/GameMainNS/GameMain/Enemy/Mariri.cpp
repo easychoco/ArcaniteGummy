@@ -67,10 +67,11 @@ void Mariri::move(const StageChild* _stage, int& _dx, int& _dy)
 		actState = ENE_ACT_ATTACK;
 	}
 
-	if (60 < mTime) {
+	if (60 < mTime) 
+	{
 		_dy = getBottomDiffer(_stage, 2 * vectorRate, _dx < 0);
 		
-		if (abs(_dy) >0)
+		if (abs(_dy) >0 && mTime < 90)
 		{
 			int tmp_dx = attackDirection ? getHorizontalDiffer(_stage, vectorRate, _dy < 0) : getHorizontalDiffer(_stage, -vectorRate, _dy < 0);
 			_dx = tmp_dx;

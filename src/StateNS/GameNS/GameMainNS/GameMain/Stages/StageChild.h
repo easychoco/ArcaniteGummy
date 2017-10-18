@@ -28,7 +28,9 @@ public:
 	virtual void draw(const Vector2* camera) const = 0;
 	virtual bool isClear() const = 0;
 
-	void standardUpdate(PlayerChild*);
+	void standardUpdate(PlayerChild* _player);
+	void updateStoppingDynamics(PlayerChild* _player);
+
 	void standardDraw(const Vector2* camera) const;
 	virtual void draw_front(const Vector2* camera) const;
 

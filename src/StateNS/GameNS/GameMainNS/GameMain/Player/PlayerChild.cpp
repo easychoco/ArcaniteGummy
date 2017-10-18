@@ -55,6 +55,9 @@ void PlayerChild::initialize()
 	this->sinkedTime = 0;
 	this->mTime = 0;
 
+	//ƒLƒƒƒ‰Œð‘ã’¼Œã‚Ì‚Ý–³“G
+	this->hpController.isMuteki = true;
+
 	updateCamera();
 }
 
@@ -100,7 +103,7 @@ void PlayerChild::moveCamera(int _dx, int _dy)
 void PlayerChild::standardAction(const StageChild* _stage)
 {
 	++mTime;
-	this->collision->noCollide = mTime < 30;
+	this->hpController.isMuteki = mTime < 30;
 
 	onGround = isOnGround(_stage);
 	onLadder = isOnLadder(_stage);

@@ -1,5 +1,6 @@
 #include "Map.h"
 
+#include "..\..\GameMain.h"
 #include "..\Player\PlayerChild.h"
 #include "..\Gimmick\GimmickChild.h"
 #include "..\Gimmick\DynamicGimmickChild.h"
@@ -52,8 +53,24 @@ void Map::initialize()
 	}
 }
 
-void Map::update(PlayerChild* _player, const StageChild* _stage)
+void Map::update(PlayerChild* _player, const StageChild* _stage, bool _isStoppingTime)
 {
+	if (_isStoppingTime)
+	{
+		for (auto& gimmick : mGimmicks)
+		{
+			if (gimmick->isActive)
+			{
+				//時が止まっていても有効なギミックを作動
+				if (gimmick->activeWhenStopping)
+					if (gimmick->onActiveArea(_player->getVector2()))
+						gimmick->apply(_player);
+			}
+		}
+		return;
+	}
+
+
 	for (auto& gimmick : mGimmicks)
 	{
 		if (gimmick->isActive)
@@ -245,9 +262,6 @@ ChipType Map::getChipType(const Vector2& _other, bool colliWithGimmick) const
 	//Playerなら以下を読む
 	if (!colliWithGimmick) return ret;
 
-	//TODO
-	//今のままだと、Gimmickのほうを優先しちゃう
-	//つまり、RIGIDなDynamicGimmickとBACKなGimmickが重なると透過しちゃう
 	for (const auto& d_gimmick : mDynamicGimmicks)
 	{
 		if (d_gimmick->isActive)
@@ -366,7 +380,8 @@ void Map::processDynamicCollision(D_Gmk d_gmk, PlayerChild* _player)
 			if (d_gimmick->onActiveArea(_player->getVector2()))
 				d_gimmick->apply(_player);
 
-			if (d_gimmick->rideOnGimmick(_player->getVector2()))
+			StopType stopDynamicObject = _player->getStopDynamicObject();
+			if (stopDynamicObject != TYPE_SAKUYA &&  d_gimmick->rideOnGimmick(_player->getVector2()))
 				_player->moveCharacter(d_gimmick->getDX(), d_gimmick->getDY());
 		}
 	}

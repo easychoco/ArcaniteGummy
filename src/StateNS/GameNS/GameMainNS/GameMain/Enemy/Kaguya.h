@@ -35,8 +35,8 @@ private:
 
 	int vanishTime = 0;
 
-	static bool imgLoad;
-	static int images[32];
+	bool imgLoad;
+	int images[32];
 	void loadImage();
 
 	//Character‚ÌŠÖ”

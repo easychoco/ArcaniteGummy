@@ -28,8 +28,7 @@ private:
 
 	const int radius = 2000;
 
-	static bool imgLoad;
-	static int images[32];
+	int images[32];
 	void loadImage();
 
 	//Character‚ÌŠÖ”

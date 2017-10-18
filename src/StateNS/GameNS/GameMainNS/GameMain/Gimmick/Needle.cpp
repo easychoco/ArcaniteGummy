@@ -25,8 +25,8 @@ void Needle::initialize()
 {
 	loadImage();
 
-
 	this->mTime = 0;
+	this->activeWhenStopping = true;
 }
 
 void Needle::update()

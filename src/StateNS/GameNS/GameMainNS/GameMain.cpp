@@ -121,6 +121,9 @@ Child* GameMain::update(GameParent* _parent)
 	//DynamicObjectを更新
 	if(stopDynamicObject == StopType::TYPE_NONE)updateDynamics(mStage);
 
+	//咲夜の時止め中でも効果のあるギミックを更新
+	else if (stopDynamicObject == StopType::TYPE_SAKUYA)updateStoppingDynamics(mStage);
+
 	//Playerのupdate
 	PlayerChild* nextPlayer = mPlayer->update(mStage);
 
@@ -239,6 +242,11 @@ void GameMain::updateDynamics(StageChild* stage)
 
 	//Stageのupdate
 	stage->update(this, mPlayer);
+}
+
+void GameMain::updateStoppingDynamics(StageChild* stage)
+{
+	stage->updateStoppingDynamics(mPlayer);
 }
 
 void GameMain::processCollision(StageChild* _stage)

@@ -10,6 +10,7 @@ GimmickChild::GimmickChild(Vector2 _pos)
 {
 	pos = _pos;
 	isActive = true;
+	activeWhenStopping = false;
 	assert(_pos.x() % 32 == 16 && "Gimmick‚ÌÀ•W‚ª (32 * n + 16) ‚¶‚á‚È‚¢‚Å‚·");
 	assert(_pos.y() % 32 == 16 && "Gimmick‚ÌÀ•W‚ª (32 * n + 16) ‚¶‚á‚È‚¢‚Å‚·");
 }

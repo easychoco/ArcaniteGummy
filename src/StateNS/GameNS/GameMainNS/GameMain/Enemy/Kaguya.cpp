@@ -7,10 +7,6 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
-	
-bool Kaguya::imgLoad = false;
-int Kaguya::images[32];
-
 
 
 Kaguya::Kaguya(int _x, int _y) : 
@@ -23,7 +19,10 @@ EnemyChild(1000, _x, _y, 32, 32, false, true)
 
 Kaguya::~Kaguya()
 {
-	//DeleteGraph(mImage2);
+	for (int i = 0; i < 32; i++)
+	{
+		DeleteGraph(images[i]);
+	}
 }
 
 void Kaguya::initialize()
@@ -188,12 +187,8 @@ void Kaguya::draw_other(const Vector2* _camera) const
 //==============================================
 void Kaguya::loadImage()
 {
-	if (!imgLoad)
-	{
-		int tmp = LoadDivGraph("Data/Image/Character/chip_kaguya.png", 32, 8, 4, 32, 64, images);
-		assert(tmp != -1 && "Kaguya画像読み込みエラー");
-	}
-	imgLoad = true;
+	int tmp = LoadDivGraph("Data/Image/Character/chip_kaguya.png", 32, 8, 4, 32, 64, images);
+	assert(tmp != -1 && "Kaguya画像読み込みエラー");
 }
 
 void Kaguya::hittedAction()

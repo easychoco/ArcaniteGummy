@@ -7,11 +7,6 @@ namespace GameNS {
 namespace GameMainNS{
 
 	
-bool Fran::imgLoad = false;
-int Fran::images[32];
-
-
-	
 Fran::Fran(int _x, int _y) : 
 EnemyChild(400, _x, _y, 32, 64, false, true),
 initial_pos(Vector2(_x, _y))
@@ -23,7 +18,10 @@ initial_pos(Vector2(_x, _y))
 
 Fran::~Fran()
 {
-	//DeleteGraph(mImage2);
+	for (int i = 0; i < 32; i++)
+	{
+		DeleteGraph(images[i]);
+	}
 }
 
 void Fran::initialize()
@@ -117,12 +115,8 @@ void Fran::draw_other(const Vector2* _camera) const
 
 void Fran::loadImage()
 {
-	if (!imgLoad)
-	{
-		int tmp = LoadDivGraph("Data/Image/Character/chip_fran.png", 32, 8, 4, 64, 64, images);
-		assert(tmp != -1 && "Fran画像読み込みエラー");
-	}
-	imgLoad = true;
+	int tmp = LoadDivGraph("Data/Image/Character/chip_fran.png", 32, 8, 4, 64, 64, images);
+	assert(tmp != -1 && "Fran画像読み込みエラー");
 }
 
 void Fran::hittedAction()

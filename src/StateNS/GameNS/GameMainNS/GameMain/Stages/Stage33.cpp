@@ -166,7 +166,7 @@ void Stage33::draw(const Vector2* _camera) const
 void Stage33::draw_front(const Vector2* _camera) const
 {
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255 - 0.126*(cTime % 90 - 45)*(cTime % 90 - 45));
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255 - (int)(0.126*(cTime % 90 - 45)*(cTime % 90 - 45)));
 	DrawBox(0, 0, 640, 480, BLACK, TRUE);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

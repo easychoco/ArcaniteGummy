@@ -61,6 +61,7 @@ private:
 	StopType stopDynamicObject;
 
 	void updateDynamics(StageChild* stage);
+	void updateStoppingDynamics(StageChild* stage);
 	void processCollision(StageChild* stage);
 	StageChild* getNextStage(int);
 	void drawPlayerInfo() const;

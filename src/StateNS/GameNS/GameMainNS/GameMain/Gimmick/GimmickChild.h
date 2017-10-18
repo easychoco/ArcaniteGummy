@@ -35,6 +35,9 @@ public:
 	//画面状に表示して、更新するかどうかのpublic変数
 	bool isActive;
 
+	//時が止まっているときでも有効かどうか
+	bool activeWhenStopping;
+
 protected:
 	Vector2 pos;
 	int mImage;

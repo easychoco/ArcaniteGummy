@@ -8,9 +8,6 @@ namespace GameNS {
 namespace GameMainNS{
 
 	
-bool Nue_Boss::imgLoad = false;
-int Nue_Boss::images[32];
-
 
 	
 Nue_Boss::Nue_Boss(int _x, int _y) : 
@@ -24,7 +21,10 @@ initial_pos(Vector2(_x, _y))
 
 Nue_Boss::~Nue_Boss()
 {
-
+	for (int i = 0; i < 32; i++)
+	{
+		DeleteGraph(images[i]);
+	}
 }
 
 void Nue_Boss::initialize()
@@ -246,7 +246,6 @@ void Nue_Boss::processAttack(const StageChild* _stage)
 		}
 	}
 	//*/
-
 }
 
 void Nue_Boss::draw_other(const Vector2* _camera) const
@@ -272,12 +271,8 @@ void Nue_Boss::draw_other(const Vector2* _camera) const
 
 void Nue_Boss::loadImage()
 {
-	if (!imgLoad)
-	{
-		int tmp = LoadDivGraph("Data/Image/Character/chip_nue.png", 8, 8, 1, 64, 64, images);
-		assert(tmp != -1 && "Nue_Boss画像読み込みエラー");
-	}
-	imgLoad = true;
+	int tmp = LoadDivGraph("Data/Image/Character/chip_nue.png", 8, 8, 1, 64, 64, images);
+	assert(tmp != -1 && "Nue_Boss画像読み込みエラー");
 }
 
 

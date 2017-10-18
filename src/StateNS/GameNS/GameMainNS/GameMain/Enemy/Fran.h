@@ -36,8 +36,7 @@ private:
 	//ステージの真ん中にする
 	const Vector2 initial_pos;
 
-	static bool imgLoad;
-	static int images[32];
+	int images[32];
 	void loadImage();
 
 	void processAttack(const StageChild*);
