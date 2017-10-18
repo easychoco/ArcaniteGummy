@@ -40,7 +40,7 @@ void Stage13::initialize()
 	this->maps.push_back(new Map(13, 2, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(13, 3, MapPos::POS_LEFT_FREE));
 
-	Door* d = new Door(new Vector2(8 * 32 + 16, 27 * 32 + 16), new Vector2(83 * 32 + 16, 32 * 32 + 16));
+	Door* d = new Door(new Vector2(8 * 32 + 16, 27 * 32 + 16), new Vector2(84 * 32 + 16, 32 * 32 + 16));
 	maps[3]->addGimmick(d);
 
 	SwitchWithBlock* s = new SwitchWithBlock(76 * 32 + 16, 37 * 32 + 16, 390);
@@ -77,6 +77,7 @@ void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player)
 	}
 	if (now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
+		_player->lockCameraPos(new Vector2(89*32, 42*32));
 		reisen->setPlayer(_player->getVector2());
 		maps[3]->addEnemy(reisen);
 		gameMain->startConverse(130);
