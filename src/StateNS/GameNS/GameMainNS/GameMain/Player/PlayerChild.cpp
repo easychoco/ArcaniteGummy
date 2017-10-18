@@ -197,6 +197,17 @@ void PlayerChild::move(const StageChild* _stage)
 
 	next_dx = next_dy = 0;
 
+	//‚µ‚á‚ª‚ñ‚Å‚¢‚½‚çheight‚ð”¼•ª‚É‚·‚é
+	if (actionState == ACT_SIT)
+	{
+		this->height = 32;
+		this->collision->calcFromCenter = true;
+	}
+	else
+	{
+		this->height = 64;
+		this->collision->calcFromCenter = false;
+	}
 
 	//“ü—Í
 	if (canMove && actionState != ACT_SIT)

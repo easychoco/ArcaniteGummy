@@ -21,6 +21,7 @@ public:
 	const Vector2* p;
 
 	bool noCollide;
+	bool calcFromCenter;
 
 	int width;
 	int height;

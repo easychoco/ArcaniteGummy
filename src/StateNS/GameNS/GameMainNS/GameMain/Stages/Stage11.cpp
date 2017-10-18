@@ -2,6 +2,7 @@
 #include "Map.h"
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
+#include "..\Gimmick\Guide.h"
 
 #include <fstream>
 
@@ -34,11 +35,27 @@ void Stage11::initialize()
 
 	//this->maps[0]->addEnemy(BOSS_JUNKO, 540, 1488);
 
+	vector<string> message
+	{
+		"        ƒKƒCƒh—á",
+		"           È_È",
+		"          (*ß[ß) QQQQ",
+		"           / ‚Â^ | ^ |",
+		"    `@@ | PPPP | . |",
+		" ¤¤¤¤i/@ | AA‚à‰Â”\ | ^, , , , ,",
+	};
+
+
+	Guide* guide = new Guide(272, 1552, message);
+	maps[0]->addGimmick(guide);
+
+
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[1]->addGimmick(flag);
 	
 	startX = 144, startY = 1536;
 	converseFlag0 = true;
+
 	findRestartPoint();
 }
 
