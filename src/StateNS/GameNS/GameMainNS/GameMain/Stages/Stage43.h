@@ -25,7 +25,7 @@ private:
 	bool converseFlag1,converseFlag1fin;
 	bool converseFlag2, converseFlag2fin;
 	int imageSakuya, imageNue;
-	bool vsBoss;
+
 	Fran* fran;
 	vector<Torch*> torches;
 	vector<Torch*> torches2;

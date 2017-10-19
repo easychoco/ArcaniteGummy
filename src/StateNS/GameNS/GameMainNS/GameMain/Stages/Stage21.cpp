@@ -52,7 +52,13 @@ void Stage21::initialize()
 
 	startX = 2864, startY = 1536;
 	converseFlag0;
-	findRestartPoint();
+	//•œŠˆ
+	bool restart = findRestartPoint();
+	//•œŠˆ‚µ‚½‚ç‰ï˜bƒtƒ‰ƒO‚ğÜ‚é
+	if (restart)
+	{
+		converseFlag0 = false;
+	}
 }
 
 

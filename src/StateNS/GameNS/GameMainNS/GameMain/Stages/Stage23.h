@@ -25,7 +25,6 @@ private:
 	bool converseFlag1,converseFlag1fin;
 	bool converseFlag2,converseFlag2fin;
 	int imageJunko;
-	bool vsBoss;
 	Junko* junko;
 
 };

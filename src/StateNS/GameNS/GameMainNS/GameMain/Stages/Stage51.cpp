@@ -55,8 +55,14 @@ void Stage51::initialize()
 	converseFlag0 = true;
 	converseFlag0fin = false;
 	time = 0;
-
-	findRestartPoint();
+	//•œŠˆ
+	bool restart = findRestartPoint();
+	//•œŠˆ‚µ‚½‚ç‰ï˜bƒtƒ‰ƒO‚ğÜ‚é
+	if (restart)
+	{
+		converseFlag0 = false;
+		converseFlag0fin = true;
+	}
 }
 
 
@@ -83,7 +89,7 @@ void Stage51::updateConverse(GameMain* gameMain, PlayerChild* _player)
 void Stage51::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
-	if (!converseFlag0fin)DrawRotaGraph(320, 240, 1.0, 0.0, imageKaguya, TRUE);
+	if (!converseFlag0fin)DrawRotaGraph(320, 416, 1.0, 0.0, imageKaguya, TRUE);
 
 }
 

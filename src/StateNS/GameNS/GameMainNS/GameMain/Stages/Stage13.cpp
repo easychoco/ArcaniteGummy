@@ -61,19 +61,16 @@ void Stage13::initialize()
 	converseFlag0fin = false;
 	converseFlag1 = true;
 	converseFlag2 = true;
-	vsBoss = false;
+
 	//復活
 	bool restart = findRestartPoint();
 
 	//復活したら会話フラグを折る
-	//会話中に鈴仙出てくるのでやめよう
-	/*
 	if (restart)
 	{
-		converseFlag0 = false;
-		converseFlag0fin = true;
+
 	}
-	*/
+	
 }
 
 
@@ -93,7 +90,7 @@ void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player)
 	}
 	if (now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
-		vsBoss = true;
+
 		reisen->setPlayer(_player->getVector2());
 		maps[3]->addEnemy(reisen);
 		gameMain->startConverse(130);
@@ -116,7 +113,6 @@ void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player)
 		converseFlag1 = false;
 	}
 
-	if(vsBoss)_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 + 16));
 
 }
 

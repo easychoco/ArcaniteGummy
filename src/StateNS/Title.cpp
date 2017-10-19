@@ -50,6 +50,7 @@ void Title::initialize()
 	PlayMovieToGraph(movie);
 	sound->setSound("Data/Sound/OP.wav", "titlebgm");
 	sound->playSound("titlebgm", LOOP, false);
+
 }
 
 Child* Title::update(const GrandParent* parent)

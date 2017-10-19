@@ -20,6 +20,8 @@ public:
 
 private:
 	bool saved;
+	int backImg;
+	int images[32];
 };
 
 
