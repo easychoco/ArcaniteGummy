@@ -3,6 +3,7 @@
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
 #include "..\Player\PlayerChild.h"
+#include "..\Gimmick\Guide.h"
 #include <fstream>
 
 namespace StateNS {
@@ -18,6 +19,7 @@ StageChild(4, 1) //エリアの数: よこ，たて
 Stage41::~Stage41()
 {
 	sound->deleteSound("bgm4");
+	DeleteGraph(imageFlan);
 }
 
 void Stage41::initialize()
@@ -26,8 +28,8 @@ void Stage41::initialize()
 	sound->playSound("bgm4", LOOP, false);
 
 	//変更できるキャラクターを設定
-	//this->changeableCharacter |= CHARA_MOKOU;
-	//this->changeableCharacter |= CHARA_SAKUYA;
+	this->changeableCharacter |= CHARA_MOKOU;
+	this->changeableCharacter |= CHARA_SAKUYA;
 	this->changeableCharacter |= CHARA_NUE;
 
 	//左上から右にpushしていく
@@ -36,6 +38,27 @@ void Stage41::initialize()
 	this->maps.push_back(new Map(41, 1, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(41, 2, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(41, 3, MapPos::POS_LEFT_FREE));
+
+	vector<string> message
+	{
+		"ぬえはUFOに乗って",
+		"遠くに飛ぶことが",
+		"できるぞ"
+	};
+	Guide* guide = new Guide(5 * 32 + 16, 48 * 32 + 16, message);
+	maps[1]->addGimmick(guide);
+
+	vector<string> message2
+	{
+		"しゃがむことで",
+		"変化して",
+		"敵の攻撃を",
+		"防げるぞ"
+	};
+	Guide* guide2 = new Guide(31 * 32 + 16, 21 * 32 + 16, message2);
+	maps[1]->addGimmick(guide2);
+
+
 	flag = new ClearFlag(Vector2(97 * 32 + 16, 16 * 32 + 16));
 	maps[3]->addGimmick(flag);
 
@@ -74,10 +97,9 @@ void Stage41::updateConverse(GameMain* gameMain, PlayerChild* _player)
 
 	if (cTime == 90)
 	{
-		//this->changeableCharacter ^= CHARA_MOKOU;
-		//this->changeableCharacter ^= CHARA_SAKUYA;
-		//////////////////強制的にぬえに変更する関数をここに/////////////////
-		DeleteGraph(imageFlan);
+		gameMain->setNextCharacter(PlayerCharacter::CHARA_NUE);
+		this->changeableCharacter ^= CHARA_MOKOU;
+		this->changeableCharacter ^= CHARA_SAKUYA;
 	}
 	if (cTime < 180)_player->lock = true;
 
