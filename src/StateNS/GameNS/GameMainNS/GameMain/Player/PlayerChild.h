@@ -40,6 +40,7 @@ public:
 	void setCamera(const Vector2& _camera) { *(this->camera) = _camera; };
 
 	bool lock;
+	bool cameraLocked;
 
 
 protected:
@@ -70,7 +71,6 @@ protected:
 	bool onGround;
 	bool onLadder;
 
-	bool cameraLocked;
 	
 	//çUåÇÇÃvector
 	vector<Attack*> attacks;

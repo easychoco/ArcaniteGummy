@@ -146,6 +146,7 @@ Child* GameMain::update(GameParent* _parent)
 		case CHARA_SAKUYA: nextPlayer = new Sakuya(x, y, mPlayer->hpController.getHP()); break;
 		case CHARA_NUE: nextPlayer = new Nue(x, y, mPlayer->hpController.getHP()); break;
 		}
+		if(mPlayer->cameraLocked)nextPlayer->lockCameraPos(mPlayer->getCamera());
 	}
 
 	//for Debug

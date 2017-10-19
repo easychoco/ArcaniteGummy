@@ -96,8 +96,8 @@ void Config::draw() const
 {
 	if (!nowKeyConfig)
 	{
-		DrawFormatString(0, 0, WHITE, "config Xで戻れるよ");
-		DrawFormatString(0, 0, WHITE, "config Zでキーコンフィグ");
+		DrawFormatString(0,  0, WHITE, "config Xで戻れるよ");
+		DrawFormatString(0, 30, WHITE, "config Zでキーコンフィグ");
 
 
 		DrawFormatString(20, 100, WHITE, "ボリューム調整");
