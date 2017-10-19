@@ -25,20 +25,33 @@ Clear::~Clear()
 void Clear::initialize()
 {
 	saved = false;
+	prePushZ = true;
+	prePushUD = true;
+	cursorPos = 0;
 	sound->playSoundWithPath("Data/Sound/clear.mp3", BACK);
 	LoadDivGraph("Data/Image/Character/chip_mokou.png", 32, 8, 4, 32, 64, images, TRUE);
 	assert(*images != -1 && "自機画像読み込みエラー");
 	backImg = LoadGraph("Data/Image/clear.png");
+	time = 0;
+	ED = false;
+	movie = LoadGraph("Data/Movie/ED.ogv");
+	PlayMovieToGraph(movie);
 }
 
 Child* Clear::update(StateNS::Parent* _parent)
 {
+
+	if (ED&& !GetMovieStateToGraph(movie))_parent->moveTo(_parent->NextSequence::SEQ_TITLE);
+
 	if (!saved)
 	{
 		int nextStage = _parent->stageNum;
 
 		//クリアしたら
-		if (nextStage == 53)nextStage = 11;
+		if (nextStage == 53) {
+			nextStage = 11;
+			ED = true;
+		}
 		else if (nextStage % 10 == 3)nextStage += 8;
 		else ++nextStage;
 
@@ -46,38 +59,60 @@ Child* Clear::update(StateNS::Parent* _parent)
 		saveData->resetCheckPoint();
 		saved = true;
 	}
-
 	Child* next = this;
 
-	if (Input_C())
+
+	if (ED)return next;
+
+	if (!prePushUD)
 	{
-		_parent->moveTo(_parent->NextSequence::SEQ_TITLE);
+
+		if (Input_UP())
+		{
+			--cursorPos;
+		}
+		if (Input_DOWN())
+		{
+			++cursorPos;
+		}
 	}
 
-	//次のステージへ
-	if (Input_Z())
-	{
-		int nextStage = _parent->stageNum;
-	
-		//クリアしたら
-		if (nextStage == 53)nextStage = 11;
-		else if (nextStage % 10 == 3)nextStage += 8;
-		else ++nextStage;
+	cursorPos = (cursorPos + 2) % 2;
 
-		_parent->stageNum = nextStage;
-		next = new Play(nextStage);
+
+
+	if (Input_Z() && !prePushZ)
+	{
+		if (cursorPos == 0) {
+			int nextStage = _parent->stageNum;
+
+			//クリアしたら
+			if (nextStage == 53)nextStage = 11;
+			else if (nextStage % 10 == 3)nextStage += 8;
+			else ++nextStage;
+
+			_parent->stageNum = nextStage;
+			next = new Play(nextStage);
+		}
+		else if (cursorPos == 1)_parent->moveTo(_parent->NextSequence::SEQ_TITLE);
 	}
 
+	prePushUD = Input_UP() || Input_DOWN();
+	prePushZ = Input_OK();
+
+	time++;
+	time %= 300;
 	return next;
 }
 
 void Clear::draw() const
 {
 	DrawGraph(0, 0, backImg, FALSE);
-	DrawGraph(100, 300, images[0], TRUE);
-	DrawFormatString(250, 220, MyData::WHITE, "くりあー！");
-	DrawFormatString(250, 320, MyData::WHITE, "Zで次へ");
-	DrawFormatString(250, 350, MyData::WHITE, "Cでタイトルへ");
+	DrawGraph(-100+time*5, 300, images[12 + (time / 10) % 4], TRUE);
+	if (cursorPos == 0)	DrawBox(220, 270, 420, 330, WHITE, FALSE);
+	if (cursorPos == 1)	DrawBox(220, 350, 420, 410, WHITE, FALSE);
+	if (time < 2)DrawBox(0, 0, 640,480,BLACK,TRUE);
+	if (ED)DrawGraph(0, 0, movie, FALSE);
 }
 
 

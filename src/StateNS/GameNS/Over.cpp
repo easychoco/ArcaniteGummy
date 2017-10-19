@@ -24,7 +24,8 @@ Over::~Over()
 void Over::initialize()
 {
 	this->cursorPos = 0;
-	this->prePush = false;
+	this->prePushUD = true;
+	this->prePushZ = true;
 	sound->playSoundWithPath("Data/Sound/Over.mp3", BACK);
 	backImg = LoadGraph("Data/Image/gameover.png");
 }
@@ -33,7 +34,7 @@ Child* Over::update(StateNS::Parent* _parent)
 {
 	Child* next = this;
 
-	if (!prePush)
+	if (!prePushUD)
 	{
 
 		if (Input_UP())
@@ -48,14 +49,14 @@ Child* Over::update(StateNS::Parent* _parent)
 
 	cursorPos = (cursorPos + 2) % 2;
 
-	if (Input_Z())
+	if (Input_OK() && !prePushZ)
 	{
 		if (cursorPos == 0)next = new Play(_parent->stageNum);
 		else if (cursorPos == 1)_parent->moveTo(_parent->NextSequence::SEQ_TITLE);
 	}
 
-	prePush = Input_UP() || Input_DOWN();
-
+	prePushUD = Input_UP() || Input_DOWN();
+	prePushZ = Input_OK();
 	return next;
 }
 

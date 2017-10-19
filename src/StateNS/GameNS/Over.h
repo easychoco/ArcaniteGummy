@@ -20,7 +20,8 @@ public:
 private:
 	void initialize();
 	int backImg;
-	bool prePush;
+	bool prePushZ;
+	bool prePushUD;
 	int cursorPos;
 
 };

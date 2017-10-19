@@ -22,6 +22,12 @@ private:
 	bool saved;
 	int backImg;
 	int images[32];
+	int movie;
+	int time;
+	bool ED;
+	bool prePushZ;
+	bool prePushUD;
+	int cursorPos;
 };
 
 
