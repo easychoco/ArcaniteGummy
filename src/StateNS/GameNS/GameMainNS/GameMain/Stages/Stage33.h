@@ -26,6 +26,7 @@ private:
 	bool converseFlag2, converseFlag2fin;
 	bool converseFlag3, converseFlag3fin;
 	int cTime;
+	bool vsBoss;
 	Nue_Boss* nue;
 	int imageReisen;
 	int imageNue;

@@ -93,7 +93,7 @@ void Stage33::initialize()
 	converseFlag3fin = false;
 
 	cTime = 0;
-
+	vsBoss = false;
 	//•œŠˆ
 	bool restart = findRestartPoint();
 
@@ -158,11 +158,12 @@ void Stage33::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	}
 	if (now_stage_num == 7 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
-		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 - 16));
+		vsBoss = true;
 		gameMain->startConverse(330);
 		converseFlag0 = false;
 	}
 
+	if (vsBoss)_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 + 16));
 
 }
 

@@ -20,7 +20,7 @@ private:
 	void initialize();
 	void updateConverse(GameMain*, PlayerChild*);
 	bool converseFlag0;
-
+	int time;
 };
 
 

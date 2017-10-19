@@ -77,15 +77,19 @@ void Stage23::initialize()
 	converseFlag2 = true;
 	converseFlag2fin = false;
 
+	vsBoss = false;
+
 	//•œŠˆ
 	bool restart = findRestartPoint();
 
 	//•œŠˆ‚µ‚½‚ç‰ï˜bƒtƒ‰ƒO‚ðÜ‚é
+	/*
 	if (restart)
 	{
 		converseFlag0 = false;
 		converseFlag0fin = true;
 	}
+	*/
 }
 
 
@@ -120,12 +124,13 @@ void Stage23::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	}
 	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
 	{
-		_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 + 16));
+		vsBoss = true;
 		junko->setPlayer(_player->getVector2());
 		maps[2]->addEnemy(junko);
 		gameMain->startConverse(231);
 		converseFlag1 = false;
 	}
+	if (vsBoss)_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 + 16));
 
 }
 
