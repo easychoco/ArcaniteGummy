@@ -12,7 +12,7 @@ public:
 	Title(int,int);
 	~Title();
 	void initialize();
-	Child* update(const GrandParent*);
+	Child* update(GrandParent*);
 	void draw() const;
 	Child* nextScene(int);
 

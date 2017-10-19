@@ -11,7 +11,7 @@ public:
 	Config();
 	~Config();
 	void initialize();
-	Child* update(const GrandParent*);
+	Child* update(GrandParent*);
 	void draw() const;
 
 private:

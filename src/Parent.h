@@ -14,6 +14,10 @@ public:
 	void draw() const;
 	void initialize();
 
+	void finishGame() { this->finish = true; }
+
+	bool finish;
+
 private:
 	Child* mChild;
 };

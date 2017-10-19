@@ -11,7 +11,7 @@ public:
 	MusicRoom();
 	~MusicRoom();
 	void initialize();
-	Child* update(const GrandParent*);
+	Child* update(GrandParent*);
 	void draw() const;
 
 private:

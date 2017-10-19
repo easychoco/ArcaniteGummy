@@ -33,7 +33,7 @@ void Parent::initialize()
 
 }
 
-Child* Parent::update(const GrandParent* parent)
+Child* Parent::update(GrandParent* parent)
 {
 	Child* next = this;
 

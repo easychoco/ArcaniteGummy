@@ -24,7 +24,7 @@ public:
 	Parent(int stageNum);
 	~Parent();
 	void initialize();
-	StateNS::Child* update(const GrandParent*);
+	StateNS::Child* update(GrandParent*);
 	void draw() const;
 	void moveTo(NextSequence);
 

@@ -26,7 +26,12 @@ Stage13::~Stage13()
 
 void Stage13::initialize()
 {
-	this->mBackImg = LoadGraph("Data/Image/back1.jpg");
+	//雲のエフェクトを横に流れるようにする
+	this->drawEffect = true;
+	this->backDrawType = DRAW_HORIZONTAL;
+	this->setEffectImage("Data/Image/effect_cloud.png");
+
+	this->setBackImage("Data/Image/back1.jpg");
 	sound->setSound("Data/Sound/stage1.wav", "bgm1");
 	sound->setSound("Data/Sound/Invisible_Full_Moon.wav", "boss1");
 	sound->playSound("bgm1", LOOP, false);

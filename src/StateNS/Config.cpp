@@ -34,7 +34,7 @@ void Config::initialize()
 	sound->playSound("tes", BACK);
 }
 
-Child* Config::update(const GrandParent* parent)
+Child* Config::update(GrandParent* parent)
 {
 	Child* next = this;
 

@@ -100,17 +100,21 @@ public:
 	int startX, startY;
 
 protected:
-	int mBackImg;
-
 	unsigned now_stage_num;
 	int stage_max_x;
 	int stage_max_y;
 
+	bool drawEffect;
 	int changeableCharacter;
 
 	vector<Map*> maps;
 	vector<CheckPoint*> checkPoints;
 	ClearFlag* flag;
+
+
+	//背景画像読み込み用
+	void setBackImage(string path);
+	void setEffectImage(string path);
 	
 	//復活できるチェックポイントを探して，あれば復活
 	bool findRestartPoint();
@@ -128,8 +132,8 @@ protected:
 
 	enum BackDrawType
 	{
-		DRAW_NORMAL,
-		DRAW_HORIZON,
+		DRAW_VERTICAL,
+		DRAW_HORIZONTAL,
 	};
 
 	BackDrawType backDrawType;
@@ -137,12 +141,17 @@ protected:
 private:
 	void initialize();
 
+	int mBackImg;
+	int mEffectImg;
+
+
+	//背景エフェクト描画用
 	mutable int back_x;
 	mutable int pre_x;
 	mutable int back_y;
 	mutable int pre_y;
-	void drawBack_normal(const Vector2* _camera) const;
-	void drawBack_horizontal(const Vector2* _camera) const;
+	void drawEffect_vertical(const Vector2* _camera) const;
+	void drawEffect_horizontal(const Vector2* _camera) const;
 };
 
 

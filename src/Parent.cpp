@@ -22,7 +22,8 @@ Parent::~Parent()
 
 void Parent::initialize()
 {
-	mChild = new StateNS::Title();
+	mChild = new StateNS::Title(); 
+	this->finish = false;
 
 	sound->setSound("Data/Sound/ok.mp3", "ok");
 	sound->setSound("Data/Sound/no.mp3", "no");

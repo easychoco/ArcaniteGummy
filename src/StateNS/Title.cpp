@@ -1,4 +1,5 @@
 #include "Title.h"
+#include "..\Parent.h"
 #include "StateParent.h"
 #include "..\Data.h"
 #include "..\KeyInput.h"
@@ -53,7 +54,7 @@ void Title::initialize()
 
 }
 
-Child* Title::update(const GrandParent* parent)
+Child* Title::update(GrandParent* parent)
 {
 ////////////////////ネストじゃあああああああああ/////////////////////
 	Child* next = this;
@@ -74,6 +75,7 @@ Child* Title::update(const GrandParent* parent)
 	case 2://ゲームスタート、そうさせつめい
 		if (Input_OK() && pushZ) { 
 			if (select == 0) { step++; select = 0; }
+			else if (select == 3)parent->finishGame();
 			else next = nextScene(select);
 		}
 		if (Input_NO() && pushX)step--;
@@ -89,7 +91,7 @@ Child* Title::update(const GrandParent* parent)
 		else if (Input_DOWN() && pushDOWN)select = (select + 1) % 15;
 	}
 
-		pushZ = !Input_OK();
+	pushZ = !Input_OK();
 	pushX = !Input_NO(); 
 	pushUP = !Input_UP();
 	pushDOWN = !Input_DOWN();

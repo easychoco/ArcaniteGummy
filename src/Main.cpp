@@ -18,7 +18,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	int tmp = LoadDivGraph("Data/Image/MapChip.png", 256, 16, 16, 32, 32, MyData::MapChip);
 	assert(tmp != -1 && "マップチップ読み込みエラー");
 
-	while (!ProcessMessage() && !Input_ESCAPE())
+	while (!ProcessMessage() && !parent->finish /*for Debug*/&& !Input_ESCAPE())
 	{
 		ClearDrawScreen();
 

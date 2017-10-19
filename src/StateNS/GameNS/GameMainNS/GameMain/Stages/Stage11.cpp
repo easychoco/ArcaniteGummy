@@ -23,7 +23,13 @@ Stage11::~Stage11()
 
 void Stage11::initialize()
 {
-	this->mBackImg = LoadGraph("Data/Image/back1.jpg");
+	//雲のエフェクトを横に流れるようにする
+	this->drawEffect = true;
+	this->backDrawType = DRAW_HORIZONTAL;
+	this->setEffectImage("Data/Image/effect_cloud.png");
+
+	this->setBackImage("Data/Image/back1.jpg");
+
 	sound->setSound("Data/Sound/stage1.wav", "bgm1");
 	sound->playSound("bgm1", LOOP, false);
 
@@ -34,18 +40,6 @@ void Stage11::initialize()
 	this->maps.push_back(new Map(11, 0, MapPos::POS_RIGHT_FREE));
 	this->maps.push_back(new Map(11, 1, MapPos::POS_LEFT_FREE));
 
-	//this->maps[0]->addEnemy(BOSS_JUNKO, 540, 1488);
-	/*
-	vector<string> message
-	{
-		"        ガイド例",
-		"           ∧_∧",
-		"          (*ﾟーﾟ) ＿＿＿＿",
-		"           / つ／ | ／ |",
-		"    ～　　 | ￣￣￣￣ | . |",
-		" ､､､､（/　 | AAも可能 | ／, , , , ,",
-	};
-	*/
 	vector<string> message
 	{
 		"妹紅のサポートは",
