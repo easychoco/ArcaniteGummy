@@ -75,9 +75,14 @@ void Stage42::update(GameMain* gameMain, PlayerChild* _player)
 {
 	updateConverse(gameMain, _player);
 	standardUpdate(_player);
+
 	time++;
-	if (time % 360 == 0)maps[1]->addEnemy(ENE_TERESA, _player->getVector2(), 4 * 32, 16 * 32);
-	if (time % 360 == 0)maps[1]->addEnemy(ENE_TERESA, _player->getVector2(), 99 * 32, 12 * 32);
+	if (time % 720 == 0) 
+	{
+		if (_player->getVector2()->raw_x <= MAP_WIDTH_RATE() / 2)maps[1]->addEnemy(ENE_TERESA, _player->getVector2(), 4 * 32, 16 * 32);
+		else maps[1]->addEnemy(ENE_TERESA, _player->getVector2(), 99 * 32, 12 * 32);
+	}
+
 }
 
 void Stage42::updateConverse(GameMain* gameMain, PlayerChild* _player)
