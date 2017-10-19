@@ -143,16 +143,19 @@ Child* GameMain::update(GameParent* _parent)
 		Vector2 camera_tmp = Vector2::ZERO;
 		if (mPlayer->cameraLocked)camera_tmp = *(mPlayer->getCamera());
 
+		int nextHP = mPlayer->hpController.getHP();
 		SAFE_DELETE(mPlayer);
 
 		switch (nextCharacter)
 		{
-		case CHARA_MOKOU: nextPlayer = new Mokou(x, y, mPlayer->hpController.getHP()); break;
-		case CHARA_SAKUYA: nextPlayer = new Sakuya(x, y, mPlayer->hpController.getHP()); break;
-		case CHARA_NUE: nextPlayer = new Nue(x, y, mPlayer->hpController.getHP()); break;
+		case CHARA_MOKOU: nextPlayer = new Mokou(x, y, nextHP); break;
+		case CHARA_SAKUYA: nextPlayer = new Sakuya(x, y, nextHP); break;
+		case CHARA_NUE: nextPlayer = new Nue(x, y, nextHP); break;
 		}
 		if(camera_tmp != Vector2::ZERO)nextPlayer->lockCameraPos(&camera_tmp);
 		mPlayer = nextPlayer;
+
+		this->nextCharacter = CHARA_NONE;
 	}
 
 	//for Debug
