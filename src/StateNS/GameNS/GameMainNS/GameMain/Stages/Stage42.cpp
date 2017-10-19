@@ -2,7 +2,7 @@
 #include "Map.h"
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
-
+#include "..\Player\PlayerChild.h"
 #include <fstream>
 
 namespace StateNS {
@@ -57,7 +57,7 @@ void Stage42::initialize()
 	SwitchWithBlock* s5 = new SwitchWithBlock(98 * 32 + 16, 32 * 32 + 16, 1);
 	for (int i = 0; i < 3; i++)s5->push_block(new Block(83 * 32 + 16, (37 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s5);
-
+	time = 0;
 	startX = 144, startY = 1536;
 	converseFlag0 = true;
 	findRestartPoint();
@@ -68,6 +68,9 @@ void Stage42::update(GameMain* gameMain, PlayerChild* _player)
 {
 	updateConverse(gameMain, _player);
 	standardUpdate(_player);
+	time++;
+	if (time % 360 == 0)maps[1]->addEnemy(ENE_TERESA, _player->getVector2(), 4 * 32, 16 * 32);
+	if (time % 360 == 0)maps[1]->addEnemy(ENE_TERESA, _player->getVector2(), 99 * 32, 12 * 32);
 }
 
 void Stage42::updateConverse(GameMain* gameMain, PlayerChild* _player)
@@ -78,6 +81,7 @@ void Stage42::updateConverse(GameMain* gameMain, PlayerChild* _player)
 		converseFlag0 = false;
 	}
 }
+
 
 
 void Stage42::draw(const Vector2* _camera) const

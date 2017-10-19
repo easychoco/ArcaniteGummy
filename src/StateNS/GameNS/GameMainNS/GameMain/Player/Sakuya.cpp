@@ -212,7 +212,7 @@ stage(_stage)
 	mDirection = _dx < 0;
 
 	//for Debug
-	this->damageValue = 100;
+	this->damageValue = 50;
 
 	if(up)this->mImage = LoadGraph("Data/Image/Knife2.png");
 	else this->mImage = LoadGraph("Data/Image/Knife.png");

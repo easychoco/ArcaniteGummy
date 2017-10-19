@@ -37,7 +37,7 @@ void Stage41::initialize()
 	this->maps.push_back(new Map(41, 2, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(41, 3, MapPos::POS_LEFT_FREE));
 	flag = new ClearFlag(Vector2(97 * 32 + 16, 16 * 32 + 16));
-	maps[2]->addGimmick(flag);
+	maps[3]->addGimmick(flag);
 
 	startX = 77*32, startY = 48*32;
 	converseFlag0 = true;

@@ -101,6 +101,7 @@ void Stage53::update(GameMain* gameMain, PlayerChild* _player)
 
 void Stage53::updateConverse(GameMain* gameMain, PlayerChild* _player)
 {
+	_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 + 16));
 
 	if (!converseFlag1 && !converseFlag1fin)converseFlag1fin = true;
 	if (converseFlag1 && !kaguya->isAlive())
