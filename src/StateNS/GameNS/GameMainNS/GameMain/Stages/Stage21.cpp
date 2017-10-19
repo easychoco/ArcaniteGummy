@@ -2,7 +2,7 @@
 #include "Map.h"
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
-
+#include "..\Gimmick\Guide.h"
 #include <fstream>
 
 namespace StateNS {
@@ -34,6 +34,38 @@ void Stage21::initialize()
 	this->maps.push_back(new Map(21, 1, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(21, 2, MapPos::POS_LEFT_FREE));
 
+	vector<string> message
+	{
+		"妹紅、大丈夫か？",
+		"ここでもサポートは",
+		"するから",
+		"安心してくれ"
+	};
+
+	Guide* guide = new Guide(92 * 32 + 16, 48 * 32 + 16, message);
+	maps[0]->addGimmick(guide);
+
+	vector<string> message2
+	{
+		"炎で部屋を",
+		"明るくするんだ",
+		"私のメッセージを",
+		"見られるようにな"
+	};
+
+	Guide* guide2 = new Guide(7 * 32 + 16, 48 * 32 + 16, message2);
+	maps[1]->addGimmick(guide2);
+
+	vector<string> message3
+	{
+		"困ったときは",
+		"ステージを見回すといい",
+		"何かヒントがあるかもな"
+	};
+
+	Guide* guide3 = new Guide(61 * 32 + 16, 21 * 32 + 16, message3);
+	maps[2]->addGimmick(guide3);
+
 
 	flag = new ClearFlag(Vector2(3088, 400));
 	maps[2]->addGimmick(flag);
@@ -45,7 +77,7 @@ void Stage21::initialize()
 	for (const auto& t : torches)maps[1]->addDynamicGimmick(t);
 
 
-	torches2.push_back(new Torch(23 * 32 + 16, 6 * 32 + 16));
+	torches2.push_back(new Torch(19 * 32 + 16, 6 * 32 + 16));
 	torches2.push_back(new Torch(69 * 32 + 16, 7 * 32 + 16));
 	for (const auto& t : torches2)maps[2]->addDynamicGimmick(t);
 

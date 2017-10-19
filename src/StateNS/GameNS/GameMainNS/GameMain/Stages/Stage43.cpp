@@ -121,7 +121,7 @@ void Stage43::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	////ボス戦手前の会話
 	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
 	{
-
+		_player->lockCameraPos(new Vector2(90 * 32, 42 * 32 + 16));
 		gameMain->startConverse(431);
 		converseFlag1 = false;
 		fran->setPlayer(_player->getVector2());

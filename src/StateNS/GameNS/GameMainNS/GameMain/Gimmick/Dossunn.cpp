@@ -84,7 +84,7 @@ bool Dossunn::onActiveArea(const Vector2* _player) const
 {
 	return
 		abs(this->p->x() - _player->x()) <= CHIP_WIDTH * 5 &&
-		abs(this->p->y() - _player->y()) <= CHIP_WIDTH * 5;
+		abs(this->p->y() - _player->y()) <= CHIP_WIDTH * 8;
 }
 
 //==============================================

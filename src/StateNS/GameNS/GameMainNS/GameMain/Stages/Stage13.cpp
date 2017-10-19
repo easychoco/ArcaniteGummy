@@ -2,7 +2,7 @@
 #include "Map.h"
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
-
+#include "..\Gimmick\Guide.h"
 #include "..\Gimmick\DynamicGimmickChild.h"
 #include "..\Player\PlayerChild.h"
 #include "..\Gimmick\Door.h"
@@ -40,6 +40,28 @@ void Stage13::initialize()
 	this->maps.push_back(new Map(13, 1, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(13, 2, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(13, 3, MapPos::POS_LEFT_FREE));
+
+	vector<string> message
+	{
+		"妹紅といえども",
+		"このトゲに当たったら",
+		"ひとたまりもないだろう"
+	};
+
+	Guide* guide = new Guide(22* 32 + 16, 39 * 32 + 16, message);
+	maps[0]->addGimmick(guide);
+
+	vector<string> message2
+	{
+		"ポーズをすることで",
+		"ステージを",
+		"見回すことが",
+		"できるぞ"
+	};
+
+	Guide* guide2 = new Guide(59 * 32 + 16, 17 * 32 + 16, message2);
+	maps[0]->addGimmick(guide2);
+
 
 	Door* d = new Door(new Vector2(8 * 32 + 16, 27 * 32 + 16), new Vector2(84 * 32 + 16, 32 * 32 + 16));
 	maps[3]->addGimmick(d);
@@ -90,7 +112,7 @@ void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player)
 	}
 	if (now_stage_num == 3 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
-
+		_player->lockCameraPos(new Vector2(90 * 32, 42 * 32 + 16));
 		reisen->setPlayer(_player->getVector2());
 		maps[3]->addEnemy(reisen);
 		gameMain->startConverse(130);
