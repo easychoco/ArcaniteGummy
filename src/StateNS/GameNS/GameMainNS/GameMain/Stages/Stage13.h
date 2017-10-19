@@ -25,7 +25,7 @@ private:
 	bool converseFlag1;
 	bool converseFlag2;
 	int cTime;
-	bool vsBoss;
+
 	Reisen* reisen;
 
 };

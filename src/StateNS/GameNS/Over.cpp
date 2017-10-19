@@ -26,6 +26,7 @@ void Over::initialize()
 	this->cursorPos = 0;
 	this->prePush = false;
 	sound->playSoundWithPath("Data/Sound/Over.mp3", BACK);
+	backImg = LoadGraph("Data/Image/gameover.png");
 }
 
 Child* Over::update(StateNS::Parent* _parent)
@@ -60,15 +61,11 @@ Child* Over::update(StateNS::Parent* _parent)
 
 void Over::draw() const
 {
-	DrawFormatString(180, 100, WHITE, "ゲームオーバー");
 
-	DrawFormatString(200, 300, WHITE, "つづける？");
 
-	DrawFormatString(220, 350, GLAY, "はい");
-	DrawFormatString(220, 380, GLAY, "いいえ");
-
-	if (cursorPos == 0)	DrawFormatString(220, 350, WHITE, "はい");
-	if (cursorPos == 1)	DrawFormatString(220, 380, WHITE, "いいえ");
+	DrawGraph(0, 0, backImg, TRUE);
+	if (cursorPos == 0)	DrawBox(220, 270, 420, 330, WHITE, FALSE);
+	if (cursorPos == 1)	DrawBox(220, 350, 420, 410, WHITE, FALSE);
 
 }
 

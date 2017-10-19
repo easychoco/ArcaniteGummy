@@ -74,7 +74,6 @@ void Stage43::initialize()
 	converseFlag1fin = false;
 	converseFlag2 = true;
 	converseFlag2fin = false;
-	vsBoss = false;
 	imageSakuya = LoadGraph("Data/Image/Character/haribote_sakuya.png");
 	imageNue = LoadGraph("Data/Image/Character/haribote_nueR.png");
 
@@ -84,7 +83,7 @@ void Stage43::initialize()
 	//復活したら会話フラグを折る
 	if (restart)
 	{
-		//converseFlag0 = false;
+		converseFlag0 = false;
 	}
 }
 
@@ -122,7 +121,7 @@ void Stage43::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	////ボス戦手前の会話
 	if (now_stage_num == 2 && converseFlag1 &&_player->getVector2()->y() == 1536)
 	{
-		vsBoss = true;
+
 		gameMain->startConverse(431);
 		converseFlag1 = false;
 		fran->setPlayer(_player->getVector2());
@@ -136,7 +135,6 @@ void Stage43::updateConverse(GameMain* gameMain, PlayerChild* _player)
 		converseFlag0 = false;
 	}
 
-	if (vsBoss)_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 + 16));
 
 }
 

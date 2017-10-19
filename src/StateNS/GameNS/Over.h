@@ -19,7 +19,7 @@ public:
 
 private:
 	void initialize();
-
+	int backImg;
 	bool prePush;
 	int cursorPos;
 

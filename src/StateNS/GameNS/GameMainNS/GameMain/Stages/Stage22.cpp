@@ -62,7 +62,14 @@ void Stage22::initialize()
 	converseFlag0fin = false;
 	startX = 144, startY = 704;
 
-	findRestartPoint();
+	//•œŠˆ
+	bool restart = findRestartPoint();
+	//•œŠˆ‚µ‚½‚ç‰ï˜bƒtƒ‰ƒO‚ğÜ‚é
+	if (restart)
+	{
+		converseFlag0 = false;
+		converseFlag0fin = true;
+	}
 }
 
 
