@@ -128,7 +128,7 @@ void EnemyChild::processDamage()
 			hittedAction();
 			sound->playSound("damage_enemy");
 		}
-		if (damagedTime > 60)
+		if (damagedTime > 10)
 		{
 			damaged = false;
 			damagedTime = 0;

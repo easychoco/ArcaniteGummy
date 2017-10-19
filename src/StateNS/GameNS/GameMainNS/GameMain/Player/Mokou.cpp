@@ -80,8 +80,8 @@ PlayerChild* Mokou::update(const StageChild* _stage)
 
 	if (!canMove)
 	{
-		if (CheckHitKey(KEY_INPUT_RIGHT))this->direction = false;
-		else if (CheckHitKey(KEY_INPUT_LEFT))this->direction = true;
+		if (Input_RIGHT())this->direction = false;
+		else if (Input_LEFT())this->direction = true;
 	}
 
 	if (canChangeCharacter())

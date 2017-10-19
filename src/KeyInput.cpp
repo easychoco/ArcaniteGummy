@@ -1,6 +1,8 @@
 #include "KeyInput.h"
 #include "DXLib.h"
 
+#include <fstream>
+
 const bool toBoolean[2]{ false, true };
 
 //以下のコマンドで設定
@@ -194,6 +196,46 @@ void setLEFT(unsigned _in)
 	INPUT_LEFT = _in;
 }
 
+void loadKeyConfig()
+{
+	std::ifstream fin("keyinput.txt");
+
+	//ファイルがなければreturn
+	if (!fin)return;
+
+	fin >> INPUT_OK;
+	fin >> INPUT_NO;
+	fin >> INPUT_ATTACK;
+	fin >> INPUT_JUMP;
+	fin >> INPUT_DASH;
+	fin >> INPUT_SPECIAL;
+	fin >> INPUT_CHANGE;
+	fin >> INPUT_PAUSE;
+	fin >> INPUT_UP;
+	fin >> INPUT_RIGHT;
+	fin >> INPUT_DOWN;
+	fin >> INPUT_LEFT;
+}
+
+void saveKeyConfig()
+{
+	std::ofstream fout("keyinput.txt");
+	using std::endl;
+
+	fout << INPUT_OK << endl;
+	fout << INPUT_NO << endl;
+	fout << INPUT_ATTACK << endl;
+	fout << INPUT_JUMP << endl;
+	fout << INPUT_DASH << endl;
+	fout << INPUT_SPECIAL << endl;
+	fout << INPUT_CHANGE << endl;
+	fout << INPUT_PAUSE << endl;
+	fout << INPUT_UP << endl;
+	fout << INPUT_RIGHT << endl;
+	fout << INPUT_DOWN << endl;
+	fout << INPUT_LEFT << endl;
+
+}
 
 
 

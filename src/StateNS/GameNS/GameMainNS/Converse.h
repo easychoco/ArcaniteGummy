@@ -23,6 +23,7 @@ private:
 	int stageNum;
 	unsigned passageNum;
 	bool prePush;
+	bool initial_cancel;
 	GameMain* main;
 	
 	bool nextPassage();

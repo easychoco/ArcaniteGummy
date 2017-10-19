@@ -17,7 +17,6 @@ Yachamo::Yachamo(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 	initialize();
 };
 
-
 Yachamo::~Yachamo()
 {
 	//DeleteGraph‚Í‚µ‚È‚¢
@@ -133,8 +132,6 @@ stage(_stage)
 	//for Debug
 	this->damageValue = 20;
 
-//	mImage = 0;
-//	int tmp = LoadDivGraph("Data/Image/Fire.png", 3, 1, 3, 96, 32, images);
 	mImage = LoadGraph("Data/Image/Yachamo_fire.png");
 	assert(mImage != -1 && "ƒ„ƒ`ƒƒƒ‚Fire‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 }

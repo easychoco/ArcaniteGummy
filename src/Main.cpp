@@ -11,6 +11,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	ClearDrawScreen();
 	SetMainWindowText("ArcGum");
 
+	loadKeyConfig();
 	Parent* parent = new Parent();
 
 	//マップチップ読み込み

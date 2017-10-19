@@ -8,26 +8,16 @@ namespace GameMainNS{
 bool BeltConveyor::imgLoad = false;
 int BeltConveyor::images[3];
 
-BeltConveyor::BeltConveyor(float _dx, Vector2 _pos) :
-BeltConveyor::BeltConveyor(_dx, _pos, BeltPos::POS_CENTER)
-{
-
-}
 
 
-BeltConveyor::BeltConveyor(float _dx, Vector2 _pos, BeltPos _beltPos) : 
+BeltConveyor::BeltConveyor(float _dx, Vector2 _pos) : 
 GimmickChild(_pos)
 {
-	initialize();
+	loadImage();
 	setMovingSpeed(_dx);
 
+	initialize();
 
-	switch (_beltPos)
-	{
-	case BeltPos::POS_LEFT: mImage = images[0]; break;
-	case BeltPos::POS_CENTER: mImage = images[1]; break;
-	case BeltPos::POS_RIGHT: mImage = images[2]; break;
-	}
 }
 
 BeltConveyor::~BeltConveyor()
@@ -37,16 +27,17 @@ BeltConveyor::~BeltConveyor()
 
 void BeltConveyor::initialize()
 {
-	loadImage();
 
 	isActive = true;
-	dx = 0.0f;
 	mTime = 0;
+
+	this->direction = this->dx > 0;
 }
 
 void BeltConveyor::update()
 {
 	mTime++;
+	mImage = images[mTime / 10 % 3];
 }
 
 void BeltConveyor::draw(const Vector2* _camera) const
@@ -59,7 +50,19 @@ void BeltConveyor::draw(const Vector2* _camera) const
 	int draw_y = 240 + (pos.raw_y - _camera->raw_y) / MyData::vectorRate;
 
 	//•`‰æ
-	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
+	if (direction)
+	{
+		//‰EŒü‚«‚È‚ç
+		SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+		DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, false);
+	}
+	else
+	{
+		//¶Œü‚«‚È‚ç
+		SetDrawBlendMode(DX_BLENDMODE_SUB, 255);
+		DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, true);
+	}
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
 }
 
 void BeltConveyor::apply(Character* _character)

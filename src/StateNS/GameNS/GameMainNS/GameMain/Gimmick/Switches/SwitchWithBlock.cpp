@@ -7,6 +7,10 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
 
+bool SwitchWithBlock::imgLoad;
+int SwitchWithBlock::images[2];
+
+
 SwitchWithBlock::SwitchWithBlock(int x, int y) : SwitchWithBlock(x, y, 1 << 29, false)
 {
 
@@ -64,6 +68,9 @@ void SwitchWithBlock::update(const StageChild* _stage)
 		isPushed = false;
 		mTime = 0;
 	}
+
+	this->mImage = ((isPushed) ? images[1] : images[0]);
+
 	preOnActiveArea = tmpOnActiveArea;
 	tmpOnActiveArea = false;
 }
@@ -77,8 +84,7 @@ void SwitchWithBlock::draw(const Vector2* _camera) const
 	int draw_y = 240 + (p->raw_y - _camera->raw_y) / MyData::vectorRate;
 
 	//描画
-	if(!isPushed)DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true);
-	else DrawCircle(draw_x, draw_y, 5, GREEN);
+	DrawRotaGraph(draw_x, draw_y + 6, 1.0, 0.0, mImage, true);
 }
 
 void SwitchWithBlock::apply(Character* _character)
@@ -153,8 +159,7 @@ StageChild::ChipType SwitchWithBlock::getChipType() const
 //==============================================
 void SwitchWithBlock::loadImage()
 {
-	//TODO 画像差し替え
-	mImage = LoadGraph("Data/Image/switch.png");
+	int tmp = LoadDivGraph("Data/Image/Switch.png", 2, 2, 1, 32, 32, images);
 	assert(mImage != -1 && "スイッチ画像読み込みエラー！");
 }
 

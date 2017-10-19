@@ -40,6 +40,9 @@ void setRIGHT(unsigned);
 void setDOWN(unsigned);
 void setLEFT(unsigned);
 
+void loadKeyConfig();
+void saveKeyConfig();
+
 /*
 extern unsigned INPUT_OK;
 extern unsigned INPUT_NO;

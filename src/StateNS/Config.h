@@ -22,6 +22,7 @@ private:
 	bool nowKeyConfig;
 	int nowInput;
 
+
 };
 
 

@@ -19,7 +19,6 @@ Clear::Clear()
 Clear::~Clear()
 {
 	sound->stopSoundOfFile();
-
 }
 
 void Clear::initialize()
@@ -81,7 +80,7 @@ Child* Clear::update(StateNS::Parent* _parent)
 
 
 
-	if (Input_Z() && !prePushZ)
+	if (Input_OK() && !prePushZ)
 	{
 		if (cursorPos == 0) {
 			int nextStage = _parent->stageNum;

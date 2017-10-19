@@ -21,7 +21,6 @@ public:
 	};
 
 	BeltConveyor(float, Vector2);
-	BeltConveyor(float, Vector2, BeltPos);
 	~BeltConveyor();
 	void initialize();
 	void update();
@@ -38,6 +37,7 @@ public:
 private:
 	float dx;
 	int mTime;
+	bool direction;
 
 	static bool imgLoad;
 	static int images[3];

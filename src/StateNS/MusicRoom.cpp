@@ -27,7 +27,7 @@ void MusicRoom::initialize()
 Child* MusicRoom::update(const GrandParent* parent)
 {
 	Child* next = this;
-	if (Input_X())next = new StateNS::Title(2,1);
+	if (Input_NO())next = new StateNS::Title(2,1);
 	return next;
 }
 

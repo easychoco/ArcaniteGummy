@@ -5,6 +5,8 @@
 #include "..\KeyInput.h"
 #include "Title.h"
 
+#include <fstream>
+
 
 namespace StateNS{
 
@@ -86,7 +88,11 @@ Child* Config::update(const GrandParent* parent)
 
 		}
 		prePush = (input > 0);
-		if (nowInput > 11)nowKeyConfig = false;
+		if (nowInput > 11)
+		{
+			nowKeyConfig = false;
+			saveKeyConfig();
+		}
 	}
 
 	return next;
@@ -110,8 +116,8 @@ void Config::draw() const
 	}
 	else
 	{
-		DrawFormatString(30,  30, DARKGLAY, "すすむに使うボタンを押して");
-		DrawFormatString(30,  60, DARKGLAY, "もどるに使うボタンを押して");
+		DrawFormatString(30,  30, DARKGLAY, "決定に使うボタンを押して");
+		DrawFormatString(30,  60, DARKGLAY, "キャンセルに使うボタンを押して");
 		DrawFormatString(30,  90, DARKGLAY, "攻撃に使うボタンを押して");
 		DrawFormatString(30, 120, DARKGLAY, "ジャンプに使うボタンを押して");
 		DrawFormatString(30, 150, DARKGLAY, "ダッシュに使うボタンを押して");
@@ -125,8 +131,8 @@ void Config::draw() const
 
 		switch (nowInput)
 		{
-		case  0: DrawFormatString(30,  30, WHITE, "すすむに使うボタンを押して"); break;
-		case  1: DrawFormatString(30,  60, WHITE, "もどるに使うボタンを押して"); break;
+		case  0: DrawFormatString(30,  30, WHITE, "決定に使うボタンを押して"); break;
+		case  1: DrawFormatString(30,  60, WHITE, "キャンセルに使うボタンを押して"); break;
 		case  2: DrawFormatString(30,  90, WHITE, "攻撃に使うボタンを押して"); break;
 		case  3: DrawFormatString(30, 120, WHITE, "ジャンプに使うボタンを押して"); break;
 		case  4: DrawFormatString(30, 150, WHITE, "ダッシュに使うボタンを押して"); break;

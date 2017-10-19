@@ -56,6 +56,8 @@ private:
 	const int limitTime;
 	const bool notChangeable;
 
+	static int images[2];
+	static bool imgLoad;
 	void loadImage();
 };
 

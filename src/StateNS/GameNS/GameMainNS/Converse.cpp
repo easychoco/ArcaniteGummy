@@ -18,6 +18,7 @@ Converse::Converse(GameMain* _main, int _stageNum)
 	stageNum = _stageNum;
 	initialize();
 	prePush = true;
+	initial_cancel = Input_NO();
 }
 
 Converse::~Converse()
@@ -29,6 +30,8 @@ void Converse::initialize()
 {
 	passageNum = 0;
 	prePush = false;
+
+	if (initial_cancel)initial_cancel = !Input_NO();
 
 	string textFile = "Data/Text/Converse/stage";
 	textFile += std::to_string(stageNum);
@@ -49,7 +52,7 @@ Child* Converse::update(GameParent* _parent)
 	Child* next = this;
 
 	bool finish = false;
-	if ((Input_OK() && !prePush) || Input_NO())finish = nextPassage();
+	if ((Input_OK() && !prePush) || (Input_NO() && !initial_cancel))finish = nextPassage();
 
 	//for Debug
 	if (finish)next = main;
