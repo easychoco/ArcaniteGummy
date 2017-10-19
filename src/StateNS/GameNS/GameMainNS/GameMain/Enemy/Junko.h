@@ -61,7 +61,7 @@ private:
 
 	private:
 		int time;
-		const int radius = PLAYER_CHIP_HEIGHT_RATE() * 2;
+		const int radius = PLAYER_CHIP_HEIGHT_RATE() * 2.5;
 		bool mIsActive;
 
 		Character* parent;

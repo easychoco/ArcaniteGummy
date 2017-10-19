@@ -111,7 +111,7 @@ void Junko::draw_other(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//•`‰æ
-	DrawString(draw_x - 16, draw_y - 32, "ƒŒÏ", BLUE);
+	//DrawString(draw_x - 16, draw_y - 32, "ƒŒÏ", BLUE);
 
 	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
 }
@@ -161,19 +161,19 @@ void Junko::Shot_around::initialize(const Vector2* _pos)
 	time = 0;
 	this->mIsActive = false;
 
-	shot1 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
-	shot2 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
-	shot3 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
-	shot4 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
-	shot5 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
-	shot6 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
+	shot1 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
+	shot2 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
+	shot3 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
+	shot4 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
+	shot5 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
+	shot6 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
 
-	shot1->setImage(0);
-	shot2->setImage(0);
-	shot3->setImage(0);
-	shot4->setImage(0);
-	shot5->setImage(0);
-	shot6->setImage(0);
+	shot1->setImage(2);
+	shot2->setImage(2);
+	shot3->setImage(2);
+	shot4->setImage(2);
+	shot5->setImage(2);
+	shot6->setImage(2);
 
 	shot1->isActive = false;
 	shot2->isActive = false;
@@ -286,17 +286,17 @@ void Junko::Shot_cycle::initialize(const Vector2* _pos)
 	this->center_pos = parent->getVector2();
 	this->mIsActive = false;
 
-	shot1 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
-	shot2 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
-	shot3 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
-	shot4 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
-	shot5 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
+	shot1 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
+	shot2 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
+	shot3 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
+	shot4 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
+	shot5 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 30);
 	//shot6 = new Shot(parent, _pos->raw_x, _pos->raw_y, 0, 0, 50);
 
 	shot1->setImage(1);
-	shot2->setImage(1);
-	shot3->setImage(1);
-	shot4->setImage(1);
+	shot2->setImage(2);
+	shot3->setImage(3);
+	shot4->setImage(4);
 	shot5->setImage(1);
 	//shot6->loadImage("Data/Image/Junko_attack2.png");
 
