@@ -71,6 +71,8 @@ PlayerChild* Sakuya::update(const StageChild* _stage)
 			next = new Nue(x, y, hpController.getHP());
 		else if (nextCharacter & StageChild::ChangeableCharacter::CHARA_MOKOU)
 			next = new Mokou(x, y, hpController.getHP());
+
+		if (this->cameraLocked)next->lockCameraPos(this->camera);
 	}
 
 	return next;
@@ -135,7 +137,7 @@ void Sakuya::processStopDynamics()
 	
 
 	//C‚ÅŽžŽ~‚ß
-	if (Input_C() && !prePushC && notStoppingTime > 60)
+	if (Input_C() && !prePushC && notStoppingTime > 120)
 	{
 		isStoppingTime = true;
 		notStoppingTime = 0;

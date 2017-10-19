@@ -126,6 +126,8 @@ PlayerChild* Nue::update(const StageChild* _stage)
 			next = new Mokou(x, y, hpController.getHP());
 		else if (nextCharacter & StageChild::ChangeableCharacter::CHARA_SAKUYA)
 			next = new Sakuya(x, y, hpController.getHP());
+
+		if (this->cameraLocked)next->lockCameraPos(this->camera);
 	}
 	return next;
 }

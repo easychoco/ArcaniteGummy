@@ -39,7 +39,7 @@ void Stage53::initialize()
 
 
 	//‹P–éÝ’è
-	kaguya = new Kaguya(95 * 32, 48 * 32);
+	kaguya = new Kaguya(95 * 32, 48 * 32, 90 * 32, 42 * 32 + 16);
 
 	converseFlag0 = true;
 	converseFlag1 = true;
@@ -125,7 +125,6 @@ void Stage53::updateConverse(GameMain* gameMain, PlayerChild* _player)
 		gameMain->startConverse(530);
 		converseFlag0 = false;
 	}
-
 }
 
 void Stage53::draw(const Vector2* _camera) const

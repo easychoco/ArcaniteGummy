@@ -53,7 +53,6 @@ void Stage11::initialize()
 		"”C‚¹‚Ä‚­‚ê",
 		"•ª‚©‚ç‚È‚¢‚±‚Æ‚ª‚ ‚Á‚½‚ç",
 		"Žè‚ð‹“‚°‚é‚ñ‚¾‚¼",
-
 	};
 
 	Guide* guide = new Guide(272, 1552, message);

@@ -79,7 +79,7 @@ void SaveData::save(int _stageNum)
 //別スロットへのセーブ
 void SaveData::saveNewData(int _stageNum, int _slot)
 {
-	if (_slot < allDatas.size())allDatas[_slot] = _stageNum;
+	if (_slot < (int)allDatas.size())allDatas[_slot] = _stageNum;
 	else assert("Save:: slot範囲外");
 
 	this->slotNum = _slot;

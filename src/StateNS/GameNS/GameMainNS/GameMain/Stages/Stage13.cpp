@@ -75,12 +75,10 @@ void Stage13::initialize()
 
 
 void Stage13::update(GameMain* gameMain, PlayerChild* _player)
-{
-	
+{	
 	updateConverse(gameMain, _player);
 	
 	standardUpdate(_player);
-
 }
 
 void Stage13::updateConverse(GameMain* gameMain,PlayerChild* _player) 

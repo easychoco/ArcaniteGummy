@@ -14,30 +14,50 @@ class Shot;
 class Kaguya : public EnemyChild
 {
 public:
-	Kaguya(int x, int y);
+	Kaguya(int x, int y, int, int);
 	~Kaguya();
 	virtual void draw(const Vector2* camera) const override;
 	void update(const StageChild* _stage, const Vector2* _camera);
 	bool makeEnemy() const { return isMakingEnemy;}
 	bool makeDark() const { return darkTime > 0; }
-	void setMuteki(bool _muteki) { this->hpController.isMuteki = _muteki; }
+	void setMuteki(bool _muteki) { mutekiByEne = _muteki; }
 
 	const int maxCreateEnemyNum = 3;
 
 private:
 	int mTime;
+	int timeToNextMotion;
+	int move_type;
+
 	bool init_attacks;
 
+	bool attack_vanish;
+	bool attack_reflect;
+	bool attack_spread;
+	bool attack_dark;
+	bool attack_enemy;
+
+	void processReflect(const StageChild*, int&, int&);
+	void processSpread(const StageChild*, int&, int&);
+	void processEnemy(const StageChild*, int&, int&);
+
+	const Vector2 initial_pos;
+
 	bool isMakingEnemy;
+	bool mutekiByEne;
+
 
 	const int maxDarkTime = 300;
 	int darkTime;
+	void setDark(int _darkTime) { darkTime = _darkTime; }
 
 	int vanishTime = 0;
 
 	bool imgLoad;
 	int images[32];
 	void loadImage();
+
+	int dx = 4000;
 
 	//CharacterÇÃä÷êî
 	void hittedAction();
