@@ -18,6 +18,9 @@ private:
 	int mBackImg;
 	float volume;
 	
+	bool prePush;
+	bool nowKeyConfig;
+	int nowInput;
 
 };
 

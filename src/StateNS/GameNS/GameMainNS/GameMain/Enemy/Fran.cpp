@@ -225,9 +225,6 @@ void Fran::move(const StageChild* _stage, int& _dx, int& _dy)
 		move_type = GetRand(6);
 	}
 
-	//for Debug
-	move_type = 5;
-
 	switch (move_type)
 	{
 	case 0: case 1: case 2:

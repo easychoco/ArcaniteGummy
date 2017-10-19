@@ -39,7 +39,7 @@ void Stage53::initialize()
 
 
 	//‹P–éİ’è
-	kaguya = new Kaguya(95 * 32, 48 * 32);
+	kaguya = new Kaguya(95 * 32, 48 * 32, 90 * 32, 42 * 32 + 16);
 
 	converseFlag0 = true;
 	converseFlag1 = true;
@@ -74,14 +74,14 @@ void Stage53::update(GameMain* gameMain, PlayerChild* _player)
 		kaguya->setMuteki(true);
 		for (int i = 0; i < kaguya->maxCreateEnemyNum; i++)
 		{
-			int ene_num = GetRand(5);
+			int ene_num = GetRand(7);
 
 			//’nã‚Ì“G
-			if (ene_num <= 3)
+			if (ene_num <= 5)
 			{
 				maps[0]->addEnemy(itoE(ene_num), _player->getVector2(), kaguya->getVector2()->x(), kaguya->getVector2()->y() + 16);
 			}
-			else
+			else //‹ó’†‚Ì“G
 			{
 				maps[0]->addEnemy(itoE(ene_num), _player->getVector2(), kaguya->getVector2()->x(), kaguya->getVector2()->y() - 100);
 			}
@@ -101,7 +101,7 @@ void Stage53::update(GameMain* gameMain, PlayerChild* _player)
 
 void Stage53::updateConverse(GameMain* gameMain, PlayerChild* _player)
 {
-	_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 + 16));
+	//_player->lockCameraPos(new Vector2(90 * 32, 43 * 32 + 16));
 
 	if (!converseFlag1 && !converseFlag1fin)converseFlag1fin = true;
 	if (converseFlag1 && !kaguya->isAlive())
@@ -126,7 +126,6 @@ void Stage53::updateConverse(GameMain* gameMain, PlayerChild* _player)
 		gameMain->startConverse(530);
 		converseFlag0 = false;
 	}
-
 }
 
 void Stage53::draw(const Vector2* _camera) const

@@ -1,7 +1,7 @@
 #include "Kaguya.h"
 #include "Shot.h"
 
-
+#include "..\Collision.h"
 
 namespace StateNS {
 namespace GameNS {
@@ -9,8 +9,9 @@ namespace GameMainNS{
 
 
 
-Kaguya::Kaguya(int _x, int _y) : 
-EnemyChild(1000, _x, _y, 32, 32, false, true)
+Kaguya::Kaguya(int _x, int _y, int cx, int cy) : 
+EnemyChild(1000, _x, _y, 32, 64, false, true),
+initial_pos(cx, cy)
 {
 	loadImage();
 	
@@ -31,11 +32,18 @@ void Kaguya::initialize()
 	this->init_attacks = false;
 
 	this->mImage = images[0];
-
+	
 
 	this->isMakingEnemy = false;
 	this->darkTime = 0;
 	this->vanishTime = 0;
+
+	this->attack_vanish = false;
+	this->attack_reflect= false;
+	this->attack_spread	= false;
+	this->attack_dark	= false;
+	this->attack_enemy	= false;
+	this->mutekiByEne = false;
 }
 
 void Kaguya::initialize_attacks()
@@ -48,7 +56,6 @@ void Kaguya::initialize_attacks()
 
 		reflects.push_back(reflect_tmp);
 	}
-
 
 	spreads.reserve(maxReflectNum);
 	for (auto i = 0; i < maxReflectNum; i++)
@@ -66,29 +73,32 @@ void Kaguya::update(const StageChild* _stage, const Vector2* _camera)
 {
 	if (!init_attacks)initialize_attacks();
 
-
 	++this->mTime;
 	this->mDirection = this->p->raw_x > player->raw_x;
+	mImage = images[0];
 
 	standardAction(_stage);
 
-	/*
 	//Á‚¦‚éŠÖŒW
-	//if(Á‚¦‚é‚È‚ç)
-	vanishTime = max(0, vanishTime - 1);
-	if (vanishTime > 0)this->hpController.isMuteki = true;
-	else this->hpController.isMuteki = false;
-	*/
-
-
-	//ˆÃˆÅŠÖŒW
-	//if(ˆÃˆÅ‚É‚·‚é‚È‚ç)this->darkTime = maxDarkTime;
-	darkTime = max(0, darkTime - 1);
+	if (this->attack_vanish)
+	{
+		vanishTime = 180;
+		this->attack_vanish = false;
+	}
+	
+	//ˆÃˆÅˆ—
+	this->darkTime = max(0, darkTime - 1);
 
 	//“Gì¬ŠÖ˜A
-	//if(“G‚ğì‚é‚È‚ç)this->isMakingEnemy = true;
 	if (this->isMakingEnemy)this->isMakingEnemy = false;
-	
+	if (this->attack_enemy)this->isMakingEnemy = true;
+
+	//vanishTime‚ª³‚ÌŠÔ‚Í–³“G
+	vanishTime = max(0, vanishTime - 1);
+
+	//“G‚ª‚¢‚é‚©Á‚¦‚Ä‚¢‚é‚©‚Å–³“G‰»
+	this->collision->noCollide = (mutekiByEne | (vanishTime > 0));
+
 
 	//Shot_reflect
 	for (auto& reflect : reflects)
@@ -111,8 +121,7 @@ void Kaguya::update(const StageChild* _stage, const Vector2* _camera)
 	}
 
 	//*
-	//if(”½Ë’e‚È‚ç)
-	if (mTime % 120 == 0)
+	if (attack_reflect)
 	{
 		for (auto& reflect : reflects)
 		{
@@ -126,9 +135,8 @@ void Kaguya::update(const StageChild* _stage, const Vector2* _camera)
 	}
 	//*/
 
-	/*
-	//if(U’e‚È‚ç)
-	if (mTime % 17 == 0)
+	//*
+	if (attack_spread)
 	{
 		for (auto& spread : spreads)
 		{
@@ -142,25 +150,20 @@ void Kaguya::update(const StageChild* _stage, const Vector2* _camera)
 	//*/
 }
 
-void Kaguya::move(const StageChild* _stage, int& _dx, int& _dy)
-{
-
-}
-
 void Kaguya::draw(const Vector2* _camera) const
 {
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
 	//‚â‚ç‚ê‚Ä‚¢‚é‚Æ‚«
 	if (!mIsAlive)
 	{
 		//‚â‚ç‚êƒAƒjƒ[ƒVƒ‡ƒ“‚ğ•`‰æ
 		if (deadTime < 30)
 		{
-			int draw_x = 320 + p->x() - _camera->x();
-			int draw_y = 240 + p->y() - _camera->y();
-
 			SetDrawBlendMode(DX_BLENDMODE_ADD, 100);
-			DrawCircle(draw_x, draw_y, (15 - abs(15 - deadTime)) * 10 / 7, GLAY, true);
-			DrawCircle(draw_x, draw_y, (15 - abs(15 - deadTime)) * 8 / 7, WHITE, true);
+			DrawCircle(draw_x, draw_y, (15 - abs(15 - deadTime)) * 10 / 7,  GLAY, true);
+			DrawCircle(draw_x, draw_y, (15 - abs(15 - deadTime)) *  8 / 7, WHITE, true);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 100);
 		}
 		return;
@@ -170,7 +173,20 @@ void Kaguya::draw(const Vector2* _camera) const
 	checkIsActive(_camera);
 	if (!mIsActive)return;
 
-	if(vanishTime == 0)standardDraw(_camera, mDirection);
+	standardDraw(_camera, mDirection);
+
+	//ƒoƒŠƒA•\¦
+	if(vanishTime != 0)
+	{
+		DrawCircle(draw_x, draw_y, max(16, vanishTime / 3) + (int)(5 * cos(pi(vanishTime / 6.0f))), WHITE, false);
+		DrawCircle(draw_x, draw_y, max(16, vanishTime / 3) + (int)(5 * sin(pi(vanishTime / 6.0f))), GREEN, false);
+	}
+	else if (mutekiByEne)
+	{
+		DrawCircle(draw_x, draw_y, 32 + (int)(2 * cos(pi(mTime / 4.0f))), WHITE, false);
+		DrawCircle(draw_x, draw_y, 32 + (int)(2 * sin(pi(mTime / 4.0f))), RED, false);
+	}
+
 	draw_other(_camera);
 }
 
@@ -199,6 +215,35 @@ void Kaguya::draw_other(const Vector2* _camera) const
 	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
 }
 
+void Kaguya::move(const StageChild* _stage, int& _dx, int& _dy)
+{
+	if (mTime > timeToNextMotion)
+	{
+		mTime = 0;
+		move_type = GetRand(6);
+	}
+
+	//for Debug
+	move_type = 4;
+
+	switch (move_type)
+	{
+	case 0: 
+		processReflect(_stage, _dx, _dy); break;
+	case 1: case 2: case 3:
+		processSpread(_stage, _dx, _dy); break;
+	case 4: case 5:
+		processEnemy(_stage, _dx, _dy); break;
+	}
+
+	//‹ó’†‚É”ò‚Ñã‚ª‚é‚©’nã‚É~‚è‚Ä‚¢‚é“r’†
+	if (_dx != 0)
+	{
+		this->mDirection = _dx < 0;
+		this->mImage = images[15];
+	}
+}
+
 
 //==============================================
 //“à•”ƒvƒ‰ƒCƒx[ƒgŠÖ”
@@ -211,9 +256,99 @@ void Kaguya::loadImage()
 
 void Kaguya::hittedAction()
 {
-	//if(Á‚¦‚é‚È‚ç)
-	//vanishTime = 180;
+	this->attack_vanish = true;
 }
+
+void Kaguya::processReflect(const StageChild* _stage, int& _dx, int& _dy)
+{
+	timeToNextMotion = 810;
+
+	attack_reflect = false;
+	if (mTime < 30)
+	{
+		mImage = images[2];
+	}
+	else if (mTime == 30)
+	{
+		attack_reflect = true;
+	}
+	else if (mTime < 180);
+	else if (mTime < 210)
+	{
+		mImage = images[2];
+	}
+	else if (mTime == 210)
+	{
+		attack_reflect = true;
+	}
+	else if (mTime < 420);
+	else if (mTime < 450)
+	{
+		mImage = images[2];
+	}
+	else if (mTime == 450)
+	{
+		attack_reflect = true;
+	}
+	else if (mTime < 540);
+	else if (mTime < 570)
+	{
+		mImage = images[2];
+	}
+	else if (mTime == 570)
+	{
+		attack_reflect = true;
+	}
+}
+
+void Kaguya::processSpread(const StageChild* _stage, int& _dx, int& _dy)
+{
+	timeToNextMotion = 360;
+	attack_spread = false;
+	if (mTime < 60)
+	{
+		_dx = 0;
+		_dy = -4000;
+	}
+	else if (mTime < 300)
+	{
+		attack_spread = true;
+		//¶‰E‰•œ
+		_dx = dx;
+		if (p->raw_x + dx < initial_pos.raw_x - 200000 || initial_pos.raw_x + 200000 < p->raw_x + _dx)
+		{
+			dx = -dx;
+			p->raw_x += dx;
+		}
+	}
+	else if (mTime == 300)
+	{
+		attack_spread = false;
+		for (auto& sp : spreads)
+		{
+			if (sp->isActive())
+			{
+				sp->setActive(false);
+			}
+		}
+	}
+	else
+	{
+		_dx = 0;
+		_dy = getBottomDiffer(_stage, 5000, false);
+	}
+}
+
+void Kaguya::processEnemy(const StageChild* _stage, int& _dx, int& _dy)
+{
+	timeToNextMotion = 450;
+	attack_enemy = false;
+
+	if (mTime > 300)return;
+	if (mTime % 90 == 0)attack_enemy = true;
+}
+
+
 
 //==============================================
 //Shot_reflectƒNƒ‰ƒX
@@ -260,7 +395,7 @@ void Kaguya::Shot_reflect::update(const Vector2* _camera)
 {
 	++time;
 
-	if (time > 360)this->setActive(false);
+	if (time > 240)this->setActive(false);
 	
 	for (auto& s : shots)
 	{
@@ -435,9 +570,10 @@ void Kaguya::Shot_spread::setStatus(const Vector2* _pos)
 	time = 0;
 	this->center_pos = (*_pos / vectorRate);
 
+	int initial_phase = GetRand(1);
 	for (int i = 0; i < maxShotNum; i++)
 	{
-		int angle = 60 * i;
+		int angle = 60 * i + initial_phase * 30;
 		shots[i]->setStatus_2args(
 			Vector2(
 				_pos->raw_x + (int)(radius * cosf_degree(angle)),

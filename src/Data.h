@@ -107,6 +107,7 @@ constexpr int PLAYER_MAX_HP = 200;
 
 //êF
 const unsigned BLACK = GetColor(0, 0, 0);
+const unsigned DARKGLAY = GetColor(30, 30, 30);
 const unsigned GLAY = GetColor(128, 128, 128);
 const unsigned WHITE = GetColor(255, 255, 255);
 const unsigned RED = GetColor(255, 0, 0);
