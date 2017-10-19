@@ -25,8 +25,9 @@ public:
 	void burnedAction(){ /*do nothing*/ }
 	void checkActive(const Vector2* camera);
 	int getDamageValue() { return damageValue; }
+	void setActive(bool _active) const { this->isActive = _active; }
 
-	bool isActive;
+	mutable bool isActive;
 	const Character* parent;
 	const ObjectID id;
 

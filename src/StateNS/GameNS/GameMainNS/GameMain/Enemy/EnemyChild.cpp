@@ -116,6 +116,7 @@ void EnemyChild::checkIsActive(const Vector2* _camera) const
 {
 	//‰æ–Ê“à‚É‚¢‚È‚¯‚ê‚Îfalse
 	this->mIsActive = (abs(p->raw_x - _camera->raw_x) < 640000 && abs(p->raw_y - _camera->raw_y) < 480000);
+	if(!this->mIsActive)this->setChildActive(false);
 }
 
 void EnemyChild::processDamage()

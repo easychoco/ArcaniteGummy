@@ -18,7 +18,6 @@ Pikachi::Pikachi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 	initialize();
 };
 
-
 Pikachi::~Pikachi()
 {
 	//DeleteGraph‚Í‚µ‚È‚¢
@@ -33,7 +32,6 @@ void Pikachi::initialize()
 
 void Pikachi::update(const StageChild* _stage,const Vector2* _camera)
 {
-
 	if (actState == ENE_ACT_ATTACK || actState == ENE_ACT_DEAD) {
 		if (aTime >= 60)actState = ENE_ACT_NONE;
 	}
@@ -153,9 +151,6 @@ Pikachi::Thunder::~Thunder()
 void Pikachi::Thunder::update()
 {
 	mTime++;
-//	int dx_tmp = getHorizontalDiffer(stage, dx, false, false);
-//	int dy_tmp = dy < 0 ? getTopDiffer(stage, dy, dx < 0, false) : getBottomDiffer(stage, dy, dx < 0, false);
-
 
 	this->p->raw_x += dx;
 	this->p->raw_y += dy;

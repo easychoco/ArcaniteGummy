@@ -45,6 +45,7 @@ protected:
 	//dx ‚Æ dy ‚ÉˆÚ“®—Ê‚ğ“ü‚ê‚é
 	virtual void move(const StageChild*, int& dx, int& dy) = 0;
 	virtual void loadImage() = 0;
+	virtual void setChildActive(bool) const {};
 
 	void standardAction(const StageChild* _stage);
 	//UŒ‚‚Ìvector

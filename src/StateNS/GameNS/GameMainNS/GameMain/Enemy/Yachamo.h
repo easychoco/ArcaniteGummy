@@ -32,8 +32,7 @@ private:
 
 
 	void initialize();
-
-
+	virtual void setChildActive(bool _active) const override { for (auto& a : attacks)a->setActive(_active); }
 
 	int moveSpeed;
 	bool preOnGround;

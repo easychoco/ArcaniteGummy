@@ -38,6 +38,13 @@ void StageChild::initialize()
 {
 	this->now_stage_num = 0;
 	this->changeableCharacter = ChangeableCharacter::CHARA_NONE;
+	this->backDrawType = DRAW_HORIZON;
+
+	this->back_x = 0;
+	this->back_y = 0;
+
+	this->pre_x = 0;
+	this->pre_y = 0;
 }
 
 void StageChild::standardUpdate(PlayerChild* _player)
@@ -76,9 +83,11 @@ void StageChild::updateStoppingDynamics(PlayerChild* _player)
 void StageChild::standardDraw(const Vector2* _camera) const
 {
 	//”wŒi•`‰æ
-	int draw_x = (_camera->x() - MyData::CX) / -5;
-	int draw_y = (_camera->y() - MyData::CY) / -5;
-	DrawGraph(draw_x, draw_y, mBackImg, true);
+	switch (backDrawType)
+	{
+	case DRAW_NORMAL:drawBack_normal(_camera);
+	case DRAW_HORIZON:drawBack_horizontal(_camera);
+	}
 
 	maps[now_stage_num]->draw(_camera);
 
@@ -200,8 +209,34 @@ bool StageChild::findRestartPoint()
 //========================================================================
 // “à•”privateŠÖ”
 //========================================================================
+void StageChild::drawBack_normal(const Vector2* _camera) const 
+{
+	int draw_x = (_camera->x() - MyData::CX) / -5;
+	int draw_y = (_camera->y() - MyData::CY) / -5;
+	DrawGraph(draw_x, draw_y, mBackImg, true);
+
+}
+
+void StageChild::drawBack_horizontal(const Vector2* _camera) const
+{
+	//ƒ}ƒbƒv”wŒi‚ÌƒGƒtƒFƒNƒg•`‰æ
+	back_x--;
+	if (back_x <= -640)back_x = 0;
+	if (back_x > 0)back_x = -640;
+
+	if (_camera->x() > 320)back_x -= (_camera->raw_x - pre_x) / vectorRate;
+	pre_x = _camera->raw_x;
+
+	//if (back_y <= -640)back_y = 0;
+	//if (back_y > 0)back_y = -640;
+
+	//if (_camera->y() > 240)back_y -= (_camera->raw_y - pre_y) / vectorRate;
+	//pre_x = _camera->raw_y;
 
 
+	DrawGraph(back_x, back_y, mBackImg, true);
+	DrawGraph(back_x + 640, back_y, mBackImg, true);
+}
 
 
 }

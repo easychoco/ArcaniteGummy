@@ -126,10 +126,23 @@ protected:
 		ChipType mChipType;
 	};
 
+	enum BackDrawType
+	{
+		DRAW_NORMAL,
+		DRAW_HORIZON,
+	};
+
+	BackDrawType backDrawType;
+
 private:
 	void initialize();
 
-
+	mutable int back_x;
+	mutable int pre_x;
+	mutable int back_y;
+	mutable int pre_y;
+	void drawBack_normal(const Vector2* _camera) const;
+	void drawBack_horizontal(const Vector2* _camera) const;
 };
 
 
