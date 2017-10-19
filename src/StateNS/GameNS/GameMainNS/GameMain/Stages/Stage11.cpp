@@ -58,6 +58,56 @@ void Stage11::initialize()
 	Guide* guide = new Guide(272, 1552, message);
 	maps[0]->addGimmick(guide);
 
+	vector<string> message2
+	{
+		"ゴールフラグだ",
+		"これを取れば",
+		"ステージクリアだぞ",
+	};
+
+	Guide* guide2 = new Guide(89*32+16, 39*32+16, message2);
+	maps[1]->addGimmick(guide2);
+
+	vector<string> message3
+	{
+		"炎で攻撃して",
+		"敵を倒すんだ",
+		"残念ながら",
+		"踏みつけることはできない",
+	};
+
+	Guide* guide3 = new Guide(18 * 32 + 16, 47 * 32 + 16, message3);
+	maps[0]->addGimmick(guide3);
+
+	vector<string> message4
+	{
+		"妹紅は二段ジャンプが",
+		"できるから",
+		"高い足場に届くぞ"
+	};
+
+	Guide* guide4 = new Guide(31 * 32 + 16, 48 * 32 + 16, message4);
+	maps[0]->addGimmick(guide4);
+
+	vector<string> message5
+	{
+		"ダッシュして",
+		"一気に駆け抜けることもできるぞ"
+	};
+
+	Guide* guide5 = new Guide(47 * 32 + 16, 48 * 32 + 16, message5);
+	maps[0]->addGimmick(guide5);
+
+	vector<string> message6
+	{
+		"いろんな種類の敵がいるから",
+		"注意が必要だな"
+	};
+
+	Guide* guide6 = new Guide(8 * 32 + 16, 45 * 32 + 16, message6);
+	maps[1]->addGimmick(guide6);
+
+
 
 	flag = new ClearFlag(Vector2(3056, 1264));
 	maps[1]->addGimmick(flag);

@@ -125,7 +125,8 @@ void Stage33::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	if (!converseFlag2 && !converseFlag2fin)
 	{
 		converseFlag2fin = true;
-		///////////////////////////‹­§“I‚É–…g‚É•ÏX‚·‚é//////////////////
+		//gameMain->setNextCharacter(CHARA_MOKOU);
+		//‹­§“I‚É–…g
 		this->changeableCharacter ^= CHARA_SAKUYA;
 		nue->setPlayer(_player->getVector2());
 		maps[7]->addEnemy(nue);
@@ -158,6 +159,7 @@ void Stage33::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	}
 	if (now_stage_num == 7 && converseFlag0 &&_player->getVector2()->y() == 1536)
 	{
+		_player->lockCameraPos(new Vector2(90 * 32, 42 * 32 + 16));
 		gameMain->startConverse(330);
 		converseFlag0 = false;
 	}
