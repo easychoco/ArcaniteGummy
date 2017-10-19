@@ -125,8 +125,7 @@ void Stage33::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	if (!converseFlag2 && !converseFlag2fin)
 	{
 		converseFlag2fin = true;
-		//gameMain->setNextCharacter(CHARA_MOKOU);
-		//‹­§“I‚É–…g
+		gameMain->setNextCharacter(PlayerCharacter::CHARA_MOKOU);
 		this->changeableCharacter ^= CHARA_SAKUYA;
 		nue->setPlayer(_player->getVector2());
 		maps[7]->addEnemy(nue);
