@@ -3,6 +3,7 @@
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
 #include "..\Player\PlayerChild.h"
+#include "..\Gimmick\Guide.h"
 #include <fstream>
 
 namespace StateNS {
@@ -36,6 +37,27 @@ void Stage41::initialize()
 	this->maps.push_back(new Map(41, 1, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(41, 2, MapPos::POS_UP_DOWN));
 	this->maps.push_back(new Map(41, 3, MapPos::POS_LEFT_FREE));
+
+	vector<string> message
+	{
+		"‚Ê‚¦‚ÍUFO‚Éæ‚Á‚Ä",
+		"‰“‚­‚É”ò‚Ô‚±‚Æ‚ª",
+		"‚Å‚«‚é‚¼"
+	};
+	Guide* guide = new Guide(5 * 32 + 16, 48 * 32 + 16, message);
+	maps[1]->addGimmick(guide);
+
+	vector<string> message2
+	{
+		"‚µ‚á‚ª‚Þ‚±‚Æ‚Å",
+		"•Ï‰»‚µ‚Ä",
+		"“G‚ÌUŒ‚‚ð",
+		"–h‚°‚é‚¼"
+	};
+	Guide* guide2 = new Guide(31 * 32 + 16, 21 * 32 + 16, message2);
+	maps[1]->addGimmick(guide2);
+
+
 	flag = new ClearFlag(Vector2(97 * 32 + 16, 16 * 32 + 16));
 	maps[3]->addGimmick(flag);
 
