@@ -178,13 +178,13 @@ void Kaguya::draw(const Vector2* _camera) const
 	//ƒoƒŠƒA•\Ž¦
 	if(vanishTime != 0)
 	{
-		DrawCircle(draw_x, draw_y, max(16, vanishTime / 3) + 5 * cos(pi(vanishTime / 6.0f)), WHITE, false);
-		DrawCircle(draw_x, draw_y, max(16, vanishTime / 3) + 5 * sin(pi(vanishTime / 6.0f)), GREEN, false);
+		DrawCircle(draw_x, draw_y, max(16, vanishTime / 3) + (int)(5 * cos(pi(vanishTime / 6.0f))), WHITE, false);
+		DrawCircle(draw_x, draw_y, max(16, vanishTime / 3) + (int)(5 * sin(pi(vanishTime / 6.0f))), GREEN, false);
 	}
 	else if (mutekiByEne)
 	{
-		DrawCircle(draw_x, draw_y, 32 + 2 * cos(pi(mTime / 4.0f)), WHITE, false);
-		DrawCircle(draw_x, draw_y, 32 + 2 * sin(pi(mTime / 4.0f)), RED, false);
+		DrawCircle(draw_x, draw_y, 32 + (int)(2 * cos(pi(mTime / 4.0f))), WHITE, false);
+		DrawCircle(draw_x, draw_y, 32 + (int)(2 * sin(pi(mTime / 4.0f))), RED, false);
 	}
 
 	draw_other(_camera);

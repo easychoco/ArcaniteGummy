@@ -31,8 +31,6 @@ void setOK(unsigned);
 void setNO(unsigned);
 void setATTACK(unsigned);
 void setJUMP(unsigned);
-void setATTACK(unsigned);
-void setJUMP(unsigned);
 void setDASH(unsigned);
 void setSPECIAL(unsigned);
 void setCHANGE(unsigned);

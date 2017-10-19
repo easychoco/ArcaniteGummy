@@ -65,23 +65,22 @@ bool Input_D()
 
 bool Input_UP()
 {
-	return toBoolean[CheckHitKey(KEY_INPUT_UP)];
+	return toBoolean[CheckHitKey(KEY_INPUT_UP)] | ((GetJoypadInputState(DX_INPUT_PAD1) & INPUT_UP) > 0);
 }
 
 bool Input_DOWN() 
 {
-	return toBoolean[CheckHitKey(KEY_INPUT_DOWN)];
+	return toBoolean[CheckHitKey(KEY_INPUT_DOWN)] | ((GetJoypadInputState(DX_INPUT_PAD1) & INPUT_DOWN) > 0);
 }
 
 bool Input_RIGHT()
 {
-	return toBoolean[CheckHitKey(KEY_INPUT_RIGHT)];
-
+	return toBoolean[CheckHitKey(KEY_INPUT_RIGHT)] | ((GetJoypadInputState(DX_INPUT_PAD1) & INPUT_RIGHT) > 0);
 }
 
 bool Input_LEFT()
 {
-	return toBoolean[CheckHitKey(KEY_INPUT_LEFT)];
+	return toBoolean[CheckHitKey(KEY_INPUT_LEFT)] | ((GetJoypadInputState(DX_INPUT_PAD1) & INPUT_LEFT) > 0);
 }
 
 bool Input_RETURN()

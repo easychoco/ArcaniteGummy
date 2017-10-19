@@ -27,7 +27,7 @@ private:
 	AllEnemies itoE(int num)
 	{
 		//範囲外だったら強制的に範囲内に変換
-		num = max(0, min(5, num));
+		num = max(0, min(7, num));
 
 		switch (num)
 		{
@@ -36,8 +36,12 @@ private:
 		case(1):return ENE_PIKA;
 		case(2):return ENE_BROTH;
 		case(3):return ENE_MARI;
-		case(4):return ENE_BALL;
-		case(5):return ENE_TERESA;
+		case(4):return ENE_USA;
+		case(5):return ENE_USA;
+
+			//空中
+		case(6):return ENE_BALL;
+		case(7):return ENE_TERESA;
 		}
 		assert(!"Stage53::itoE: 敵コードが不正です");
 		return ENE_NONE;
