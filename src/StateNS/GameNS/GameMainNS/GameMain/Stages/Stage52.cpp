@@ -135,7 +135,7 @@ void Stage52::switchset()
 	for (int i = 0; i < 4; i++)s8->push_block(new Block(87 * 32 + 16, (28 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[3]->addSwitchWithBlock(s8);
 
-	SwitchWithBlock* s9 = new SwitchWithBlock(95 * 32 + 16, 48 * 32 + 16, 900);
+	SwitchWithBlock* s9 = new SwitchWithBlock(95 * 32 + 16, 48 * 32 + 16, 1200);
 	for (int i = 0; i < 5; i++)s9->push_block(new Block(89 * 32 + 16, (1 + i) * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
 	maps[0]->addSwitchWithBlock(s9);
 
@@ -146,8 +146,8 @@ void Stage52::update(GameMain* gameMain, PlayerChild* _player)
 	standardUpdate(_player);
 	if (now_stage_num != 0)return;
 	time++;
-	if (time % 720 == 0)maps[0]->addEnemy(ENE_TERESA, _player->getVector2(), 99 * 32, 27 * 32);
-	if (time % 720 == 360)maps[0]->addEnemy(ENE_TERESA, _player->getVector2(), 58 * 32, 27 * 32);
+	if (time % 900 == 0)maps[0]->addEnemy(ENE_TERESA, _player->getVector2(), 99 * 32, 27 * 32);
+	if (time % 900 == 450)maps[0]->addEnemy(ENE_TERESA, _player->getVector2(), 58 * 32, 27 * 32);
 
 }
 
