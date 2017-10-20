@@ -23,7 +23,7 @@ Stage51::~Stage51()
 
 void Stage51::initialize()
 {
-	sound->setSound("Data/Sound/stage5.wav", "bgm5");
+	sound->setSound("Data/Sound/bgm_maoudamashii_neorock73.ogg", "bgm5");
 	sound->playSound("bgm5", LOOP, false);
 	//変更できるキャラクターを設定
 	this->changeableCharacter |= CHARA_MOKOU;
@@ -50,7 +50,7 @@ void Stage51::initialize()
 	maps[2]->addGimmick(cp);
 
 
-	flag = new ClearFlag(Vector2(85 * 32 + 16, 11 * 32 + 16));
+	flag = new ClearFlag(Vector2(66 * 32 + 16, 26 * 32 + 16));
 	maps[2]->addGimmick(flag);
 	now_stage_num = 2;
 	startX = 144, startY = 1536;

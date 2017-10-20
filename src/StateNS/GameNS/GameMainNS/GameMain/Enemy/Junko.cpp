@@ -113,8 +113,8 @@ void Junko::draw_other(const Vector2* _camera) const
 
 	//ï`âÊ
 	//DrawString(draw_x - 16, draw_y - 32, "èÉåœ", BLUE);
-
-	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
+	draw_hp_bar(draw_x, draw_y - 32, maxHP, 50);
+	//DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
 }
 
 
