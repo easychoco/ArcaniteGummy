@@ -52,11 +52,20 @@ void Stage22::initialize()
 	Guide* guide2 = new Guide(53 * 32 + 16, 44 * 32 + 16, message2);
 	maps[0]->addGimmick(guide2);
 
+	vector<string> message3
+	{
+		"困ったときは",
+		"ステージを",
+		"見回すといい"
+	};
+	Guide* guide3 = new Guide(46 * 32 + 16, 43 * 32 + 16, message3);
+	maps[1]->addGimmick(guide3);
+
 
 	flag = new ClearFlag(Vector2(2608, 1040));
 	maps[1]->addGimmick(flag);
 
-	SwitchWithBlock* s = new SwitchWithBlock(73 * 32 + 16, 32 * 32 + 16, 90);
+	SwitchWithBlock* s = new SwitchWithBlock(87 * 32 + 16, 32 * 32 + 16, 30);
 	for (int i = 0; i < 6; i++)s->push_block(new Block(95 * 32 + 16, (27 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[0]->addSwitchWithBlock(s);
 	

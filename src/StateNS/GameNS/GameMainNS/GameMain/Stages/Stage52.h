@@ -18,7 +18,8 @@ public:
 	
 private:
 	void initialize();
-
+	void switchset();
+	int time;
 	
 
 

@@ -75,7 +75,7 @@ void Stage42::update(GameMain* gameMain, PlayerChild* _player)
 {
 	updateConverse(gameMain, _player);
 	standardUpdate(_player);
-
+	if (now_stage_num != 1)return;
 	time++;
 	if (time % 720 == 0) 
 	{

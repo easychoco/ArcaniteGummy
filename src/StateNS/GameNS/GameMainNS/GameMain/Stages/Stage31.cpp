@@ -47,6 +47,7 @@ void Stage31::initialize()
 
 	torches2.push_back(new Torch(8 * 32 + 16, 48 * 32 + 16));
 	torches2.push_back(new Torch(26 * 32 + 16, 5 * 32 + 16));
+	torches2.push_back(new Torch(68 * 32 + 16, 23 * 32 + 16));
 	for (const auto& t : torches2)maps[1]->addDynamicGimmick(t);
 
 	SwitchWithBlock* s = new SwitchWithBlock(78 * 32 + 16, 5 * 32 + 16);

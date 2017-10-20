@@ -93,6 +93,7 @@ void Stage23::update(GameMain* gameMain, PlayerChild* _player)
 {
 	updateConverse(gameMain,_player);	
 	standardUpdate(_player);
+	if (now_stage_num != 0)return;
 	time++;
 	if (time % 360 == 0)maps[0]->addEnemy(ENE_TERESA, _player->getVector2(), (1 + GetRand(1) * 30) * 32, 31 * 32);
 
