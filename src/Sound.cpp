@@ -41,7 +41,7 @@ void Sound::playSound(string _name, PlayType _pType)
 
 void Sound::playSound(string _name, PlayType _pType, bool _coverable)
 {
-	return;
+	//return;
 	if (!exists(_name))assert(!"指定のサウンドは存在しません");
 
 	//多重再生を防ぐ

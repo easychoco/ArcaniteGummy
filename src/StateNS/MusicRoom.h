@@ -16,7 +16,16 @@ public:
 
 private:
 	int mBackImg;
-
+	bool prePushUP,prePushDOWN;
+	bool prePushOK;
+	int nowSelect;
+	int images[32];
+	int time;
+	int dx;
+	int draw_x;
+	void charmove();
+	int animeNum;
+	bool direction;
 };
 
 
