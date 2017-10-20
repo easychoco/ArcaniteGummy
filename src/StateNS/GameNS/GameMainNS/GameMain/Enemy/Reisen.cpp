@@ -1,5 +1,6 @@
 #include "Reisen.h"
 
+#include "..\Collision.h"
 
 
 
@@ -13,7 +14,7 @@ Reisen(x, y, true)
 { }
 
 Reisen::Reisen(int _x, int _y, bool _isOriginal) :
-EnemyChild(_isOriginal ? 500 : 1, _x, _y, 32, 64, _isOriginal, true),
+EnemyChild(_isOriginal ? 500 : 25, _x, _y, 32, 64, _isOriginal, true),
 maxHP(500),
 isOriginal(_isOriginal)
 {
@@ -44,6 +45,7 @@ void Reisen::initialize()
 	}
 	else
 	{
+		this->collision->noCollide = true;
 		replica = 0;
 	}
 }
@@ -92,9 +94,10 @@ void Reisen::update(const StageChild* _stage, const Vector2* _camera)
 
 	//•ªg‚ðì‚é
 	//‚·‚Å‚Éì‚Á‚Ä‚¢‚Ä‚â‚ç‚ê‚Ä‚¢‚½‚ç replica->isAlive() ‚Í false ‚É‚È‚é
-	if (CheckHitKey(KEY_INPUT_Q))
+	if (this->hpController.getHP() < maxHP / 3)
 	{
 		makeReplica = replica->isAlive();
+		replica->collision->noCollide = false;
 	}
 
 	//•ªg‚ðupdate
@@ -143,7 +146,7 @@ void Reisen::draw_other(const Vector2* _camera) const
 	//•ªg‚ðdraw
 	if (makeReplica && isOriginal)
 	{
-		SetDrawBlendMode(DX_BLENDMODE_PMA_ADD, 100);
+		SetDrawBlendMode(DX_BLENDMODE_SUB, 130);
 		replica->draw(_camera);
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 20);
 	}

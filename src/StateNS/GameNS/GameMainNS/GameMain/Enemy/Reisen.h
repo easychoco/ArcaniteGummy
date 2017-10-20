@@ -22,7 +22,7 @@ public:
 	~Reisen();
 	//void draw(const Vector2* camera) const;
 	void update(const StageChild* _stage, const Vector2* _camera);
-	virtual void setPlayer(const Vector2* _player) override { this->player = _player; if (isOriginal)replica->setPlayer(_player); }
+	virtual void setPlayer(const Vector2* _player) override { this->player = _player; this->mIsAlive = true; if (isOriginal)replica->setPlayer(_player); }
 	virtual vector<Attack*> getAttacks() const override;
 	virtual vector<EnemyChild*> getChilds() override { vector<EnemyChild*> ret{ replica }; return ret; }
 
