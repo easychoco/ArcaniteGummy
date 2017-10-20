@@ -14,13 +14,15 @@ class Shot;
 class Nue_Boss : public EnemyChild
 {
 public:
-	Nue_Boss(int x, int y);
+	Nue_Boss(int x, int y, int cx, int cy);
 	~Nue_Boss();
 	void update(const StageChild* _stage, const Vector2* _camera);
 	
 private:
 	int mTime;
 	bool init_attacks;
+
+	const int maxHP;
 	const Vector2 initial_pos;
 
 	bool attack_3way;

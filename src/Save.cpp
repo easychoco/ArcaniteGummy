@@ -14,21 +14,7 @@ SaveData::SaveData()
 }
 
 SaveData::~SaveData()
-{
-	//ファイル出力
-	ofstream fout;
-	fout.open("Data/Text/save.bin", ios::binary | ios::out | ios::trunc);
-
-	//vectorのサイズを書き込み
-	unsigned size = (int)allDatas.size();
-	fout.write((char*)&size, sizeof(int));
-
-	for (const int data : allDatas)
-	{
-		fout.write((char*)&data, sizeof(int));
-	}
-	fout.close();
-}
+{}
 
 void SaveData::loadData()
 {
@@ -68,6 +54,23 @@ void SaveData::loadData()
 
 	allDatas.shrink_to_fit();
 	fin.close();
+}
+
+void SaveData::outputSaveData()
+{
+	//ファイル出力
+	ofstream fout;
+	fout.open("Data/Text/save.bin", ios::binary | ios::out | ios::trunc);
+
+	//vectorのサイズを書き込み
+	unsigned size = (int)allDatas.size();
+	fout.write((char*)&size, sizeof(int));
+
+	for (const int data : allDatas)
+	{
+		fout.write((char*)&data, sizeof(int));
+	}
+	fout.close();
 }
 
 //上書きオートセーブ

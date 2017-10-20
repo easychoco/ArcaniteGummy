@@ -165,7 +165,7 @@ direction(_direction)
 	this->mTime = 0;
 
 	//for Debug
-	this->damageValue = 100;
+	this->damageValue = 34;
 
 	mImage = 0;
 	int tmp = LoadDivGraph("Data/Image/Fire.png", 3, 1, 3, 96, 32, images);

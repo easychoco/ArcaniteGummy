@@ -28,6 +28,7 @@ void Config::initialize()
 	this->volume = sound->allVolume;
 	this->prePush = true;
 	this->nowKeyConfig = false;
+	this->configTime = 0;
 
 	//for Debug
 	sound->setSound("Data/Sound/Stage0.wav", "tes");
@@ -38,6 +39,7 @@ Child* Config::update(GrandParent* parent)
 {
 	Child* next = this;
 
+	//音量調節画面
 	if (!nowKeyConfig)
 	{
 		if (Input_NO())next = new StateNS::Title(2, 2);
@@ -47,14 +49,16 @@ Child* Config::update(GrandParent* parent)
 			nowKeyConfig = true;
 			prePush = true;
 			nowInput = 0;
+			configTime = 0;
 		}
+		if (backFromConfig && !Input_LEFT() && !Input_RIGHT())backFromConfig = false;
 		bool changed = false;
-		if (Input_LEFT())
+		if (Input_LEFT() && !backFromConfig)
 		{
 			volume = max(volume - 0.05f, 0.0f);
 			changed = true;
 		}
-		if (Input_RIGHT())
+		if (Input_RIGHT() && !backFromConfig)
 		{
 			volume = min(volume + 0.05f, 1.0f);
 			changed = true;
@@ -66,7 +70,11 @@ Child* Config::update(GrandParent* parent)
 	}
 	else
 	{
+		//キーコンフィグ画面
 		unsigned input = GetJoypadInputState(DX_INPUT_PAD1);
+		if(input == 0)++configTime;
+		else input = 0;
+
 		if (!prePush && input > 0)
 		{
 			switch (nowInput)
@@ -88,9 +96,10 @@ Child* Config::update(GrandParent* parent)
 
 		}
 		prePush = (input > 0);
-		if (nowInput > 11)
+		if (nowInput > 11 || configTime > 120)
 		{
 			nowKeyConfig = false;
+			backFromConfig = true;
 			saveKeyConfig();
 		}
 	}
@@ -143,6 +152,13 @@ void Config::draw() const
 		case  9: DrawFormatString(30, 300, WHITE, "右に使うボタンを押して"); break;
 		case 10: DrawFormatString(30, 330, WHITE, "下に使うボタンを押して"); break;
 		case 11: DrawFormatString(30, 360, WHITE, "左に使うボタンを押して"); break;
+		}
+
+		if (configTime > 30)
+		{
+			DrawBox(148, 148, 492, 202, WHITE, false);
+			DrawBox(150, 150, 490, 200, BLACK, true);
+			DrawString(170, 160, "ゲームパッドの入力がありません", WHITE);
 		}
 	}
 }

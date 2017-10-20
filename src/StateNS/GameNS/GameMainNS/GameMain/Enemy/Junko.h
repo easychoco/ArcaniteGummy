@@ -10,7 +10,6 @@ namespace GameMainNS{
 	
 class Shot;
 
-
 class Junko : public EnemyChild
 {
 public:
@@ -26,6 +25,7 @@ private:
 	bool attack_around;
 	bool attack_cycle;
 
+	const int maxHP;
 	const int radius = 2000;
 
 	int images[32];

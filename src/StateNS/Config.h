@@ -19,8 +19,11 @@ private:
 	float volume;
 	
 	bool prePush;
+	bool backFromConfig;
 	bool nowKeyConfig;
 	int nowInput;
+
+	int configTime;
 
 
 };

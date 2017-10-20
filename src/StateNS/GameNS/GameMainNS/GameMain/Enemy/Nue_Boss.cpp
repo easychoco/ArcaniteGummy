@@ -10,9 +10,10 @@ namespace GameMainNS{
 	
 
 	
-Nue_Boss::Nue_Boss(int _x, int _y) : 
+Nue_Boss::Nue_Boss(int _x, int _y, int _cx, int _cy) : 
 EnemyChild(1000, _x, _y, 32, 64, false, true),
-initial_pos(Vector2(_x, _y))
+maxHP(1000),
+initial_pos(Vector2(_cx, _cy))
 {
 	loadImage();
 
@@ -95,10 +96,13 @@ void Nue_Boss::move(const StageChild* _stage, int& _dx, int& _dy)
 {
 	if (mTime % 360 == 0)
 	{
-		move_type = GetRand(6);
+		move_type = GetRand(5);
 	}
 
 	setMotion(_stage, _dx, _dy);
+
+	//èâéËÇÕç∂ÇÃÇŸÇ§Ç…à⁄ìÆ
+	if (mTime < 30)_dx -= 2000;
 
 }
 
@@ -126,7 +130,7 @@ void Nue_Boss::setMotion(const StageChild* _stage, int& _dx, int& _dy)
 		//ç∂âEâùïú
 		_dy = 0;
 		_dx = dx * 2 / 3;
-		if (p->raw_x + dx < initial_pos.raw_x - 100000 + 5000 * move_type || initial_pos.raw_x + 100000 + 5000 * move_type < p->raw_x + dx)
+		if (p->raw_x + dx < initial_pos.raw_x - 200000 + 3000 * move_type || initial_pos.raw_x + 200000 + 3000 * move_type < p->raw_x + dx)
 		{
 			dx = -dx;
 			p->raw_x += dx;
@@ -250,22 +254,17 @@ void Nue_Boss::processAttack(const StageChild* _stage)
 
 void Nue_Boss::draw_other(const Vector2* _camera) const
 {
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	draw_hp_bar(draw_x, draw_y - 32, maxHP, 50);
+
 	if (init_attacks)
 	{
 		for (const auto& s3 : shot3)if (s3->isActive())s3->draw(_camera);
 		for (const auto& b : bombs)if (b->isActive)b->draw(_camera);
 		if (flower->isActive())flower->draw(_camera);
 	}
-
-	//for Debug
-	int draw_x = 320 + p->x() - _camera->x();
-	int draw_y = 240 + p->y() - _camera->y();
-
-	//ï`âÊ
-	DrawString(draw_x - 16, draw_y - 32, "ÍK", BLUE);
-
-	//for Debug
-	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
 }
 
 

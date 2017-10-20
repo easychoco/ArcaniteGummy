@@ -24,6 +24,7 @@ private:
 	int step;
 	int select;
 	int fontHandle1, fontHandle2;
+	bool goToNext;
 	const std::vector<int> save;
 
 	void plusStep(int);

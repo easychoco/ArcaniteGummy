@@ -12,8 +12,9 @@ Reisen::Reisen(int x, int y) :
 Reisen(x, y, true)
 { }
 
-Reisen::Reisen(int _x, int _y, bool _isOriginal) : 
+Reisen::Reisen(int _x, int _y, bool _isOriginal) :
 EnemyChild(_isOriginal ? 1000 : 1, _x, _y, 32, 64, _isOriginal, true),
+maxHP(1000),
 isOriginal(_isOriginal)
 {
 	loadImage(); 
@@ -147,20 +148,16 @@ void Reisen::draw_other(const Vector2* _camera) const
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 20);
 	}
 
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	draw_hp_bar(draw_x, draw_y - 32, maxHP, 50);
+
+
 	for (const auto& a : attacks)
 	{
 		if (a->isActive)a->draw(_camera);
 	}
-
-	//for Debug
-	int draw_x = 320 + p->x() - _camera->x();
-	int draw_y = 240 + p->y() - _camera->y();
-
-	//•`‰æ
-	DrawString(draw_x - 16, draw_y - 32, "—éå", BLUE);
-	
-	//for Debug
-	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
 }
 
 

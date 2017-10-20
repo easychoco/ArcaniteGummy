@@ -33,7 +33,10 @@ private:
 	void loadImage();
 
 	bool nowMoving;
+
+	const int maxHP;
 	const bool isOriginal;
+
 	bool makeReplica;
 	Reisen* replica;
 

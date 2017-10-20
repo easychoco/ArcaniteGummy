@@ -287,7 +287,7 @@ void GameMain::processCollision(StageChild* _stage)
 		//プレイヤーと敵の衝突
 		if (mPlayer->isHit(enemy))
 		{
-			mPlayer->hpController.damage(5);
+			mPlayer->hpController.damage(15);
 		}
 
 		//敵の攻撃とプレイヤーの衝突

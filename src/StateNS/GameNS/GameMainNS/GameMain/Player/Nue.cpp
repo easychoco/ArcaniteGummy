@@ -234,7 +234,7 @@ Attack(_parent, _x, _y, 32, 32, ObjectID::A_SPEAR)
 	this->isActive = false;
 
 	//for Debug
-	this->damageValue = 100;
+	this->damageValue = 25;
 
 	img1 = LoadGraph("Data/Image/Spear.png");
 	img2 = LoadGraph("Data/Image/Spear2.png");

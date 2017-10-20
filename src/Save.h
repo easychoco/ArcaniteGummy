@@ -39,6 +39,7 @@ private:
 	SaveData();
 	~SaveData();
 
+
 	//コピーコンストラクタと代入演算子を明示的にprivateにする
 	SaveData(const SaveData &x);
 	SaveData& operator=(const SaveData &) {};
@@ -49,6 +50,7 @@ private:
 	vector<int> allDatas;
 
 	void loadData();
+	void outputSaveData();
 };
 
 

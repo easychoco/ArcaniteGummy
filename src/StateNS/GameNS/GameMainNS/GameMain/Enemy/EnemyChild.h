@@ -30,6 +30,7 @@ public:
 	virtual vector<Attack*> getAttacks() const { return attacks; }
 	virtual vector<EnemyChild*> getChilds() { vector<EnemyChild*> gomi{ this }; return gomi; };
 
+	
 	const bool isBoss;
 
 protected:
@@ -48,6 +49,10 @@ protected:
 	virtual void setChildActive(bool) const {};
 
 	void standardAction(const StageChild* _stage);
+
+	//HPバーを表示 1,2番目の引数はHPバーの中心
+	void draw_hp_bar(int x, int y, int maxHP, int width) const;
+
 	//攻撃のvector
 	vector<Attack*> attacks;
 

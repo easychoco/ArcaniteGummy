@@ -35,6 +35,7 @@ private:
 	int move_type;
 
 	int dx = 5000;
+	const int maxHP;
 
 	//召喚された位置
 	//ステージの真ん中にする

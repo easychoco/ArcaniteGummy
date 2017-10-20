@@ -45,10 +45,15 @@ void Title::initialize()
 	pushX = false;
 	pushUP = false;
 	pushDOWN = false;
+	goToNext = false;
+
 	fontHandle1 = CreateFontToHandle(NULL, 60, 3);
+
 	mBackImg = LoadGraph("Data/Image/Title.png");
+
 	movie = LoadGraph("Data/Movie/OP.ogv");
 	PlayMovieToGraph(movie);
+
 	sound->setSound("Data/Sound/OP.wav", "titlebgm");
 	sound->playSound("titlebgm", LOOP, false);
 
@@ -63,32 +68,45 @@ Child* Title::update(GrandParent* parent)
 	if(Input_OK() && pushZ)sound->playSound("ok", BACK, true);
 	if(Input_NO() && pushX)sound->playSound("no", BACK, true);
 
-	switch (step) {
-	case 0:
-		if (!GetMovieStateToGraph(movie))step++;
-		if (Input_OK())step++;
-		break;
-	case 1://push z key
-		count = (count + 1) % 120;
-		if (Input_OK() && pushZ)step++;
-		break;
-	case 2://ゲームスタート、そうさせつめい
-		if (Input_OK() && pushZ) { 
-			if (select == 0) { step++; select = 0; }
-			else if (select == 3)parent->finishGame();
-			else next = nextScene(select);
+	if (goToNext)
+	{
+		if(step == 3)next = nextScene(0);
+		else next = nextScene(select);
+	}
+	else
+	{
+		switch (step)
+		{
+		case 0:
+			if (!GetMovieStateToGraph(movie))step++;
+			if (Input_OK())step++;
+			break;
+		case 1://push z key
+			count = (count + 1) % 120;
+			if (Input_OK() && pushZ)step++;
+			break;
+		case 2://ゲームスタート、そうさせつめい
+			if (Input_OK() && pushZ)
+			{
+				if (select == 0) { step++; select = 0; }
+				else if (select == 3)parent->finishGame();
+				else goToNext = true;
+			}
+			if (Input_NO() && pushX)step--;
+			else if (Input_UP() && pushUP)select = (select + 3) % 4;
+			else if (Input_DOWN() && pushDOWN)select = (select + 1) % 4;
+			break;
+		case 3:
+			if (Input_OK() && pushZ)
+			{
+				goToNext = true;
+			}
+			else if (Input_NO() && pushX)step--;
+			//else if (Input_UP() && pushUP)select = (select + 2) % 3;
+			//else if (Input_DOWN() && pushDOWN)select = (select + 1) % 3;
+			else if (Input_UP() && pushUP)select = (select + 14) % 15;
+			else if (Input_DOWN() && pushDOWN)select = (select + 1) % 15;
 		}
-		if (Input_NO() && pushX)step--;
-		else if (Input_UP() && pushUP)select = (select + 3) % 4;
-		else if (Input_DOWN() && pushDOWN)select = (select + 1) % 4;
-		break;
-	case 3:
-		if(Input_OK() && pushZ)next = nextScene(0);
-		else if (Input_NO() && pushX)step--;
-		//else if (Input_UP() && pushUP)select = (select + 2) % 3;
-		//else if (Input_DOWN() && pushDOWN)select = (select + 1) % 3;
-		else if (Input_UP() && pushUP)select = (select + 14) % 15;
-		else if (Input_DOWN() && pushDOWN)select = (select + 1) % 15;
 	}
 
 	pushZ = !Input_OK();
@@ -134,6 +152,13 @@ void Title::draw() const
 		//*/
 
 		break;
+	}
+
+	if (goToNext)
+	{
+		DrawBox(198, 148, 442, 202, WHITE, false);
+		DrawBox(200, 150, 440, 200, BLACK, true);
+		DrawString(230, 160, "ロード中...", WHITE);
 	}
 }
 
@@ -183,6 +208,8 @@ Child* Title::nextScene(int n) {
 	case 3:scene = new Parent(0); break;
 
 	}
+
+	goToNext = true;
 	return scene;
 }
 

@@ -9,6 +9,7 @@ namespace GameMainNS{
 	
 Fran::Fran(int _x, int _y, int _cx, int _cy) : 
 EnemyChild(400, _x, _y, 32, 64, false, true),
+maxHP(400),
 initial_pos(Vector2(_cx, _cy))
 {
 	loadImage();
@@ -93,6 +94,12 @@ void Fran::update(const StageChild* _stage, const Vector2* _camera)
 //==============================================
 void Fran::draw_other(const Vector2* _camera) const
 {
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	draw_hp_bar(draw_x, draw_y - 32, maxHP, 50);
+
+
 	if (init_attacks && mTime > 2)
 	{
 		for (auto& sb : stars)

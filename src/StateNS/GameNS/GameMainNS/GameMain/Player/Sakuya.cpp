@@ -203,7 +203,7 @@ void Sakuya::animation()
 //KnifeƒNƒ‰ƒX
 //==============================================
 Sakuya::Knife::Knife(const PlayerChild* _parent, const StageChild* _stage, int _x, int _y, int _dx) :
-Attack(_parent, _x, _y, 32, 32, ObjectID::A_KNIFE),
+Attack(_parent, _x + -_dx * 5, _y, 32, 32, ObjectID::A_KNIFE),
 stage(_stage)
 {
 	this->up = Input_UP();

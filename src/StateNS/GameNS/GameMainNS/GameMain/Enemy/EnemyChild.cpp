@@ -68,6 +68,26 @@ void EnemyChild::standardDraw(const Vector2* _camera, const bool& _direction) co
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, _direction);
 }
 
+void EnemyChild::draw_hp_bar(int _draw_x, int _draw_y, int _maxHP, int _width) const
+{
+	double width_ratio = _width / (double)_maxHP;
+	int bar_half_width = _width / 2;
+
+	//HPバーの左上の座標
+	int x1 = _draw_x - bar_half_width;
+	int y1 = _draw_y - 5;
+
+	//HPバーの右下の座標
+	int x2 = _draw_x + bar_half_width;
+	int y2 = _draw_y + 5;
+
+	int left_hp_x = x1 + (int)(this->hpController.getHP() * width_ratio);
+
+	DrawBox(x1 - 2, y1 - 2, x2 + 2, y2 + 2, WHITE, false);
+	DrawBox(x1, y1, x2, y2, GREEN, false);
+	DrawBox(x1, y1, left_hp_x, y2, GREEN, true);
+}
+
 void EnemyChild::standardAction(const StageChild* _stage)
 {
 	//やられていたら

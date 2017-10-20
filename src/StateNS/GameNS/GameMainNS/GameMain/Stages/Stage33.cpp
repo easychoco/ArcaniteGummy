@@ -82,7 +82,7 @@ void Stage33::initialize()
 
 	now_stage_num = 4;
 	startX = 1616, startY = 704;
-	nue = new Nue_Boss(95 * 32, 48 * 32);
+	nue = new Nue_Boss(95 * 32, 48 * 32, 90 * 32, 42 * 32 + 16);
 	converseFlag0 = true;
 	converseFlag1 = true;
 	converseFlag2 = true;

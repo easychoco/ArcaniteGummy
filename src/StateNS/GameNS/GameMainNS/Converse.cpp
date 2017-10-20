@@ -31,8 +31,8 @@ void Converse::initialize()
 	passageNum = 0;
 	prePush = false;
 
-	if (initial_cancel)initial_cancel = !Input_NO();
-
+	initial_cancel = true;
+	
 	string textFile = "Data/Text/Converse/stage";
 	textFile += std::to_string(stageNum);
 	textFile += ".txt";
@@ -52,12 +52,12 @@ Child* Converse::update(GameParent* _parent)
 	Child* next = this;
 
 	bool finish = false;
+	if (initial_cancel)initial_cancel = Input_NO();
 	if ((Input_OK() && !prePush) || (Input_NO() && !initial_cancel))finish = nextPassage();
 
-	//for Debug
-	if (finish)next = main;
-	
 	prePush = Input_OK();
+
+	if (finish)next = main;
 
 	return next;
 }
@@ -134,7 +134,9 @@ void Converse::Passage::show() const
 	DrawBox(10, 10, 150, 50, WHITE, false);
 	DrawBox(10, 60, 630, 210, WHITE, false);
 
-	DrawString(480, 190, "press Z to next", WHITE);
+
+	DrawString(400, 170, "      決定ボタンで次へ", WHITE);
+	DrawString(400, 190, "キャンセルボタンでスキップ", WHITE);
 
 	//文章表示
 

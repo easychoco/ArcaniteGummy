@@ -10,7 +10,8 @@ namespace GameMainNS{
 
 
 Kaguya::Kaguya(int _x, int _y, int cx, int cy) : 
-EnemyChild(1000, _x, _y, 32, 64, false, true),
+EnemyChild(330, _x, _y, 32, 64, false, true),
+maxHP(330),
 initial_pos(cx, cy)
 {
 	loadImage();
@@ -222,9 +223,6 @@ void Kaguya::move(const StageChild* _stage, int& _dx, int& _dy)
 		mTime = 0;
 		move_type = GetRand(6);
 	}
-
-	//for Debug
-	move_type = 4;
 
 	switch (move_type)
 	{

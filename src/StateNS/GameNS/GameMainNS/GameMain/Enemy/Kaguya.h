@@ -41,6 +41,7 @@ private:
 	void processSpread(const StageChild*, int&, int&);
 	void processEnemy(const StageChild*, int&, int&);
 
+	const int maxHP;
 	const Vector2 initial_pos;
 
 	bool isMakingEnemy;
