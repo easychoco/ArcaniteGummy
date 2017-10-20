@@ -46,6 +46,8 @@ GameMain::~GameMain()
 	sound->deleteSound("change");
 	sound->deleteSound("damage_enemy");
 	sound->deleteSound("break_enemy");
+	sound->deleteSound("switch_on");
+	sound->deleteSound("switch_time");
 }
 
 void GameMain::initialize()
@@ -106,6 +108,8 @@ void GameMain::initialize()
 	sound->setSound("Data/Sound/change.mp3", "change");
 	sound->setSound("Data/Sound/damage_enemy.wav", "damage_enemy");
 	sound->setSound("Data/Sound/break_enemy.mp3", "break_enemy");
+	sound->setSound("Data/Sound/switch_on.mp3", "switch_on");
+	sound->setSound("Data/Sound/switch_time.mp3", "switch_time");
 }
 
 Child* GameMain::update(GameParent* _parent)

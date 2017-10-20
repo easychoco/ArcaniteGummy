@@ -63,10 +63,13 @@ void SwitchWithBlock::initialize()
 void SwitchWithBlock::update(const StageChild* _stage)
 {
 	++mTime;
+
+	//制限時間付きスイッチの処理
 	if (mTime > limitTime)
 	{
 		isPushed = false;
 		mTime = 0;
+		sound->stopSound("switch_time");
 	}
 
 	this->mImage = ((isPushed) ? images[1] : images[0]);
@@ -94,7 +97,13 @@ void SwitchWithBlock::apply(Character* _character)
 		isPushed = true;
 		return;
 	}
-	if(!preOnActiveArea && mTime > 5)isPushed = !isPushed;
+	if (!preOnActiveArea && mTime > 5)
+	{
+		isPushed = !isPushed;
+		sound->playSound("switch_on");
+
+		if (this->limitTime < 1 << 20)sound->playSound("switch_time", LOOP, false);
+	}
 	mTime = 0;
 }
 

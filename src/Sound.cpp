@@ -9,7 +9,7 @@ void Sound::setSound(string _path, string _name)
 	
 	int tmp_handle = LoadSoundMem(_path.c_str());
 	//for Debug
-	//assert(tmp_handle != -1 && "サウンド読み込みエラー");
+	assert(tmp_handle != -1 && "サウンド読み込みエラー");
 
 	soundMap.insert(make_pair(_name, tmp_handle));
 	ChangeVolumeSoundMem((int)(255 * allVolume), soundMap.at(_name));

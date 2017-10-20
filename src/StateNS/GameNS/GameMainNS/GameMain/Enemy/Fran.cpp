@@ -8,8 +8,8 @@ namespace GameMainNS{
 
 	
 Fran::Fran(int _x, int _y, int _cx, int _cy) : 
-EnemyChild(400, _x, _y, 32, 64, false, true),
-maxHP(400),
+EnemyChild(600, _x, _y, 32, 64, false, true),
+maxHP(600),
 initial_pos(Vector2(_cx, _cy))
 {
 	loadImage();
@@ -325,7 +325,7 @@ void Fran::processQED(const StageChild* _stage, int& _dx, int& _dy)
 
 void Fran::processKind(const StageChild* _stage, int& _dx, int& _dy)
 {
-	timeToNextMotion = 720;
+	timeToNextMotion = 700;
 	if (mTime < 60)
 	{
 		mImage = images[1];

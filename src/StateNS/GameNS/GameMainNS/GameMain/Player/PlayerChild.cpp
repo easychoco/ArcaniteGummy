@@ -324,6 +324,7 @@ void PlayerChild::move(const StageChild* _stage)
 		{
 			if(p->x() > MAP_WIDTH - 32)nextStageMove = StageChild::MOVE_LEFT;
 		}
+		sound->stopSound("switch_time");
 	}
 	if (abs(dy_onScreen) > MyData::MAP_HEIGHT / 2)
 	{
@@ -335,6 +336,7 @@ void PlayerChild::move(const StageChild* _stage)
 		{
 			if(p->y() < 32)nextStageMove = StageChild::MOVE_DOWN;
 		}
+		sound->stopSound("switch_time");
 	}
 
 	//‚ß‚è‚İ‰ñ”ğ

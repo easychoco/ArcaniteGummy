@@ -179,13 +179,13 @@ void Kaguya::draw(const Vector2* _camera) const
 	//ƒoƒŠƒA•\Ž¦
 	if(vanishTime != 0)
 	{
-		DrawCircle(draw_x, draw_y, max(16, vanishTime / 3) + (int)(5 * cos(pi(vanishTime / 6.0f))), WHITE, false);
-		DrawCircle(draw_x, draw_y, max(16, vanishTime / 3) + (int)(5 * sin(pi(vanishTime / 6.0f))), GREEN, false);
+		DrawCircle(draw_x, draw_y, max(32, vanishTime / 3) + (int)(5 * cos(pi(vanishTime / 6.0f))), WHITE, false, 2);
+		DrawCircle(draw_x, draw_y, max(32, vanishTime / 3) + (int)(5 * sin(pi(vanishTime / 6.0f))), GREEN, false, 3);
 	}
 	else if (mutekiByEne)
 	{
-		DrawCircle(draw_x, draw_y, 32 + (int)(2 * cos(pi(mTime / 4.0f))), WHITE, false);
-		DrawCircle(draw_x, draw_y, 32 + (int)(2 * sin(pi(mTime / 4.0f))), RED, false);
+		DrawCircle(draw_x, draw_y, 32 + (int)(2 * cos(pi(mTime / 4.0f))), WHITE, false, 2);
+		DrawCircle(draw_x, draw_y, 32 + (int)(2 * sin(pi(mTime / 4.0f))), RED, false, 3);
 	}
 
 	draw_other(_camera);
@@ -221,7 +221,7 @@ void Kaguya::move(const StageChild* _stage, int& _dx, int& _dy)
 	if (mTime > timeToNextMotion)
 	{
 		mTime = 0;
-		move_type = GetRand(6);
+		move_type = GetRand(5);
 	}
 
 	switch (move_type)
@@ -259,7 +259,7 @@ void Kaguya::hittedAction()
 
 void Kaguya::processReflect(const StageChild* _stage, int& _dx, int& _dy)
 {
-	timeToNextMotion = 810;
+	timeToNextMotion = 750;
 
 	attack_reflect = false;
 	if (mTime < 30)
@@ -343,7 +343,7 @@ void Kaguya::processEnemy(const StageChild* _stage, int& _dx, int& _dy)
 	attack_enemy = false;
 
 	if (mTime > 300)return;
-	if (mTime % 90 == 0)attack_enemy = true;
+	if (mTime % 150 == 0)attack_enemy = true;
 }
 
 
