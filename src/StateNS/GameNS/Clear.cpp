@@ -108,8 +108,8 @@ void Clear::draw() const
 {
 	DrawGraph(0, 0, backImg, FALSE);
 	DrawGraph(-100+time*5, 300, images[12 + (time / 10) % 4], TRUE);
-	if (cursorPos == 0)	DrawBox(220, 270, 420, 330, WHITE, FALSE);
-	if (cursorPos == 1)	DrawBox(220, 350, 420, 410, WHITE, FALSE);
+	if (cursorPos == 0)	DrawBox(220, 270, 420, 330, RED, FALSE);
+	if (cursorPos == 1)	DrawBox(220, 350, 420, 410, RED, FALSE);
 	if (time < 2)DrawBox(0, 0, 640,480,BLACK,TRUE);
 	if (ED)DrawGraph(0, 0, movie, FALSE);
 }
