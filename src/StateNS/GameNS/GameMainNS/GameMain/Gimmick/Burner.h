@@ -40,7 +40,7 @@ private:
 	float angle;//radian
 	bool order;//タイミングをずらすため
 	int mTime;
-	const int damageValue = 50;
+	const int damageValue = 30;
 	bool isEmerge;
 	bool drawBurner;
 

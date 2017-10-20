@@ -10,8 +10,8 @@ namespace GameMainNS{
 	
 
 Junko::Junko(int _x, int _y) : 
-EnemyChild(1000, _x, _y, 32, 32, false, true),
-maxHP(1000)
+EnemyChild(700, _x, _y, 32, 32, false, true),
+maxHP(700)
 {
 	loadImage();
 	

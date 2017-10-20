@@ -156,6 +156,8 @@ void Kaguya::draw(const Vector2* _camera) const
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
 
+	draw_hp_bar(draw_x, draw_y - 32, maxHP, 50);
+
 	//‚â‚ç‚ê‚Ä‚¢‚é‚Æ‚«
 	if (!mIsAlive)
 	{

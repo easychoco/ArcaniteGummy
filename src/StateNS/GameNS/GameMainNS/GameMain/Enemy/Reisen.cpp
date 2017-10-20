@@ -13,8 +13,8 @@ Reisen(x, y, true)
 { }
 
 Reisen::Reisen(int _x, int _y, bool _isOriginal) :
-EnemyChild(_isOriginal ? 1000 : 1, _x, _y, 32, 64, _isOriginal, true),
-maxHP(1000),
+EnemyChild(_isOriginal ? 500 : 1, _x, _y, 32, 64, _isOriginal, true),
+maxHP(500),
 isOriginal(_isOriginal)
 {
 	loadImage(); 
