@@ -52,7 +52,7 @@ bool Input_W()
 
 bool Input_A()
 {
-	return toBoolean[CheckHitKey(KEY_INPUT_A)];
+	return toBoolean[CheckHitKey(KEY_INPUT_A)] | ((GetJoypadInputState(DX_INPUT_PAD1) & INPUT_PAUSE) > 0);
 }
 
 bool Input_S()

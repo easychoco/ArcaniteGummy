@@ -48,7 +48,7 @@ bool DynamicGimmickChild::rideOnGimmick(const Vector2* _player) const
 		abs( p->y() - (_player->y() + PLAYER_CHIP_HEIGHT / 2) ) <= height * 2 / 3 &&
 		abs( p->x() - _player->x() ) < width / 2;
 	*/
-	return abs((_player->raw_y + PLAYER_CHIP_HEIGHT_RATE() / 2) - this->getTopPosition()) < 1000 && 
+	return abs((_player->raw_y + PLAYER_CHIP_HEIGHT_RATE() / 2) - this->getTopPosition()) <= 1000 && 
 		abs(p->x() - _player->x()) < width / 2;
 }
 

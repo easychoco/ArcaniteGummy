@@ -71,9 +71,13 @@ void GameMain::initialize()
 		assert(!"使用キャラを設定してください");
 	}
 
-	if (mPlayer->hasAdditionalGimmick())
-		mStage->addDynamicGimmickToAllMaps(mPlayer->getAdditionalGimmick());
+	this->ufoLoaded = false;
 
+	if (!ufoLoaded && mPlayer->hasAdditionalGimmick())
+	{
+		mStage->addDynamicGimmickToAllMaps(mPlayer->getAdditionalGimmick());
+		ufoLoaded = true;
+	}
 
 	mSystem = new System();
 
@@ -154,6 +158,12 @@ Child* GameMain::update(GameParent* _parent)
 		}
 		if(camera_tmp != Vector2::ZERO)nextPlayer->lockCameraPos(&camera_tmp);
 		mPlayer = nextPlayer;
+		
+		if (!ufoLoaded && mPlayer->hasAdditionalGimmick())
+		{
+			mStage->addDynamicGimmickToAllMaps(mPlayer->getAdditionalGimmick());
+			ufoLoaded = true;
+		}
 
 		this->nextCharacter = CHARA_NONE;
 	}
@@ -169,8 +179,11 @@ Child* GameMain::update(GameParent* _parent)
 		mPlayer = nextPlayer;
 
 		//ぬえのUFOを追加
-		if(mPlayer->hasAdditionalGimmick())
+		if (!ufoLoaded && mPlayer->hasAdditionalGimmick())
+		{
 			mStage->addDynamicGimmickToAllMaps(mPlayer->getAdditionalGimmick());
+			ufoLoaded = true;
+		}
 
 		//EnemyControllerを更新
 		this->mEController = mStage->getEController();

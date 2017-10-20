@@ -19,6 +19,7 @@ Clear::Clear()
 Clear::~Clear()
 {
 	sound->stopSoundOfFile();
+	saveData->outputSaveData();
 }
 
 void Clear::initialize()

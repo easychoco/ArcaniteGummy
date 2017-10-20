@@ -20,7 +20,7 @@ Config::Config()
 Config::~Config()
 {
 	sound->allVolume = volume;
-	sound->deleteSound("tes");
+	sound->deleteSound("bgm");
 }
 
 void Config::initialize()
@@ -31,8 +31,8 @@ void Config::initialize()
 	this->configTime = 0;
 
 	//for Debug
-	sound->setSound("Data/Sound/Stage0.wav", "tes");
-	sound->playSound("tes", BACK);
+	sound->setSound("Data/Sound/OP.wav", "bgm");
+	sound->playSound("bgm", BACK);
 }
 
 Child* Config::update(GrandParent* parent)
@@ -73,7 +73,7 @@ Child* Config::update(GrandParent* parent)
 		//キーコンフィグ画面
 		unsigned input = GetJoypadInputState(DX_INPUT_PAD1);
 		if(input == 0)++configTime;
-		else input = 0;
+		else configTime = 0;
 
 		if (!prePush && input > 0)
 		{

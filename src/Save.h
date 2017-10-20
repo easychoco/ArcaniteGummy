@@ -32,6 +32,9 @@ public:
 	//参照を使ってチェックポイントの情報をゲット
 	void updateCheckPoint(int& _checkIndex, int& _switch_flags);
 
+	//外部にセーブデータを作成
+	void outputSaveData();
+
 
 private:
 
@@ -50,7 +53,6 @@ private:
 	vector<int> allDatas;
 
 	void loadData();
-	void outputSaveData();
 };
 
 

@@ -54,6 +54,7 @@ private:
 	int icon_nue;
 
 	PlayerCharacter nextCharacter;
+	bool ufoLoaded;
 
 	int changeableCharacter;
 

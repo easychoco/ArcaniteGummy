@@ -2,8 +2,8 @@
 #include "Map.h"
 #include "..\..\GameMain.h"
 #include "..\Gimmick\ClearFlag.h"
+#include "..\Gimmick\CheckPoint.h"
 #include "..\Player\PlayerChild.h"
-#include <fstream>
 
 namespace StateNS {
 namespace GameNS {
@@ -45,9 +45,12 @@ void Stage51::initialize()
 	for (int i = 0; i < 3; i++)s1->push_block(new Block((65 + i) * 32 + 16, 23 * 32 + 16, 1.0, BlockType::TYPE_LOCK), false);
 	maps[2]->addSwitchWithBlock(s1);
 
+	CheckPoint* cp = new CheckPoint(63 * 32 + 16, 20 * 32 + 16, 2);
+	this->checkPoints.push_back(cp);
+	maps[2]->addGimmick(cp);
 
 
-	flag = new ClearFlag(Vector2(66 * 32 + 16, 26 * 32 + 16));
+	flag = new ClearFlag(Vector2(85 * 32 + 16, 11 * 32 + 16));
 	maps[2]->addGimmick(flag);
 	now_stage_num = 2;
 	startX = 144, startY = 1536;

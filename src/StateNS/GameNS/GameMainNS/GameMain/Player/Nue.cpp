@@ -25,7 +25,6 @@ Nue::Nue(int _x, int _y, int _hp) : PlayerChild(_x, _y, 3.0f, 22.0f, 1, _hp)
 	initialize();
 }
 
-
 Nue::~Nue()
 {
 	SAFE_DELETE(p);
@@ -205,8 +204,8 @@ void Nue::updateUFO(const StageChild* _stage)
 	ufo->update(_stage);
 	//UFOの上に乗る処理
 	if (
-		abs(this->p->raw_y - ufo->getVector2()->raw_y) < CHIP_HEIGHT_RATE() * 3 / 2 &&
-		abs(this->p->raw_x - ufo->getVector2()->raw_x) < CHIP_WIDTH_RATE() * 3 / 2
+		(this->p->raw_y < ufo->getVector2()->raw_y) && abs(ufo->getVector2()->raw_y - this->p->raw_y) < CHIP_HEIGHT_RATE() * 3 / 2 &&
+		abs(this->p->raw_x - ufo->getVector2()->raw_x) < CHIP_WIDTH_RATE() * 2 / 3
 		)
 	{
 		warpCharacter(ufo->getVector2()->raw_x, ufo->getVector2()->raw_y - 48 * vectorRate);
@@ -227,7 +226,7 @@ void Nue::updateUFO(const StageChild* _stage)
 //Spearクラス
 //==============================================
 Nue::Spear::Spear(const PlayerChild* _parent, int _x, int _y, bool _direction) :
-Attack(_parent, _x, _y, 32, 32, ObjectID::A_SPEAR)
+Attack(_parent, _x, _y, 32, 33, ObjectID::A_SPEAR)
 {
 	this->mTime = 0;
 	this->mDirection = _direction;
@@ -238,12 +237,12 @@ Attack(_parent, _x, _y, 32, 32, ObjectID::A_SPEAR)
 
 	img1 = LoadGraph("Data/Image/Spear.png");
 	img2 = LoadGraph("Data/Image/Spear2.png");
-	assert(mImage != -1 && "Spear画像読み込みエラー");
 }
 
 Nue::Spear::~Spear()
 {
-	DeleteGraph(mImage);
+	DeleteGraph(img1);
+	DeleteGraph(img2);
 }
 
 void Nue::Spear::update()
