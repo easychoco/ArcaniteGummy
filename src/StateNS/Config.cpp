@@ -29,6 +29,7 @@ void Config::initialize()
 	this->prePush = true;
 	this->nowKeyConfig = false;
 	this->configTime = 0;
+	this->padResponse = false;
 
 	sound->setSound("Data/Sound/OP.wav", "bgm");
 	sound->playSound("bgm", BACK);
@@ -71,8 +72,12 @@ Child* Config::update(GrandParent* parent)
 	{
 		//キーコンフィグ画面
 		unsigned input = GetJoypadInputState(DX_INPUT_PAD1);
-		if(input == 0)++configTime;
-		else configTime = 0;
+		if(input == 0 && !padResponse)++configTime;
+		else
+		{
+			configTime = 0;
+			padResponse = true;
+		}
 
 		if (!prePush && input > 0)
 		{

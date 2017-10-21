@@ -3,6 +3,9 @@
 #include "GameMainChild.h"
 #include "..\..\..\Data.h"
 
+#include <string>
+#include <sstream>
+
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS {
@@ -50,3 +53,6 @@ private:
 }
 }
 }
+
+
+vector<string> split_co(const string&, char);

@@ -4,6 +4,10 @@
 #include "StageChild.h"
 #include "..\Gimmick\Switches\SwitchWithBlock.h"
 #include "..\Gimmick\Block.h"
+
+#include <string>
+#include <sstream>
+
 namespace StateNS {
 namespace GameNS {
 namespace GameMainNS{
@@ -246,3 +250,10 @@ private:
 }
 }
 }
+
+
+vector<string> split(const string&, char);
+
+
+
+

@@ -22,6 +22,7 @@ private:
 	bool backFromConfig;
 	bool nowKeyConfig;
 	int nowInput;
+	bool padResponse;
 
 	int configTime;
 

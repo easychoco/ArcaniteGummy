@@ -32,19 +32,30 @@ void Converse::initialize()
 	prePush = false;
 
 	initial_cancel = true;
-	
+
 	string textFile = "Data/Text/Converse/stage";
 	textFile += std::to_string(stageNum);
 	textFile += ".txt";
 
-	std::ifstream fin(textFile);
-	assert(fin && "会話データ読み込みエラー");
 
-	string name, serifu;
-	while (fin >> name >> serifu) {
-		allPassages.push_back(Passage(name, YennToCR(serifu)));
+	int fin = FileRead_open(textFile.c_str());
+
+	assert(fin != 0 && "会話データ読み込みエラー");
+
+	char gomi[512];
+	string tmp;
+
+	vector<string> input;
+
+	while (FileRead_eof(fin) == 0) 
+	{
+		FileRead_gets(gomi, 512, fin);
+		tmp = gomi;
+		input = split_co(tmp, ' ');
+
+		allPassages.push_back(Passage(input[0], YennToCR(input[1])));
 	}
-
+	FileRead_close(fin);
 }
 
 Child* Converse::update(GameParent* _parent)
@@ -149,3 +160,22 @@ void Converse::Passage::show() const
 }
 }
 }
+
+
+
+vector<string> split_co(const string &s, char delim)
+{
+	vector<string> elems;
+	stringstream ss(s);
+	string item;
+	while (getline(ss, item, delim))
+	{
+		if (!item.empty())
+		{
+			elems.push_back(item);
+		}
+	}
+	return elems;
+}
+
+

@@ -406,6 +406,7 @@ void Map::drawMap(const Vector2* _camera) const
 	}
 }
 
+/*
 void Map::loadMap(int _stageID, int _mapID)
 {
 	string textFile = "Data/Text/Stages/stage";
@@ -445,8 +446,68 @@ void Map::loadMap(int _stageID, int _mapID)
 			fin2 >> gimmickX;
 		}
 	}
-
 }
+*/
+
+void Map::loadMap(int _stageID, int _mapID)
+{
+	string textFile = "Data/Text/Stages/stage";
+	textFile += std::to_string(_stageID);
+	textFile += "/stage";
+	textFile += std::to_string(_mapID);
+	textFile += ".txt";
+
+	char* path = "";
+	for (auto& c : textFile)path += c;
+
+	int fin1 = FileRead_open(textFile.c_str());
+	int fin2 = FileRead_open(textFile.c_str());
+
+	assert(fin1 != 0 && "マップデータ読み込みエラー");
+	assert(fin2!= 0 && "ギミック読み込みエラー");
+
+	char gomi[512];
+	string tmp;
+	
+	vector<string> file_input;
+	
+	for (auto& mapY : mapData)
+	{
+		FileRead_gets(gomi, 512, fin1);
+		tmp = gomi;
+		file_input = split(tmp, ' ');
+		for (unsigned i = 0; i < mapY.size(); ++i)
+		{
+			mapY[i] = stoi(file_input[i]);
+		}
+	}
+
+	//ギミックや敵配置の後ろは背景とする。
+	for (unsigned y = 0; y < mapData.size(); y++)
+	{
+		for (unsigned x = 0; x < mapData[0].size(); x++)
+		{
+			if (mapData[y][x] > 111)mapData[y][x] = 0;
+		}
+	}
+
+	vector<string> file_input2;
+
+	for (auto& gimmickY : gimmickData)
+	{
+		FileRead_gets(gomi, 512, fin2);
+		tmp = gomi;
+		file_input2 = split(tmp, ' ');
+		for (unsigned i = 0; i < gimmickY.size(); ++i)
+		{
+			gimmickY[i] = stoi(file_input2[i]);
+		}
+	}
+
+	FileRead_close(fin1);
+	FileRead_close(fin2);
+}
+
 
 void Map::loadGimmick(int _x, int _y, int _n)
 {
@@ -613,3 +674,18 @@ void Map::loadEnemy(int _x, int _y, int _n)
 }
 
 
+
+vector<string> split(const string &s, char delim)
+{
+	vector<string> elems;
+	stringstream ss(s);
+	string item;
+	while (getline(ss, item, delim))
+	{
+		if (!item.empty())
+		{
+			elems.push_back(item);
+		}
+	}
+	return elems;
+}
