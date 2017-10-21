@@ -80,7 +80,7 @@ void Fran::update(const StageChild* _stage, const Vector2* _camera)
 {
 	if (!init_attacks)initialize_attacks();
 	
-	++mTime;
+	mTime += 2;
 	this->mDirection = this->p->raw_x > player->raw_x;
 	standardAction(_stage);
 

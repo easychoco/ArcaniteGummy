@@ -48,7 +48,7 @@ void Junko::update(const StageChild* _stage, const Vector2* _camera)
 		init_attacks = true;
 	}
 
-	++mTime;
+	mTime += 2;
 	this->mDirection = this->p->raw_x > player->raw_x;
 	standardAction(_stage);
 

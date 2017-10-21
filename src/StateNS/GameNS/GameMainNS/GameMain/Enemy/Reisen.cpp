@@ -54,7 +54,7 @@ void Reisen::update(const StageChild* _stage, const Vector2* _camera)
 {
 	this->mDirection = this->p->raw_x > player->raw_x;
 
-	++mTime;
+	mTime += 2;
 	if (mTime % 90 == 0 && !nowMoving)attack();
 	//if (!nowMoving && abs(player->raw_x - this->p->raw_x) < 64000)
 
@@ -202,7 +202,7 @@ Reisen::Shot::Shot(const EnemyChild* _parent, const Vector2* _player, int _x, in
 Attack(_parent, _x, _y, 32, 32, ObjectID::ID_NONE),
 player(_player)
 {
-	this->damageValue = 20;
+	this->damageValue = 30;
 
 	mImage = LoadGraph("Data/Image/shot0.png");
 	assert(mImage != -1 && "—éåShot‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
