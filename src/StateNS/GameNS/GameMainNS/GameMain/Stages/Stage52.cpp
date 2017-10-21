@@ -22,7 +22,7 @@ Stage52::~Stage52()
 
 void Stage52::initialize()
 {
-	sound->setSound("Data/Sound/stage5.wav", "bgm5");
+	sound->setSound("Data/Sound/bgm_maoudamashii_neorock73.ogg", "bgm5");
 	sound->playSound("bgm5", LOOP, false);
 
 	//変更できるキャラクターを設定

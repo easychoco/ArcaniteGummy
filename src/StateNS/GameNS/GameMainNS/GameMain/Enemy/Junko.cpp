@@ -10,8 +10,8 @@ namespace GameMainNS{
 	
 
 Junko::Junko(int _x, int _y) : 
-EnemyChild(1000, _x, _y, 32, 32, false, true),
-maxHP(1000)
+EnemyChild(700, _x, _y, 32, 32, false, true),
+maxHP(700)
 {
 	loadImage();
 	
@@ -113,8 +113,8 @@ void Junko::draw_other(const Vector2* _camera) const
 
 	//ï`âÊ
 	//DrawString(draw_x - 16, draw_y - 32, "èÉåœ", BLUE);
-
-	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
+	draw_hp_bar(draw_x, draw_y - 48, maxHP, 50);
+	//DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
 }
 
 

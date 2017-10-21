@@ -1,6 +1,7 @@
 #include "Nue.h"
 
 #include "..\..\..\..\..\KeyInput.h"
+#include "..\Stages\StageChild.h"
 
 #include "Sakuya.h"
 #include "Mokou.h"
@@ -109,7 +110,29 @@ PlayerChild* Nue::update(const StageChild* _stage)
 	//地面にいるとUFOを再召喚できる
 	if (onGround && !ufo->isActive)createdUFO = false;
 
-	if (ufo->isActive)updateUFO(_stage);
+	if (ufo->isActive)
+	{
+		updateUFO(_stage);
+		
+		//チップの上端
+		RawVector2 pos = RawVector2(p->x(), p->y() - height / 2);
+		StageChild::ChipType chipType = _stage->getChipType(pos, true);
+
+		if (chipType == _stage->TYPE_UP_SLANT_LEFT || chipType == _stage->TYPE_UP_SLANT_RIGHT)
+		{
+			this->p->raw_y += 48000;
+		}
+		
+		//チップの上半分の中心
+		pos = RawVector2(p->x(), p->y() - height / 4);
+		chipType = _stage->getChipType(pos, true);
+
+		if (chipType == _stage->TYPE_UP_SLANT_LEFT || chipType == _stage->TYPE_UP_SLANT_RIGHT)
+		{
+			this->p->raw_y += 48000;
+		}
+
+	}
 	
 
 	if (canChangeCharacter())

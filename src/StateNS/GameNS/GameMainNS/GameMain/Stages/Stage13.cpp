@@ -80,14 +80,19 @@ void Stage13::initialize()
 	for (int i = 0; i < 4; i++)s->push_block(new Block(76 * 32 + 16, (40 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s);
 
-	reisen = new Reisen(95 * 32, 48 * 32);
+	reisen = new Reisen(95 * 32, 48 * 32, true);
 
+	
 	startX = 208, startY = 1440;
 	cTime = 0;
 	converseFlag0 = true;
 	converseFlag0fin = false;
 	converseFlag1 = true;
 	converseFlag2 = true;
+
+	//for Debug
+	now_stage_num = 3;
+	startX = 202, startY = 864;
 
 	//•œŠˆ
 	bool restart = findRestartPoint();

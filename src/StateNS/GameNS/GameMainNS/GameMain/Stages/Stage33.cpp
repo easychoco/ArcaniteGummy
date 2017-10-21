@@ -80,6 +80,10 @@ void Stage33::initialize()
 	imageNue = LoadGraph("Data/Image/Character/haribote_nue.png");
 	imageMokou = LoadGraph("Data/Image/Character/haribote_mokou.png");
 
+	assert(imageReisen != -1 && "Stage33: 鈴仙画像読み込みエラー");
+	assert(imageNue != -1 && "Stage33: ぬえ画像読み込みエラー");
+	assert(imageMokou != -1 && "Stage33: 妹紅画像読み込みエラー");
+
 	now_stage_num = 4;
 	startX = 1616, startY = 704;
 	nue = new Nue_Boss(95 * 32, 48 * 32, 90 * 32, 42 * 32 + 16);

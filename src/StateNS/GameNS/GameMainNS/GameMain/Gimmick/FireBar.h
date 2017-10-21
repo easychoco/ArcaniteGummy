@@ -35,7 +35,7 @@ private:
 
 	float radian;
 	bool ways;//ŽžŒv‰ñ‚è‚È‚çtrue
-	const int damageValue = 50;
+	const int damageValue = 30;
 
 	const int r_1 =  64 * vectorRate;
 	const int r_2 =  96 * vectorRate;

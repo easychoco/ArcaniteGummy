@@ -8,8 +8,8 @@ namespace GameMainNS{
 
 	
 Fran::Fran(int _x, int _y, int _cx, int _cy) : 
-EnemyChild(600, _x, _y, 32, 64, false, true),
-maxHP(600),
+EnemyChild(1200, _x, _y, 32, 64, false, true),
+maxHP(1200),
 initial_pos(Vector2(_cx, _cy))
 {
 	loadImage();
@@ -232,6 +232,16 @@ void Fran::move(const StageChild* _stage, int& _dx, int& _dy)
 		move_type = GetRand(6);
 	}
 
+	if (_dx != 0)
+	{
+		this->mDirection = _dx < 0;
+		this->mImage = images[15];
+	}
+
+
+	//for Debug
+	move_type = 6;
+
 	switch (move_type)
 	{
 	case 0: case 1: case 2:
@@ -242,11 +252,6 @@ void Fran::move(const StageChild* _stage, int& _dx, int& _dy)
 	case 6: processLock(_stage, _dx, _dy); break;
 	}
 
-	if (_dx != 0)
-	{
-		this->mDirection = _dx < 0;
-		this->mImage = images[15];
-	}
 }
 
 void Fran::processStar(const StageChild* _stage, int& _dx, int& _dy)
@@ -261,7 +266,7 @@ void Fran::processStar(const StageChild* _stage, int& _dx, int& _dy)
 	{
 		attack_star = true;
 		//¶‰E‰•œ
-		_dx = dx * move_type;//move_type ‚Í 0~2
+		_dx = dx;//move_type ‚Í 0~2
 		if (p->raw_x + dx < initial_pos.raw_x - 200000 || initial_pos.raw_x + 200000 < p->raw_x + dx)
 		{
 			dx = -dx;
@@ -298,7 +303,7 @@ void Fran::processQED(const StageChild* _stage, int& _dx, int& _dy)
 	{
 		attack_qed = true;
 		//¶‰E‰•œ
-		_dx = dx * (move_type - 3) / 2;//move_type ‚Í 3,4
+		_dx = dx * (move_type - 2);//move_type ‚Í 3,4
 		if (p->raw_x + dx < initial_pos.raw_x - 200000 || initial_pos.raw_x + 200000 < p->raw_x + dx)
 		{
 			dx = -dx;
@@ -371,11 +376,21 @@ void Fran::processLock(const StageChild* _stage, int& _dx, int& _dy)
 {
 	timeToNextMotion = 720;
 	_dx = 0;
-	if (mTime < 60)_dy = -2000;
-	else if (mTime < 630)attack_lock = true;
+	if (mTime < 60)_dy = -5000;
+	else if (mTime < 630)
+	{
+		attack_lock = true;
+		this->mDirection = this->p->raw_x > player->raw_x;
+		_dx = dx / 2;
+		if (p->raw_x + dx < initial_pos.raw_x - 200000 || initial_pos.raw_x + 200000 < p->raw_x + dx)
+		{
+			dx = -dx;
+			p->raw_x += dx;
+		}
+	}
 	else if (630 < mTime)
 	{
-		_dy = getBottomDiffer(_stage, 3000, _dx < 0);
+		_dy = getBottomDiffer(_stage, 5000, _dx < 0);
 		attack_lock = false;
 		focus->setActive(false);
 	}

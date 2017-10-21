@@ -284,8 +284,8 @@ void PlayerChild::move(const StageChild* _stage)
 	dx = getHorizontalDiffer(_stage, dx, dy < 0);
 
 	//for Debug
-	if (Input_D() && in_right)dx = 20000;// getHorizontalDiffer(_stage, 10000, dy < 0);
-	if (Input_D() && in_left)dx = -20000;// getHorizontalDiffer(_stage, -10000, dy < 0);
+	if (Input_D() && in_right)dx = getHorizontalDiffer(_stage, 10000, dy < 0);
+	if (Input_D() && in_left)dx = getHorizontalDiffer(_stage, -10000, dy < 0);
 
 	p->raw_x += dx;
 
@@ -299,8 +299,8 @@ void PlayerChild::move(const StageChild* _stage)
 	if (abs(dy) <= 1000)jumpPower = 0;
 
 	//for Debug
-	if (Input_D() && in_up) dy = -20000;//getTopDiffer(_stage, -10000, dx < 0);
-	if (Input_D() && in_down) dy = 20000; //getBottomDiffer(_stage, 10000, dx < 0);
+	if (Input_D() && in_up) dy = getTopDiffer(_stage, -10000, dx < 0);
+	if (Input_D() && in_down) dy = getBottomDiffer(_stage, 10000, dx < 0);
 
 	p->raw_y += dy;
 

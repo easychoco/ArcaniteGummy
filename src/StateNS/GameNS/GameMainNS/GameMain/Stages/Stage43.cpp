@@ -75,7 +75,7 @@ void Stage43::initialize()
 	converseFlag2 = true;
 	converseFlag2fin = false;
 	imageSakuya = LoadGraph("Data/Image/Character/haribote_sakuya.png");
-	imageNue = LoadGraph("Data/Image/Character/haribote_nueR.png");
+	imageNue = LoadGraph("Data/Image/Character/haribote_nue.png");
 
 	//•œŠˆ
 	bool restart = findRestartPoint();
@@ -134,14 +134,12 @@ void Stage43::updateConverse(GameMain* gameMain, PlayerChild* _player)
 		gameMain->startConverse(430);
 		converseFlag0 = false;
 	}
-
-
 }
 
 void Stage43::draw(const Vector2* _camera) const
 {
 	standardDraw(_camera);
-	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(100, 416, 1.0, 0.0, imageNue, TRUE);
+	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(100, 416, 1.0, 0.0, imageNue, TRUE, true);
 	if (!converseFlag1 && !converseFlag1fin)DrawRotaGraph(140, 416, 1.0, 0.0, imageSakuya, TRUE,TRUE);
 }
 

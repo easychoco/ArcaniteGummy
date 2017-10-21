@@ -25,7 +25,7 @@ Stage53::~Stage53()
 
 void Stage53::initialize()
 {
-	sound->setSound("Data/Sound/stage5.wav", "bgm5");
+	sound->setSound("Data/Sound/bgm_maoudamashii_neorock73.ogg", "bgm5");
 	sound->setSound("Data/Sound/taketori.wav", "boss5");
 	sound->playSound("bgm5", LOOP, false);
 	//変更できるキャラクターを設定
