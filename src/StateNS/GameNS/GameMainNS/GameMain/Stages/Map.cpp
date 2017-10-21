@@ -37,6 +37,8 @@ Map::~Map()
 	}
 	mDynamicGimmicks.clear();
 	mDynamicGimmicks.shrink_to_fit();
+
+	SAFE_DELETE(mEController);
 }
 
 void Map::initialize()

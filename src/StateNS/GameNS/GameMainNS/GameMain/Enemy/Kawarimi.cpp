@@ -10,6 +10,9 @@ namespace GameMainNS{
 bool Kawarimi::imgLoad = false;
 int Kawarimi::images[8];
 
+bool Kawarimi::Thunder::imgLoad = false;
+int Kawarimi::Thunder::image;
+
 
 Kawarimi::Kawarimi(int _x, int _y) : EnemyChild(100000, _x, _y, 32, 64)
 {
@@ -136,8 +139,12 @@ Kawarimi::Thunder::Thunder(const Character* _parent, const StageChild* _stage, i
 
 	this->damageValue = 20;
 
-	mImage = LoadGraph("Data/Image/PikachiAttack.png");
-	assert(mImage != -1 && "KawarimiAttack画像読み込みエラー");
+	if (!imgLoad)
+	{
+		image = LoadGraph("Data/Image/PikachiAttack.png");
+		assert(mImage != -1 && "KawarimiAttack画像読み込みエラー");
+		imgLoad = true;
+	}
 }
 
 Kawarimi::Thunder::~Thunder()
@@ -169,7 +176,7 @@ void Kawarimi::Thunder::draw(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//描画
-	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), mImage, true, mDirection);
+	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), image, true, mDirection);
 }
 
 void Kawarimi::Thunder::setStatus(Vector2 _player, int _speed)

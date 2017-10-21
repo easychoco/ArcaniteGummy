@@ -10,7 +10,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	DxLib_Init();
 	SetDrawScreen(DX_SCREEN_BACK);
 	ClearDrawScreen();
-	SetMainWindowText("‹P–é‚Ì‘å–À‹{");
+	SetMainWindowText("‹P–é‚Ì–À‹{");
 
 	loadKeyConfig();
 	Parent* parent = new Parent();

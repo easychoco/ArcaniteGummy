@@ -29,6 +29,10 @@ PlayerChild::~PlayerChild()
 	{
 		SAFE_DELETE(a);
 	}
+	for (int i = 0; i < 32; i++)
+	{
+		DeleteGraph(mImage[i]);
+	}
 	attacks.clear();
 	attacks.shrink_to_fit();
 }

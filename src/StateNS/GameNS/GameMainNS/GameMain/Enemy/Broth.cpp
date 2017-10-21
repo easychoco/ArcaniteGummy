@@ -10,6 +10,9 @@ namespace GameMainNS{
 bool Broth::imgLoad = false;
 int Broth::images[8];
 
+bool Broth::Hammer::imgLoad = false;
+int Broth::Hammer::image;
+
 
 Broth::Broth(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
@@ -140,13 +143,17 @@ Attack(_parent, _parent->getVector2()->raw_x, _parent->getVector2()->raw_y, 32, 
 
 	this->damageValue = 20;
 
-	mImage = LoadGraph("Data/Image/BrothAttack.png");
-	assert(mImage != -1 && "BrothAttack画像読み込みエラー");
+	if (!imgLoad)
+	{
+		image = LoadGraph("Data/Image/BrothAttack.png");
+		assert(mImage != -1 && "BrothAttack画像読み込みエラー");
+		imgLoad = true;
+	}
 }
 
 Broth::Hammer::~Hammer()
 {
-	DeleteGraph(mImage);
+	
 }
 
 void Broth::Hammer::update()
@@ -170,7 +177,7 @@ void Broth::Hammer::draw(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//描画
-	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), mImage, true, mDirection);
+	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), image, true, mDirection);
 }
 
 void Broth::Hammer::setStatus(Vector2 _player, int _direction)

@@ -10,6 +10,9 @@ namespace GameMainNS{
 bool Pikachi::imgLoad = false;
 int Pikachi::images[8];
 
+bool Pikachi::Thunder::imgLoad = false;
+int Pikachi::Thunder::image;
+
 
 Pikachi::Pikachi(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
@@ -138,8 +141,12 @@ stage(_stage)
 
 	this->damageValue = 20;
 
-	mImage = LoadGraph("Data/Image/PikachiAttack.png");
-	assert(mImage != -1 && "PikachiAttack画像読み込みエラー");
+	if (!imgLoad)
+	{
+		image = LoadGraph("Data/Image/PikachiAttack.png");
+		assert(mImage != -1 && "PikachiAttack画像読み込みエラー");
+		imgLoad = true;
+	}
 }
 
 Pikachi::Thunder::~Thunder()
@@ -168,7 +175,7 @@ void Pikachi::Thunder::draw(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//描画
-	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), mImage, true, mDirection);
+	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), image, true, mDirection);
 }
 
 void Pikachi::Thunder::setStatus(Vector2 _player, int _speed)

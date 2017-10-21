@@ -8,6 +8,10 @@ namespace GameMainNS{
 bool Airmz::imgLoad = false;
 int Airmz::images[8];
 
+bool Airmz::Bomb::imgLoad = false;
+int Airmz::Bomb::image;
+
+
 Airmz::Airmz(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	loadImage();
@@ -124,8 +128,13 @@ stage(_stage)
 
 	this->damageValue = 20;
 
-	mImage = LoadGraph("Data/Image/AirmzAttack.png");
-	assert(mImage != -1 && "AirmzAttack画像読み込みエラー");
+	if (imgLoad)
+	{
+		image = LoadGraph("Data/Image/AirmzAttack.png");
+		assert(mImage != -1 && "AirmzAttack画像読み込みエラー");
+		imgLoad = true;
+	}
+
 }
 
 Airmz::Bomb::~Bomb()
@@ -160,7 +169,7 @@ void Airmz::Bomb::draw(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//描画
-	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), mImage, true, mDirection);
+	DrawRotaGraph(draw_x, draw_y, 1.0, mTime * pi(1 / 15.0f), image, true, mDirection);
 }
 
 void Airmz::Bomb::setStatus(Vector2 _player, int _direction)

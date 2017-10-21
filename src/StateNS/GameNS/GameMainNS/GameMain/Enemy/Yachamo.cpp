@@ -10,6 +10,10 @@ namespace GameMainNS{
 bool Yachamo::imgLoad = false;
 int Yachamo::images[8];
 
+bool Yachamo::Fire::imgLoad = false;
+int Yachamo::Fire::image;
+
+
 Yachamo::Yachamo(int _x, int _y) : EnemyChild(100, _x, _y, 32, 32)
 {
 	loadImage();
@@ -131,8 +135,13 @@ stage(_stage)
 
 	this->damageValue = 20;
 
-	mImage = LoadGraph("Data/Image/Yachamo_fire.png");
-	assert(mImage != -1 && "ヤチャモFire画像読み込みエラー");
+	if (!imgLoad)
+	{
+		image = LoadGraph("Data/Image/Yachamo_fire.png");
+		assert(mImage != -1 && "ヤチャモFire画像読み込みエラー");
+		imgLoad = true;
+	}
+	mImage = image;
 }
 
 Yachamo::Fire::~Fire()

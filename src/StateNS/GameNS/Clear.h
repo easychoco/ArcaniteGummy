@@ -22,7 +22,7 @@ private:
 	bool saved;
 	int backImg;
 	int images[32];
-	int movie;
+	int movie = 0;
 	int time;
 	bool ED;
 	bool prePushZ;

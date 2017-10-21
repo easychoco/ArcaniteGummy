@@ -19,6 +19,7 @@ public:
 
 	virtual void draw(const Vector2* camera) const;
 	void standardDraw(const Vector2* _camera, const bool& _direction) const;
+	void standardDraw(const Vector2* _camera, const bool& _direction, int& _image) const;
 	virtual void draw_other(const Vector2* camera)const {}
 
 	bool isAlive()  const { return mIsAlive; }

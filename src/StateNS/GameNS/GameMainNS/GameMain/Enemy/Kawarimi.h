@@ -51,6 +51,8 @@ private:
 		void hittedAction();
 
 	private:
+		static bool imgLoad;
+		static int image;
 		int mTime;
 		int dx;
 		int dy;

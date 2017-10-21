@@ -68,6 +68,15 @@ void EnemyChild::standardDraw(const Vector2* _camera, const bool& _direction) co
 	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, mImage, true, _direction);
 }
 
+void EnemyChild::standardDraw(const Vector2* _camera, const bool& _direction, int& _image) const
+{
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	//•`‰æ
+	DrawRotaGraph(draw_x, draw_y, 1.0, 0.0, _image, true, _direction);
+}
+
 void EnemyChild::draw_hp_bar(int _draw_x, int _draw_y, int _maxHP, int _width) const
 {
 	double width_ratio = _width / (double)_maxHP;

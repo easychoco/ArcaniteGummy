@@ -20,6 +20,11 @@ Clear::~Clear()
 {
 	sound->stopSoundOfFile();
 	saveData->outputSaveData();
+	DeleteGraph(backImg);
+	for (int i = 0; i < 32; i++)
+	{
+		DeleteGraph(images[i]);
+	}
 }
 
 void Clear::initialize()
@@ -34,8 +39,6 @@ void Clear::initialize()
 	backImg = LoadGraph("Data/Image/clear.png");
 	time = 0;
 	ED = false;
-	movie = LoadGraph("Data/Movie/ED.ogv");
-	PlayMovieToGraph(movie);
 }
 
 Child* Clear::update(StateNS::Parent* _parent)
@@ -51,6 +54,8 @@ Child* Clear::update(StateNS::Parent* _parent)
 		if (nextStage == 53) {
 			nextStage = 11;
 			ED = true;
+			movie = LoadGraph("Data/Movie/ED.ogv");
+			PlayMovieToGraph(movie);
 		}
 		else if (nextStage % 10 == 3)nextStage += 8;
 		else ++nextStage;
