@@ -29,7 +29,7 @@ void Clear::initialize()
 	prePushUD = true;
 	cursorPos = 0;
 	sound->playSoundWithPath("Data/Sound/clear.mp3", BACK);
-	LoadDivGraph("Data/Image/Character/chip_mokou.png", 32, 8, 4, 32, 64, images, TRUE);
+	LoadDivGraph("Data/Image/chip_mokou.png", 32, 8, 4, 32, 64, images, TRUE);
 	assert(*images != -1 && "©‹@‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 	backImg = LoadGraph("Data/Image/clear.png");
 	time = 0;

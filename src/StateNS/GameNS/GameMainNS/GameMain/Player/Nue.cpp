@@ -190,9 +190,9 @@ void Nue::draw_other() const
 void Nue::loadImage()
 {
 	//	mImage = LoadGraph("Data/Image/Nue.png");
-	int tmp = LoadDivGraph("Data/Image/Character/chip_NueR.png", 32, 8, 4, 64, 64, mImageR, TRUE);
+	int tmp = LoadDivGraph("Data/Image/chip_NueR.png", 32, 8, 4, 64, 64, mImageR, TRUE);
 	assert(tmp != -1 && "ぬえR画像読み込みエラー");
-	tmp = LoadDivGraph("Data/Image/Character/chip_NueL.png", 32, 8, 4, 64, 64, mImageL, TRUE);
+	tmp = LoadDivGraph("Data/Image/chip_NueL.png", 32, 8, 4, 64, 64, mImageL, TRUE);
 	assert(tmp != -1 && "ぬえL画像読み込みエラー");
 }
 

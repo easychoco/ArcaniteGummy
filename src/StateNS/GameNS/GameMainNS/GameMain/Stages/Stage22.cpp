@@ -84,7 +84,7 @@ void Stage22::initialize()
 	SwitchWithBlock* s5 = new SwitchWithBlock(38 * 32 + 16, 39 * 32 + 16, 1);
 	for (int i = 0; i < 3; i++)s5->push_block(new Block(36 * 32 + 16, (41 + i) * 32 + 16, 1.0, BlockType::TYPE_SWITCH), false);
 	maps[1]->addSwitchWithBlock(s5);
-	imageSakuya = LoadGraph("Data/Image/Character/haribote_sakuya.png");
+	imageSakuya = LoadGraph("Data/Image/haribote_sakuya.png");
 	converseFlag0 = true;
 	converseFlag0fin = false;
 	startX = 144, startY = 704;

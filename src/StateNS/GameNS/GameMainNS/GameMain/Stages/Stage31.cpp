@@ -60,7 +60,7 @@ void Stage31::initialize()
 	converseFlag0fin = false;
 	converseFlag1 = true;
 	converseFlag1fin = false;
-	imageReisen = LoadGraph("Data/Image/Character/haribote_reisen.png");
+	imageReisen = LoadGraph("Data/Image/haribote_reisen.png");
 	//•œŠˆ
 	bool restart = findRestartPoint();
 	//•œŠˆ‚µ‚½‚ç‰ï˜bƒtƒ‰ƒO‚ğÜ‚é

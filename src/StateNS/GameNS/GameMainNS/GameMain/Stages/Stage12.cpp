@@ -78,7 +78,7 @@ void Stage12::initialize()
 	startX = 208, startY = 1472;
 	converseFlag0 = true;
 	converseFlag0fin = false;
-	imageReisen = LoadGraph("Data/Image/Character/haribote_reisen.png");
+	imageReisen = LoadGraph("Data/Image/haribote_reisen.png");
 	//•œŠˆ
 	bool restart = findRestartPoint();
 	//•œŠˆ‚µ‚½‚ç‰ï˜bƒtƒ‰ƒO‚ğÜ‚é

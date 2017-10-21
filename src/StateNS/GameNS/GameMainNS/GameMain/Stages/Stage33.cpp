@@ -76,9 +76,9 @@ void Stage33::initialize()
 	maps[7]->addGimmick(cp);
 
 
-	imageReisen = LoadGraph("Data/Image/Character/haribote_reisen.png");
-	imageNue = LoadGraph("Data/Image/Character/haribote_nue.png");
-	imageMokou = LoadGraph("Data/Image/Character/haribote_mokou.png");
+	imageReisen = LoadGraph("Data/Image/haribote_reisen.png");
+	imageNue = LoadGraph("Data/Image/haribote_nue.png");
+	imageMokou = LoadGraph("Data/Image/haribote_mokou.png");
 
 	assert(imageReisen != -1 && "Stage33: 鈴仙画像読み込みエラー");
 	assert(imageNue != -1 && "Stage33: ぬえ画像読み込みエラー");

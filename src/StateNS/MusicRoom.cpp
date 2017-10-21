@@ -42,7 +42,7 @@ void MusicRoom::initialize()
 	sound->setSound("Data/Sound/taketori.wav", "boss5");
 
 
-	LoadDivGraph("Data/Image/Character/chip_mokou.png", 32, 8, 4, 32, 64, images, TRUE);
+	LoadDivGraph("Data/Image/chip_mokou.png", 32, 8, 4, 32, 64, images, TRUE);
 	assert(*images != -1 && "©‹@‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 	time = 0;
 

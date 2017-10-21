@@ -122,7 +122,7 @@ void Fran::draw_other(const Vector2* _camera) const
 
 void Fran::loadImage()
 {
-	int tmp = LoadDivGraph("Data/Image/Character/chip_fran.png", 32, 8, 4, 64, 64, images);
+	int tmp = LoadDivGraph("Data/Image/chip_fran.png", 32, 8, 4, 64, 64, images);
 	assert(tmp != -1 && "Fran画像読み込みエラー");
 }
 
@@ -805,7 +805,7 @@ init_phase(_phase)
 	this->dx = 0;
 	this->dy = 0;
 
-	int tmp = LoadDivGraph("Data/Image/Character/chip_fran.png", 32, 8, 4, 64, 64, images);
+	int tmp = LoadDivGraph("Data/Image/chip_fran.png", 32, 8, 4, 64, 64, images);
 	assert(tmp != -1 && "フラン::Kind4::Childs画像読み込みエラー");
 
 	shots.reserve(maxShotNum);

@@ -270,7 +270,7 @@ void Nue_Boss::draw_other(const Vector2* _camera) const
 
 void Nue_Boss::loadImage()
 {
-	int tmp = LoadDivGraph("Data/Image/Character/chip_mokou.png", 8, 8, 1, 32, 64, images);
+	int tmp = LoadDivGraph("Data/Image/chip_mokou.png", 8, 8, 1, 32, 64, images);
 	assert(tmp != -1 && "Nue_Boss‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 }
 

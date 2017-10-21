@@ -54,7 +54,7 @@ void Stage51::initialize()
 	maps[2]->addGimmick(flag);
 	now_stage_num = 2;
 	startX = 144, startY = 1536;
-	imageKaguya = LoadGraph("Data/Image/Character/haribote_kaguya.png");
+	imageKaguya = LoadGraph("Data/Image/haribote_kaguya.png");
 	converseFlag0 = true;
 	converseFlag0fin = false;
 	time = 0;
