@@ -138,7 +138,6 @@ Attack(_parent, _parent->getVector2()->raw_x, _parent->getVector2()->raw_y, 32, 
 {
 	this->setStatus(Vector2::ZERO, _direction);
 
-	//for Debug
 	this->damageValue = 20;
 
 	mImage = LoadGraph("Data/Image/BrothAttack.png");

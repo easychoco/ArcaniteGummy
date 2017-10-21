@@ -107,13 +107,6 @@ void StageChild::standardDraw(const Vector2* _camera) const
 
 	maps[now_stage_num]->draw(_camera);
 
-	//for Debug
-	if (CheckHitKey(KEY_INPUT_W))
-	{
-		DrawBox(0, 100, 100, 200, BLACK, true);
-		DrawFormatString(10, 110, WHITE, "%d", now_stage_num);
-	}
-
 }
 
 void StageChild::draw_front(const Vector2* _camera) const

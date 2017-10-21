@@ -129,7 +129,6 @@ stage(_stage)
 	this->dx = _dx * MyData::vectorRate;
 	mDirection = _dx < 0;
 
-	//for Debug
 	this->damageValue = 20;
 
 	mImage = LoadGraph("Data/Image/Yachamo_fire.png");

@@ -126,8 +126,6 @@ Child* GameMain::update(GameParent* _parent)
 		mEController->setPlayerPos(mPlayer->getVector2());
 	}
 
-	//for Debug
-	if(Input_W())mPlayer->hpController.recover(10000000);
 	
 
 	//時が止まっているか更新
@@ -172,9 +170,6 @@ Child* GameMain::update(GameParent* _parent)
 		this->nextCharacter = CHARA_NONE;
 	}
 
-	//for Debug
-	//リジェネ
-	if (Input_W())mPlayer->hpController.recover(10000);
 
 	//Player交代
 	if (nextPlayer != mPlayer)
@@ -394,8 +389,6 @@ StageChild* GameMain::getNextStage(int stageID)
 	if (stageID == 52)return new Stage52();
 	if (stageID == 53)return new Stage53();
 
-	//for Debug
-	if (stageID == 0)return new Stage00();
 
 	//ここにはこない
 	assert(!"GameMain::getNextStage 不正なStageID");

@@ -107,14 +107,10 @@ void Junko::draw_other(const Vector2* _camera) const
 		if (s_a->isActive())s_a->draw(_camera);
 	}
 
-	//for Debug
 	int draw_x = 320 + p->x() - _camera->x();
 	int draw_y = 240 + p->y() - _camera->y();
 
-	//•`‰æ
-	//DrawString(draw_x - 16, draw_y - 32, "ƒŒÏ", BLUE);
-
-	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
+	draw_hp_bar(draw_x, draw_y - 32, maxHP, 50);
 }
 
 

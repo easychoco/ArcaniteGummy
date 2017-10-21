@@ -33,6 +33,7 @@ void Stage13::initialize()
 
 	this->setBackImage("Data/Image/back1.jpg");
 	sound->setSound("Data/Sound/stage1.wav", "bgm1");
+	sound->setVolume("bgm1", 0.7f);
 	sound->setSound("Data/Sound/Invisible_Full_Moon.wav", "boss1");
 	sound->playSound("bgm1", LOOP, false);
 
@@ -89,10 +90,6 @@ void Stage13::initialize()
 	converseFlag0fin = false;
 	converseFlag1 = true;
 	converseFlag2 = true;
-
-	//for Debug
-	now_stage_num = 3;
-	startX = 202, startY = 864;
 
 	//•œŠˆ
 	bool restart = findRestartPoint();

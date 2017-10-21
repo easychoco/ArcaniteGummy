@@ -76,9 +76,6 @@ void Stage00::update(GameMain* gameMain, PlayerChild* _player)
 {
 	standardUpdate(_player);
 
-	//for Debug
-	if(CheckHitKey(KEY_INPUT_1))
-		gameMain->startConverse(11);
 }
 
 void Stage00::draw(const Vector2* _camera) const

@@ -72,8 +72,7 @@ void Converse::draw() const
 
 	allPassages[passageNum].show();
 
-	//for Debug
-	DrawFormatString(560, 80, WHITE, "%d / %d", passageNum + 1, allPassages.size());
+	DrawFormatString(50, 180, WHITE, "%d / %d", passageNum + 1, allPassages.size());
 }
 
 
@@ -124,7 +123,6 @@ Converse::Passage::~Passage()
 
 void Converse::Passage::show() const
 {
-	//for Debug
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
 	//ÉtÉåÅ[ÉÄï\é¶
 	DrawBox(10, 10, 150, 50, BLACK, true);

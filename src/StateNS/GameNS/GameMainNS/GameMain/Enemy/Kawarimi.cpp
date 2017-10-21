@@ -134,7 +134,6 @@ Kawarimi::Thunder::Thunder(const Character* _parent, const StageChild* _stage, i
 {
 	this->setStatus(Vector2(_x, _y, true), _speed);
 
-	//for Debug
 	this->damageValue = 20;
 
 	mImage = LoadGraph("Data/Image/PikachiAttack.png");

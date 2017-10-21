@@ -94,6 +94,7 @@ void SwitchWithBlock::apply(Character* _character)
 {
 	if (notChangeable)
 	{
+		sound->playSound("switch_on");
 		isPushed = true;
 		return;
 	}

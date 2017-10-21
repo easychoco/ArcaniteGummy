@@ -136,7 +136,6 @@ stage(_stage)
 {
 	this->setStatus(Vector2(_x, _y, true), _speed);
 
-	//for Debug
 	this->damageValue = 20;
 
 	mImage = LoadGraph("Data/Image/PikachiAttack.png");

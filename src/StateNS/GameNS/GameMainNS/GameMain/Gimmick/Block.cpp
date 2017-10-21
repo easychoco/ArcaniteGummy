@@ -103,7 +103,6 @@ bool Block::isOverlap(const Vector2* _player) const
 
 bool Block::onActiveArea(const Vector2* _player) const
 {
-	//for Debug
 	return false;
 }
 

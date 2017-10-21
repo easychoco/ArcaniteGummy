@@ -8,7 +8,7 @@
 
 
 //for Debug
-int hoge[15] = { 11,12,13,21,22,23,31,32,33,41,42,43,51,52,53 };
+//int hoge[15] = { 11,12,13,21,22,23,31,32,33,41,42,43,51,52,53 };
 
 namespace StateNS{
 
@@ -102,10 +102,10 @@ Child* Title::update(GrandParent* parent)
 				goToNext = true;
 			}
 			else if (Input_NO() && pushX)step--;
-			//else if (Input_UP() && pushUP)select = (select + 2) % 3;
-			//else if (Input_DOWN() && pushDOWN)select = (select + 1) % 3;
-			else if (Input_UP() && pushUP)select = (select + 14) % 15;
-			else if (Input_DOWN() && pushDOWN)select = (select + 1) % 15;
+			else if (Input_UP() && pushUP)select = (select + 2) % 3;
+			else if (Input_DOWN() && pushDOWN)select = (select + 1) % 3;
+			//else if (Input_UP() && pushUP)select = (select + 14) % 15;
+			//else if (Input_DOWN() && pushDOWN)select = (select + 1) % 15;
 		}
 	}
 
@@ -136,13 +136,13 @@ void Title::draw() const
 		DrawGraph(0, 0, mBackImg, FALSE);
 		DrawBox(200, 280, 440, 420, BLACK, TRUE);
 
-		//*/
+		/*/
 		DrawFormatString(250, 300, WHITE, "ステージ%d-%d", hoge[select] / 10, hoge[select]%10);
 		DrawFormatString(250, 330, WHITE, "デバッグ用だよ");
 		DrawFormatString(250, 360, WHITE, "上下でステージ選択");
 		//*/
 		
-		/*/
+		//*/
 		DrawBox(240, 295 + select * 20, 400, 315 + select * 20, GREEN, false);
 
 		DrawFormatString(260, 300, WHITE, "1: ステージ%d-%d", save[0] / 10, save[0] % 10);
@@ -196,13 +196,12 @@ void Title::command_draw()const
 
 }
 
-
 Child* Title::nextScene(int n) {
 	Child* scene = 0;
 	///////////もっとうまい書き方あったら教えてくれ/////////////////
 	switch (n) {
-	case 0:scene = new Parent(hoge[select]); break;
-	//case 0:scene = new Parent(save[select]); saveData->slotNum = select; break;
+	//case 0:scene = new Parent(hoge[select]); break;
+	case 0:scene = new Parent(save[select]); saveData->slotNum = select; break;
 	case 1:scene = new MusicRoom(); break;
 	case 2:scene = new Config(); break;
 	case 3:scene = new Parent(0); break;

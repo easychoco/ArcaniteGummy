@@ -24,8 +24,6 @@ void Parent::initialize()
 	//セーブデータ読み込み
 	//stageNum更新
 
-	//for Debug
-	//stageNum = 0;
 
 	this->mChild = new GameNS::Play(stageNum);
 	mNextSeq = NextSequence::SEQ_NONE;

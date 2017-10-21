@@ -30,7 +30,6 @@ void Config::initialize()
 	this->nowKeyConfig = false;
 	this->configTime = 0;
 
-	//for Debug
 	sound->setSound("Data/Sound/OP.wav", "bgm");
 	sound->playSound("bgm", BACK);
 }
@@ -120,7 +119,6 @@ void Config::draw() const
 		DrawBox(20, 130, 120, 150, WHITE, false);
 		DrawBox(22, 132, (int)(22 + 96 * volume), 148, GREEN, true);
 
-		//for Debug
 		DrawFormatString(20, 160, WHITE, "%f", volume);
 	}
 	else

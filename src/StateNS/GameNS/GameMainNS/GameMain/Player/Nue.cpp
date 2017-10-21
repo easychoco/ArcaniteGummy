@@ -255,7 +255,6 @@ Attack(_parent, _x, _y, 32, 33, ObjectID::A_SPEAR)
 	this->mDirection = _direction;
 	this->isActive = false;
 
-	//for Debug
 	this->damageValue = 25;
 
 	img1 = LoadGraph("Data/Image/Spear.png");

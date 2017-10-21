@@ -30,6 +30,7 @@ void Stage12::initialize()
 
 	this->setBackImage("Data/Image/back1.jpg");
 	sound->setSound("Data/Sound/stage1.wav", "bgm1");
+	sound->setVolume("bgm1", 0.7f);
 	sound->playSound("bgm1", LOOP, false);
 
 	//変更できるキャラクターを設定

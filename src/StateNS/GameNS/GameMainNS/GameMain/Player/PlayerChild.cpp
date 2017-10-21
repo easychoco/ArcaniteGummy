@@ -71,12 +71,6 @@ void PlayerChild::draw() const
 	draw_other();
 	draw_changingAnimation(draw_x, draw_y);
 
-	//for Debug
-	if (Input_W())
-	{
-		DrawFormatString(10, 140, WHITE, "%d %d", p->x() / 32, p->y() / 32);
-		DrawFormatString(10, 170, WHITE, "%d %d", p->x(), p->y());
-	}
 }
 
 //Ž©‹@‚ª°‚Ìã‚É‚¢‚½‚ç°‚ÌyÀ•W‚ð•Ô‚·
@@ -343,8 +337,6 @@ void PlayerChild::move(const StageChild* _stage)
 	StageChild::ChipType thisType = _stage->getChipType(*p);
 	if (thisType == StageChild::ChipType::TYPE_RIGID)
 	{
-		//for Debug
-		if(!Input_D())
 		sinkedTime++;
 	}
 	else sinkedTime = 0;

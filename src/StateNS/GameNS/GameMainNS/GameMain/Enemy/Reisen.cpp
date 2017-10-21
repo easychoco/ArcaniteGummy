@@ -202,7 +202,6 @@ Reisen::Shot::Shot(const EnemyChild* _parent, const Vector2* _player, int _x, in
 Attack(_parent, _x, _y, 32, 32, ObjectID::ID_NONE),
 player(_player)
 {
-	//for Debug
 	this->damageValue = 20;
 
 	mImage = LoadGraph("Data/Image/shot0.png");

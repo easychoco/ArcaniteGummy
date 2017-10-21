@@ -164,7 +164,6 @@ direction(_direction)
 {
 	this->mTime = 0;
 
-	//for Debug
 	this->damageValue = 34;
 
 	mImage = 0;

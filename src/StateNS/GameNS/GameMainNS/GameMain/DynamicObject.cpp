@@ -84,9 +84,8 @@ int DynamicObject::jump()
 //³‚Ì’l‚Å‰º•ûŒü
 int DynamicObject::gravity()
 {
-	//for Debug
 	//‚±‚Ì‚Ü‚Ü‚¢‚­‚È‚çconstexpr‚Å
-	return 7 * MyData::vectorRate;
+	return 7 * vectorRate;
 }
 
 int DynamicObject::getTopDiffer(const StageChild* _stage, const int _dy, bool _moveLeft, bool _isPlayer) const
