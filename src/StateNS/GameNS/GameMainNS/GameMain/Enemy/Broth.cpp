@@ -10,7 +10,7 @@ namespace GameMainNS{
 bool Broth::imgLoad = false;
 int Broth::images[8];
 
-bool Broth::Hammer::imgLoad = false;
+bool Broth::Hammer::imgLoad_hamm = false;
 int Broth::Hammer::image;
 
 
@@ -143,11 +143,11 @@ Attack(_parent, _parent->getVector2()->raw_x, _parent->getVector2()->raw_y, 32, 
 
 	this->damageValue = 20;
 
-	if (!imgLoad)
+	if (!imgLoad_hamm)
 	{
 		image = LoadGraph("Data/Image/BrothAttack.png");
 		assert(mImage != -1 && "BrothAttack‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
-		imgLoad = true;
+		imgLoad_hamm = true;
 	}
 }
 

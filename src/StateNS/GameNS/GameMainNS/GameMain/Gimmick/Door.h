@@ -29,8 +29,8 @@ private:
 	bool onDoor2;
 	int animeTime;
 
-	Vector2* door1;
-	Vector2* door2;
+	Vector2* door1 = 0;
+	Vector2* door2 = 0;
 
 	static bool imgLoad;
 	static int image;

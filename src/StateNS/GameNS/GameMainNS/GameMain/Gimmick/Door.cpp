@@ -29,6 +29,7 @@ void Door::initialize()
 {
 	loadImage();
 	mImage = image;
+	animeTime = 0;
 
 	onDoor1 = false;
 	onDoor2 = false;

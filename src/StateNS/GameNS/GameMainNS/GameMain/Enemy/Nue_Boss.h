@@ -69,7 +69,7 @@ private:
 		int time;
 		bool mIsActive;
 
-		const EnemyChild* parent;
+		const EnemyChild* parent = 0;
 		vector<Shot*> shots;
 
 		void initialize(const Vector2* pos);
@@ -118,7 +118,7 @@ private:
 		int image;
 		int dx;
 		int dy;
-		Vector2* p;
+		Vector2* p = 0;
 		
 		const EnemyChild* parent;
 		const int maxBombNum = 4;
@@ -127,9 +127,9 @@ private:
 		void initialize(EnemyChild*);
 	};
 
-	vector<Shot_3way*> shot3;
-	vector<Bombing*> bombs;
-	FireFlower* flower;
+	vector<Shot_3way*> shot3{};
+	vector<Bombing*> bombs{};
+	FireFlower* flower = 0;
 
 
 	const int maxShot3Num = 3;

@@ -37,7 +37,7 @@ public:
 protected:
 	int mImage;
 	bool mDirection;
-	const Vector2* player;
+	const Vector2* player = 0;
 	int aTime;
 
 	bool mIsAlive;
@@ -55,7 +55,7 @@ protected:
 	void draw_hp_bar(int x, int y, int maxHP, int width) const;
 
 	//çUåÇÇÃvector
-	vector<Attack*> attacks;
+	vector<Attack*> attacks{};
 
 	enum ActState 
 	{

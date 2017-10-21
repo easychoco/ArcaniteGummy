@@ -64,14 +64,14 @@ private:
 		const int radius = PLAYER_CHIP_HEIGHT_RATE() * 5 / 2;
 		bool mIsActive;
 
-		Character* parent;
+		Character* parent = 0;
 
-		Shot* shot1;
-		Shot* shot2;
-		Shot* shot3;
-		Shot* shot4;
-		Shot* shot5;
-		Shot* shot6;
+		Shot* shot1 = 0;
+		Shot* shot2 = 0;
+		Shot* shot3 = 0;
+		Shot* shot4 = 0;
+		Shot* shot5 = 0;
+		Shot* shot6 = 0;
 
 		void initialize(const Vector2* pos);
 	};
@@ -96,22 +96,22 @@ private:
 		const int first_radius = 2000;
 		bool mIsActive;
 
-		Character* parent;
-		const Vector2* center_pos;
+		Character* parent = 0;
+		const Vector2* center_pos = 0;
 
-		Shot* shot1;
-		Shot* shot2;
-		Shot* shot3;
-		Shot* shot4;
-		Shot* shot5;
-		Shot* shot6;
+		Shot* shot1 = 0;
+		Shot* shot2 = 0;
+		Shot* shot3 = 0;
+		Shot* shot4 = 0;
+		Shot* shot5 = 0;
+		Shot* shot6 = 0;
 
 		void initialize(const Vector2* pos);
 	};
 
 
-	Shot_around* s_a;
-	Shot_cycle* s_c;
+	Shot_around* s_a = 0;
+	Shot_cycle* s_c = 0;
 
 };
 

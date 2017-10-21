@@ -10,7 +10,7 @@ namespace GameMainNS{
 bool Pikachi::imgLoad = false;
 int Pikachi::images[8];
 
-bool Pikachi::Thunder::imgLoad = false;
+bool Pikachi::Thunder::imgLoad_thun = false;
 int Pikachi::Thunder::image;
 
 
@@ -141,11 +141,11 @@ stage(_stage)
 
 	this->damageValue = 20;
 
-	if (!imgLoad)
+	if (!imgLoad_thun)
 	{
 		image = LoadGraph("Data/Image/PikachiAttack.png");
 		assert(mImage != -1 && "PikachiAttack‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
-		imgLoad = true;
+		imgLoad_thun = true;
 	}
 }
 

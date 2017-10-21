@@ -21,7 +21,7 @@ public:
 	const Vector2* getVector2() const { return p; }
 	bool isHit(const DynamicObject*) const;
 
-	Collision* collision;
+	Collision* collision = 0;
 
 	void setJumpPower(float _x) { jumpPower = _x; }
 	void setJumpCount(int _x) { nowJumpCount = _x; }
@@ -29,7 +29,7 @@ public:
 	const bool hasChild;
 
 protected:
-	Vector2* p;
+	Vector2* p = 0;
 
 	//©‹@‚¾‚¯‚Å‚È‚­“G‚àƒWƒƒƒ“ƒv‚³‚¹‚é‚Ì‚Å‚±‚±‚É‘‚­
 	const float maxJumpPower;

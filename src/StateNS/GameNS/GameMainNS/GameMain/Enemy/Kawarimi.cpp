@@ -10,7 +10,7 @@ namespace GameMainNS{
 bool Kawarimi::imgLoad = false;
 int Kawarimi::images[8];
 
-bool Kawarimi::Thunder::imgLoad = false;
+bool Kawarimi::Thunder::imgLoad_thun = false;
 int Kawarimi::Thunder::image;
 
 
@@ -139,11 +139,11 @@ Kawarimi::Thunder::Thunder(const Character* _parent, const StageChild* _stage, i
 
 	this->damageValue = 20;
 
-	if (!imgLoad)
+	if (!imgLoad_thun)
 	{
 		image = LoadGraph("Data/Image/PikachiAttack.png");
 		assert(mImage != -1 && "KawarimiAttack‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
-		imgLoad = true;
+		imgLoad_thun = true;
 	}
 }
 

@@ -93,9 +93,9 @@ private:
 
 		double getAngleToPlayer(const Vector2&);
 
-		EnemyChild* parent;
-		const Vector2* player;
-		vector<Shot*> shots;
+		EnemyChild* parent = 0;
+		const Vector2* player = 0;
+		vector<Shot*> shots{};
 
 		void initialize();
 	};
@@ -119,15 +119,15 @@ private:
 		const int maxShotNum = 6;
 		const int radius = 50000;
 
-		EnemyChild* parent;
-		Vector2 center_pos;
-		vector<Shot*> shots;
+		EnemyChild* parent = 0;
+		Vector2 center_pos = 0;
+		vector<Shot*> shots{};
 
 		void initialize(const Vector2* pos);
 	};
 
-	vector<Shot_reflect*> reflects;
-	vector<Shot_spread*> spreads;
+	vector<Shot_reflect*> reflects{};
+	vector<Shot_spread*> spreads{};
 
 
 	const int maxReflectNum = 3;

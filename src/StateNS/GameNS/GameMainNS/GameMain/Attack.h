@@ -28,7 +28,7 @@ public:
 	void setActive(bool _active) const { this->isActive = _active; }
 
 	mutable bool isActive;
-	const Character* parent;
+	const Character* parent = 0;
 	const ObjectID id;
 
 protected:

@@ -49,7 +49,7 @@ private:
 		void hittedAction();
 
 	private:
-		static bool imgLoad;
+		static bool imgLoad_bomb;
 		static int image;
 
 		int mTime;

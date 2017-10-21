@@ -50,10 +50,10 @@ private:
 		void hittedAction();
 
 	private:
-		static bool imgLoad;
+		static bool imgLoad_fire;
 		static int image;
 		int dx;
-		const StageChild* stage;
+		const StageChild* stage = 0;
 	};
 
 };

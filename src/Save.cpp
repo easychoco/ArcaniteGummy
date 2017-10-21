@@ -19,7 +19,7 @@ SaveData::~SaveData()
 void SaveData::loadData()
 {
 	ifstream fin;
-	fin.open("Data/Text/save.bin", ios::binary | ios::in);
+	fin.open("Data/save.bin", ios::binary | ios::in);
 
 	allDatas.clear();
 	allDatas.shrink_to_fit();
@@ -50,8 +50,6 @@ void SaveData::loadData()
 		allDatas.push_back(11);
 	}
 
-	allDatas[2] = 52;
-
 	allDatas.shrink_to_fit();
 	fin.close();
 }
@@ -60,7 +58,7 @@ void SaveData::outputSaveData()
 {
 	//ファイル出力
 	ofstream fout;
-	fout.open("Data/Text/save.bin", ios::binary | ios::out | ios::trunc);
+	fout.open("Data/save.bin", ios::binary | ios::out | ios::trunc);
 
 	//vectorのサイズを書き込み
 	unsigned size = (int)allDatas.size();

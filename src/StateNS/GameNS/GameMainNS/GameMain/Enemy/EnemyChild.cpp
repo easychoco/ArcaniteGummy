@@ -18,7 +18,7 @@ isBoss(_isBoss)
 
 EnemyChild::~EnemyChild()
 {
-	DeleteGraph(mImage);
+
 }
 
 void EnemyChild::initialize()

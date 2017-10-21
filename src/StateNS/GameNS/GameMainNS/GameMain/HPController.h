@@ -23,7 +23,7 @@ public:
 	bool isMuteki;
 
 private:
-	Character* parent;
+	Character* parent = 0;
 	const int maxHP;
 	int HP;
 };

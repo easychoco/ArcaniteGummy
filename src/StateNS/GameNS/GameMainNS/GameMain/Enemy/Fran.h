@@ -84,8 +84,8 @@ private:
 		const int differ_x[6] = { -300, -200, -100, 100, 200, 300 };
 
 		Vector2 center_pos;
-		const EnemyChild* parent;
-		vector<Shot*> shots;
+		const EnemyChild* parent = 0;
+		vector<Shot*> shots{};
 
 		void initialize(const Vector2* pos);
 	};
@@ -109,9 +109,9 @@ private:
 		const int maxShotNum = 6;
 		const int radius = 50000;
 
-		EnemyChild* parent;
+		EnemyChild* parent = 0;
 		Vector2 center_pos;
-		vector<Shot*> shots;
+		vector<Shot*> shots{};
 
 		void initialize(const Vector2* pos);
 	};
@@ -135,8 +135,8 @@ private:
 		bool mIsActive;
 		const int maxShotNum = 4;
 
-		EnemyChild* parent;
-		vector<Shot*> shots;
+		EnemyChild* parent = 0;
+		vector<Shot*> shots{};
 
 		void initialize(const Vector2* pos);
 
@@ -168,15 +168,15 @@ private:
 			//èâä˙à ëä
 			const int init_phase;
 			const int maxShotNum = 4;
-			Vector2* p;
-			vector<Shot*> shots;
+			Vector2* p = 0;
+			vector<Shot*> shots{};
 
 			void setDiffer();
 		};
 
-		Childs* child1;
-		Childs* child2;
-		Childs* child3;
+		Childs* child1 = 0;
+		Childs* child2 = 0;
+		Childs* child3 = 0;
 	};
 
 	class LockOn
@@ -203,15 +203,15 @@ private:
 		int image;
 		
 		Vector2 p;
-		const Vector2* player;
-		EnemyChild* parent;
-		Shot* shot;
+		const Vector2* player = 0;
+		EnemyChild* parent = 0;
+		Shot* shot = 0;
 	};
 
 	vector<StarBow*> stars;
 	vector<Wave495*> waves;
-	Kind4* kind4;
-	LockOn* focus;
+	Kind4* kind4 = 0;
+	LockOn* focus = 0;
 
 	const int maxStarBowNum = 5;
 	const int maxWave495Num = 5;

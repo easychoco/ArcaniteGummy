@@ -50,7 +50,7 @@ private:
 		void hittedAction();
 
 	private:
-		static bool imgLoad;
+		static bool imgLoad_hamm;
 		static int image;
 
 		int mTime;

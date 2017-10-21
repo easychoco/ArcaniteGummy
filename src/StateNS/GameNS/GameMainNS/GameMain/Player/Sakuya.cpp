@@ -28,7 +28,7 @@ void Sakuya::initialize()
 {
 	attackTime = 0;
 
-	notStoppingTime = 0;
+	notStoppingTime = 120;
 	stoppingTime = 0;
 	isStoppingTime = false;
 

@@ -17,8 +17,8 @@ public:
 	bool isHit(const Collision* other) const;
 	void setSize(int w, int h);
 
-	DynamicObject* parent;
-	const Vector2* p;
+	DynamicObject* parent = 0;
+	const Vector2* p = 0;
 
 	bool noCollide;
 	bool calcFromCenter;

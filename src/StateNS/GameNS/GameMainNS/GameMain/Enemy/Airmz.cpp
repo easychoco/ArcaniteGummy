@@ -8,7 +8,7 @@ namespace GameMainNS{
 bool Airmz::imgLoad = false;
 int Airmz::images[8];
 
-bool Airmz::Bomb::imgLoad = false;
+bool Airmz::Bomb::imgLoad_bomb = false;
 int Airmz::Bomb::image;
 
 
@@ -128,18 +128,17 @@ stage(_stage)
 
 	this->damageValue = 20;
 
-	if (imgLoad)
+	if (!imgLoad_bomb)
 	{
 		image = LoadGraph("Data/Image/AirmzAttack.png");
-		assert(mImage != -1 && "AirmzAttack画像読み込みエラー");
-		imgLoad = true;
+		assert(image != -1 && "AirmzAttack画像読み込みエラー");
+		imgLoad_bomb = true;
 	}
-
 }
 
 Airmz::Bomb::~Bomb()
 {
-	DeleteGraph(mImage);
+
 }
 
 void Airmz::Bomb::update()
