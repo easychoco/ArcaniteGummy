@@ -169,7 +169,7 @@ void Reisen::draw_other(const Vector2* _camera) const
 //==============================================
 void Reisen::loadImage()
 {
-	int tmp = LoadDivGraph("Data/Image/Character/chip_Reisen.png", 32, 8, 4, 32, 64, images);
+	int tmp = LoadDivGraph("Data/Image/chip_Reisen.png", 32, 8, 4, 32, 64, images);
 	assert(tmp != -1 && "Reisen‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 }
 

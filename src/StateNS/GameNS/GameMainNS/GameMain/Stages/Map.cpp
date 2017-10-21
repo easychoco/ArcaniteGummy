@@ -408,7 +408,7 @@ void Map::drawMap(const Vector2* _camera) const
 
 void Map::loadMap(int _stageID, int _mapID)
 {
-	string textFile = "Data/Text/stage";
+	string textFile = "Data/Text/Stages/stage";
 	textFile += std::to_string(_stageID);
 	textFile += "/stage";
 	textFile += std::to_string(_mapID);

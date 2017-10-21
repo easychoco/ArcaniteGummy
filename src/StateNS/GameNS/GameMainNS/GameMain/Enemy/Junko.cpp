@@ -119,7 +119,7 @@ void Junko::draw_other(const Vector2* _camera) const
 //==============================================
 void Junko::loadImage()
 {
-	int tmp = LoadDivGraph("Data/Image/Character/chip_junko.png", 32, 8, 4, 32, 64, images);
+	int tmp = LoadDivGraph("Data/Image/chip_junko.png", 32, 8, 4, 32, 64, images);
 	assert(tmp != -1 && "Junko‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 }
 

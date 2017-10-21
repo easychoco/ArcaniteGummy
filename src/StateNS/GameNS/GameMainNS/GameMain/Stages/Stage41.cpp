@@ -68,7 +68,7 @@ void Stage41::initialize()
 	converseFlag1 = true;
 	cTime = 0;
 
-	imageFlan = LoadGraph("Data/Image/Character/haribote_flan.png");
+	imageFlan = LoadGraph("Data/Image/haribote_flan.png");
 	//•œŠˆ
 	bool restart = findRestartPoint();
 	//•œŠˆ‚µ‚½‚ç‰ï˜bƒtƒ‰ƒO‚ğÜ‚é

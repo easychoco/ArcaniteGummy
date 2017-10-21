@@ -74,8 +74,8 @@ void Stage43::initialize()
 	converseFlag1fin = false;
 	converseFlag2 = true;
 	converseFlag2fin = false;
-	imageSakuya = LoadGraph("Data/Image/Character/haribote_sakuya.png");
-	imageNue = LoadGraph("Data/Image/Character/haribote_nue.png");
+	imageSakuya = LoadGraph("Data/Image/haribote_sakuya.png");
+	imageNue = LoadGraph("Data/Image/haribote_nue.png");
 
 	//•œŠˆ
 	bool restart = findRestartPoint();

@@ -248,7 +248,7 @@ void Kaguya::move(const StageChild* _stage, int& _dx, int& _dy)
 //==============================================
 void Kaguya::loadImage()
 {
-	int tmp = LoadDivGraph("Data/Image/Character/chip_kaguya.png", 32, 8, 4, 32, 64, images);
+	int tmp = LoadDivGraph("Data/Image/chip_kaguya.png", 32, 8, 4, 32, 64, images);
 	assert(tmp != -1 && "Kaguya‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 }
 

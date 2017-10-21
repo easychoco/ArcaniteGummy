@@ -69,7 +69,7 @@ void Stage23::initialize()
 
 	startX = 144, startY = 1536;
 	junko = new Junko(95 * 32, 48 * 32);
-	imageJunko = LoadGraph("Data/Image/Character/haribote_junko.png");
+	imageJunko = LoadGraph("Data/Image/haribote_junko.png");
 	converseFlag0 = true;
 	converseFlag0fin = false;
 	converseFlag1 = true;

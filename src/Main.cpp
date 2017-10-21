@@ -6,6 +6,7 @@
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 {
 	ChangeWindowMode(TRUE);
+	SetDXArchiveKeyString("gummy123");
 	DxLib_Init();
 	SetDrawScreen(DX_SCREEN_BACK);
 	ClearDrawScreen();

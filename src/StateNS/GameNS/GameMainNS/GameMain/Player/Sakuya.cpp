@@ -169,7 +169,7 @@ void Sakuya::draw_other() const
 void Sakuya::loadImage()
 {
 //	mImage = LoadGraph("Data/Image/sakuya.png");
-	int tmp = LoadDivGraph("Data/Image/Character/chip_sakuya.png", 32, 8, 4, 32, 64, mImage);
+	int tmp = LoadDivGraph("Data/Image/chip_sakuya.png", 32, 8, 4, 32, 64, mImage);
 	assert(tmp != -1 && "©‹@‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 }
 
