@@ -26,7 +26,7 @@ private:
 	bool attack_cycle;
 
 	const int maxHP;
-	const int radius = 2000;
+	const int radius = 4000;
 
 	int images[32];
 	void loadImage();

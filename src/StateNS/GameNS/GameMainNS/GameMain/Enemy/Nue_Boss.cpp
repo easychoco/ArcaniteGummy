@@ -11,8 +11,8 @@ namespace GameMainNS{
 
 	
 Nue_Boss::Nue_Boss(int _x, int _y, int _cx, int _cy) : 
-EnemyChild(1000, _x, _y, 32, 64, false, true),
-maxHP(1000),
+EnemyChild(1500, _x, _y, 32, 64, false, true),
+maxHP(1500),
 initial_pos(Vector2(_cx, _cy))
 {
 	loadImage();
@@ -143,7 +143,7 @@ void Nue_Boss::setMotion(const StageChild* _stage, int& _dx, int& _dy)
 		attack_bomb = false;
 		if (mTime % 360 < 60)
 		{
-			_dy = -4000;
+			_dy = -6000;
 			_dx = 0;
 		}
 		else if (mTime % 360 < 300)
@@ -160,7 +160,7 @@ void Nue_Boss::setMotion(const StageChild* _stage, int& _dx, int& _dy)
 		else
 		{
 			//’n–Ê‚É–ß‚é
-			_dy = getBottomDiffer(_stage, 5000, _dx < 0);
+			_dy = getBottomDiffer(_stage, 7000, _dx < 0);
 		}
 		break;
 
@@ -168,9 +168,9 @@ void Nue_Boss::setMotion(const StageChild* _stage, int& _dx, int& _dy)
 	case 5: //FireFlower
 		_dx = 0;
 		attack_flower = false;
-		if (mTime % 360 < 60)_dy = -3000;
+		if (mTime % 360 < 60)_dy = -6000;
 		else if (mTime % 360 < 120)attack_flower = true;
-		else if (300 < mTime % 360)_dy = getBottomDiffer(_stage, 4000, _dx < 0);
+		else if (300 < mTime % 360)_dy = getBottomDiffer(_stage, 7000, _dx < 0);
 		break;
 	}
 

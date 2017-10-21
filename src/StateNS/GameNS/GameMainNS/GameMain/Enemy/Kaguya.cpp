@@ -10,8 +10,8 @@ namespace GameMainNS{
 
 
 Kaguya::Kaguya(int _x, int _y, int cx, int cy) : 
-EnemyChild(330, _x, _y, 32, 64, false, true),
-maxHP(330),
+EnemyChild(500, _x, _y, 32, 64, false, true),
+maxHP(500),
 initial_pos(cx, cy)
 {
 	loadImage();
@@ -226,9 +226,9 @@ void Kaguya::move(const StageChild* _stage, int& _dx, int& _dy)
 
 	switch (move_type)
 	{
-	case 0: 
+	case 0: case 1: 
 		processReflect(_stage, _dx, _dy); break;
-	case 1: case 2: case 3:
+	case 2: case 3:
 		processSpread(_stage, _dx, _dy); break;
 	case 4: case 5:
 		processEnemy(_stage, _dx, _dy); break;

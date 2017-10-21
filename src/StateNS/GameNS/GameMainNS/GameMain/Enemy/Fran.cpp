@@ -80,7 +80,7 @@ void Fran::update(const StageChild* _stage, const Vector2* _camera)
 {
 	if (!init_attacks)initialize_attacks();
 	
-	mTime += 2;
+	mTime++;
 	this->mDirection = this->p->raw_x > player->raw_x;
 	standardAction(_stage);
 
@@ -249,6 +249,13 @@ void Fran::move(const StageChild* _stage, int& _dx, int& _dy)
 	case 6: processLock(_stage, _dx, _dy); break;
 	}
 
+	if (mTime < 30)
+	{
+		if(abs(this->p->raw_x - initial_pos.raw_x) < 4000)
+			_dx += (this->p->raw_x > initial_pos.raw_x) ? -4000 : 4000;
+	}
+
+	
 }
 
 void Fran::processStar(const StageChild* _stage, int& _dx, int& _dy)
@@ -304,7 +311,7 @@ void Fran::processQED(const StageChild* _stage, int& _dx, int& _dy)
 		if (p->raw_x + dx < initial_pos.raw_x - 200000 || initial_pos.raw_x + 200000 < p->raw_x + dx)
 		{
 			dx = -dx;
-			p->raw_x += dx;
+			p->raw_x += dx * (move_type - 2);
 		}
 	}
 	else if (mTime == 300)
