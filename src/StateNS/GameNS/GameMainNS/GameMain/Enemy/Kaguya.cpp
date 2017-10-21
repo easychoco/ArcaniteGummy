@@ -207,6 +207,13 @@ void Kaguya::draw_other(const Vector2* _camera) const
 			spread->draw(_camera);
 	}
 
+
+	int draw_x = 320 + p->x() - _camera->x();
+	int draw_y = 240 + p->y() - _camera->y();
+
+	//•`‰æ
+	draw_hp_bar(draw_x, draw_y - 32, maxHP, 50);
+	
 }
 
 void Kaguya::move(const StageChild* _stage, int& _dx, int& _dy)
