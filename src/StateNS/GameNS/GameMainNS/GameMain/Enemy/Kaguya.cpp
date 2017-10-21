@@ -212,10 +212,10 @@ void Kaguya::draw_other(const Vector2* _camera) const
 	int draw_y = 240 + p->y() - _camera->y();
 
 	//•`‰æ
-	DrawString(draw_x - 16, draw_y - 32, "‹P–é", BLUE);
-
+	//DrawString(draw_x - 16, draw_y - 32, "‹P–é", BLUE);
+	draw_hp_bar(draw_x, draw_y - 32, maxHP, 50);
 	//for Debug
-	DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
+	//DrawFormatString(draw_x - 16, draw_y - 64, GREEN, "%d", hpController.getHP());
 }
 
 void Kaguya::move(const StageChild* _stage, int& _dx, int& _dy)
