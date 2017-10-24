@@ -22,7 +22,7 @@ private:
 	void updateConverse(GameMain*, PlayerChild*);
 	bool converseFlag0, converseFlag0fin;
 	bool converseFlag1, converseFlag1fin;
-	Kaguya* kaguya;
+	Kaguya* kaguya = 0;
 
 	AllEnemies itoE(int num)
 	{

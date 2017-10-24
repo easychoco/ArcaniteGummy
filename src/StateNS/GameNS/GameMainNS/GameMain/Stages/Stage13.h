@@ -26,7 +26,7 @@ private:
 	bool converseFlag2;
 	int cTime;
 
-	Reisen* reisen;
+	Reisen* reisen = 0;
 
 };
 

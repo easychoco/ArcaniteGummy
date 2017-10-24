@@ -120,7 +120,7 @@ private:
 		const int radius = 50000;
 
 		EnemyChild* parent = 0;
-		Vector2 center_pos = 0;
+		Vector2 center_pos;
 		vector<Shot*> shots{};
 
 		void initialize(const Vector2* pos);

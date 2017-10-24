@@ -22,7 +22,6 @@ Kawarimi::Kawarimi(int _x, int _y) : EnemyChild(100000, _x, _y, 32, 64)
 	initialize();
 };
 
-
 Kawarimi::~Kawarimi()
 {
 	//DeleteGraphはしない
@@ -31,14 +30,13 @@ Kawarimi::~Kawarimi()
 void Kawarimi::initialize()
 {
 	this->mDirection = true;
-	this->moveSpeed = 1000;
+	this->moveSpeed = 0;
 	this->isAlive = true;
 	mImage = images[GetRand(5)];
 }
 
 void Kawarimi::update(const StageChild* _stage,const Vector2* _camera)
 {
-
 	if (!isAlive)mTime++;
 	//ダメージを受けたら
 	if (damaged && isAlive) 
@@ -65,18 +63,11 @@ void Kawarimi::update(const StageChild* _stage,const Vector2* _camera)
 
 void Kawarimi::move(const StageChild* _stage, int& _dx, int& _dy)
 {
+	_dx = 0;
 	_dy = getBottomDiffer(_stage, 4000, _dx < 0);
 	if (mTime < 60)return;
 	if (!isAlive)return;
 
-	//_dyが0でなかったら空中にいる
-/*	if (_dy != 0)
-	{
-		_dx = 0;
-		return;
-	}*/
-	_dx = getHorizontalDiffer(_stage, moveSpeed, _dy < 0);
-	this->mDirection = _dx > 0;
 	
 }
 
@@ -102,7 +93,6 @@ void Kawarimi::hittedAction()
 
 void Kawarimi::attack(const StageChild* _stage)
 {
-	int dx = mDirection ? 5 : -5;
 
 	//使っていないオブジェクトを再利用
 

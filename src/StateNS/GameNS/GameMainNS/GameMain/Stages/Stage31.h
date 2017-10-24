@@ -24,8 +24,8 @@ private:
 	bool converseFlag1,converseFlag1fin;
 	int imageReisen;
 
-	vector<Torch*> torches;
-	vector<Torch*> torches2;
+	vector<Torch*> torches{};
+	vector<Torch*> torches2{};
 
 };
 
