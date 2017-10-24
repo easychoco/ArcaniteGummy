@@ -103,7 +103,13 @@ void Nue_Boss::move(const StageChild* _stage, int& _dx, int& _dy)
 
 	//‰è‚Í¶‚Ì‚Ù‚¤‚ÉˆÚ“®
 	if (mTime < 30)_dx -= 2000;
-
+	
+	//^‚ñ’†‚Ì‚Ù‚¤‚ÉŠñ‚é
+	if (mTime % 360 < 30)
+	{
+		if (abs(this->p->raw_x - initial_pos.raw_x) < 4000)
+			_dx += (this->p->raw_x > initial_pos.raw_x) ? -4000 : 4000;
+	}
 }
 
 void Nue_Boss::setMotion(const StageChild* _stage, int& _dx, int& _dy)

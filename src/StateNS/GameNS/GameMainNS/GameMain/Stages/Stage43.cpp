@@ -115,7 +115,7 @@ void Stage43::updateConverse(GameMain* gameMain, PlayerChild* _player)
 		this->changeableCharacter |= CHARA_NUE;
 		converseFlag1fin = true;
 		sound->stopSound("bgm4");
-		sound->playSound("boss4");
+		sound->playSound("boss4", LOOP, false);
 
 	}
 	////ボス戦手前の会話

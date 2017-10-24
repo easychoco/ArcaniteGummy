@@ -134,9 +134,7 @@ void Stage33::updateConverse(GameMain* gameMain, PlayerChild* _player)
 		nue->setPlayer(_player->getVector2());
 		maps[7]->addEnemy(nue);
 		sound->stopSound("bgm3");
-		sound->playSound("boss3");
-
-
+		sound->playSound("boss3", LOOP, false);
 	}
 	if (converseFlag1fin && converseFlag2)
 	{

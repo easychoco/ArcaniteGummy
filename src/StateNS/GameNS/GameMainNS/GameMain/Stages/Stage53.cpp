@@ -116,7 +116,7 @@ void Stage53::updateConverse(GameMain* gameMain, PlayerChild* _player)
 	{
 		converseFlag0fin = true;
 		sound->stopSound("bgm5");
-		sound->playSound("boss5");
+		sound->playSound("boss5", LOOP, false);
 	}
 	if (converseFlag0)
 	{

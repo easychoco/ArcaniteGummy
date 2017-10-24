@@ -202,6 +202,7 @@ Child* Title::nextScene(int n) {
 	switch (n) {
 	//case 0:scene = new Parent(hoge[select]); break;
 	case 0:scene = new Parent(save[select]); saveData->slotNum = select; break;
+	//case 0:scene = new Parent(33); break;
 	case 1:scene = new MusicRoom(); break;
 	case 2:scene = new Config(); break;
 	case 3:scene = new Parent(0); break;

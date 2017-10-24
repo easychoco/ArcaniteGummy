@@ -166,6 +166,9 @@ Child* GameMain::update(GameParent* _parent)
 			mStage->addDynamicGimmickToAllMaps(mPlayer->getAdditionalGimmick());
 			ufoLoaded = true;
 		}
+		//EnemyController‚ðXV
+		this->mEController = mStage->getEController();
+		mEController->setPlayerPos(mPlayer->getVector2());
 
 		this->nextCharacter = CHARA_NONE;
 	}
