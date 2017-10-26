@@ -43,7 +43,7 @@ private:
 	{
 	public:
 		Hammer(const Character*, int direction);
-		~Hammer();
+		virtual ~Hammer() override;
 		void update();
 		virtual void draw(const Vector2*) const override;
 		void setStatus(Vector2, int direction);

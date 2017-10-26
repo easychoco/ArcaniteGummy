@@ -177,6 +177,11 @@ direction(_direction)
 Mokou::Fire::~Fire()
 {
 	DeleteGraph(mImage);
+	for (int i = 0; i < 3; i++)
+	{
+		DeleteGraph(images[i]);
+		DeleteGraph(images2[i]);
+	}
 }
 
 void Mokou::Fire::update()

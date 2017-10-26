@@ -45,13 +45,14 @@ Child* Clear::update(StateNS::Parent* _parent)
 {
 	if (ED&& !GetMovieStateToGraph(movie))_parent->moveTo(_parent->NextSequence::SEQ_TITLE);
 
+	//まだセーブ前なら
 	if (!saved)
 	{
 		int nextStage = _parent->stageNum;
 
 		//クリアしたら
 		if (nextStage == 53) {
-			nextStage = 11;
+			nextStage = 52;
 			ED = true;
 			movie = LoadGraph("Data/Movie/ED.ogv");
 			sound->stopSoundOfFile();

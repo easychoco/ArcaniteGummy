@@ -40,10 +40,10 @@ public:
 
 
 private:
-	StageChild* mStage;
-	PlayerChild* mPlayer;
-	System* mSystem;
-	EnemyController* mEController;
+	StageChild* mStage = 0;
+	PlayerChild* mPlayer = 0;
+	System* mSystem = 0;
+	EnemyController* mEController = 0;
 	int stageID;
 
 	int mTime;

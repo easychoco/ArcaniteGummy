@@ -13,7 +13,7 @@ namespace StateNS {
 namespace GameNS {
 namespace GameMainNS {
 
-Nue::UFO* Nue::ufo;
+Nue::UFO* Nue::ufo = 0;
 
 
 Nue::Nue(int _x, int _y) : Nue(_x, _y, 100)

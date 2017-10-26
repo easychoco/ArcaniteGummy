@@ -36,8 +36,7 @@ private:
 	virtual void animation() override;
 	virtual StageChild::ChangeableCharacter getThisCharacter() override
 	{
-		return StageChild::ChangeableCharacter
-			::CHARA_NUE;
+		return StageChild::ChangeableCharacter::CHARA_NUE;
 	}
 
 	void updateUFO(const StageChild*);
@@ -49,7 +48,7 @@ private:
 	{
 	public:
 		Spear(const PlayerChild*, int x, int y, bool direction);
-		~Spear();
+		virtual ~Spear() override;
 		void update();
 
 		void setStatus(Vector2, int dx);
@@ -58,7 +57,7 @@ private:
 	private:
 		int mTime;
 		int img1, img2;
-		const Vector2* parent_p;
+		const Vector2* parent_p = 0;
 
 	};
 

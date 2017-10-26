@@ -46,6 +46,8 @@ Child* Play::update(Parent* _parent)
 
 	if (mNextSeq != SEQ_NONE)
 	{
+		SAFE_DELETE(gameMain);
+
 		switch (mNextSeq)
 		{
 		case SEQ_TITLE: _parent->moveTo(_parent->NextSequence::SEQ_TITLE); break;

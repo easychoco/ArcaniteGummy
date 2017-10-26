@@ -20,6 +20,7 @@ Sakuya::Sakuya(int _x, int _y) : Sakuya(_x, _y, 100)
 
 Sakuya::~Sakuya()
 {
+
 	sound->deleteSound("knife");
 	sound->deleteSound("stoptime");
 }

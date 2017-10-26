@@ -27,8 +27,7 @@ private:
 	virtual void animation() override;
 	virtual StageChild::ChangeableCharacter getThisCharacter() override
 	{
-		return StageChild::ChangeableCharacter
-			::CHARA_MOKOU;
+		return StageChild::ChangeableCharacter::CHARA_MOKOU;
 	}
 
 	//UŒ‚•û–@‚Ì“à•”ƒNƒ‰ƒX
@@ -36,7 +35,7 @@ private:
 	{
 	public:
 		Fire(const PlayerChild*, int x, int y, bool *direction);
-		~Fire();
+		virtual ~Fire() override;
 		void update();
 
 		void setStatus(Vector2, int dx);
@@ -47,7 +46,7 @@ private:
 		int images[3];
 		int images2[3];
 		int mTime;
-		const bool *direction;
+		const bool *direction = 0;
 	};
 };
 

@@ -37,8 +37,7 @@ private:
 	virtual void animation() override;
 	virtual StageChild::ChangeableCharacter getThisCharacter() override
 	{
-		return StageChild::ChangeableCharacter
-			::CHARA_SAKUYA;
+		return StageChild::ChangeableCharacter::CHARA_SAKUYA;
 	}
 
 	//UŒ‚•û–@‚Ì“à•”ƒNƒ‰ƒX
@@ -46,7 +45,7 @@ private:
 	{
 	public:
 		Knife(const PlayerChild*, const StageChild*, int x, int y, int dx);
-		~Knife();
+		virtual ~Knife() override;
 		void update();
 
 		void setStatus(Vector2, int dx);
@@ -55,7 +54,7 @@ private:
 	private:
 		int dx;
 		bool up;
-		const StageChild* stage;
+		const StageChild* stage = 0;
 	};
 };
 
