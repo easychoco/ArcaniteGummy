@@ -34,7 +34,7 @@ public:
 
 private:
 	int time;
-	vector<EnemyChild*> enemies;
+	vector<EnemyChild*> enemies{};
 
 
 

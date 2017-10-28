@@ -33,8 +33,8 @@ namespace GameMainNS{
 
 EnemyController::EnemyController()
 {
-	//速度を上げるため敵20体分のメモリを確保しておく
-	enemies.reserve(20);
+	//速度を上げるため敵10体分のメモリを確保しておく
+	enemies.reserve(10);
 
 	time = 0;
 }
