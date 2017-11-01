@@ -74,9 +74,6 @@ void PlayerChild::draw() const
 	
 	draw_other();
 	draw_changingAnimation(draw_x, draw_y);
-
-	//for Debug
-	DrawFormatString(20, 80, WHITE, "%d", attacks.size());
 }
 
 //©‹@‚ª°‚Ìã‚É‚¢‚½‚ç°‚ÌyÀ•W‚ğ•Ô‚·
@@ -284,8 +281,8 @@ void PlayerChild::move(const StageChild* _stage)
 	dx = getHorizontalDiffer(_stage, dx, dy < 0);
 
 	//for Debug
-	if (Input_D() && in_right)dx = 20000;
-	if (Input_D() && in_left)dx = -20000;
+	//if (Input_D() && in_right)dx = 20000;
+	//if (Input_D() && in_left)dx = -20000;
 
 	p->raw_x += dx;
 
@@ -299,8 +296,8 @@ void PlayerChild::move(const StageChild* _stage)
 	if (abs(dy) <= 1000)jumpPower = 0;
 
 	//for Debug
-	if (Input_D() && in_up) dy = -20000;
-	if (Input_D() && in_down) dy = 20000;
+	//if (Input_D() && in_up) dy = -20000;
+	//if (Input_D() && in_down) dy = 20000;
 
 	p->raw_y += dy;
 
