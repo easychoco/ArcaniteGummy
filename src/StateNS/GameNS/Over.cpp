@@ -18,7 +18,7 @@ Over::Over()
 
 Over::~Over()
 {
-	sound->stopSoundOfFile();
+	sound->deleteSound("over");
 }
 
 void Over::initialize()
@@ -26,7 +26,8 @@ void Over::initialize()
 	this->cursorPos = 0;
 	this->prePushUD = true;
 	this->prePushZ = true;
-	sound->playSoundWithPath("Data/Sound/Over.mp3", BACK);
+	sound->setSound("Data/Sound/Over.mp3", "over");
+	sound->playSound("over");
 	backImg = LoadGraph("Data/Image/gameover.png");
 }
 

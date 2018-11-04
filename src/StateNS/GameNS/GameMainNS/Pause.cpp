@@ -21,6 +21,7 @@ Pause::~Pause()
 {
 	DeleteGraph(img_showStage);
 	DeleteGraph(img_resetGame);
+	sound->deleteSound("pause");
 
 	if (resetGame)SAFE_DELETE(main);
 }
@@ -40,7 +41,8 @@ void Pause::initialize()
 	assert(img_showStage != -1 && "ShowStage.png読み込みエラー");
 	assert(img_resetGame != -1 && "ResetGame.png読み込みエラー");
 
-	sound->playSoundWithPath("Data/Sound/Pause.mp3", BACK);
+	sound->setSound("Data/Sound/Pause.mp3", "pause");
+	sound->playSound("pause");
 }
 
 Child* Pause::update(GameParent* _parent)

@@ -18,7 +18,7 @@ stage_num(_stage_num)
 
 CheckPoint::~CheckPoint()
 {
-
+	sound->deleteSound("checkpoint");
 }
 
 void CheckPoint::initialize()
@@ -26,6 +26,7 @@ void CheckPoint::initialize()
 	this->time = 120;
 	visited = false;
 	loadImage();
+	sound->setSound("Data/Sound/checkpoint.mp3", "checkpoint");
 }
 
 void CheckPoint::update()
@@ -58,7 +59,7 @@ void CheckPoint::apply(Character* _character)
 	//‰ñ•œ
 	_character->hpController.recover(PLAYER_MAX_HP);
 
-	sound->playSoundWithPath("Data/Sound/checkpoint.mp3", BACK);
+	sound->playSound("checkpoint");
 
 	visited = true;
 	time = 0;
