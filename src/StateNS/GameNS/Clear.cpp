@@ -18,7 +18,7 @@ Clear::Clear()
 
 Clear::~Clear()
 {
-	sound->stopSoundOfFile();
+	sound->deleteSound("clear");
 	saveData->outputSaveData();
 	DeleteGraph(backImg);
 	for (int i = 0; i < 32; i++)
@@ -33,7 +33,8 @@ void Clear::initialize()
 	prePushZ = true;
 	prePushUD = true;
 	cursorPos = 0;
-	sound->playSoundWithPath("Data/Sound/clear.mp3", BACK);
+	sound->setSound("Data/Sound/clear.mp3", "clear");
+	sound->playSound("clear");
 	LoadDivGraph("Data/Image/chip_mokou.png", 32, 8, 4, 32, 64, images, TRUE);
 	assert(*images != -1 && "©‹@‰æ‘œ“Ç‚İ‚İƒGƒ‰[");
 	backImg = LoadGraph("Data/Image/clear.png");

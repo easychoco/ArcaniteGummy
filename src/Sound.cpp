@@ -5,7 +5,11 @@ namespace MySound{
 
 void Sound::setSound(string _path, string _name)
 {
-	if (exists(_name))assert(!"Sound: すでに登録されている名前です.");
+	if (exists(_name))
+	{
+		assert(!"Sound: すでに登録されている名前です.");
+		return;
+	}
 	
 	int tmp_handle = LoadSoundMem(_path.c_str());
 	assert(tmp_handle != -1 && "サウンド読み込みエラー");

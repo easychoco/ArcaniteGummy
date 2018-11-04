@@ -33,7 +33,6 @@ void Stage13::initialize()
 
 	this->setBackImage("Data/Image/back1.jpg");
 	sound->setSound("Data/Sound/stage1.wav", "bgm1");
-	sound->setVolume("bgm1", 0.7f);
 	sound->setSound("Data/Sound/Invisible_Full_Moon.wav", "boss1");
 	sound->playSound("bgm1", LOOP, false);
 
