@@ -264,11 +264,11 @@ void PlayerChild::move(const StageChild* _stage)
 	if (in_jump && !prePush && nowJumpCount < maxJumpCount)
 	{
 		sound->playSound("jump");
-		jumpPower = maxJumpPower + runCheck()*3.0f;
+		jumpPower = maxJumpPower + runCheck() * 3.0f;
 		nowJumpCount++;
 	}
 
-	if (!in_jump)
+	if (!in_jump && nowJumpCount > 0)
 	{
 		jumpPower = 0.0f;
 	}
