@@ -268,6 +268,11 @@ void PlayerChild::move(const StageChild* _stage)
 		nowJumpCount++;
 	}
 
+	if (!in_jump)
+	{
+		jumpPower = 0.0f;
+	}
+
 	//cˆÚ“®
 
 	//d—Í‚Ì’l
