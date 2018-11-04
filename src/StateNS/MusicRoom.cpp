@@ -114,7 +114,7 @@ void MusicRoom::charmove()
 
 void MusicRoom::draw() const
 {
-	DrawFormatString(0, 0, WHITE, "musicroom Xで戻れるよ");
+	DrawFormatString(0, 0, WHITE, "みゅーじっくるーむ　キャンセルボタンで戻る");
 	DrawFormatString(30, 30, DARKGLAY, "タイトル画面");
 	DrawFormatString(30, 60, DARKGLAY, "ステージ1ボス：狂気の瞳　～ Invisible Full Moon");
 	DrawFormatString(30, 90, DARKGLAY, "ステージ2道中：お宇佐さまの素い幡");
